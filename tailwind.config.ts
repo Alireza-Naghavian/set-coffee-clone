@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
-
+type AddVariant = {
+  addVariant: any;
+};
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,14 +9,40 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      xs: "320px",
+      sm: `640px`,
+      md: `768px`,
+      lg: `1024px`,
+      xl: `1280px`,
+      "2xl": `1366px`,
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        main: "#34180E",
+        main_brown: "#711D1C",
+        main_green: "#008979",
+        main_green_dark: "#114639",
+      },
+      fontFamily: {
+        Dana: "Dana Bold",
+        Shabnam: "Shabnam",
+        Shabnam_M: "Shabnam Medium",
+        Shabnam_B: "Shabnam Bold",
+      },
+      borderRadius: {
+        "4xl": "2rem",
+      },
+      container: {
+        center: true,
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }: AddVariant) {
+      addVariant("child", "&>*");
+      addVariant("child-hover", "&>*:hover");
+    },
+  ],
 };
 export default config;
