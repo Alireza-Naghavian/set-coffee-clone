@@ -43,9 +43,9 @@ function DesktopMenu() {
           <FaRegHeart size={28} />
         </Link>
         <Link href={""}>
-          <AiOutlineShoppingCart size={28} />
-        </Link>
         <FaShuffle size={26} />
+        </Link>
+          <AiOutlineShoppingCart size={28} />
       </div>
     </div>
   );
