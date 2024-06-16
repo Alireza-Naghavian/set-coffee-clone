@@ -2,32 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  @font-face {
+    font-family: "Shabnam";
+    src: local("Shabnam"), url("/fonts/shabnam/Shabnam-Light.ttf") format("ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam";
+    src: local("Shabnam"),
+      url("/fonts/shabnam/Shabnam-Light.woff") format("woff");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam";
+    src: local("Shabnam"),
+      url("/fonts/shabnam/Shabnam-Light.woff2") format("woff2");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam Medium";
+    src: local("Shabnam Medium") url("/fonts/shabnam/Shabnam-Medium.ttf")
+      format("ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam Medium";
+    src: local("Shabnam Medium"),
+      url("/fonts/shabnam/Shabnam-Medium.woff") format("woff");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam Medium";
+    src: local("Shabnam Medium"),
+      url("/fonts/shabnam/Shabnam-Medium.woff2") format("woff2");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam Bold";
+    src: local("Shabnam Bold"),
+      url("/fonts/shabnam/Shabnam-Bold.ttf") format("ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam Bold";
+    src: local("Shabnam Bold"),
+      url("/fonts/shabnam/Shabnam-Bold.woff") format("woff");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Shabnam Bold";
+    src: local("Shabnam Bold"),
+      url("/fonts/shabnam/Shabnam-Bold.woff2") format("woff2");
+    font-display: swap;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .tr-200 {
+    @apply transition-all duration-200;
+  }
+  .tr-300 {
+    @apply transition-all duration-300;
+  }
+  .tr-400 {
+    @apply transition-all ;
+    transition-duration: .4s
+  }
+  .tr-500 {
+    @apply transition-all duration-500;
   }
 }
