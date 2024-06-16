@@ -3,19 +3,18 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { IoChevronDown } from "react-icons/io5";
-import styles from "./Navbar.module.css";
 import LogoLink from "@/components/UI/LogoLink/LogoLink";
 import NavItem from "@/components/UI/NavItem/NavItem";
 import Link from "next/link";
+export const subMenuTitles = [
+  "Specialty coffee",
+  "World Class Specialty",
+  "Premium Coffee",
+  "Commercial Coffee",
+  "Coffee Capsule",
+  "Italian Passion",
+];
 function DesktopMenu() {
-  const subMenuTitles = [
-    "Specialty coffee",
-    "World Class Specialty",
-    "Premium Coffee",
-    "Commercial Coffee",
-    "Coffee Capsule",
-    "Italian Passion",
-  ];
   return (
     <div className="hidden lg:grid grid-cols-12 h-full">
       <LogoLink />
@@ -43,9 +42,9 @@ function DesktopMenu() {
           <FaRegHeart size={28} />
         </Link>
         <Link href={""}>
-        <FaShuffle size={26} />
+          <FaShuffle size={26} />
         </Link>
-          <AiOutlineShoppingCart size={28} />
+        <AiOutlineShoppingCart size={28} />
       </div>
     </div>
   );

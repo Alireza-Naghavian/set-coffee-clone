@@ -1,7 +1,7 @@
 "use client"
 import useMediaQuery from '@/hooks/helper-hooks/useMediaQuery'
 import React from 'react'
-import MobildMenu from './MobildMenu';
+import MobildMenu from './MobileMenu';
 import DesktopMenu from './DesktopMenu';
 
 function NavBarContent() {

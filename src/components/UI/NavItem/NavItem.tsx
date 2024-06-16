@@ -8,10 +8,10 @@ type NavItemType = {
 };
 function NavItem({ label, icon, subMenuItem = null }: NavItemType) {
   return (
-    <li className={`flex-center relative gap-x-px ${styles.hasSubMenu} `}>
-    <Link className="flex-center relative gap-x-px" href={"#"}>
-    <span>{label}</span>
+    <li className={`flex items-center relative gap-x-px ${styles.hasSubMenu} `}>
+    <Link className="flex items-center gap-x-2 relative " href={"#"}>
     {icon}
+    <span>{label}</span>
     </Link>
       <div
         className={`max-w-[220px] w-[220px]  bg-white absolute top-8 right-4 ${styles.subMenu}`}
