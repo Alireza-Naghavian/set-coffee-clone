@@ -35,6 +35,9 @@ const config: Config = {
       },
       container: {
         center: true,
+        padding:{
+          default:"120px"
+        }
       },
     },
   },

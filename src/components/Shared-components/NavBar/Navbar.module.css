@@ -1,0 +1,15 @@
+.subMenu {
+    @apply transition-all duration-200 invisible opacity-0;
+    transform: translateY(1rem);
+  }
+.hasSubMenu:hover > .subMenu {
+    @apply transition-all duration-200 visible opacity-100;
+    transform: translateY(0rem);
+  }
+  .mobile-menu-wrapper {
+    @apply flex flex-col;
+  }
+  .dropDown button {
+    @apply focus:outline-none focus:shadow-none;
+  }
+  
