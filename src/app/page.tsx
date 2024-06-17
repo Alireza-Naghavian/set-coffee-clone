@@ -2,7 +2,7 @@ import HomePageLayout from "@/components/layout-components/HomePage/HomePageLayo
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="max-w-[1920px]  relative">
       <HomePageLayout />
     </main>
   );

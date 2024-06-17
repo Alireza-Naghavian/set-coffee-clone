@@ -1,7 +1,12 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-
+import React, { useEffect } from "react";
+import "./swiper-bundle.min.css"
+import { register } from "swiper/element/bundle";
 function Swiper() {
+  useEffect(() => {
+    register();
+  }, []);
   return (
     <div className="relative">
       <div className="!h-full relative !w-full">
