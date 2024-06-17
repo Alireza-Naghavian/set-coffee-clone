@@ -1,10 +1,10 @@
 import React from "react";
 import { cva } from "class-variance-authority";
-type Size = "medium" | "large";
+type Size = "small"| "medium" | "large";
 type Variant = "primary" | "secondary" | "roundedSecondary" | "roundedPrimary";
 type ButtonProps = {
-  size?: Size;
-  variant?: Variant;
+  size: Size;
+  variant: Variant;
   type?: string;
 } & React.ComponentProps<"button">;
 const button = cva("text-center font-Shabnam_M w-full tr-300 text-white", {
@@ -16,6 +16,7 @@ const button = cva("text-center font-Shabnam_M w-full tr-300 text-white", {
       roundedPrimary: "bg-main_green hover:bg-main_green_dark  rounded-lg ",
     },
     size: {
+      small: "text-sm h-[42px] sm:max-w-[170px] xs:w-fit  py-[5px] px-3 ",
       medium: "text-sm h-[42px]  py-[5px] px-5 ",
       large: "mt-2.5 h-[46px] py-1.5 px-6 text-lg leading-7",
     },
