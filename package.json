@@ -23,6 +23,7 @@
     "react-leaflet": "^4.2.1",
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.7",
+    "sharp": "^0.33.4",
     "swiper": "^11.1.4"
   },
   "devDependencies": {

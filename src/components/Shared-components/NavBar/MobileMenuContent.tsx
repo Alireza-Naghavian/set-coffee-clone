@@ -23,8 +23,8 @@ function MobileMenuContent() {
             <ul
               className={`text-main/90 mt-2  child:font-Shabnam_M justify-center 
               my-auto flex-col tr-300 child:py-[6px] 
-              child:border-b last:child:border-none child:px-2 `}
-            >
+              child:border-b last:child:border-none child:px-2 `}>
+                
               {subMenuTitles.map((title: string, index: number) => {
                 return (
                   <li key={index} className="tr-200 !px-5 w-full ">
