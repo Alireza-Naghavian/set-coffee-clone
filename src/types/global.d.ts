@@ -1,7 +1,7 @@
 export declare global {
     namespace globalThis.React.JSX {
       interface IntrinsicElements {
-        "swiper-container": React.DetailedHTMLProps<
+        "swiper-container"?: React.DetailedHTMLProps<
           React.HTMLAttributes<HTMLElement>,
           HTMLElement
         > & {
@@ -13,7 +13,7 @@ export declare global {
           "breakpoints"? : unknown;
           "center"?:string
         };
-        "swiper-slide": React.DetailedHTMLProps<
+        "swiper-slide"?: React.DetailedHTMLProps<
           React.HTMLAttributes<HTMLElement>,
           HTMLElement
         >;
