@@ -50,6 +50,7 @@ function DesktopMenu() {
             <FaShuffle size={26} />
           </Link>
           <AiOutlineShoppingCart
+          className="cursor-pointer"
             onClick={() => setIsDesktopCartOpen(true)}
             size={28}
           />
