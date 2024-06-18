@@ -9,7 +9,7 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Link from "next/link";
 function ProductCard({ productData }: { productData: MainProductCardType }) {
   return (
-    <div className="flex flex-col gap-y-2 max-h-[355px]   mx-auto md:w-fit  ">
+    <div className="flex flex-col gap-y-2 max-h-[360px]  gap-x-2  mx-auto   max-w-fit  ">
       {/* cover */}
       <ProductCardHeader productData={productData} />
       {/* card detail */}
@@ -44,7 +44,10 @@ const ProductCardHeader = ({
               </span>
             </button>
           </div>
-          <div className="flex flex-col gap-y-4 icon-wrapper absolute left-0 mt-6 pl-2 items-end  bg-transparent h-full child:text-white child:cursor-pointer w-max z-40">
+          <div
+            className={`${styles["icon-wrapper"]} flex flex-col gap-y-4  absolute left-0 mt-6 pl-2 items-end  
+                            bg-transparent h-full child:text-white child:cursor-pointer w-max z-40`}
+          >
             <FaShuffle size={22} title="مقایسه" />
             <IoSearch size={22} title="دسترسی سریع" />
             <FaRegHeart size={22} title="پسندیدن" />

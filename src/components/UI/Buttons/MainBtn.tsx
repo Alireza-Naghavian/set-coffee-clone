@@ -1,7 +1,7 @@
 import React from "react";
 import { cva } from "class-variance-authority";
-type Size = "small"| "medium" | "large";
-type Variant = "primary" | "secondary" | "roundedSecondary" | "roundedPrimary";
+export type Size = "small"| "medium" | "large";
+export type Variant = "primary" | "secondary" | "roundedSecondary" | "roundedPrimary";
 type ButtonProps = {
   size: Size;
   variant: Variant;

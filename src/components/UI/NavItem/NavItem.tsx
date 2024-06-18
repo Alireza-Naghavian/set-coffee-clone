@@ -9,10 +9,10 @@ type NavItemType = {
 function NavItem({ label, icon, subMenuItem = null }: NavItemType) {
   return (
     <li className={`flex items-center relative gap-x-px ${styles.hasSubMenu} `}>
-    <Link className="flex items-center gap-x-2 relative " href={"#"}>
+    <div className="flex items-center gap-x-2 relative cursor-pointer  " >
     {icon}
     <span>{label}</span>
-    </Link>
+    </div>
       <div
         className={`max-w-[220px] w-[220px]  bg-white absolute top-8 right-4 ${styles.subMenu}`}
       >
