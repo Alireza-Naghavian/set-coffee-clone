@@ -16,7 +16,7 @@
   @apply lg:hidden  overflow-hidden w-[min(300px,75vw)]  h-full overflow-y-auto  transition-all  fixed left-0 top-0 z-50 bg-white;
   transition-duration: 0.4s;
 }
-.BasketSideBar {
+.freeSideBar {
   @apply overflow-hidden w-[min(300px,75vw)]  h-full overflow-y-auto  transition-all  fixed left-0 top-0 z-50 bg-white;
   transition-duration: 0.4s;
 }

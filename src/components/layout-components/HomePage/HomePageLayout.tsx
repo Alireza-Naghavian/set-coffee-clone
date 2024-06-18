@@ -9,6 +9,9 @@ const productData = {
   title: "دانه قهوه کلمبیا بدون کافئین (Decaf)مقدار ۲۵۰گرم ",
   price: 149000,
 };
+// *
+// using useTrasintion for set priority of rendering defferent data of this page
+// *
 function HomePageLayout() {
   return (
     <>
@@ -16,10 +19,10 @@ function HomePageLayout() {
         <Swiper />
       </div>
       {/* below code have to change in unit compontent */}
-      <div className="mt-[90px]">
+      <div className="mt-[70px]">
         <HeaderTitle title="انواع قهوه" subTitle={"coffee"} />
         <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1 md:gap-x-8 gap-x-2 gap-y-6 lg:container">
+          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
             <ProductCard productData={productData} />
             <ProductCard productData={productData} />
             <ProductCard productData={productData} />
@@ -29,13 +32,13 @@ function HomePageLayout() {
         </div>
       </div>
 
-      <div className="mt-[90px]">
+      <div className="mt-[70px]">
         <HeaderTitle
           title="کپسول های SETPRESSO"
           subTitle={"سازگار با دستگاه نسپرسو"}
         />
         <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1 md:gap-x-8 gap-x-2 gap-y-6 lg:container">
+          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6">
             <ProductCard productData={productData} />
             <ProductCard productData={productData} />
             <ProductCard productData={productData} />
@@ -44,7 +47,7 @@ function HomePageLayout() {
           </div>
         </div>
       </div>
-      <div className="sm:mt-[90px] mt-10  ">
+      <div className="sm:mt-[70px] mt-10  ">
         <div className="w-full lg:h-[300px] sm:container xs:px-4 px-0">
           <Image
             width={1920}
@@ -56,10 +59,10 @@ function HomePageLayout() {
           />
         </div>
       </div>
-      <div className="mt-[90px]">
+      <div className="mt-[70px]">
         <HeaderTitle title="یک کیلویی ها" subTitle={"فروش سازمانی"} />
         <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1 md:gap-x-8 gap-x-2 gap-y-6 lg:container">
+          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6">
             <ProductCard productData={productData} />
             <ProductCard productData={productData} />
             <ProductCard productData={productData} />
@@ -69,13 +72,13 @@ function HomePageLayout() {
         </div>
       </div>
       <WhySetCoffee />
-      <div className="mt-[90px]">
+      <div className="mt-[70px]">
         <HeaderTitle
           title="مقالات ما"
           subTitle={"دانستنی های جذاب دنیای قهوه"}
         />
         <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid sm:grid-cols-3  child:max-w-max grid-cols-1 md:gap-x-8 gap-x-2 gap-y-6 lg:container">
+          <div className="sm:px-8 px-2 grid sm:grid-cols-3  child:max-w-max grid-cols-1 md:gap-x-8 gap-x-2 gap-y-6 md:container">
             <BlogsCard
               publishDay={"04"}
               PublishMonth={"خرداد"}

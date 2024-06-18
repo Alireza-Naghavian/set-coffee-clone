@@ -9,6 +9,9 @@ import styles from "./Navbar.module.css";
 import Link from "next/link";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import Overlay from "@/components/UI/Overlay/Overlay";
+import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
+import AsideUserContainer from "./AsideUserContainer";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 export const subMenuTitles = [
   "Specialty coffee",
   "World Class Specialty",
@@ -19,6 +22,8 @@ export const subMenuTitles = [
 ];
 function DesktopMenu() {
   const [isDesktopCartOpen, setIsDesktopCartOpen] = useState<boolean>(false);
+  const [isOpen, { close, open }] = useDisclosure();
+  useScrollLocker(isOpen || isDesktopCartOpen);
   return (
     <>
       <div className="hidden lg:grid grid-cols-12 h-full relative">
@@ -39,7 +44,9 @@ function DesktopMenu() {
             <NavItem label="تماس با ما" />
             <NavItem label="درباره ما" />
             <NavItem label="قوانین" />
-            <NavItem label="ورود/عضویت" />
+            <div className="py-2" onClick={() => open()}>
+              <NavItem label="ورود/عضویت" />
+            </div>
           </ul>
         </div>
         <div className="col-span-2 text-main flex-center my-auto gap-x-6">
@@ -50,22 +57,40 @@ function DesktopMenu() {
             <FaShuffle size={26} />
           </Link>
           <AiOutlineShoppingCart
-          className="cursor-pointer"
+            className="cursor-pointer"
             onClick={() => setIsDesktopCartOpen(true)}
             size={28}
           />
         </div>
       </div>
       <>
+        {/* user aside */}
         <div
-          className={`${styles.BasketSideBar} ${
-            isDesktopCartOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"}`}>
-          <SideBarBasket setIsCartOpen={setIsDesktopCartOpen} />
+          className={`${styles.freeSideBar} ${
+            isOpen ? "translate-x-[0rem]" : "translate-x-[-40rem]"
+          }`}
+        >
+          <AsideUserContainer setIsCartOpen={close} />
         </div>
+        {/* user aside */}
+        {/* sideBarBasket aside */}
+        <aside
+          className={`${styles.freeSideBar} ${
+            isDesktopCartOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
+          }`}
+        >
+          <SideBarBasket setIsCartOpen={setIsDesktopCartOpen} />
+        </aside>
+        {/* sideBarBasket aside */}
+        {/* shared overlay */}
         <Overlay
-          openCondition={isDesktopCartOpen}
-          onClose={() => setIsDesktopCartOpen(false)}
+          openCondition={isDesktopCartOpen || isOpen}
+          onClose={() => {
+            setIsDesktopCartOpen(false);
+            close();
+          }}
         />
+        {/* shared overlay */}
       </>
     </>
   );

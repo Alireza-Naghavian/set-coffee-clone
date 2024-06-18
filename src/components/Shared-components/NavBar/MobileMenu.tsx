@@ -7,16 +7,11 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import LogoLink from "@/components/UI/LogoLink/LogoLink";
 import styles from "./Navbar.module.css";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-  useEffect(() => {
-    if (isMenuOpen || isCartOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [isMenuOpen, isCartOpen]);
+  useScrollLocker(isMenuOpen || isCartOpen)
   return (
     <>
       {/* overlay */}
@@ -28,20 +23,20 @@ function MobileMenu() {
         }}
       />
       {/* overlay */}
-      <div
+      <aside
         className={`${styles.sideBars} ${
           isMenuOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
         <MobileMenuContent />
-      </div>
-      <div
+      </aside>
+      <aside
         className={`${styles.sideBars} ${
           isCartOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
         <SideBarBasket setIsCartOpen={setIsCartOpen} />
-      </div>
+      </aside>
       <div className="lg:hidden grid grid-cols-4 h-full">
         <div className="flex sm:pr-8 pr-4 my-auto">
           <FaBars

@@ -2,7 +2,7 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import MiniProductCard from "@/components/UI/Cards/MiniProductCard";
 import React from "react";
 import { IoIosClose } from "react-icons/io";
-type SideBarBasketType = {
+export type SideBarBasketType = {
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 function SideBarBasket({ setIsCartOpen }: SideBarBasketType) {
