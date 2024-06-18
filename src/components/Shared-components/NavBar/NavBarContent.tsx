@@ -1,16 +1,23 @@
-"use client"
-import useMediaQuery from '@/hooks/helper-hooks/useMediaQuery'
-import React from 'react'
-import DesktopMenu from './DesktopMenu';
-import MobileMenu from './MobileMenu';
+"use client";
+import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
+import React from "react";
+import DesktopMenu from "./DesktopMenu";
+import MobileMenu from "./MobileMenu";
+import MobileTabBar from "./MobileTabBar";
 
 function NavBarContent() {
-    const chageNavBar = useMediaQuery("(max-width:1024px)");
+  const chageNavBar = useMediaQuery("(max-width:1024px)");
   return (
-    <>{
-        chageNavBar ? <MobileMenu/> : <DesktopMenu/>
-    }</>
-  )
+    <>
+      {chageNavBar ? (
+        <>
+          <MobileMenu /> <MobileTabBar />
+        </>
+      ) : (
+        <DesktopMenu />
+      )}
+    </>
+  );
 }
 
-export default NavBarContent
+export default NavBarContent;

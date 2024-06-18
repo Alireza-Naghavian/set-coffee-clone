@@ -16,6 +16,9 @@
   @apply lg:hidden  overflow-hidden w-[min(300px,75vw)]  h-full overflow-y-auto  transition-all  fixed left-0 top-0 z-50 bg-white;
   transition-duration: 0.4s;
 }
+.tabBar{
+  @apply  lg:hidden   overflow-hidden px-8 py-2 text-center  max-h-[100px]  transition-all  w-full fixed bottom-0 z-30 shadow-md  bg-gray-100;
+}
 .freeSideBar {
   @apply overflow-hidden w-[min(300px,75vw)]  h-full overflow-y-auto  transition-all  fixed left-0 top-0 z-50 bg-white;
   transition-duration: 0.4s;
