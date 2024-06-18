@@ -40,7 +40,7 @@ function MobileMenu() {
       <div className="lg:hidden grid grid-cols-4 h-full">
         <div className="flex sm:pr-8 pr-4 my-auto">
           <FaBars
-            className="text-2xl sm:text-4xl"
+            className="text-2xl sm:text-4xl text-main"
             onClick={() => setIsMenuOpen(true)}
           />
         </div>
