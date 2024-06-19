@@ -17,9 +17,65 @@
   transition-duration: 0.4s;
 }
 .tabBar{
-  @apply  lg:hidden   overflow-hidden px-8 py-2 text-center  max-h-[100px]  transition-all  w-full fixed bottom-0 z-30 shadow-md  bg-gray-100;
+  @apply  lg:hidden   overflow-hidden px-8 py-2 text-center  max-h-[100px]  transition-all  w-full fixed bottom-0 !mt-auto  z-[9] shadow-md  bg-gray-100;
 }
 .freeSideBar {
   @apply overflow-hidden w-[min(300px,75vw)]  h-full overflow-y-auto  transition-all  fixed left-0 top-0 z-50 bg-white;
   transition-duration: 0.4s;
+}
+
+/*  */
+
+.navbar main,
+.navbar_fixed main {
+  background: rgb(255, 255, 255) !important;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  color: black;
+  display: flex;
+  flex-direction: row-reverse;
+  
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 90px;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1192px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+  justify-content: space-between;
+}
+.navbar:before {
+  content: "";
+  display: block;
+  height: 30px;
+}
+.navbar_fixed main {
+  height: 73px !important;
+  box-shadow: none !important;
+}
+.navbar_fixed {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  animation: fadeInDownBig 0.4s ease;
+  left: 0;
+  width: 100%;
+  top: 0;
+  background: white;
+  z-index: 99;
+}
+@keyframes fadeInDownBig {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: none;
+  }
+}
+.navbar {
+
+  display: flex;
+  justify-content: center;
+  @apply  w-full lg:w-[95%] rounded-none lg:absolute lg:rounded-lg mt-0 lg:mt-[30px] h-[60px] lg:h-[90px] z-10;
 }

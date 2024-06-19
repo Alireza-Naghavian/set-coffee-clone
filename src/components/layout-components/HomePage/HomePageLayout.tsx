@@ -15,6 +15,7 @@ const productData = {
 function HomePageLayout() {
   return (
     <>
+    
       <div className="w-full">
         <Swiper />
       </div>
