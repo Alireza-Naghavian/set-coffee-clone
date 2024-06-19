@@ -77,5 +77,23 @@
       @apply transition-all duration-500;
     }
 
-
+    @media screen and (max-width: 850px) {
+      .hide {
+      @apply hidden
+      }
+      .sibling_divider{
+        @apply !w-full mt-auto 
+      }
+    }
+    @media screen and (max-width: 390px) {
+      .hide {
+      @apply hidden
+      }
+      .sibling_divider{
+        @apply !w-full mt-auto 
+      }
+      .form-wrapper{
+        @apply w-[90%] h-[90%] my-auto  py-4
+      }
+    }
 

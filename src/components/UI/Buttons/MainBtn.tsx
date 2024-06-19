@@ -3,8 +3,8 @@ import { cva } from "class-variance-authority";
 export type Size = "small"| "medium" | "large";
 export type Variant = "primary" | "secondary" | "roundedSecondary" | "roundedPrimary";
 type ButtonProps = {
-  size: Size;
-  variant: Variant;
+  size?: Size;
+  variant?: Variant;
   type?: string;
 } & React.ComponentProps<"button">;
 const button = cva("text-center font-Shabnam_M w-full tr-300 text-white", {
@@ -21,6 +21,10 @@ const button = cva("text-center font-Shabnam_M w-full tr-300 text-white", {
       large: "mt-2.5 h-[46px] py-1.5 px-6 text-lg leading-7",
     },
   },
+  defaultVariants:{
+    variant:"primary",
+    size:"medium"
+  }
 });
 
 function MainBtn({

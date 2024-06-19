@@ -9,7 +9,7 @@ const inputGroup = cva(" focus:outline-none font-Shabnam w-full text-right", {
       rounded: "bg-white border-2 border-black/55 text-[#777777] rounded-lg",
     },
     size: {
-      mediumSize: "h-[42px] max-w-[310px] py-5 px-4 text-base leading-[22px]",
+      mediumSize: "h-[42px]  py-5 px-4 text-base leading-[22px]",
       largeSize: "h-[50px] py-[12px] px-5 text-lg leading-6",
     },
     labelVariant: {

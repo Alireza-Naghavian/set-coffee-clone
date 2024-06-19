@@ -1,9 +1,13 @@
+"use client"
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import { FaEnvelope, FaLocationArrow, FaPhone } from 'react-icons/fa'
 
 function Footer() {
+  const pathName = usePathname();
+  if(pathName === "/register-login") return
   return (
     <footer className="bg-[#111111] mt-20 w-full">
       <div className="lg:container  lg:px-8  md:px-12 px-4">

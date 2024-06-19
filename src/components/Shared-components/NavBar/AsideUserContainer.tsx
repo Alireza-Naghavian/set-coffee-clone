@@ -1,9 +1,8 @@
+import Link from "next/link";
+import { FiUser } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
 import LoginForm from "../Forms/LoginForm";
-import { FiUser } from "react-icons/fi";
 import { SideBarBasketType } from "../SideBarBasket/SideBarBasket";
-import Link from "next/link";
-import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 function AsideUserContainer({ setIsCartOpen }: SideBarBasketType) {
 
  
@@ -26,11 +25,13 @@ function AsideUserContainer({ setIsCartOpen }: SideBarBasketType) {
           </div>
         </div>
         <LoginForm/>
-        <div className="mt-10 border-t border-t-black/55 mx-auto w-[90%]  flex flex-col items-center">
+        <div className="mt-10 border-t border-t-black/55 mx-auto w-[90%]  
+          flex flex-col items-center">
           <FiUser className="text-[100px] text-gray-500 mt-12"/>
           <div className="flex flex-col gap-y-2">
             <span className="font-Shabnam_M text-center text-lg">حساب کاربری ندارید؟</span>
-            <Link className="font-Shabnam_B text-center text-main_green hover:text-main_green_dark tr-200" href={"#"}>
+            <Link className="font-Shabnam_B text-center text-main_green
+             hover:text-main_green_dark tr-200" href={"/register-login"}>
               عضویت
             </Link>
           </div>
