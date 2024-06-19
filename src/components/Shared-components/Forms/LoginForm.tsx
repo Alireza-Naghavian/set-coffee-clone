@@ -6,7 +6,7 @@ import React from "react";
 function LoginForm() {
   return (
     <div className=" px-4 py-2  mt-4">
-      <form className="flex flex-col gap-y-4">
+      <form className="flex flex-col gap-y-4 ">
         <MainTextField
           id="emailId"
           name="identifier"
