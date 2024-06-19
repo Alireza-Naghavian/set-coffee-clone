@@ -1,17 +1,26 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
-import "./swiper-bundle.min.css"
-import { register } from "swiper/element/bundle";
-function Swiper() {
-  useEffect(() => {
-    register();
-  }, []);
+import { Swiper, SwiperSlide } from "swiper/react";
+import "./swiper-bundle.min.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { Autoplay } from "swiper/modules";
+function SwiperSlider() {
   return (
     <div className="relative">
       <div className="!h-full relative !w-full">
-        <swiper-container slides-per-view="1" loop="true" autoplay="true">
-          <swiper-slide>
+        <Swiper
+          slidesPerView={1}
+          loop={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+        >
+          <SwiperSlide>
             <Image
               width={1920}
               priority={true}
@@ -20,8 +29,8 @@ function Swiper() {
               alt="seCoffee"
               className="!h-full !w-full object-cover"
             />
-          </swiper-slide>
-          <swiper-slide>
+          </SwiperSlide>
+          <SwiperSlide>
             <Image
               width={1920}
               height={1200}
@@ -30,8 +39,8 @@ function Swiper() {
               alt="seCoffee"
               className="!h-full !w-full object-cover"
             />
-          </swiper-slide>
-          <swiper-slide>
+          </SwiperSlide>
+          <SwiperSlide>
             <Image
               width={1920}
               height={1200}
@@ -40,11 +49,11 @@ function Swiper() {
               alt="seCoffee"
               className="!h-full !w-full object-cover"
             />
-          </swiper-slide>
-        </swiper-container>
+          </SwiperSlide>
+        </Swiper>
       </div>
     </div>
   );
 }
 
-export default Swiper;
+export default SwiperSlider;

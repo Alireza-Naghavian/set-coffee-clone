@@ -1,17 +1,26 @@
-import React from "react";
+"use client";
+import useNavBarSticker from "@/hooks/helper-hooks/useNavBarSticker";
 import NavBarContent from "./NavBarContent";
-import "./Navbar.module.css";
+import styles from "./Navbar.module.css";
+import MobileTabBar from "./MobileTabBar";
+
 function NavBarLayout() {
+  const { fixTop } = useNavBarSticker(100);
+  
   return (
-    <div
-      className=" lg:!container lg:rounded-lg 
-     relative lg:mt-[30px] max-w-[1366px] 
-      mx-auto  flex-center lg:h-[110px] h-[70px] lg:!inset-0 lg:absolute z-30 bg-white ">
-      <nav className="w-full lg:px-8 relative ">
-        <NavBarContent />
-      </nav>
+    <div className="relative">
+      <div className=" flex justify-center   ">
+        <nav
+          className={`${
+            fixTop ? styles.navbar_fixed : `${styles.navbar}  !bg-white    `
+          }`}
+        >
+           
+          <NavBarContent />
+        </nav>
+        <MobileTabBar />
+      </div>
     </div>
   );
 }
-
 export default NavBarLayout;

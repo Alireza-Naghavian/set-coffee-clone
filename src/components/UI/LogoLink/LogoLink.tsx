@@ -4,7 +4,7 @@ import React from "react";
 
 function LogoLink() {
   return (
-    <Link href={"/"} className="col-span-2 
+    <Link href={"/"} className="
      flex-center mx-auto my-auto">
       <Image
         quality={75}

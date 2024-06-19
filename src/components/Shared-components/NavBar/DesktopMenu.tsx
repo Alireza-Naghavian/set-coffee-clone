@@ -26,9 +26,11 @@ function DesktopMenu() {
   useScrollLocker(isOpen || isDesktopCartOpen);
   return (
     <>
-      <div className="hidden lg:grid grid-cols-12 h-full relative">
-        <LogoLink />
-        <div className="col-span-8 mx-auto">
+      <div className="hidden lg:flex  w-full px-[22px] !justify-between h-full ">
+        <div className="  flex items-center justify-center">
+          <LogoLink />
+        </div>
+        <div className=" mx-auto">
           <ul
             className="child:text-main child:font-Shabnam_M
         flex items-center h-full
@@ -49,7 +51,7 @@ function DesktopMenu() {
             </div>
           </ul>
         </div>
-        <div className="col-span-2 text-main flex-center my-auto gap-x-6">
+        <div className=" text-main flex-center my-auto gap-x-6">
           <Link href={""}>
             <FaRegHeart size={28} />
           </Link>
