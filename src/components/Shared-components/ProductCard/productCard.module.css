@@ -1,0 +1,48 @@
+
+  /* card hover animation */
+.cover-option {
+    @apply transition-all duration-200 relative;
+  }
+  
+  .cover-image {
+    transition: all 0.7s;
+    @apply relative -z-10 overflow-hidden;
+  }
+  .overlay-cover {
+    @apply invisible overflow-hidden opacity-0 absolute lg:block hidden z-30 inset-0 w-full h-full  transition-all duration-300  bg-black/60;
+  }
+  
+  .cover-option:hover > .overlay-cover {
+    @apply visible opacity-100;
+  }
+  .cover-option:hover .cover-image {
+    @apply lg:transform lg:scale-[1.09] overflow-hidden;
+  }
+  .icon-wrapper{
+    transform: translateX(-20rem);
+    @apply transition-all duration-200 overflow-x-hidden
+  }
+  .cover-option:hover .icon-wrapper{
+    transform: translateX(0rem);
+  }
+  .add-to-basket-icon {
+    transform: translateY(20rem);
+    position: absolute;
+  }
+  .add-to-basket-text {
+    @apply transition-all duration-200   absolute;
+  }
+  .add-to-cart-btn {
+    @apply transition-all duration-200 tracking-[-0.075rem] 
+  z-10 relative overflow-y-hidden 
+  flex flex-col items-center justify-center
+   w-[135px] h-[35px];
+  }
+  .add-to-cart-btn:hover .add-to-basket-icon {
+    @apply transition-all duration-200;
+    transform: translateY(0rem);
+  }
+  .add-to-cart-btn:hover .add-to-basket-text {
+    @apply transition-all duration-200;
+    transform: translateY(-20rem);
+  }

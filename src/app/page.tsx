@@ -1,9 +1,9 @@
-import Image from "next/image";
+import HomePageLayout from "@/components/layout-components/HomePage/HomePageLayout";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-   
+    <main className="max-w-[1920px]  relative">
+      <HomePageLayout />
     </main>
   );
 }
