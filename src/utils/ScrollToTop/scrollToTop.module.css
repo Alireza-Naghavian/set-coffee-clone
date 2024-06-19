@@ -1,0 +1,22 @@
+.button,
+.buttonVisible {
+  position: fixed;
+  border-radius: 100%;
+  border: 0;
+  color: black;
+  cursor: pointer;
+  font-size: 2rem;
+  outline: 0;
+  opacity: 0;
+  padding: 0.7rem 0.8rem 0rem;
+  transition-duration: 200ms;
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  @apply  px-1 lg:px-2  py-1 lg:py-2 shadow-lg z-30 bg-main_brown translate-y-[10rem]
+   transition-all duration-300 bottom-[4.5rem] lg:bottom-[2rem] left-[.5rem] lg:left-[2rem]
+}
+
+.buttonVisible {
+  opacity: 1 !important;
+    @apply translate-y-[0rem] 
+}
