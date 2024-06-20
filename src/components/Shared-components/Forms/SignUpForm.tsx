@@ -30,6 +30,14 @@ function SignUpForm() {
         label="ایمیل"
         labelVariant="boldSize"
       />
+      <MainTextField
+        id="email"
+        name="email"
+        type="email"
+        variant="outLine"
+        label="ایمیل"
+        labelVariant="boldSize"
+      />
       <MainBtn variant="primary" type="submit" size="medium">
         ثبت نام
       </MainBtn>
