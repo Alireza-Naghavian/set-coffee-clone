@@ -16,11 +16,19 @@ const schema = new Schema<UserType>(
       required: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
+      
+    },
+    role: {
+      type: String,
+      required:false,
+      default: "USER",
     },
   },
   { timestamps: true }
 );
 
 const UserModel = mongoose.models.user || mongoose.model("user", schema);
+
+export default UserModel;

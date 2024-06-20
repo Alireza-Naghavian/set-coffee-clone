@@ -1,7 +1,7 @@
 export type UserType = {
   userName: string;
   email?: string;
-  phoneNumber: number;
+  phoneNumber: string;
   password: string;
-  timestamps?: Date;
+  role?:string
 };
