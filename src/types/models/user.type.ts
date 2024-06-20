@@ -3,5 +3,6 @@ export type UserType = {
   email?: string;
   phoneNumber: string;
   password: string;
-  role?:string
+  role?: string;
 };
+
