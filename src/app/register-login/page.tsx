@@ -1,4 +1,3 @@
-"use client"
 import CheckOtp from "@/components/Shared-components/Forms/CheckOtp";
 import LoginForm from "@/components/Shared-components/Forms/LoginForm";
 import SignUpForm from "@/components/Shared-components/Forms/SignUpForm";
@@ -7,8 +6,8 @@ import Link from "next/link";
 function page() {
   return (
     <div>
-      <CheckOtp />
-      {/* <LoginFormWrapper/> */}
+      {/* <CheckOtp /> */}
+      <LoginFormWrapper/>
       {/* <SignUpFormWrapper/> */}
     </div>
   );
