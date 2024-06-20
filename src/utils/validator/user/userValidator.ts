@@ -76,3 +76,14 @@ export const signInUserSchema = Joi.object().keys({
       )
     ),
 });
+export const sendOtpSchema = Joi.object().keys({
+  phoneNumber: Joi.string()
+    .pattern(pattern)
+    .required()
+    .messages({
+      "any.required": "شماره موبایل الزامی است",
+      "string.empty": `شماره موبایل الزامی است`,
+      "string.pattern.base": "شماره موبایل معبتر نمی باشد",
+    })
+    .error(createHttpError.BadRequest("شماره موبایل معتبر نمی باشد")),
+});

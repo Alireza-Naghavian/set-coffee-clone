@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.45.0",
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "http-errors": "^2.0.0",
+    "http-status-codes": "^2.3.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
