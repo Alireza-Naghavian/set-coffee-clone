@@ -1,9 +1,31 @@
 "use client";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
+import Loader from "@/components/UI/loader/Loader";
+import useCheckOtpCode from "@/hooks/authHooks/useCheckOtpCode";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import OTPInput from "react-otp-input";
-function CheckOtp() {
+import { toast } from "react-toastify";
+function CheckOtp({ identifier }: { identifier: string }) {
   const [otp, setOtp] = useState("");
+  const { replace } = useRouter();
+  const { handleSubmit } = useForm();
+  const { checkOtp, isPending } = useCheckOtpCode();
+  const checkOtpHandler = async () => {
+    try {
+      await checkOtp(
+        { phoneNumber: identifier, code: otp },
+        {
+          onSuccess: () => {
+            replace("/");
+          },
+        }
+      );
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
   return (
     <div className="flex-col flex gap-y-8 ">
       <div className="w-[380px] form-wrapper  h-[420px] shadow-md mx-auto bg-white py-12">
@@ -12,9 +34,12 @@ function CheckOtp() {
         </p>
         <p className="flex flex-col gap-y-2 text-neutral-500 text-sm text-center mt-8">
           <span>لطفا کد ارسال شده را وارد کنید</span>
-          <span>9158952449</span>
+          <span>{identifier}</span>
         </p>
-        <form className="flex  flex-col items-center">
+        <form
+          onSubmit={handleSubmit(checkOtpHandler)}
+          className="flex  flex-col items-center"
+        >
           <OTPInput
             value={otp}
             onChange={setOtp}
@@ -45,7 +70,14 @@ function CheckOtp() {
             shouldAutoFocus
           />
           <MainBtn className="max-w-[220px] mt-8 " type="submit" size="medium">
-            ثبت کد تایید
+            {isPending ? (
+              <Loader
+                loadingCondition={isPending}
+                className={"font-extrabold text-lg "}
+              />
+            ) : (
+              "ثبت کد تایید"
+            )}
           </MainBtn>
           <p className="mt-6 flex-center  ">
             <button className="text-sm  text-main font-Shabnam_M text-center">

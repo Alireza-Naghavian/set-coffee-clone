@@ -1,4 +1,5 @@
- export type LoginFormType = {
-    identifier: number | string;
-    passwrod: string;
-  };
+export type LoginFormType = {
+  identifier:  string;
+  passwrod?: string;
+};
+

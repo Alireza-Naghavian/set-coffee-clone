@@ -37,7 +37,7 @@ export const POST = async (req: Request) => {
     }
     console.log(response.data);
     if (response.data?.success !== true)
-      return Response.json({ message: response.data?.message });
+      return Response.json({ message: response.data?.message },{status:422});
 
     console.log(user); 
 

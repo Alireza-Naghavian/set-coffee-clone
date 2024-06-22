@@ -21,7 +21,7 @@ export const POST = async (req: Request) => {
     if (!isUserExist)
       return Response.json({
         message: "کاربری با این شماره موبایل ثبت نشده است",
-      });
+      },{status:404});
 
     await axios
       .post(

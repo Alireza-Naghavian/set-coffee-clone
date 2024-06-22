@@ -1,9 +1,10 @@
-import { signInUserWithEmail } from "@/services/users/userServices";
+import { checkOtpCode } from "@/services/users/userServices";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-const useSignInwithEmail = () => {
-  const { isPending, mutateAsync: signIn } = useMutation({
-    mutationFn: signInUserWithEmail,
+
+const useCheckOtpCode = () => {
+  const { isPending, mutateAsync: checkOtp } = useMutation({
+    mutationFn: checkOtpCode,
     onSuccess: (data: any) => {
       toast.success(data?.message);
     },
@@ -11,6 +12,6 @@ const useSignInwithEmail = () => {
       toast.error(err?.response?.data?.error?.message);
     },
   });
-  return { isPending, signIn };
+  return { isPending, checkOtp };
 };
-export default useSignInwithEmail;
+export default useCheckOtpCode;
