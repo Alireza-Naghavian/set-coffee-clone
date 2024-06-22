@@ -20,11 +20,23 @@ const schema = new Schema<UserType>(
       required: true,
       
     },
+    expTime: {
+      type: Number,
+      required: true,
+    },
     role: {
       type: String,
       required:false,
       default: "USER",
     },
+    retryTimes: {
+      type: Number,
+      default: 3,
+    },
+    isActive:{
+      type:Boolean,
+      default:false
+    }
   },
   { timestamps: true }
 );

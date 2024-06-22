@@ -1,44 +1,27 @@
 import dbConnection from "@/dbConfigs/db";
 import UserModel from "@/models/user/user";
-import { UserType } from "@/types/models/user.type";
-import { generateAccessToken, hashPassword } from "@/utils/auth/auth";
-import { signUpUserSchema } from "@/utils/validator/user/userValidator";
+import { sendOtpSchema } from "@/utils/validator/user/userValidator";
 import axios from "axios";
+
 import { StatusCodes as HttpStatus } from "http-status-codes";
+type PhoneNumberType = {
+  phoneNumber: string;
+};
 const CODE_EXPIRES = 120 * 1000;
-export async function POST(req: Request) {
+export const POST = async (req: Request) => {
   try {
     await dbConnection();
     const body = await req.json();
-    await signUpUserSchema.validateAsync(body);
-
-    const { password, phoneNumber, userName, email }: UserType = body;
-
+    const { phoneNumber }: PhoneNumberType = body;
+    await sendOtpSchema.validateAsync(body);
     const isUserExist = await UserModel.findOne({
-      $or: [{ userName }, { email }, { phoneNumber }],
-    });
-
-    if (isUserExist)
-      return Response.json(
-        {
-          message:
-            "نام کاربری، کلمه عبور یا شماره موبایل قبلا استفاده شده است.",
-        },
-        { status: 422 }
-      );
-
-    const hashedPassword = await hashPassword(password);
-
-    const users: UserType[] = await UserModel.find({});
-
-    await UserModel.create({
-      userName,
-      email,
-      password: hashedPassword,
-      role: users.length > 0 ? "USER" : "ADMIN",
       phoneNumber,
-      expTime: CODE_EXPIRES,
     });
+
+    if (!isUserExist)
+      return Response.json({
+        message: "کاربری با این شماره موبایل ثبت نشده است",
+      });
 
     await axios
       .post(
@@ -71,6 +54,16 @@ export async function POST(req: Request) {
           { status: HttpStatus.INTERNAL_SERVER_ERROR }
         );
       });
+
+    await UserModel.findOneAndUpdate(
+      { _id: isUserExist._id },
+      {
+        $set: {
+          phoneNumber,
+          expTime: CODE_EXPIRES,
+        },
+      }
+    );
     return Response.json(
       {
         message: `کد تایید برای شماره موبایل ${phoneNumber} ارسال گردید`,
@@ -78,10 +71,11 @@ export async function POST(req: Request) {
       },
       { status: HttpStatus.OK }
     );
-  } catch (error: any) {
+  } catch (error) {
+    console.log(error);
     return Response.json(
       { message: `خطای سمت سرور => `, error },
       { status: 500 }
     );
   }
-}
+};

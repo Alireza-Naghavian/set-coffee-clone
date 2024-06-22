@@ -4,5 +4,11 @@ export type UserType = {
   phoneNumber: string;
   password: string;
   role?: string;
+  expTime: number;
+  retryTimes: number;
+  isActive:boolean
 };
-
+export type CheckOtpType = {
+  phoneNumber: string;
+  code: string;
+};
