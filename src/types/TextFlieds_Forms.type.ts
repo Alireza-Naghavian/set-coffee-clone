@@ -22,5 +22,5 @@ export type TextFieldType = {
   labelVariant?: "boldSize" | "thinSize";
   register : any
   errors:any
-  validattionschema:RegisterOptions
+  validattionschema?:RegisterOptions
 } & React.ComponentProps<"input">;

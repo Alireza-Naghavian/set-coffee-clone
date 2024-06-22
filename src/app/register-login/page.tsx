@@ -6,14 +6,27 @@ import Link from "next/link";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 import { ToastProvider } from "../context/ToastContainerProvider";
 import { useState } from "react";
+import CheckOtp from "@/components/Shared-components/Forms/CheckOtp";
+import { SetState } from "@/types/global.type";
+
 function page() {
   const [authStep, setAuthStep] = useState<number>(1);
+  const [sendOtp, setSendOtp]: [boolean, SetState<boolean>] = useState(false);
+  const [identifier, setIdentifier]: [string, SetState<string>] = useState("");
+
+  switch (authStep) {
+  }
   return (
     <QueryClientProviderWrapper>
       <ToastProvider>
         <div>
-          {/* <CheckOtp /> */}
-          <LoginFormWrapper />
+          {sendOtp && <CheckOtp identifier={identifier} />}
+          {!sendOtp && (
+            <LoginFormWrapper
+              setIdentifier={setIdentifier}
+              setSendOtp={setSendOtp}
+            />
+          )}
           {/* <SignUpFormWrapper/> */}
         </div>
       </ToastProvider>
@@ -23,14 +36,20 @@ function page() {
 
 export default page;
 
-const LoginFormWrapper = () => {
+const LoginFormWrapper = ({
+  setSendOtp,
+  setIdentifier,
+}: {
+  setSendOtp: SetState<boolean>;
+  setIdentifier: SetState<string>;
+}) => {
   return (
     <div className=" w-[380px] form-wrapper  py-6  shadow-md mx-auto bg-white ">
-      <LoginForm />
+      <LoginForm setSendOtp={setSendOtp} setIdentifier={setIdentifier} />
       <div className="flex flex-col gap-y-4 px-4 mt-2 ">
         <span className="font-Shabnam text-right">حساب کاربری ندارید؟</span>
         <Link className="h-full w-full " href={"#"}>
-          <MainBtn className="w-full  " variant="secondary">
+          <MainBtn className="w-full" variant="secondary">
             ثبت نام
           </MainBtn>
         </Link>

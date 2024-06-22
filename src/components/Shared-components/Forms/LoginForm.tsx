@@ -1,33 +1,61 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import Loader from "@/components/UI/loader/Loader";
+import useSignInWithOtp from "@/hooks/authHooks/useSignInWithOtp";
 import useSignInwithEmail from "@/hooks/authHooks/useSignInwithEmail.";
 import { LoginFormType } from "@/types/auth.type";
+import { SetState } from "@/types/global.type";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-function LoginForm() {
+function LoginForm({
+  setSendOtp,
+  setIdentifier,
+}: {
+  setSendOtp: SetState<boolean>;
+  setIdentifier: SetState<string >;
+}) {
   const { isPending, signIn } = useSignInwithEmail();
-  const {replace} = useRouter();
+  const [loginWIthOtp, setLoginWIthOtp] = useState<boolean>(false);
+  const { isPending: isOtpLoadin, signInWithOtp } = useSignInWithOtp();
+  const { replace } = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormType>();
+
   const loginFromHandler: SubmitHandler<LoginFormType> = async (
     data: LoginFormType
   ) => {
-    try {
-      await signIn(data,{
-        onSuccess:()=>{
-          replace("/")
-        }
-      });
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+    if (!loginWIthOtp) {
+      try {
+        await signIn(data, {
+          onSuccess: () => {
+            replace("/");
+          },
+        });
+      } catch (error: any) {
+        toast.error(error?.response?.data?.message);
+      }
+    } else {
+      try {
+        const { identifier } = data;
+        await signInWithOtp(
+          { identifier },
+          {
+            onSuccess: () => {
+              setSendOtp(true);
+              setIdentifier(identifier);
+            },
+          }
+        );
+      } catch (error: any) {
+        toast.error(error?.response?.data?.message);
+      }
     }
   };
   return (
@@ -48,8 +76,12 @@ function LoginForm() {
           validattionschema={{
             required: "پر کردن این فیلد الزامی است.",
             pattern: {
-              value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-              message: "ایمیل وارد شده معتبر نمی باشد",
+              value: loginWIthOtp
+                ? /^(\\+98|0)?9[0-9]{9}$/
+                : /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+              message: loginWIthOtp
+                ? "شماره موبایل وارد شده معتبر نمی باشد"
+                : "ایمیل وارد شده معتبر نمی باشد",
             },
           }}
         />
@@ -63,7 +95,7 @@ function LoginForm() {
           labelVariant="boldSize"
           register={register}
           validattionschema={{
-            required: "پر کردن این فیلد الزامی است.",
+            required: !loginWIthOtp ? "پر کردن این فیلد الزامی است." : false,
             minLength: {
               value: 4,
               message: "کلمه عبور باید حداقل۴ کاراکتر باشد",
@@ -78,7 +110,6 @@ function LoginForm() {
           {isPending ? (
             <Loader
               loadingCondition={isPending}
-
               className={"font-extrabold text-lg "}
             />
           ) : (
@@ -92,8 +123,21 @@ function LoginForm() {
         >
           گذرواژه خود را فراموش کرده اید ؟
         </Link>
-        <MainBtn size="medium" variant="primary">
-          ورود با کد یکبار مصرف
+        <MainBtn
+          onClick={() => {
+            setLoginWIthOtp(true);
+          }}
+          size="medium"
+          variant="primary"
+        >
+          {isOtpLoadin ? (
+            <Loader
+              loadingCondition={isOtpLoadin}
+              className={"font-extrabold text-lg "}
+            />
+          ) : (
+            "ورود با کد یکبار مصرف"
+          )}
         </MainBtn>
       </form>
     </div>

@@ -76,7 +76,7 @@ export const signInUserSchema = Joi.object().keys({
     ),
 });
 export const sendOtpSchema = Joi.object().keys({
-  phoneNumber: Joi.string()
+  identifier: Joi.string()
     .pattern(pattern)
     .required()
     .messages({
