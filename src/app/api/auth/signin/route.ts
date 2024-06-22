@@ -11,11 +11,11 @@ export const POST = async (req: Request) => {
   try {
     await dbConnection();
     const body = await req.json();
+    const { password, identifier }: { identifier: string; password: string } = body;
     await signInUserSchema.validateAsync(body);
-    const { password, email }: { email: string; password: string } = body;
-    const isUserExist = await UserModel.findOne({ email });
+    const isUserExist = await UserModel.findOne({ email:identifier });
     if (!isUserExist)
-      return Response.json({ message: "کاربری با این اطلاعات وجود ندارد" });
+      return Response.json({ message: "کاربری با این اطلاعات وجود ندارد" },{status:404});
 
     const isValidPassword = await verifyPassword(
       password,
@@ -27,8 +27,8 @@ export const POST = async (req: Request) => {
         { status: 422 }
       );
 
-    const accessToken = generateAccessToken({ email });
-    const refreshToken = generateRefreshToken({ email });
+    const accessToken = generateAccessToken({ email:isUserExist.email });
+    const refreshToken = generateRefreshToken({ email:isUserExist.email });
 
     const headers = new Headers();
     headers.append(

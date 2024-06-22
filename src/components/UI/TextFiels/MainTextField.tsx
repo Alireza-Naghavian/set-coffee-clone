@@ -36,7 +36,10 @@ function MainTextField({
   id,
   variant = "outLine",
   labelVariant = "boldSize",
+  register,
   size,
+  validattionschema,
+  errors,
 }: TextFieldType) {
   return (
     <div className="flex flex-col gap-y-2">
@@ -45,6 +48,7 @@ function MainTextField({
         <span className="text-red-500">*</span>
       </label>
       <input
+        {...register(name, validattionschema)}
         id={id}
         value={value}
         name={name}
@@ -52,6 +56,11 @@ function MainTextField({
         placeholder={placeHolder}
         className={inputGroup({ variant, size, className, labelVariant })}
       />
+      {errors && errors[name] && (
+        <span className="text-red-500 block text-sm mt-1">
+          {errors[name]?.message}
+        </span>
+      )}
     </div>
   );
 }

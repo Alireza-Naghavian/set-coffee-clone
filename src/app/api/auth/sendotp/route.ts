@@ -5,17 +5,17 @@ import axios from "axios";
 
 import { StatusCodes as HttpStatus } from "http-status-codes";
 type PhoneNumberType = {
-  phoneNumber: string;
+  identifier: string;
 };
 const CODE_EXPIRES = 120 * 1000;
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
     const body = await req.json();
-    const { phoneNumber }: PhoneNumberType = body;
+    const { identifier }: PhoneNumberType = body;
     await sendOtpSchema.validateAsync(body);
     const isUserExist = await UserModel.findOne({
-      phoneNumber,
+      phoneNumber:identifier,
     });
 
     if (!isUserExist)
@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
       .post(
         "https://api.limosms.com/api/sendcode",
         {
-          Mobile: phoneNumber,
+          Mobile: identifier,
           Footer: "کد دسترسی",
           template: "registerVerify",
         },
@@ -41,8 +41,8 @@ export const POST = async (req: Request) => {
         console.log(reaponse.data);
         return Response.json(
           {
-            message: `کد تایید برای شماره موبایل ${phoneNumber} ارسال گردید`,
-            data: phoneNumber,
+            message: `کد تایید برای شماره موبایل ${identifier} ارسال گردید`,
+            data: identifier,
           },
           { status: HttpStatus.OK }
         );
@@ -59,15 +59,15 @@ export const POST = async (req: Request) => {
       { _id: isUserExist._id },
       {
         $set: {
-          phoneNumber,
+          identifier,
           expTime: CODE_EXPIRES,
         },
       }
     );
     return Response.json(
       {
-        message: `کد تایید برای شماره موبایل ${phoneNumber} ارسال گردید`,
-        data: phoneNumber,
+        message: `کد تایید برای شماره موبایل ${identifier} ارسال گردید`,
+        data: identifier,
       },
       { status: HttpStatus.OK }
     );

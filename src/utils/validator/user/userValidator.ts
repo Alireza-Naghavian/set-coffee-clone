@@ -1,7 +1,6 @@
 import createHttpError from "http-errors";
 import Joi from "joi";
-const pattern =
-  /^(\\+98|0)?9[0-9]{9}$/;
+const pattern = /^(\\+98|0)?9[0-9]{9}$/;
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const signUpUserSchema = Joi.object().keys({
   userName: Joi.string()
@@ -53,7 +52,7 @@ export const signUpUserSchema = Joi.object().keys({
 });
 
 export const signInUserSchema = Joi.object().keys({
-  email: Joi.string()
+  identifier: Joi.string()
     .required()
     .email()
     .pattern(emailPattern)

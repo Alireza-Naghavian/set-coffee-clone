@@ -13,7 +13,7 @@ function MobileTabBar() {
           <HiOutlineBuildingStorefront size={24} className="" />
           <span className="font-Shabnam_B text-base">فروشگاه</span>
         </div>
-        <Link className="child:sm:text-base child:text-sm" href={"/homemad"}>
+        <Link className="child:sm:text-base child:text-sm" href={"/register-login"}>
           <RiUser3Line size={24} />
           <span className="font-Shabnam_B text-base">
             <span>حساب</span>&nbsp;

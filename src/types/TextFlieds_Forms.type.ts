@@ -1,3 +1,14 @@
+import { Message, Validate, ValidationRule } from "react-hook-form"
+
+export type RegisterOptions = Partial<{
+  required?: Message | ValidationRule<boolean>
+  min?: ValidationRule<number | string>
+  max?: ValidationRule<number | string>
+  maxLength?: ValidationRule<number | string>
+  minLength?: ValidationRule<number | string>
+  pattern?: ValidationRule<RegExp>
+  validate?:   Record<string, any>
+}>
 export type TextFieldType = {
   label?: string;
   type: string;
@@ -9,4 +20,7 @@ export type TextFieldType = {
   size?: "mediumSize" | "largeSize"
   variant: "outLine" | "borderFill" | "rounded";
   labelVariant?: "boldSize" | "thinSize";
+  register : any
+  errors:any
+  validattionschema:RegisterOptions
 } & React.ComponentProps<"input">;

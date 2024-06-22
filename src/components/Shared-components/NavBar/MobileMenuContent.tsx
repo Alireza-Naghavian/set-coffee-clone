@@ -5,6 +5,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { LuUser2 } from "react-icons/lu";
 import { subMenuTitles } from "./DesktopMenu";
+import styles  from "./Navbar.module.css"
+import Link from "next/link";
 function MobileMenuContent() {
   return (
     <ul className="mobile-menu-wrapper min-h-screen overflow-y-auto">
@@ -40,7 +42,9 @@ function MobileMenuContent() {
         <NavItem label="درباره ما" />
         <NavItem label="لیست علاقه مندی ها" icon={<FaRegHeart />} />
         <NavItem label="مقایسه" icon={<FaShuffle />} />
+        <Link className={`flex items-center relative gap-x-px ${styles.hasSubMenu} `} href={"/register-login"}>
         <NavItem label="عضویت/ورورد" icon={<LuUser2 />} />
+        </Link>
       </ul>
     </ul>
   );
