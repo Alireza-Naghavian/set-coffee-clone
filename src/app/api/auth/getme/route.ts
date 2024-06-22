@@ -20,7 +20,6 @@ export const GET = async () => {
           "-password -refreshToken -__v"
         );
       }
-      console.log(user);
       return Response.json({ message: user }, { status: 200 });
     }
   } catch (error) {
