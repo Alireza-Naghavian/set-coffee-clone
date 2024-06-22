@@ -1,5 +1,4 @@
 import dbConnection from "@/dbConfigs/db";
-import sendOtpModel from "@/models/user/sendOtp";
 import UserModel from "@/models/user/user";
 import { sendOtpSchema } from "@/utils/validator/user/userValidator";
 import axios from "axios";
@@ -16,7 +15,7 @@ export const POST = async (req: Request) => {
     const { phoneNumber }: PhoneNumberType = body;
     await sendOtpSchema.validateAsync(body);
     const isUserExist = await UserModel.findOne({
-      phoneNumber: phoneNumber,
+      phoneNumber,
     });
 
     if (!isUserExist)
@@ -43,7 +42,7 @@ export const POST = async (req: Request) => {
         return Response.json(
           {
             message: `کد تایید برای شماره موبایل ${phoneNumber} ارسال گردید`,
-            // data: ` زمان منفضی:${CODE_EXPIRES} \n شماره:${phoneNumber}`,
+            data: phoneNumber,
           },
           { status: HttpStatus.OK }
         );
@@ -56,17 +55,22 @@ export const POST = async (req: Request) => {
         );
       });
 
-    await sendOtpModel.create({
-      phoneNumber,
-      expTime: CODE_EXPIRES,
-    });
-    return Response.json(
-        {
-          message: `کد تایید برای شماره موبایل ${phoneNumber} ارسال گردید`,
-          // data: ` زمان منفضی:${CODE_EXPIRES} \n شماره:${phoneNumber}`,
+    await UserModel.findOneAndUpdate(
+      { _id: isUserExist._id },
+      {
+        $set: {
+          phoneNumber,
+          expTime: CODE_EXPIRES,
         },
-        { status: HttpStatus.OK }
-      );
+      }
+    );
+    return Response.json(
+      {
+        message: `کد تایید برای شماره موبایل ${phoneNumber} ارسال گردید`,
+        data: phoneNumber,
+      },
+      { status: HttpStatus.OK }
+    );
   } catch (error) {
     console.log(error);
     return Response.json(

@@ -33,15 +33,15 @@ export const POST = async (req: Request) => {
     const headers = new Headers();
     headers.append(
       "Set-Cookie",
-      `SetCoffeeToken=${accessToken};path=/;httpOnly=true`
+      `SetCoffeeToken=${accessToken};Path=/; HttpOnly; Max-Age=43200`
     );
     headers.append(
       "Set-Cookie",
-      `refresh-token=${refreshToken};path=/;httpOnly=true;`
+      `refresh-token=${refreshToken};Path=/; HttpOnly; Max-Age=1296000`
     );
     return Response.json({
       message:"شما با موفقیت وارد شدید"
-    })
+    },{status:200,headers})
   } catch (error: any) {
     return Response.json(
       { message: `خطای سمت سرور => `, error },

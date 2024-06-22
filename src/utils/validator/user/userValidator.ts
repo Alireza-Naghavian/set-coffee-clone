@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
 import Joi from "joi";
 const pattern =
-  /(0|\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/;
+  /^(\\+98|0)?9[0-9]{9}$/;
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const signUpUserSchema = Joi.object().keys({
   userName: Joi.string()
@@ -86,4 +86,23 @@ export const sendOtpSchema = Joi.object().keys({
       "string.pattern.base": "شماره موبایل معبتر نمی باشد",
     })
     .error(createHttpError.BadRequest("شماره موبایل معتبر نمی باشد")),
+});
+export const checkOtpSchema = Joi.object().keys({
+  phoneNumber: Joi.string()
+    .pattern(pattern)
+    .required()
+    .messages({
+      "any.required": "شماره موبایل الزامی است",
+      "string.empty": `شماره موبایل الزامی است`,
+      "string.pattern.base": "شماره موبایل معبتر نمی باشد",
+    })
+    .error(createHttpError.BadRequest("شماره موبایل معتبر نمی باشد")),
+  code: Joi.string()
+    .required()
+    .max(6)
+    .messages({
+      "any.required": "کد تایید الزامی است",
+      "string.max": "حداکثر ۶ کاراکتر",
+    })
+    .error(createHttpError.BadRequest("کد تایید معتبر نمی باشد")),
 });
