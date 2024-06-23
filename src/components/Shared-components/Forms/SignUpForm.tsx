@@ -5,7 +5,7 @@ import Link from "next/link";
 function SignUpForm() {
   return (
     <div className=" px-4 py-2  mt-4">
-    <form className="flex flex-col gap-y-4 ">
+    {/* <form className="flex flex-col gap-y-4 ">
       <MainTextField
         id="name"
         name="name"
@@ -41,7 +41,7 @@ function SignUpForm() {
       <MainBtn variant="primary" type="submit" size="medium">
         ثبت نام
       </MainBtn>
-    </form>
+    </form> */}
   </div>
   );
 }
