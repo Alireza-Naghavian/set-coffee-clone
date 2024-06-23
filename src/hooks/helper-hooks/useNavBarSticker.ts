@@ -17,7 +17,7 @@ const useNavBarSticker = (scrollNumber: number) => {
 
     window.addEventListener("scroll", fixOnTopHandler);
     return () => window.removeEventListener("scroll", fixOnTopHandler);
-  }, [fixTop]);
+  }, [fixTop,scrollNumber]);
   return { fixTop };
 };
 export default useNavBarSticker;

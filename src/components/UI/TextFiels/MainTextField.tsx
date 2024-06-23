@@ -9,7 +9,7 @@ const inputGroup = cva(" focus:outline-none font-Shabnam w-full text-right", {
       rounded: "bg-white border-2 border-black/55 text-[#777777] rounded-lg",
     },
     size: {
-      mediumSize: "h-[42px] max-w-[310px] py-5 px-4 text-base leading-[22px]",
+      mediumSize: "h-[42px]  py-5 px-4 text-base leading-[22px]",
       largeSize: "h-[50px] py-[12px] px-5 text-lg leading-6",
     },
     labelVariant: {
@@ -36,7 +36,10 @@ function MainTextField({
   id,
   variant = "outLine",
   labelVariant = "boldSize",
+  register,
   size,
+  validattionschema,
+  errors,
 }: TextFieldType) {
   return (
     <div className="flex flex-col gap-y-2">
@@ -45,6 +48,7 @@ function MainTextField({
         <span className="text-red-500">*</span>
       </label>
       <input
+        {...register(name, validattionschema)}
         id={id}
         value={value}
         name={name}
@@ -52,6 +56,11 @@ function MainTextField({
         placeholder={placeHolder}
         className={inputGroup({ variant, size, className, labelVariant })}
       />
+      {errors && errors[name] && (
+        <span className="text-red-500 block text-sm mt-1">
+          {errors[name]?.message}
+        </span>
+      )}
     </div>
   );
 }
