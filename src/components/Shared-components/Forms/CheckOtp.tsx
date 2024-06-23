@@ -33,9 +33,6 @@ function CheckOtp({
   const { replace } = useRouter();
   const { handleSubmit } = useForm();
   const { signInWithOtp } = useSignInWithOtp();
-  console.log(minutes);
-  console.log(seconds);
-  console.log(isActive);
   const resendCodeHandler = async () => {
     try {
       await signInWithOtp(

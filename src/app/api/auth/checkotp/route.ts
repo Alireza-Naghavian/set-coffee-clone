@@ -45,7 +45,6 @@ export const POST = async (req: Request) => {
     const accessToken = generateAccessToken({ tokenPayload });
     const refreshToken = generateRefreshToken({ tokenPayload });
     const headers = new Headers();
-
     if (user.isActive) {
       headers.append(
         "Set-Cookie",
@@ -57,7 +56,7 @@ export const POST = async (req: Request) => {
       );
       return Response.json(
         { message: "ورود با موفقیت انجام شد" },
-        { status: 200,headers }
+        { status: 200,headers}
       );
     } else {
       await UserModel.findOneAndUpdate(
