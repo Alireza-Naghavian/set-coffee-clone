@@ -1,7 +1,7 @@
 import dbConnection from "@/dbConfigs/db";
 import UserModel from "@/models/user/user";
 import { UserType } from "@/types/models/user.type";
-import { generateAccessToken, hashPassword } from "@/utils/auth/auth";
+import { hashPassword } from "@/utils/auth/auth";
 import { signUpUserSchema } from "@/utils/validator/user/userValidator";
 import axios from "axios";
 import { StatusCodes as HttpStatus } from "http-status-codes";

@@ -10,22 +10,22 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
+type LoginForEntriesType = {
+  setSendOtp: SetState<boolean>;
+  setIdentifier: SetState<string>;
+  setIsCartOpen?: SetState<boolean> | undefined;
+  startCountDown: () => void;
+};
 function LoginForm({
   setSendOtp,
   setIdentifier,
   setIsCartOpen,
-  startCountDown
-}: {
-  setSendOtp: SetState<boolean>;
-  setIdentifier: SetState<string >;
-  setIsCartOpen?:SetState<boolean>|undefined
-  startCountDown:()=>void
-}) {
+  startCountDown,
+}: LoginForEntriesType) {
   const { isPending, signIn } = useSignInwithEmail();
   const [loginWIthOtp, setLoginWIthOtp] = useState<boolean>(false);
   const { isPending: isOtpLoading, signInWithOtp } = useSignInWithOtp();
-  const { replace ,refresh } = useRouter();
+  const { replace, refresh } = useRouter();
   const {
     register,
     reset,
@@ -41,8 +41,8 @@ function LoginForm({
         await signIn(data, {
           onSuccess: () => {
             replace("/");
-            refresh()
-            setIsCartOpen && setIsCartOpen(false)
+            refresh();
+            setIsCartOpen && setIsCartOpen(false);
             reset();
           },
         });
