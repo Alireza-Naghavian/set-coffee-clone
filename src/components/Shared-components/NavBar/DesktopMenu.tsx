@@ -72,7 +72,7 @@ function DesktopMenu() {
             isOpen ? "translate-x-[0rem]" : "translate-x-[-40rem]"
           }`}
         >
-          <AsideUserContainer setIsCartOpen={close} />
+          <AsideUserContainer isOpen={isOpen} setIsCartOpen={close} />
         </div>
         {/* user aside */}
         {/* sideBarBasket aside */}

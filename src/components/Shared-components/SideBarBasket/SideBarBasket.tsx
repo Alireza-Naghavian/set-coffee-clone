@@ -4,6 +4,7 @@ import React from "react";
 import { IoIosClose } from "react-icons/io";
 export type SideBarBasketType = {
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen?:boolean
 };
 function SideBarBasket({ setIsCartOpen }: SideBarBasketType) {
   return (

@@ -70,6 +70,7 @@ export const POST = async (req: Request) => {
           status: 201,
           headers: {
             "Set-Cookie": `SetCoffeeToken=${accessToken};Path=/; HttpOnly; Max-Age=43200`,
+            
           },
         }
       );

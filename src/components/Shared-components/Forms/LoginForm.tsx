@@ -14,16 +14,21 @@ import { toast } from "react-toastify";
 function LoginForm({
   setSendOtp,
   setIdentifier,
+  setIsCartOpen,
+  startCountDown
 }: {
   setSendOtp: SetState<boolean>;
   setIdentifier: SetState<string >;
+  setIsCartOpen?:SetState<boolean>|undefined
+  startCountDown:()=>void
 }) {
   const { isPending, signIn } = useSignInwithEmail();
   const [loginWIthOtp, setLoginWIthOtp] = useState<boolean>(false);
-  const { isPending: isOtpLoadin, signInWithOtp } = useSignInWithOtp();
-  const { replace } = useRouter();
+  const { isPending: isOtpLoading, signInWithOtp } = useSignInWithOtp();
+  const { replace ,refresh } = useRouter();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormType>();
@@ -36,6 +41,9 @@ function LoginForm({
         await signIn(data, {
           onSuccess: () => {
             replace("/");
+            refresh()
+            setIsCartOpen && setIsCartOpen(false)
+            reset();
           },
         });
       } catch (error: any) {
@@ -48,6 +56,8 @@ function LoginForm({
           { identifier },
           {
             onSuccess: () => {
+              reset();
+              startCountDown();
               setSendOtp(true);
               setIdentifier(identifier);
             },
@@ -130,9 +140,9 @@ function LoginForm({
           size="medium"
           variant="primary"
         >
-          {isOtpLoadin ? (
+          {isOtpLoading ? (
             <Loader
-              loadingCondition={isOtpLoadin}
+              loadingCondition={isOtpLoading}
               className={"font-extrabold text-lg "}
             />
           ) : (

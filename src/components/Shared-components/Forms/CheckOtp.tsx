@@ -2,15 +2,55 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import useCheckOtpCode from "@/hooks/authHooks/useCheckOtpCode";
+import useSignInWithOtp from "@/hooks/authHooks/useSignInWithOtp";
+import { SetState } from "@/types/global.type";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import OTPInput from "react-otp-input";
 import { toast } from "react-toastify";
-function CheckOtp({ identifier }: { identifier: string }) {
+
+type CheckOtpType = {
+  setIsCartOpen?: SetState<boolean>;
+  identifier: string;
+  isOpen?: boolean | undefined;
+  isActive?: boolean;
+  minutes?: number;
+  seconds?: number;
+  startCountDown: () => void;
+};
+
+function CheckOtp({
+  identifier,
+  isOpen,
+  setIsCartOpen,
+  isActive,
+  minutes,
+  seconds,
+  startCountDown,
+}: CheckOtpType) {
   const [otp, setOtp] = useState("");
   const { replace } = useRouter();
   const { handleSubmit } = useForm();
+  const { signInWithOtp } = useSignInWithOtp();
+  console.log(minutes);
+  console.log(seconds);
+  console.log(isActive);
+  const resendCodeHandler = async () => {
+    try {
+      await signInWithOtp(
+        { identifier },
+        {
+          onSuccess: () => {
+            startCountDown();
+          },
+        }
+      );
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   const { checkOtp, isPending } = useCheckOtpCode();
   const checkOtpHandler = async () => {
     try {
@@ -19,6 +59,8 @@ function CheckOtp({ identifier }: { identifier: string }) {
         {
           onSuccess: () => {
             replace("/");
+            setOtp("");
+            setIsCartOpen && setIsCartOpen(false);
           },
         }
       );
@@ -27,8 +69,12 @@ function CheckOtp({ identifier }: { identifier: string }) {
     }
   };
   return (
-    <div className="flex-col flex gap-y-8 ">
-      <div className="w-[380px] form-wrapper  h-[420px] shadow-md mx-auto bg-white py-12">
+    <div className="flex-col flex gap-y-8  ">
+      <div
+        className={`${
+          isOpen ? "w-full" : "w-[380px]"
+        } form-wrapper  h-[420px] shadow-md mx-auto   bg-white py-12`}
+      >
         <p className="text-[18px] font-Shabnam_M text-main text-center">
           کد تایید
         </p>
@@ -79,16 +125,33 @@ function CheckOtp({ identifier }: { identifier: string }) {
               "ثبت کد تایید"
             )}
           </MainBtn>
-          <p className="mt-6 flex-center  ">
-            <button className="text-sm  text-main font-Shabnam_M text-center">
-              ارسال مجدد کد تایید
-            </button>
-          </p>
-          <p className="mt-6  flex-center gap-x-2  child:text-main_brown child:text-xs child:font-Shabnam_M ">
-            <span>02:12</span>
+
+          <p
+            className={`${
+              !isActive && "!hidden"
+            } mt-6  flex-center gap-x-2  child:text-main_brown child:text-xs child:font-Shabnam_M `}
+          >
+            <span>
+              {seconds && seconds < 10 ? `0${seconds}` : seconds} :
+              {minutes && minutes < 10 ? `0${minutes}` : minutes}
+            </span>
             <span>مانده تا ارسال مجدد</span>
           </p>
         </form>
+        <p
+          className={`mt-6 text-center mx-auto w-full  ${
+            isActive ? "!hidden" : "!flex-center"
+          } `}
+        >
+          <button
+            onClick={() => {
+              resendCodeHandler();
+            }}
+            className={`text-sm  text-main font-Shabnam_M text-center`}
+          >
+            ارسال مجدد کد تایید
+          </button>
+        </p>
       </div>
     </div>
   );
