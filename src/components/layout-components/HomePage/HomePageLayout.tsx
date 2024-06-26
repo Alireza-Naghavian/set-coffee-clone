@@ -3,6 +3,9 @@ import ProductCard from "@/components/Shared-components/ProductCard/ProductCard"
 import HeaderTitle from "@/components/UI/HeaderTitle/HeaderTitle";
 import Swiper from "@/components/UI/Swiper/Swiper";
 import WhySetCoffee from "@/components/UI/WhySetCoffee/WhySetCoffee";
+import dbConnection from "@/dbConfigs/db";
+import CategoryModel from "@/models/categories&products/categories";
+import ProductModel from "@/models/categories&products/product";
 import Image from "next/image";
 const productData = {
   cover: "/images/sample.jpeg",
@@ -12,10 +15,10 @@ const productData = {
 // *
 // using useTrasintion for set priority of rendering defferent data of this page
 // *
-function HomePageLayout() {
+ async function HomePageLayout() {
+  
   return (
     <>
-    
       <div className="w-full">
         <Swiper />
       </div>

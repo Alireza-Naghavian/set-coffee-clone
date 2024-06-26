@@ -37,9 +37,9 @@ const verifyAccessToken = (token: any) => {
 };
 
 const generateRefreshToken = (data: any) => {
-  if (!process?.env?.AccessTokenSecretKey) return null;
+  if (!process?.env?.RefreshTokenSecreKey) return null;
 
-  const token = sign({ ...data }, process.env.AccessTokenSecretKey, {
+  const token = sign({ ...data }, process.env.RefreshTokenSecreKey, {
     expiresIn: "15d",
   });
   return token;
