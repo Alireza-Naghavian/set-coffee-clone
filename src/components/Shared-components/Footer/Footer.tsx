@@ -9,7 +9,7 @@ function Footer() {
   const pathName = usePathname();
   if(pathName === "/register-login") return
   return (
-    <footer className="bg-[#111111] mt-20 w-full">
+    <footer className="bg-[#111111] mt-20  w-full">
       <div className="lg:container  lg:px-8  md:px-12 px-4">
         <div
           className="grid lg:grid-cols-4 lg:gap-y-0 gap-y-8 sm:grid-cols-2 py-10 my-auto

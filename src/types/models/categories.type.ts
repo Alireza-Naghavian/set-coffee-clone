@@ -13,6 +13,7 @@ export type SingleProductType = {
   tags: string[];
   score?: number;
   category: typeof mongoose.Types.ObjectId;
+  _id?:string
 };
 
 export type categoriesType = {

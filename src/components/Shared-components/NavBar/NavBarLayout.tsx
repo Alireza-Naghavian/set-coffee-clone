@@ -14,8 +14,7 @@ function NavBarLayout() {
       <div className=" flex justify-center   ">
         <nav
           className={`${
-            fixTop ? styles.navbar_fixed : `${styles.navbar}  !bg-white    `
-          }`}
+            fixTop ? styles.navbar_fixed : `${styles.navbar}  !bg-white shadow-md`}`}
         >
            
           <NavBarContent />

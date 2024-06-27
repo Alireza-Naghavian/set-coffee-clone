@@ -3,51 +3,54 @@ import ProductCard from "@/components/Shared-components/ProductCard/ProductCard"
 import HeaderTitle from "@/components/UI/HeaderTitle/HeaderTitle";
 import Swiper from "@/components/UI/Swiper/Swiper";
 import WhySetCoffee from "@/components/UI/WhySetCoffee/WhySetCoffee";
-import dbConnection from "@/dbConfigs/db";
-import CategoryModel from "@/models/categories&products/categories";
-import ProductModel from "@/models/categories&products/product";
+import {
+  SingleProductType,
+  categoriesType,
+} from "@/types/models/categories.type";
 import Image from "next/image";
-const productData = {
-  cover: "/images/sample.jpeg",
-  title: "دانه قهوه کلمبیا بدون کافئین (Decaf)مقدار ۲۵۰گرم ",
-  price: 149000,
-};
-// *
-// using useTrasintion for set priority of rendering defferent data of this page
-// *
- async function HomePageLayout() {
-  
+
+interface FilteredProdouctsType extends categoriesType {
+  productCount?: number;
+}
+async function HomePageLayout({
+  filteredProdoucts,
+}: {
+  filteredProdoucts: FilteredProdouctsType[];
+}) {
+
   return (
     <>
       <div className="w-full">
         <Swiper />
       </div>
-      {/* below code have to change in unit compontent */}
       <div className="mt-[70px]">
-        <HeaderTitle title="انواع قهوه" subTitle={"coffee"} />
+        <HeaderTitle
+          title={filteredProdoucts[0]?.title}
+          subTitle={"Coffee Capsule"}
+        />
         <div className="mt-5 ">
           <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
+            {filteredProdoucts[0].products
+              .slice(0, 10)
+              .map((product: SingleProductType) => {
+                return <ProductCard key={product?._id} productData={product} />;
+              })}
           </div>
         </div>
       </div>
 
       <div className="mt-[70px]">
         <HeaderTitle
-          title="کپسول های SETPRESSO"
-          subTitle={"سازگار با دستگاه نسپرسو"}
+          title={filteredProdoucts[1].title}
+          subTitle={"قهوه تجاری"}
         />
         <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6">
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
+          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+            {filteredProdoucts[1].products
+              .slice(0, 10)
+              .map((product: SingleProductType) => {
+                return <ProductCard key={product?._id} productData={product} />;
+              })}
           </div>
         </div>
       </div>
@@ -64,14 +67,17 @@ const productData = {
         </div>
       </div>
       <div className="mt-[70px]">
-        <HeaderTitle title="یک کیلویی ها" subTitle={"فروش سازمانی"} />
+        <HeaderTitle
+          title={filteredProdoucts[2].title}
+          subTitle={"قهوه ممتاز"}
+        />
         <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6">
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
-            <ProductCard productData={productData} />
+          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+            {filteredProdoucts[2].products
+              .slice(0, 10)
+              .map((product: SingleProductType) => {
+                return <ProductCard key={product?._id} productData={product} />;
+              })}
           </div>
         </div>
       </div>
