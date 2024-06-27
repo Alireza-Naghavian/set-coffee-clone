@@ -18,6 +18,7 @@ export default async function Home() {
       $project: {
         title: 1,
         productCount: 1,
+        "products._id":1,
         "products.score": 1,
         "products.price": 1,
         "products.cover": 1,
