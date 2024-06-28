@@ -1,0 +1,48 @@
+import { SetState } from "@/types/global.type";
+import React from "react";
+type TabSelectionType = {
+  comments: string;
+  moreDetail: string;
+  desc: string;
+  setActiveTab: SetState<string>;
+  children: React.ReactNode;
+  activeTab: string;
+};
+function TabSelection({
+  desc,
+  moreDetail,
+  comments,
+  setActiveTab,
+  children,
+  activeTab,
+}: TabSelectionType) {
+  return (
+    <div className="relative !w-[90%] mx-auto ">
+      {/* tab header */}
+      <div
+        className="flex-center gap-x-16 border-b-2
+       w-full pb-2 child:font-Shabnam_B child:text-[#777777]">
+        <button
+          className={`${activeTab == desc && "!text-main_green"}`}
+          onClick={() => setActiveTab(desc)}>
+          توضیحات
+        </button>
+        <button
+          className={`${activeTab == moreDetail && "!text-main_green"}`}
+          onClick={() => setActiveTab(moreDetail)}>
+          اطلاعات بیشتر
+        </button>
+        <button
+          className={`${activeTab == comments && "!text-main_green"}`}
+          onClick={() => setActiveTab(comments)}>
+          <span> نظرات </span>
+          <span>(58)</span>
+        </button>
+      </div>
+      {/* this part must be reponse in many mediaQueries */}
+      <div className="">{children}</div>
+    </div>
+  );
+}
+
+export default TabSelection;

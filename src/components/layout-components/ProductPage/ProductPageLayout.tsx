@@ -1,10 +1,17 @@
+"use client";
+import ProductComments from "@/components/Shared-components/ProductDetails/ProductComments";
+import ProductDescription from "@/components/Shared-components/ProductDetails/ProductDescription";
+import ProductShortDetail from "@/components/Shared-components/ProductDetails/ProductShortDetail";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
+import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
+import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import Image from "next/image";
+import { useState } from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
-
 function ProductPageLayout() {
+  const [activeTab, setActiveTab] = useState<string>("comments");
   return (
     <div className="relative">
       <div className=" w-[95%] mx-auto relative  sm:px-8 px-2  mt-[180px] ">
@@ -74,21 +81,40 @@ function ProductPageLayout() {
             </div>
             {/* tegs & category title */}
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
-              <p className="flex gap-x-2 items-center  text-main text-right">
+              <div className="flex gap-x-2 items-center  text-main text-right">
                 <p className="font-Shabnam_B">دسته :</p>
                 <p className="text-sm  mt-1">
                   Premium Coffee, قهوه, محصولات ویژه, همه موارد
                 </p>
-              </p>
-              <p className="flex gap-x-2 items-center  text-main text-right">
+              </div>
+              <div className="flex gap-x-2 items-center  text-main text-right">
                 <p className="font-Shabnam_B">برچسب :</p>
                 <p className="text-sm  mt-1">
                   انواع دانه قهوه،قهوه ترکیبی،قهوه ست،قهوه اسپرسو،قهوه روبوستا
                   برزیل،قهوه عربیکا برزیل،قهوه بلند،بهترین ترکیب عربیکا و
                   روبوستا
                 </p>
-              </p>
+              </div>
             </div>
+          </div>
+        </div>
+        <div className="mt-24">
+          <TabSelection
+            comments="comments"
+            desc="desc"
+            moreDetail="moreDetail"
+            setActiveTab={setActiveTab}
+            activeTab={activeTab}>
+            {
+              activeTab === "desc" ? 
+              <ProductDescription/>
+              : activeTab === "moreDetail" ? 
+              <ProductShortDetail/>
+              : <ProductComments/> 
+            }
+          </TabSelection>
+          <div className="mt-16">
+            <RelateProductSlider/>
           </div>
         </div>
       </div>

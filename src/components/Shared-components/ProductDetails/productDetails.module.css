@@ -1,0 +1,3 @@
+.commentSectionWrapper{
+    @apply grid w-full h-full grid-cols-2 px-4 gap-x-2 mt-4 child:px-1 child:py-2
+}
