@@ -11,7 +11,7 @@ import { useState } from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 function ProductPageLayout() {
-  const [activeTab, setActiveTab] = useState<string>("comments");
+  const [activeTab, setActiveTab] = useState<string>("desc");
   return (
     <div className="relative">
       <div className=" w-[95%] mx-auto relative  sm:px-8 px-2  mt-[180px] ">
@@ -104,17 +104,19 @@ function ProductPageLayout() {
             desc="desc"
             moreDetail="moreDetail"
             setActiveTab={setActiveTab}
-            activeTab={activeTab}>
-            {
-              activeTab === "desc" ? 
-              <ProductDescription/>
-              : activeTab === "moreDetail" ? 
-              <ProductShortDetail/>
-              : <ProductComments/> 
-            }
+            activeTab={activeTab}
+          >
+            {activeTab === "desc" ? (
+              <ProductDescription />
+            ) : activeTab === "moreDetail" ? (
+              <ProductShortDetail />
+            ) : (
+              <ProductComments />
+            )}
           </TabSelection>
-          <div className="mt-16">
-            <RelateProductSlider/>
+          <div className="mt-16 px-[70px]">
+            <p className="text-2xl font-Shabnam_B text-dark_shade mb-8">محصولات مرتبط</p>
+            <RelateProductSlider />
           </div>
         </div>
       </div>

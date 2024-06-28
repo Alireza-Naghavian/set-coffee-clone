@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./productDetails.module.css";
 import Image from "next/image";
-import { FaStar } from "react-icons/fa";
+import { FaChevronCircleDown, FaChevronDown, FaStar } from "react-icons/fa";
 import CommentForm from "../Forms/CommentForm";
+import MainBtn from "@/components/UI/Buttons/MainBtn";
 function ProductComments() {
   return (
     <>
@@ -19,6 +20,12 @@ function ProductComments() {
             <CommentCard />
             <CommentCard />
     
+          </div>
+          <div className="  mr-4 mt-2  flex-center">
+            <MainBtn size="small"  variant="roundedSecondary"  className="flex items-center justify-center gap-x-2">
+              <span>مشاهده بیشتر</span>
+              <FaChevronDown/>
+            </MainBtn>
           </div>
         </div>
         <div className="w-full  ">

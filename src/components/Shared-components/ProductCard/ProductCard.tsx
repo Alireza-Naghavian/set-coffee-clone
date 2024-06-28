@@ -33,7 +33,8 @@ const ProductCardHeader = ({
         <div className=" flex-center h-full w-full relative ">
           <div
             className=" bg-transparent child:text-white border
-                       border-white  indent-0 relative  mx-auto  !my-auto ">
+                       border-white  indent-0 relative  mx-auto  !my-auto "
+          >
             <button className={`${styles["add-to-cart-btn"]}`}>
               <span className={`${styles["add-to-basket-text"]}`}>
                 افزودن به سبد خرید

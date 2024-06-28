@@ -1,32 +1,59 @@
 import ProductCard from "@/components/Shared-components/ProductCard/ProductCard";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { SingleProductType } from "@/types/models/categories.type";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./swiper-bundle.min.css";
+import "./swiper.css";
+const productData: SingleProductType = {
+  cover: "/images/sample.jpeg",
+  title: "دانه قهوه کلمبیا بدون کافئین (Decaf)مقدار ۲۵۰گرم ",
+  price: 149000,
+  category: "",
+  longDesc: "",
+  shortDesc: "",
+  smell: "",
+  suitableFor: "",
+  tags: "",
+  weight: "",
+  score: 5,
+};
 function RelateProductSlider() {
   return (
     <div className="relative">
-      <div className="!h-full relative !w-full">
+      <div className=" relative ">
         <Swiper
           slidesPerView={4}
           loop={false}
           navigation={true}
-          pagination={true}
-          autoplay={{
-            delay: 4500,
-            disableOnInteraction: false,
-          }}
-          modules={[Autoplay, Navigation, Pagination]}
+          pagination={{ clickable: true }}
+          spaceBetween={0}
+
+          modules={[ Navigation, Pagination]}
         >
           <SwiperSlide>
-            <ProductCard productData={}/>
+            <ProductCard productData={productData} />
           </SwiperSlide>
-          <SwiperSlide></SwiperSlide>
-          <SwiperSlide></SwiperSlide>
-          <SwiperSlide></SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard productData={productData} />
+          </SwiperSlide>
         </Swiper>
       </div>
     </div>

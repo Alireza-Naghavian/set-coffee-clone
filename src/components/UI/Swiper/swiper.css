@@ -1,0 +1,8 @@
+:root{
+    --swiper-navigation-size : 28px !important;
+    --swiper-theme-color: #242424 !important
+}
+.swiper-pagination{
+    position: relative !important;
+    margin-top: 25px;
+}
