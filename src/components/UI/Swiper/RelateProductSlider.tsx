@@ -27,6 +27,7 @@ function RelateProductSlider() {
           navigation={true}
           pagination={{ clickable: true }}
 
+          
           breakpoints={{
             "320": {
                 slidesPerView:1,
