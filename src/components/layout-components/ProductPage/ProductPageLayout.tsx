@@ -6,18 +6,20 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
 import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
+import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
 import Image from "next/image";
 import { useState } from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 function ProductPageLayout() {
   const [activeTab, setActiveTab] = useState<string>("desc");
+  const isDesktop = useMediaQuery("(min-width:820px)");
   return (
     <div className="relative">
-      <div className=" w-[95%] mx-auto relative  sm:px-8 px-2  mt-[180px] ">
-        <div className="flex  w-full gap-x-2 ">
+      <div className={`w-[95%] relative mx-auto  sm:px-8 px-2 ${isDesktop ? "lg:mt-[180px]" : "mt-[20px] "}`}>
+        <div className={` flex   w-full gap-x-2 ${isDesktop ? "" :"!flex-col justify-center items-center"}`}>
           {/* right side */}
-          <div className="w-[35%] h-full flex">
+          <div className={` h-full flex${ isDesktop ? "w-[35%] " : " w-[70%]"}`}>
             <Image
               width={1280}
               height={720}
@@ -27,7 +29,7 @@ function ProductPageLayout() {
             />
           </div>
           {/* left side */}
-          <div className="flex-col flex items-end   w-[65%]   ">
+          <div className={`sm:mt-0 flex  flex-col  mt-8${isDesktop ? "  items-end  w-[65%]" : "  w-full flex flex-col gap-y-6  "}`}>
             {/* breadcrumb */}
             <Breadcrumb
               firstTarget={"/"}
@@ -39,7 +41,7 @@ function ProductPageLayout() {
             />
             {/* product title & short desc */}
 
-            <div className="mt-6 child:font-Shabnam_B child:text-3xl child:text-right ml-auto  child:tracking-tight">
+            <div className="sm:mt-8 mt-10  child:font-Shabnam_B  child:text-2xl sm:child:text-3xl child:text-right ml-auto  child:tracking-tight">
               <h1>پودر قهوه ترک ویژه عربیکا ۷۰ درصد مقدار ۲۵۰ گرم</h1>
             </div>
             {/* product rate */}
@@ -52,7 +54,7 @@ function ProductPageLayout() {
             </div>
             {/* short desc */}
             <div className="w-full mt-4 border-b-2 pb-4 ">
-              <div className="flex max-w-[700px]  max-h-[200px] w-full">
+              <div className="flex max-w-[700px]  sm:max-h-[200px] w-full">
                 <p className="w-full h-full text-justify text-[#777777]">
                   شاید یکی از سنتی‌ترین روش مصرف قهوه در ایران استفاده از قهوه
                   آسیاب شده به صورت کاملا پودر و ظرف قهوه جوش ،جذوه، بر روی
@@ -87,13 +89,13 @@ function ProductPageLayout() {
                   Premium Coffee, قهوه, محصولات ویژه, همه موارد
                 </p>
               </div>
-              <div className="flex gap-x-2 items-center  text-main text-right">
-                <p className="font-Shabnam_B">برچسب :</p>
-                <p className="text-sm  mt-1">
+              <div className="flex gap-x-4 lg:gap-x-2 items-center  text-main text-right">
+                <span className="font-Shabnam_B">برچسب </span>
+                <span className="text-sm  lg:mt-1">
                   انواع دانه قهوه،قهوه ترکیبی،قهوه ست،قهوه اسپرسو،قهوه روبوستا
                   برزیل،قهوه عربیکا برزیل،قهوه بلند،بهترین ترکیب عربیکا و
                   روبوستا
-                </p>
+                </span>
               </div>
             </div>
           </div>
@@ -114,7 +116,7 @@ function ProductPageLayout() {
               <ProductComments />
             )}
           </TabSelection>
-          <div className="mt-16 px-[70px]">
+          <div className="mt-16 xl:px-[70px]">
             <p className="text-2xl font-Shabnam_B text-dark_shade mb-8">محصولات مرتبط</p>
             <RelateProductSlider />
           </div>

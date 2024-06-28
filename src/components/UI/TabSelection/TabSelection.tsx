@@ -14,21 +14,21 @@ function TabSelection({
   comments,
   setActiveTab,
   children,
-  activeTab,
+  activeTab
 }: TabSelectionType) {
   return (
     <div className="relative !w-[90%] mx-auto ">
       {/* tab header */}
       <div
-        className="flex-center gap-x-16 border-b-2
-       w-full pb-2 child:font-Shabnam_B child:text-[#777777]">
+        className="flex-center gap-x-8 sm:!gap-x-16 border-b-2
+       w-full pb-2 child:font-Shabnam_B child:text-[#777777] sm:text-base  text-sm">
         <button
           className={`${activeTab == desc && "!text-main_green"}`}
           onClick={() => setActiveTab(desc)}>
           توضیحات
         </button>
         <button
-          className={`${activeTab == moreDetail && "!text-main_green"}`}
+          className={`text-nowrap ${activeTab == moreDetail && "!text-main_green"}`}
           onClick={() => setActiveTab(moreDetail)}>
           اطلاعات بیشتر
         </button>

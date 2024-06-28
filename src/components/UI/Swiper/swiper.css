@@ -2,6 +2,12 @@
     --swiper-navigation-size : 28px !important;
     --swiper-theme-color: #242424 !important
 }
+.swiper-button-next{
+    @apply left-0
+}
+.swiper-button-next,.swiper-button-prev{
+    @apply hidden md:block top-32 px-0
+}
 .swiper-pagination{
     position: relative !important;
     margin-top: 25px;

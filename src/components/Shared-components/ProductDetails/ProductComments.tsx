@@ -9,7 +9,7 @@ function ProductComments() {
     <>
       <div className={styles.commentSectionWrapper}>
         {/* comments list */}
-        <div className="w-full  ">
+        <div className="w-full lg:order-1 order-2  ">
           <h4 className="font-Shabnam_B text-[14px]  text-dark_shade mt-2">
             92 دیدگاه برای دانه قهوه CAFFÈ CREMA – CLASSICO (کلاسیک – A70 R30)
           </h4>
@@ -28,7 +28,7 @@ function ProductComments() {
             </MainBtn>
           </div>
         </div>
-        <div className="w-full  ">
+        <div className="w-full lg:order-2 order-1  ">
           <CommentForm/>
         </div>
       </div>
@@ -39,7 +39,7 @@ function ProductComments() {
 const CommentCard = () => {
   return (
     <>
-      <div className="max-h-[105px]  mt-4 flex items-center w-full px-3 py-4 border-b-2 last:border-b-0">
+      <div className="sm:max-h-[105px]  mt-4 flex items-center w-full sm:px-3 sm:py-4 border-b-2 last:border-b-0">
         <div className="py-6 flex items-start w-full  gap-x-4">
           {/* user profile */}
           <div className="w-[80px] h-[80px] pl-2  rounded-full">
@@ -55,8 +55,8 @@ const CommentCard = () => {
           </div>
 
           <div className="flex flex-col w-full justify-center">
-            <div className="flex justify-between w-full flex-wrap">
-              <div className="flex items-start h-full gap-x-2">
+            <div className="flex justify-between w-full gap-y-1 sm:gap-y-0 flex-wrap">
+              <div className="flex items-start h-full flex-wrap gap-y-1 gap-x-2">
                 <span className="font-Shabnam_M text-base text-dark_shade">
                   alirezangh
                 </span>
@@ -77,7 +77,7 @@ const CommentCard = () => {
             </div>
             {/* comment message */}
             <div className="w-full child:text-mute child:font-Shabnam_M max-w-[95%] mt-2">
-              <p className="text-wrap">
+              <p className="text-wrap text-sm sm:text-base">
               این نوع قهوه طعم ترشی نداره و به همین علت برای من بسیار جذابه.عااااالی بود
               </p>
             </div>

@@ -22,13 +22,34 @@ function RelateProductSlider() {
     <div className="relative">
       <div className=" relative ">
         <Swiper
-          slidesPerView={4}
+
           loop={false}
           navigation={true}
           pagination={{ clickable: true }}
-          spaceBetween={0}
 
-          modules={[ Navigation, Pagination]}
+          breakpoints={{
+            "320": {
+                slidesPerView:1,
+                
+              },
+            "500": {
+                slidesPerView:1,
+                
+              },
+            "640": {
+              slidesPerView: 3,
+         
+            },
+            "768": {
+              slidesPerView: 3,
+              spaceBetween: 40,
+            },
+            "1024": {
+              slidesPerView: 4,
+              spaceBetween: 10,
+            },
+          }}
+          modules={[Navigation, Pagination]}
         >
           <SwiperSlide>
             <ProductCard productData={productData} />
