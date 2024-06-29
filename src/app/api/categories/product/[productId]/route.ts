@@ -7,11 +7,9 @@ import { notFound } from "next/navigation";
 export const GET = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const { productId } = params;
+    const { productId  }= params ;
     if (!isValidObjectId(productId)) throw new Error(notFound());
-    const product = await ProductModel.findOne({ _id: productId }, "-__v")
-      .populate("category", "-products -__v")
-      .lean();
+    const product = await ProductModel.findOne({ _id: String(productId) }, "-__v").populate("category","-__v -products").lean()
     return Response.json({ data: product }, { status: 200 });
   } catch (error) {
     return Response.json(

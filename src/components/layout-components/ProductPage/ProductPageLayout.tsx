@@ -6,43 +6,73 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
 import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
+import Loader from "@/components/UI/loader/Loader";
 import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
+import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
-function ProductPageLayout() {
+function ProductPageLayout({}) {
   const [activeTab, setActiveTab] = useState<string>("desc");
-  const isDesktop = useMediaQuery("(min-width:820px)");
+  const isDesktop = useMediaQuery("(max-width:820px)");
+  const { productId }: { productId: string } = useParams();
+  const { product, isProductLoading } = useGetSingleProduct(productId);
+  console.log(product);
   return (
     <div className="relative">
-      <div className={`w-[95%] relative mx-auto  sm:px-8 px-2 ${isDesktop ? "lg:mt-[180px]" : "mt-[20px] "}`}>
-        <div className={` flex   w-full gap-x-2 ${isDesktop ? "" :"!flex-col justify-center items-center"}`}>
+      <div
+        className={`w-[95%] relative mx-auto mt-[10px]  sm:px-8 px-2 ${
+          !isDesktop ? "lg:mt-[180px]" : "mt-[20px] "
+        }`}
+      >
+        <div
+          className={` flex   w-full gap-x-2 ${
+            !isDesktop ? "" : "!flex-col justify-center items-center"
+          }`}
+        >
           {/* right side */}
-          <div className={` h-full flex${ isDesktop ? "w-[35%] " : " w-[70%]"}`}>
-            <Image
-              width={1280}
-              height={720}
-              className="!w-full !h-full object-cover"
-              src={"/uploads/171946837318944-700x700.jpg"}
-              alt=""
-            />
+          <div
+            className={` h-full flex ${!isDesktop ? "!w-[35%] " : " !w-[70%]"}`}>
+            {isProductLoading ? (
+              <div
+                className={`!w-screen !h-screen blur-md ml-4 bg-gray-200 tr-300 ${
+                  isProductLoading ? "opacity-100" : "opacity-0"}`}></div>)
+                   : 
+                   (
+                   <Image
+                width={600}
+                height={600}
+                className="!w-full !h-full !object-cover"
+                src={product?.cover}
+                priority
+                onError={(e) => (e.currentTarget.src = "/images/sample.jpeg")}
+                alt=""
+              />
+            )}
           </div>
           {/* left side */}
-          <div className={`sm:mt-0 flex  flex-col  mt-8${isDesktop ? "  items-end  w-[65%]" : "  w-full flex flex-col gap-y-6  "}`}>
+          <div
+            className={`sm:mt-0 flex  flex-col gap-y-4 mt-8 ${
+              !isDesktop
+                ? "  items-end  w-[65%]"
+                : "  w-full flex flex-col gap-y-8  "
+            }`}
+          >
             {/* breadcrumb */}
             <Breadcrumb
               firstTarget={"/"}
-              secondTarget={"/category"}
-              lastTarget={`/category/productId`}
               firstTitle={"خانه"}
-              secondTitle={"sepecialty coffee"}
-              lastTitle={"پودر قهوه ترک ویژه عربیکا ۷۰ درصد مقدار ۲۵۰ گرم"}
+              secondTarget={`/${product?.category?._id}`}
+              lastTarget={`/category/${product?._id}`}
+              secondTitle={product?.category?.title}
+              lastTitle={product?.title}
             />
             {/* product title & short desc */}
 
-            <div className="sm:mt-8 mt-10  child:font-Shabnam_B  child:text-2xl sm:child:text-3xl child:text-right ml-auto  child:tracking-tight">
-              <h1>پودر قهوه ترک ویژه عربیکا ۷۰ درصد مقدار ۲۵۰ گرم</h1>
+            <div className="sm:mt-8 mt-12  child:font-Shabnam_B  child:text-2xl sm:child:text-3xl child:text-right ml-auto  child:tracking-tight">
+              <h1>{product?.title}</h1>
             </div>
             {/* product rate */}
             <div className="ml-auto mt-6">
@@ -50,20 +80,13 @@ function ProductPageLayout() {
             </div>
             {/* product price */}
             <div className="ml-auto mt-4 child:text-main child:text-2xl child:font-Shabnam_M">
-              <span> 194,500 تومان</span>
+              <span> {product?.price?.toLocaleString("fa-Ir")} تومان</span>
             </div>
             {/* short desc */}
             <div className="w-full mt-4 border-b-2 pb-4 ">
               <div className="flex max-w-[700px]  sm:max-h-[200px] w-full">
                 <p className="w-full h-full text-justify text-[#777777]">
-                  شاید یکی از سنتی‌ترین روش مصرف قهوه در ایران استفاده از قهوه
-                  آسیاب شده به صورت کاملا پودر و ظرف قهوه جوش ،جذوه، بر روی
-                  حرارت باشد که اصطلاحا به آن قهوه ترک گفته می‌شود. در مناطقی
-                  نظیر یونان و یا قبرس و ارمنستان که از جذوه برای تهیه قهوه
-                  استقاده می شود از درصد بالای عربیکا در ترکیباتتشان استفاده می
-                  شود . در تهیه قهوه ویژه جذوه «ست» از دانه‌های مرغوب قهوه که
-                  درصدی در حدود 70 شامل دانه های عربیکا می باشد استفاده شده است
-                  . و مانند قهوه ترک عادی دم آوری می شود
+                {product?.shortDesc}
                 </p>
               </div>
             </div>
@@ -86,15 +109,13 @@ function ProductPageLayout() {
               <div className="flex gap-x-2 items-center  text-main text-right">
                 <p className="font-Shabnam_B">دسته :</p>
                 <p className="text-sm  mt-1">
-                  Premium Coffee, قهوه, محصولات ویژه, همه موارد
+                {product?.category?.title}
                 </p>
               </div>
               <div className="flex gap-x-4 lg:gap-x-2 items-center  text-main text-right">
                 <span className="font-Shabnam_B">برچسب </span>
                 <span className="text-sm  lg:mt-1">
-                  انواع دانه قهوه،قهوه ترکیبی،قهوه ست،قهوه اسپرسو،قهوه روبوستا
-                  برزیل،قهوه عربیکا برزیل،قهوه بلند،بهترین ترکیب عربیکا و
-                  روبوستا
+                  {product?.tags}
                 </span>
               </div>
             </div>
@@ -109,15 +130,17 @@ function ProductPageLayout() {
             activeTab={activeTab}
           >
             {activeTab === "desc" ? (
-              <ProductDescription />
+              <ProductDescription productDesc={product?.longDesc} />
             ) : activeTab === "moreDetail" ? (
-              <ProductShortDetail />
+              <ProductShortDetail smell={product?.smell} suitableFor={product?.suitableFor} weight={product?.weight} />
             ) : (
               <ProductComments />
             )}
           </TabSelection>
           <div className="mt-16 xl:px-[70px]">
-            <p className="text-2xl font-Shabnam_B text-dark_shade mb-8">محصولات مرتبط</p>
+            <p className="text-2xl font-Shabnam_B text-dark_shade mb-8">
+              محصولات مرتبط
+            </p>
             <RelateProductSlider />
           </div>
         </div>

@@ -12,9 +12,8 @@ function Breadcrumb({
 }: BreadcrumbType) {
   return (
     <div
-      className="flex justify-start items-center  gap-x-2 max-w-[640px]
-     max-h-6 child:font-Shabnam_M ml-auto flex-wrap"
-    >
+      className="flex justify-start items-center  gap-x-2 gap-y-2 max-w-[640px]
+     max-h-6 child:font-Shabnam_M ml-auto flex-wrap ">
       <Link href={firstTarget}>
         <span>{firstTitle}</span>
       </Link>

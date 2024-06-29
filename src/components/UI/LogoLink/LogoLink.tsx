@@ -4,7 +4,7 @@ import React from "react";
 
 function LogoLink() {
   return (
-    <Link href={"/"} className="
+    <Link href={"/"} className=" 
      flex-center mx-auto my-auto">
       <Image
         quality={75}
@@ -12,7 +12,7 @@ function LogoLink() {
         height={63}
         priority={true}
         src="/images/logo.png"
-        className="object-cover "
+        className=" object-cover "
         alt="set coffee"
       />
     </Link>
