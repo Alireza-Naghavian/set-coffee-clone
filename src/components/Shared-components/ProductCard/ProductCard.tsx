@@ -1,16 +1,19 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import { SingleProductType } from "@/types/models/categories.type";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import styles from "./productCard.module.css";
+import { Next13NProgress, Link } from 'nextjs13-progress';
 function ProductCard({ productData }: { productData: SingleProductType }) {
   return (
     <div className="flex flex-col gap-y-2 max-h-[360px]  gap-x-2  mx-auto   max-w-fit  ">
       {/* cover */}
+      <Next13NProgress color="#29D" startPosition={0.3} stopDelayMs={200} height={5} showOnShallow={true} />
+
       <ProductCardHeader productData={productData} />
       {/* card detail */}
       <ProductCardBody productData={productData} />

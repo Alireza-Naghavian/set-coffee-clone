@@ -19,7 +19,7 @@ function ProductPageLayout({}) {
   const isDesktop = useMediaQuery("(max-width:820px)");
   const { productId }: { productId: string } = useParams();
   const { product, isProductLoading } = useGetSingleProduct(productId);
-  console.log(product);
+
   return (
     <div className="relative">
       <div
