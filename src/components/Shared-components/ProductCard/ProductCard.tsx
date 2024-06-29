@@ -1,16 +1,19 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import { SingleProductType } from "@/types/models/categories.type";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import styles from "./productCard.module.css";
+import { Next13NProgress, Link } from 'nextjs13-progress';
 function ProductCard({ productData }: { productData: SingleProductType }) {
   return (
     <div className="flex flex-col gap-y-2 max-h-[360px]  gap-x-2  mx-auto   max-w-fit  ">
       {/* cover */}
+      <Next13NProgress color="#29D" startPosition={0.3} stopDelayMs={200} height={5} showOnShallow={true} />
+
       <ProductCardHeader productData={productData} />
       {/* card detail */}
       <ProductCardBody productData={productData} />
@@ -33,7 +36,8 @@ const ProductCardHeader = ({
         <div className=" flex-center h-full w-full relative ">
           <div
             className=" bg-transparent child:text-white border
-                       border-white  indent-0 relative  mx-auto  !my-auto ">
+                       border-white  indent-0 relative  mx-auto  !my-auto "
+          >
             <button className={`${styles["add-to-cart-btn"]}`}>
               <span className={`${styles["add-to-basket-text"]}`}>
                 افزودن به سبد خرید
@@ -86,10 +90,11 @@ const ProductCardBody = ({
 }: {
   productData: SingleProductType;
 }) => {
+
   return (
     <div className="px-2.5 md:child:text-base text-sm max-w-[250px]  child:font-Shabnam_M child:leading-5">
       <Link
-        href={"#"}
+        href={`/category/${productData._id}`}
         className="text-main hover:text-main/55 tr-200  flex-center mt-2 text-center   sm:line-clamp-2 lg:line-clamp-3 md:max-w-[250px] max-h-max overflow-x-hidden"
       >
         {productData.title}

@@ -6,10 +6,10 @@ import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
 
 function NavBarContent() {
-  const chageNavBar = useMediaQuery("(max-width:1024px)");
+  const changeNavBar = useMediaQuery("(min-width:1024px)");
   return (
     <>
-      {chageNavBar ? (
+      {!changeNavBar ? (
         <>
           <MobileMenu />
         </>

@@ -1,0 +1,24 @@
+.rate {
+  @apply flex  gap-x-2 child:font-Shabnam_M child:text-right child:text-dark_shade mt-4;
+
+}
+/* .rate   svg:hover,
+.rate   svg:hover ~ svg {
+@apply !text-goldColor
+} */
+.stars {
+  @apply flex   mt-px transition-all duration-200  child:cursor-pointer child:text-[18px]  child:text-gray-50;
+    direction: rtl;
+}
+
+.stars svg {
+    cursor: pointer;
+    font-size: 18px;
+    color: gray;
+    transition: color 0.1s;
+  }
+  
+  .stars svg.on {
+ @apply text-goldColor
+  }
+  

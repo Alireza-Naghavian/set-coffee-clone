@@ -3,6 +3,7 @@ import NavBarLayout from "@/components/Shared-components/NavBar/NavBarLayout";
 import ScrollToTop from "@/utils/ScrollToTop/ScrollToTop";
 import type { Metadata } from "next";
 import "./globals.css";
+
 export const metadata: Metadata = {
   title: "فروشگاه قهوه ست| SET Coffee",
   description:
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body className="relative font-Shabnam">
         <NavBarLayout />
-        {children}
+       {children}
         <ScrollToTop />
         <Footer />
       </body>

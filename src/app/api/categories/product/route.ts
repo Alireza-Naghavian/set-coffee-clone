@@ -4,6 +4,7 @@ import ProductModel from "@/models/categories&products/product";
 import { productSchema } from "@/utils/validator/categories/categoriesValidator";
 import { writeFile } from "fs/promises";
 import path from "path";
+
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
@@ -18,6 +19,7 @@ export const POST = async (req: Request) => {
     const tags = (formData.get("tags") as string).split(",");
     const weight = parseFloat(formData.get("weight") as string);
     const suitableFor = formData.get("suitableFor") as string;
+
     const productData = {
       category,
       cover: "",
@@ -31,9 +33,7 @@ export const POST = async (req: Request) => {
       suitableFor,
     };
 
-    const isProductExist = await ProductModel.findOne({
-      title,
-    });
+    const isProductExist = await ProductModel.findOne({ title });
     if (isProductExist) {
       return Response.json(
         { message: "این کالا از قبل وجود دارد" },
@@ -41,7 +41,7 @@ export const POST = async (req: Request) => {
       );
     }
     const buffer = Buffer.from(await cover.arrayBuffer());
-    const fileName = Date.now() + cover.name;
+    const fileName = Date.now() + path.extname(cover.name);
     const imgPath = path.join(process.cwd(), "public/uploads/" + fileName);
     await writeFile(imgPath, buffer);
     productData.cover = `http://localhost:3000/uploads/${fileName}`;
@@ -49,16 +49,14 @@ export const POST = async (req: Request) => {
 
     //add product to category
 
+    const product = await ProductModel.create(productData);
     const categoryDoc = await CategoryModel.findById(category);
 
     if (!categoryDoc) {
       return Response.json({ message: "دسته بندی پیدا نشد" }, { status: 404 });
     }
-
-    categoryDoc.products.push(productData);
+    categoryDoc.products.push(product);
     await categoryDoc.save();
-
-    const product = await ProductModel.create(productData);
 
     return Response.json(
       { message: "محصول با موفقیت افزوده شد", data: product, categoryDoc },
@@ -76,7 +74,9 @@ export const GET = async () => {
   try {
     await dbConnection();
 
-    const allProducts = await ProductModel.find().populate("category").lean();
+    const allProducts = await ProductModel.find({}, "-__v -updatedAt")
+      .populate("category", "-products -__v")
+      .lean();
 
     return Response.json({ data: allProducts }, { status: 200 });
   } catch (error) {
