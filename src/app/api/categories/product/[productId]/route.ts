@@ -15,7 +15,7 @@ export const GET = async (req: Request, { params }: Params) => {
       { _id: String(productId) },
       "-__v"
     )
-      .populate("category", "-__v -products").populate("ProductComment","-isAccept -__v")
+      .populate("category", "-__v -products").populate("ProductComment"," -__v")
       .lean();
     if (!product) throw notFound();
     return Response.json({ data: product }, { status: 200 });

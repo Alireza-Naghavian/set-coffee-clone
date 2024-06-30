@@ -6,9 +6,9 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
 import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
-import Loader from "@/components/UI/loader/Loader";
 import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
+import { CommentModeltype } from "@/types/models/comment.type";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -19,6 +19,9 @@ function ProductPageLayout({}) {
   const isDesktop = useMediaQuery("(max-width:820px)");
   const { productId }: { productId: string } = useParams();
   const { product, isProductLoading } = useGetSingleProduct(productId);
+  const filterAcceptableComments = product?.ProductComment?.filter((comment:CommentModeltype)=>{
+    return comment.isAccept
+  })
 
   return (
     <div className="relative">
@@ -134,7 +137,7 @@ function ProductPageLayout({}) {
             ) : activeTab === "moreDetail" ? (
               <ProductShortDetail smell={product?.smell} suitableFor={product?.suitableFor} weight={product?.weight} />
             ) : (
-              <ProductComments />
+              <ProductComments commentFor={product?.title} filterAcceptableComments={filterAcceptableComments} />
             )}
           </TabSelection>
           <div className="mt-16 xl:px-[70px]">

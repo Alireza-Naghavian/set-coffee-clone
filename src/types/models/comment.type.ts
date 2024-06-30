@@ -7,4 +7,5 @@ export type CommentModeltype = {
   isAccept: boolean;
   date: Date;
   productId: typeof mongoose.Types.ObjectId;
+  _id?:string
 };
