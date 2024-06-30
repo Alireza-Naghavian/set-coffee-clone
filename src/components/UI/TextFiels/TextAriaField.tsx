@@ -40,7 +40,7 @@ function TextAriaField({
   <textarea
     cols={80}
    
-    // {...register(name, validattionschema)}
+    {...register(name, validattionschema)}
     id={id}
     value={value}
     name={name}

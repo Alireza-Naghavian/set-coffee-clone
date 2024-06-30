@@ -1,54 +1,75 @@
-import React from "react";
-import styles from "./productDetails.module.css";
-import Image from "next/image";
-import { FaChevronCircleDown, FaChevronDown, FaRegStar, FaStar } from "react-icons/fa";
-import CommentForm from "../Forms/CommentForm";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import { CommentModeltype } from "@/types/models/comment.type";
+import Image from "next/image";
+import { useState } from "react";
+import { FaChevronDown, FaRegStar, FaStar } from "react-icons/fa";
+import CommentForm from "../Forms/CommentForm";
+import styles from "./productDetails.module.css";
 type FilterAcceptableCommentsType = {
-  filterAcceptableComments: CommentModeltype[] | [];
-  commentFor:string
+  filterAcceptableComments: CommentModeltype[] ;
+  commentFor: string;
+  productId: string;
 };
 
 function ProductComments({
   filterAcceptableComments,
-  commentFor
+  commentFor,
+  productId,
 }: FilterAcceptableCommentsType) {
+  const [showMore, setShowMore] = useState<number>(4);
   return (
     <>
       <div className={styles.commentSectionWrapper}>
         {/* comments list */}
-        <div className="w-full lg:order-1 order-2  ">
+        <div className="w-full  lg:order-1 order-2 mt-24 sm:mt-0  ">
           <h4 className="font-Shabnam_B text-[14px]  text-dark_shade mt-2">
             <span>دیدگاه برای &nbsp;</span>
             <span>{commentFor}</span>
           </h4>
           {/* comments */}
           <div className="flex w-full flex-col mt-2">
-            {filterAcceptableComments.map((commentData)=>{
-              return <CommentCard commentData={commentData} key={commentData._id}/> 
-            })}
+            {filterAcceptableComments
+              ?.slice(0, showMore)
+              ?.map((commentData) => {
+                return (
+                  <CommentCard
+                    commentData={commentData}
+                    key={commentData._id}
+                  />
+                );
+              })}
           </div>
           <div className="  mr-4 mt-2  flex-center">
-           {filterAcceptableComments.length>4 ?  <MainBtn
-              size="small"
-              variant="roundedSecondary"
-              className="flex items-center justify-center gap-x-2"
-            >
-              <span>مشاهده بیشتر</span>
-              <FaChevronDown />
-            </MainBtn> : <div><span>تمام کامنت ها نمایش داده شد.</span></div>}
+            {(
+            !filterAcceptableComments?.length ? 
+              <span>کامنتی برای این محصول ثبت نشده است</span>
+            : (filterAcceptableComments?.length === showMore)) 
+            || showMore > filterAcceptableComments?.length ? (
+              <span>تمام کامنت ها نمایش داده شد.</span>) 
+              : 
+              (
+              <MainBtn
+                size="small"
+                variant="roundedSecondary"
+                className={`${filterAcceptableComments?.length == 0 && "hidden"}
+                  flex items-center justify-center gap-x-2`}
+                onClick={() => setShowMore((prev) => prev + 4)}
+              >
+                <span>مشاهده بیشتر</span>
+                <FaChevronDown />
+              </MainBtn>
+            )}
           </div>
         </div>
-        <div className="w-full lg:order-2 order-1  ">
-          <CommentForm />
+        <div className="w-full lg:order-2 order-1   ">
+          <CommentForm productId={productId} />
         </div>
       </div>
     </>
   );
 }
 
-const CommentCard = ({commentData}:{commentData:CommentModeltype}) => {
+const CommentCard = ({ commentData }: { commentData: CommentModeltype }) => {
   return (
     <>
       <div className="sm:max-h-[105px]  mt-4 flex items-center w-full sm:px-3 sm:py-4 border-b-2 last:border-b-0">
@@ -74,23 +95,25 @@ const CommentCard = ({commentData}:{commentData:CommentModeltype}) => {
                 </span>
                 <span>-</span>
                 <span className="text-mute font-Shabnam_M tracking-tighter">
-                {new Date(commentData.date).toLocaleDateString("fa-Ir")}
+                  {new Date(commentData.date).toLocaleDateString("fa-Ir")}
                 </span>
               </div>
               {/* rate us from user */}
               <div className="text-base flex ">
-                {new Array(commentData?.score).fill(0).map((item,index)=>{
-                  return <FaStar className="text-goldColor" key={index} />
+                {new Array(commentData?.score).fill(0).map((item, index) => {
+                  return <FaStar className="text-goldColor" key={index} />;
                 })}
-                {new Array(5- commentData?.score).fill(0).map((item,index)=>{
-                  return <FaRegStar key={index} />
-                })}
+                {new Array(5 - commentData?.score)
+                  .fill(0)
+                  .map((item, index) => {
+                    return <FaRegStar key={index} />;
+                  })}
               </div>
             </div>
             {/* comment message */}
             <div className="w-full child:text-mute child:font-Shabnam_M max-w-[95%] mt-2">
               <p className="text-wrap text-sm sm:text-base">
-               {commentData.commentBody}
+                {commentData.commentBody}
               </p>
             </div>
           </div>

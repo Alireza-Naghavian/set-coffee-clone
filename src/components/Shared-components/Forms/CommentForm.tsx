@@ -1,12 +1,45 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RateStar from "@/components/UI/RateStart/RateStar";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
+import Loader from "@/components/UI/loader/Loader";
+import useAddNewComment from "@/hooks/product/useAddNewComment";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-function CommentForm() {
+import { useForm } from "react-hook-form";
+export type SubmitCommentType = {
+  score: number;
+  commentBody: string;
+  productId: string;
+};
+function CommentForm({ productId }: { productId: string }) {
   const [score, setScore] = useState<number>(3);
+  const queryclient = useQueryClient();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<SubmitCommentType>();
+  const { isCommentSending, postComment } = useAddNewComment();
+  const submitCommentHandler = async (
+    data: Omit<SubmitCommentType, "productId">
+  ) => {
+    postComment(
+      { data: { ...data, score, productId } },
+      {
+        onSuccess: () => {
+          queryclient.invalidateQueries({ queryKey: ["product"] });
+          reset();
+        },
+      }
+    );
+  };
   return (
     <div className="max-h-[470px] h-[470px] w-full bg-gray-50/55 ">
-      <form className="flex flex-col  px-2 py-2">
+      <form
+        onSubmit={handleSubmit(submitCommentHandler)}
+        className="flex flex-col  px-2 py-2"
+      >
         <p className="font-Shabnam_B text-[14px] text-right  text-dark_shade">
           دیدگاه خود را بنویسید
         </p>
@@ -22,16 +55,21 @@ function CommentForm() {
           <TextAriaField
             className="w-full max-h-[200px] h-[200px]"
             label="دیگاه شما"
-            errors={""}
+            errors={errors}
             id="commentBody"
             name="commentBody"
-            //  register={""}
+            register={register}
+            validattionschema={{
+              required:{value:true,message:"دیدگاه نمی تواند خالی باشد"}
+            }}
             variant="borderFill"
             type="text"
           />
         </div>
         <div className="mt-4 max-w-[120px]  ">
-        <MainBtn size="small">ثبت</MainBtn>
+          <MainBtn type="submit" size="small">
+          {isCommentSending ?  <Loader loadingCondition={isCommentSending}/> : "ثبت"}
+          </MainBtn>
         </div>
       </form>
     </div>

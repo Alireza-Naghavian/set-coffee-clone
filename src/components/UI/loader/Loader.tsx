@@ -1,6 +1,6 @@
 import React from "react";
 type LoaderType = {
-  loadingCondition: boolean;
+  loadingCondition: string|number|boolean;
   width?: string;
   height?: string;
   className?: any;

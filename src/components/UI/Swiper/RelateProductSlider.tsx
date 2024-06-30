@@ -4,42 +4,27 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./swiper-bundle.min.css";
 import "./swiper.css";
-const productData: SingleProductType = {
-  cover: "/images/sample.jpeg",
-  title: "دانه قهوه کلمبیا بدون کافئین (Decaf)مقدار ۲۵۰گرم ",
-  price: 149000,
-  category: "",
-  longDesc: "",
-  shortDesc: "",
-  smell: "",
-  suitableFor: "",
-  tags: "",
-  weight: "",
-  score: 5,
-};
-function RelateProductSlider() {
+function RelateProductSlider({
+  productData,
+}: {
+  productData: SingleProductType[] | [];
+}) {
   return (
     <div className="relative">
       <div className=" relative ">
         <Swiper
-
           loop={false}
           navigation={true}
           pagination={{ clickable: true }}
-
-          
           breakpoints={{
             "320": {
-                slidesPerView:1,
-                
-              },
+              slidesPerView: 1,
+            },
             "500": {
-                slidesPerView:1,
-                
-              },
+              slidesPerView: 1,
+            },
             "640": {
               slidesPerView: 3,
-         
             },
             "768": {
               slidesPerView: 3,
@@ -52,30 +37,13 @@ function RelateProductSlider() {
           }}
           modules={[Navigation, Pagination]}
         >
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard productData={productData} />
-          </SwiperSlide>
+          {productData?.map((productData) => {
+            return (
+              <SwiperSlide key={productData._id}>
+                <ProductCard productData={productData} />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </div>

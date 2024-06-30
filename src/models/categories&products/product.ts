@@ -47,9 +47,10 @@ export const schema = new Schema<SingleProductType>(
       type: mongoose.Types.ObjectId,
       ref: "category",
       required: true,
+      
     },
   },
-  { timestamps: true }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 schema.virtual("ProductComment", {
   ref: "comment",

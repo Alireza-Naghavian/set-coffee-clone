@@ -21,7 +21,7 @@ export type TextFieldType = {
   size?: "mediumSize" | "largeSize";
   variant: "outLine" | "borderFill" | "rounded";
   labelVariant?: "boldSize" | "thinSize";
-  register?: any;
+  register: any;
   errors: any;
   validattionschema?: RegisterOptions;
 } & React.ComponentProps<"input">;

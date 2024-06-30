@@ -14,15 +14,16 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
-function ProductPageLayout({}) {
-  const [activeTab, setActiveTab] = useState<string>("desc");
+function ProductPageLayout() {
+  const [activeTab, setActiveTab] = useState<string>("comments");
   const isDesktop = useMediaQuery("(max-width:820px)");
   const { productId }: { productId: string } = useParams();
   const { product, isProductLoading } = useGetSingleProduct(productId);
-  const filterAcceptableComments = product?.ProductComment?.filter((comment:CommentModeltype)=>{
-    return comment.isAccept
-  })
-
+  const filterAcceptableComments = product?.ProductComment?.filter(
+    (comment: CommentModeltype) => {
+      return comment.isAccept;
+    }
+  );
   return (
     <div className="relative">
       <div
@@ -37,18 +38,20 @@ function ProductPageLayout({}) {
         >
           {/* right side */}
           <div
-            className={` h-full flex ${!isDesktop ? "!w-[35%] " : " !w-[70%]"}`}>
+            className={` h-full flex ${!isDesktop ? "!w-[35%] " : " !w-[70%]"}`}
+          >
             {isProductLoading ? (
               <div
                 className={`!w-screen !h-screen blur-md ml-4 bg-gray-200 tr-300 ${
-                  isProductLoading ? "opacity-100" : "opacity-0"}`}></div>)
-                   : 
-                   (
-                   <Image
+                  isProductLoading ? "opacity-100" : "opacity-0"
+                }`}
+              ></div>
+            ) : (
+              <Image
                 width={600}
                 height={600}
                 className="!w-full !h-full !object-cover"
-                src={product?.cover}
+                src={product?.cover ? product.cover : "/images/sample.jpeg"}
                 priority
                 onError={(e) => (e.currentTarget.src = "/images/sample.jpeg")}
                 alt=""
@@ -89,7 +92,7 @@ function ProductPageLayout({}) {
             <div className="w-full mt-4 border-b-2 pb-4 ">
               <div className="flex max-w-[700px]  sm:max-h-[200px] w-full">
                 <p className="w-full h-full text-justify text-[#777777]">
-                {product?.shortDesc}
+                  {product?.shortDesc}
                 </p>
               </div>
             </div>
@@ -111,15 +114,11 @@ function ProductPageLayout({}) {
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
               <div className="flex gap-x-2 items-center  text-main text-right">
                 <p className="font-Shabnam_B">دسته :</p>
-                <p className="text-sm  mt-1">
-                {product?.category?.title}
-                </p>
+                <p className="text-sm  mt-1">{product?.category?.title}</p>
               </div>
               <div className="flex gap-x-4 lg:gap-x-2 items-center  text-main text-right">
                 <span className="font-Shabnam_B">برچسب </span>
-                <span className="text-sm  lg:mt-1">
-                  {product?.tags}
-                </span>
+                <span className="text-sm  lg:mt-1">{product?.tags}</span>
               </div>
             </div>
           </div>
@@ -135,16 +134,24 @@ function ProductPageLayout({}) {
             {activeTab === "desc" ? (
               <ProductDescription productDesc={product?.longDesc} />
             ) : activeTab === "moreDetail" ? (
-              <ProductShortDetail smell={product?.smell} suitableFor={product?.suitableFor} weight={product?.weight} />
+              <ProductShortDetail
+                smell={product?.smell}
+                suitableFor={product?.suitableFor}
+                weight={product?.weight}
+              />
             ) : (
-              <ProductComments commentFor={product?.title} filterAcceptableComments={filterAcceptableComments} />
+              <ProductComments
+              productId ={product?._id}
+                commentFor={product?.title}
+                filterAcceptableComments={filterAcceptableComments}
+              />
             )}
           </TabSelection>
           <div className="mt-16 xl:px-[70px]">
             <p className="text-2xl font-Shabnam_B text-dark_shade mb-8">
               محصولات مرتبط
             </p>
-            <RelateProductSlider />
+            <RelateProductSlider productData={product?.category?.products} />
           </div>
         </div>
       </div>

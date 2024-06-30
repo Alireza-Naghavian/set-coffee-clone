@@ -10,8 +10,13 @@ type RateStarType = {
 
 function RateStar({ score, setScore }: RateStarType) {
   return (
+
     <div className={styles.rate}>
-      <span>امتیاز شما :</span>
+      <span>
+        
+      امتیاز شما:
+      <span className="text-red-500">*</span>
+      </span>
       <div
         className={styles.stars}
       >
@@ -26,7 +31,9 @@ function RateStar({ score, setScore }: RateStarType) {
           );
         })}
       </div>
+        <span className="  items-center !text-dark_shade !hidden sm:!flex !text-sm ">(امتیاز به صورت پیش فرض سه ستاره می باشد.)</span>
     </div>
+
   );
 }
 
