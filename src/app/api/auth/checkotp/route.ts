@@ -35,11 +35,9 @@ export const POST = async (req: Request) => {
         { status: 410 }
       );
     }
-    console.log(response.data);
     if (response.data?.success !== true)
       return Response.json({ message: response.data?.message },{status:422});
 
-    console.log(user); 
 
     const tokenPayload = { email: user.email };
     const accessToken = generateAccessToken({ tokenPayload });
@@ -52,7 +50,7 @@ export const POST = async (req: Request) => {
       );
       headers.append(
         "Set-Cookie",
-        `refresh-token=${refreshToken}Path=/; HttpOnly; Max-Age=1296000`
+        `refresh-token=${refreshToken};Path=/; HttpOnly; Max-Age=1296000`
       );
       return Response.json(
         { message: "ورود با موفقیت انجام شد" },

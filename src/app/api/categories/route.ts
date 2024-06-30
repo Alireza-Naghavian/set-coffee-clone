@@ -40,7 +40,6 @@ export const GET = async ():Promise<Response> => {
     const allCategories = await CategoryModel.find({}, "-__v").lean()
     return Response.json({ data: allCategories }, { status: 200 });
   } catch (error: any) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

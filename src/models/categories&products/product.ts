@@ -51,6 +51,11 @@ export const schema = new Schema<SingleProductType>(
   },
   { timestamps: true }
 );
+schema.virtual("ProductComment", {
+  ref: "comment",
+  foreignField: "productId",
+  localField: "_id",
+});
 
 const ProductModel =
   mongoose.models.product || mongoose.model("product", schema);
