@@ -26,7 +26,6 @@ export default async function Home() {
       },
     },
   ]);
-  console.log(sortedCategories);
   const filterProductCount = sortedCategories?.filter((product) => {
     return product.productCount < 6 && product.productCount !== 0;
   });
