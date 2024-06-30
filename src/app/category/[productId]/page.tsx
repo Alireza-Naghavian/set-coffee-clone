@@ -1,13 +1,13 @@
 import { QueryClientProviderWrapper } from "@/app/context/QueryClientProvider";
 import ProductPageLayout from "@/components/layout-components/ProductPage/ProductPageLayout";
-import React from "react";
 
-function SingleProduct() {
+async function SingleProduct() {
+
   return (
     <QueryClientProviderWrapper>
       <div className="">
         <main className="max-w-[1920px]  ">
-          <ProductPageLayout />
+          <ProductPageLayout  />
         </main>
       </div>
     </QueryClientProviderWrapper>

@@ -27,7 +27,7 @@ export default async function Home() {
     },
   ]);
   const filterProductCount = sortedCategories?.filter((product) => {
-    return product.productCount < 6 && product.productCount !== 0;
+    return product.productCount < 12 && product.productCount !== 0;
   });
   return (
     <main className="max-w-[1920px]  relative">

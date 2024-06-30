@@ -1,5 +1,5 @@
 .rate {
-  @apply flex  gap-x-2 child:font-Shabnam_M child:text-right child:text-dark_shade mt-4;
+  @apply flex sm:flex-row flex-col gap-y-4 sm:gap-y-1  gap-x-2 child:font-Shabnam_M child:text-right child:text-dark_shade mt-4;
 
 }
 /* .rate   svg:hover,
@@ -7,7 +7,7 @@
 @apply !text-goldColor
 } */
 .stars {
-  @apply flex   mt-px transition-all duration-200  child:cursor-pointer child:text-[18px]  child:text-gray-50;
+  @apply flex    mt-px transition-all duration-200  child:cursor-pointer child:text-[18px]  child:text-gray-50;
     direction: rtl;
 }
 
