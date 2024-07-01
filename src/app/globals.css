@@ -97,3 +97,16 @@
       }
     }
 
+/* blur images effects */
+.blur-effect {
+  filter: blur(10px);
+  transition: filter 0.3s ease-out;
+}
+
+.relative img {
+  transition: opacity 0.3s ease-out;
+}
+
+.relative img:not(.blur-effect) {
+  opacity: 1;
+}

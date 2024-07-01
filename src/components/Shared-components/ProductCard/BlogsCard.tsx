@@ -1,6 +1,6 @@
+import { customeBlurDataURL } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import styles from "./productCard.module.css";
 export type BlogType = {
   [key: string]: string;
@@ -48,6 +48,8 @@ function BlogsCard({
         src={cover}
         className={` w-full h-full object-cover ${styles["cover-image"]}`}
         alt={title}
+        placeholder="blur"
+        blurDataURL={cover ? "data:image/png;base64,"+cover: customeBlurDataURL}
       />
     </div>
   );

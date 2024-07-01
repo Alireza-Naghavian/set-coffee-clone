@@ -3,6 +3,7 @@ import ProductCard from "@/components/Shared-components/ProductCard/ProductCard"
 import HeaderTitle from "@/components/UI/HeaderTitle/HeaderTitle";
 import Swiper from "@/components/UI/Swiper/Swiper";
 import WhySetCoffee from "@/components/UI/WhySetCoffee/WhySetCoffee";
+import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 import {
   SingleProductType,
   categoriesType,
