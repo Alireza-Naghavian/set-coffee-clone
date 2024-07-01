@@ -8,6 +8,7 @@ import { FaShuffle } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import styles from "./productCard.module.css";
 import { Next13NProgress, Link } from 'nextjs13-progress';
+import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 function ProductCard({ productData }: { productData: SingleProductType }) {
   return (
     <div className="flex flex-col gap-y-2 max-h-[360px]  gap-x-2  mx-auto   max-w-fit  ">
@@ -59,20 +60,19 @@ const ProductCardHeader = ({
       </div>
       <div className="flex-center flex-col bg-transparent">
         <div
-          className="w-7 h-7 lg:hidden rounded-full  flex items-center justify-center  
+          className="w-7 h-7 lg:hidden rounded-full z-50 flex items-center justify-center  
              bg-gray-100 absolute sm:left-6 left-1 top-6 "
         >
           <FaRegHeart className="  text-xl " title="پسندیدن" />
         </div>
-        <div className="w-[202px] lg:w-[222px]  bg-transparent h-[202px] lg:h-[222px]">
-          <Image
-            width={1280}
-            height={720}
-            src={productData.cover}
-            className={`w-full h-full  object-cover ${styles["cover-image"]} `}
-            alt={productData.title}
+          <ResponsiveImage
+          alt={productData.title}
+          dimensions="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px] "
+          src={productData.cover}
+          blurDataURL={productData.cover}
+          imageStyles="object-cover"
+          sizes="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px]"
           />
-        </div>
         <MainBtn
           variant="primary"
           size="small"

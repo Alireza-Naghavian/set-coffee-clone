@@ -6,19 +6,23 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
 import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
-import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
+import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
+import { SingleProductType } from "@/types/models/categories.type";
 import { CommentModeltype } from "@/types/models/comment.type";
-import Image from "next/image";
+import { customeBlurDataURL } from "@/utils/constants";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
-function ProductPageLayout() {
-  const [activeTab, setActiveTab] = useState<string>("comments");
-  const isDesktop = useMediaQuery("(max-width:820px)");
+function ProductPageLayout({
+  initialProductData,
+}: {
+  initialProductData: SingleProductType;
+}) {
+  const [activeTab, setActiveTab] = useState<string>("desc");
   const { productId }: { productId: string } = useParams();
-  const { product, isProductLoading } = useGetSingleProduct(productId);
+  const { product } = useGetSingleProduct(productId, initialProductData);
   const filterAcceptableComments = product?.ProductComment?.filter(
     (comment: CommentModeltype) => {
       return comment.isAccept;
@@ -27,44 +31,28 @@ function ProductPageLayout() {
   return (
     <div className="relative">
       <div
-        className={`w-[95%] relative mx-auto mt-[10px]  sm:px-8 px-2 ${
-          !isDesktop ? "lg:mt-[180px]" : "mt-[20px] "
-        }`}
+        className={`w-full relative mx-auto  
+           sm:px-8 px-4 lg:mt-[180px] md:mt-[100px] mt-[20px] `}
       >
         <div
-          className={` flex   w-full gap-x-2 ${
-            !isDesktop ? "" : "!flex-col justify-center items-center"
-          }`}
+          className={` flex   w-full gap-x-4  md:!flex-row 
+            flex-col justify-center items-center`}
         >
           {/* right side */}
-          <div
-            className={` h-full flex ${!isDesktop ? "!w-[35%] " : " !w-[70%]"}`}
-          >
-            {isProductLoading ? (
-              <div
-                className={`!w-screen !h-screen blur-md ml-4 bg-gray-200 tr-300 ${
-                  isProductLoading ? "opacity-100" : "opacity-0"
-                }`}
-              ></div>
-            ) : (
-              <Image
-                width={600}
-                height={600}
-                className="!w-full !h-full !object-cover"
-                src={product?.cover ? product.cover : "/images/sample.jpeg"}
-                priority
-                onError={(e) => (e.currentTarget.src = "/images/sample.jpeg")}
-                alt=""
-              />
-            )}
-          </div>
+
+          <ResponsiveImage
+            dimensions={`md:w-1/2 object-cover md:!h-[380px] w-[min(500px,75vw)] !pb-32 sm:h-[calc(100vh-100px)] xs:h-[calc(100vh-300px)]  lg:h-[400px] md:self-start`}
+            src={product?.cover}
+            imageStyles="md:object-contain object-cover !w-full !h-full"
+            blurDataURL={product?.cover}
+            priority
+            onError={(e) => (e.currentTarget.src = customeBlurDataURL)}
+            alt={product?.title}
+          />
+
           {/* left side */}
           <div
-            className={`sm:mt-0 flex  flex-col gap-y-4 mt-8 ${
-              !isDesktop
-                ? "  items-end  w-[65%]"
-                : "  w-full flex flex-col gap-y-8  "
-            }`}
+            className={`sm:mt-0 flex lg:pr-12  pr-2 flex-col  mt-8  items-end    w-full  lg:gap-y-2 gap-y-4  `}
           >
             {/* breadcrumb */}
             <Breadcrumb
@@ -82,7 +70,7 @@ function ProductPageLayout() {
             </div>
             {/* product rate */}
             <div className="ml-auto mt-6">
-              <ProductRate />
+              <ProductRate filterAcceptableComments={filterAcceptableComments} />
             </div>
             {/* product price */}
             <div className="ml-auto mt-4 child:text-main child:text-2xl child:font-Shabnam_M">
@@ -125,6 +113,7 @@ function ProductPageLayout() {
         </div>
         <div className="mt-24">
           <TabSelection
+          filterAcceptableComments={filterAcceptableComments}
             comments="comments"
             desc="desc"
             moreDetail="moreDetail"
@@ -141,7 +130,7 @@ function ProductPageLayout() {
               />
             ) : (
               <ProductComments
-              productId ={product?._id}
+                productId={product?._id}
                 commentFor={product?.title}
                 filterAcceptableComments={filterAcceptableComments}
               />
@@ -159,7 +148,7 @@ function ProductPageLayout() {
   );
 }
 
-const ProductRate = () => {
+const ProductRate = ({filterAcceptableComments}:{filterAcceptableComments:CommentModeltype[]|[]}) => {
   return (
     <>
       <div className="flex   text-[26px] child:text-[#FFCE00]">
@@ -169,7 +158,7 @@ const ProductRate = () => {
         <FaStar />
         <FaStar />
         <div className="flex-center my-auto  child:font-Shabnam_M child:text-base mr-2 mt-px child:text-main_green_dark">
-          <p>(دیدگاه ۱کاربر)</p>
+          <p>(دیدگاه {filterAcceptableComments?.length.toLocaleString("fa-Ir")}کاربر)</p>
         </div>
       </div>
     </>

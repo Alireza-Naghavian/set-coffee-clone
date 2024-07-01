@@ -1,4 +1,5 @@
 import { SetState } from "@/types/global.type";
+import { CommentModeltype } from "@/types/models/comment.type";
 import React from "react";
 type TabSelectionType = {
   comments: string;
@@ -7,6 +8,7 @@ type TabSelectionType = {
   setActiveTab: SetState<string>;
   children: React.ReactNode;
   activeTab: string;
+  filterAcceptableComments:CommentModeltype[]|[]
 };
 function TabSelection({
   desc,
@@ -14,7 +16,8 @@ function TabSelection({
   comments,
   setActiveTab,
   children,
-  activeTab
+  activeTab,
+  filterAcceptableComments
 }: TabSelectionType) {
   return (
     <div className="relative !w-[90%] mx-auto ">
@@ -36,7 +39,7 @@ function TabSelection({
           className={`${activeTab == comments && "!text-main_green"}`}
           onClick={() => setActiveTab(comments)}>
           <span> نظرات </span>
-          <span>(58)</span>
+          <span>({filterAcceptableComments?.length.toLocaleString("fa-Ir")})</span>
         </button>
       </div>
       {/* this part must be reponse in many mediaQueries */}
