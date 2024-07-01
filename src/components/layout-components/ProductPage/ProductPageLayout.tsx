@@ -13,7 +13,7 @@ import { CommentModeltype } from "@/types/models/comment.type";
 import { customeBlurDataURL } from "@/utils/constants";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { FaRegHeart, FaStar } from "react-icons/fa";
+import { FaRegHeart, FaRegStar, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 function ProductPageLayout({
   initialProductData,
@@ -70,7 +70,10 @@ function ProductPageLayout({
             </div>
             {/* product rate */}
             <div className="ml-auto mt-6">
-              <ProductRate filterAcceptableComments={filterAcceptableComments} />
+              <ProductRate
+                dynamicScore={product?.score}
+                filterAcceptableComments={filterAcceptableComments}
+              />
             </div>
             {/* product price */}
             <div className="ml-auto mt-4 child:text-main child:text-2xl child:font-Shabnam_M">
@@ -113,7 +116,7 @@ function ProductPageLayout({
         </div>
         <div className="mt-24">
           <TabSelection
-          filterAcceptableComments={filterAcceptableComments}
+            filterAcceptableComments={filterAcceptableComments}
             comments="comments"
             desc="desc"
             moreDetail="moreDetail"
@@ -148,17 +151,43 @@ function ProductPageLayout({
   );
 }
 
-const ProductRate = ({filterAcceptableComments}:{filterAcceptableComments:CommentModeltype[]|[]}) => {
+const ProductRate = ({
+  filterAcceptableComments,
+  dynamicScore,
+}: {
+  filterAcceptableComments: CommentModeltype[] | [];
+  dynamicScore: number;
+}) => {
   return (
     <>
-      <div className="flex   text-[26px] child:text-[#FFCE00]">
-        <FaStar />
-        <FaStar />
-        <FaStar />
-        <FaStar />
-        <FaStar />
+      <div className="flex   text-[26px] ">
+        {filterAcceptableComments?.length ? (
+          <>
+            {Array(dynamicScore)
+              .fill(0)
+              .map((_, index) => {
+               return <FaStar key={index} className="text-[#FFCE00]" />;
+              })}
+            {Array(5 - dynamicScore)
+              .fill(0)
+              .map((_, index) => {
+                return <FaRegStar key={index} />;
+              })}
+          </>
+        ) : (
+          <>
+            <FaStar className="text-[#FFCE00]" />
+            <FaStar className="text-[#FFCE00]" />
+            <FaStar className="text-[#FFCE00]" />
+            <FaStar className="text-[#FFCE00]" />
+            <FaStar className="text-[#FFCE00]" />
+          </>
+        )}
         <div className="flex-center my-auto  child:font-Shabnam_M child:text-base mr-2 mt-px child:text-main_green_dark">
-          <p>(دیدگاه {filterAcceptableComments?.length.toLocaleString("fa-Ir")}کاربر)</p>
+          <p>
+            (دیدگاه {filterAcceptableComments?.length.toLocaleString("fa-Ir")}
+            کاربر)
+          </p>
         </div>
       </div>
     </>

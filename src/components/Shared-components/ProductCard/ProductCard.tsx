@@ -3,7 +3,7 @@ import { SingleProductType } from "@/types/models/categories.type";
 import Image from "next/image";
 // import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaRegHeart, FaStar } from "react-icons/fa";
+import { FaRegHeart, FaRegStar, FaStar } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import styles from "./productCard.module.css";
@@ -111,11 +111,18 @@ const ProductCardFooter = ({
   return (
     <>
       <div className="flex mx-auto justify-center child:text-[#EABE12]">
-        <FaStar />
-        <FaStar />
-        <FaStar />
-        <FaStar />
-        <FaStar />
+      <>
+            {Array(productData.score)
+              .fill(0)
+              .map((_, index) => {
+               return <FaStar key={index} className="text-[#FFCE00]" />;
+              })}
+            {Array(productData.score !==undefined ? 5 - productData.score:null)
+              .fill(0)
+              .map((_, index) => {
+                return <FaRegStar key={index} />;
+              })}
+          </>
       </div>
 
       <div className="child:text-[15px] child:text-main child:leading-5 ">

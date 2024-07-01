@@ -1,4 +1,5 @@
 import dbConnection from "@/dbConfigs/db";
+import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import { CommentModeltype } from "@/types/models/comment.type";
@@ -14,7 +15,6 @@ export const POST = async (req: Request, { params }: Params) => {
     const { id } = params;
     await commentSchema.validateAsync(body);
     const user = await getUser();
-    console.log(user);
     if (!user) {
       return Response.json(
         { message: "لطفا ثبت نام کنید یا وارد شوید" },
@@ -28,6 +28,37 @@ export const POST = async (req: Request, { params }: Params) => {
       userName: user.userName,
       score,
     });
+    //dynamic product score
+    const allProductComments = await CommentModel.find({ productId: id });
+    const map = allProductComments.map((comment) => {
+      return comment.score;
+    });
+
+    //sum all product comment scores
+    const sumScore = map.reduce((a, b) => {
+      return a + b;
+    }, 0);
+
+    const averageScore = Math.round(sumScore / allProductComments.length);
+
+    const updatedProuductScore = await ProductModel.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: allProductComments.length
+          ? { score: averageScore }
+          : { score: 5 },
+      },
+      { new: true }
+    );
+    //update product in category
+    await CategoryModel.findOneAndUpdate(
+      { _id: updatedProuductScore.category, "products._id":id },
+      {
+        $set: allProductComments.length
+          ? { "products.$.score": averageScore  }
+          : { "products.$.score": 5   },
+      }
+    );
     return Response.json(
       {
         message:
@@ -37,7 +68,6 @@ export const POST = async (req: Request, { params }: Params) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }
