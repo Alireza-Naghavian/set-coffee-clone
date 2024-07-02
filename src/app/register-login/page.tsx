@@ -5,7 +5,7 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Link from "next/link";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 import { ToastProvider } from "../context/ToastContainerProvider";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckOtp from "@/components/Shared-components/Forms/CheckOtp";
 import { SetState } from "@/types/global.type";
 import useCountDownTimer from "@/hooks/helper-hooks/useCountDownTimer";

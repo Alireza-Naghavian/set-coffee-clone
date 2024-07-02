@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Autoplay } from "swiper/modules";
+import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 function SwiperSlider() {
   return (
     <div className="relative">
@@ -21,33 +22,31 @@ function SwiperSlider() {
           modules={[Autoplay]}
         >
           <SwiperSlide>
-            <Image
-              width={1920}
-              priority={true}
-              height={1200}
+            <ResponsiveImage
+              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[65vh] h-[35vh] object-cover"
+              alt="setCoffee"
               src={"/images/slider_1.jpg"}
-              alt="seCoffee"
-              className="!h-full !w-full object-cover"
+              priority={true}
+              blurDataURL="/images/slider_1.jpg"
+              imageStyles="o"
             />
           </SwiperSlide>
           <SwiperSlide>
-            <Image
-              width={1920}
-              height={1200}
-              priority={true}
+            <ResponsiveImage
+              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[65vh] h-[35vh] object-cover"
+              alt="setCoffee"
               src={"/images/slider_3.jpg"}
-              alt="seCoffee"
-              className="!h-full !w-full object-cover"
+              priority={true}
+              blurDataURL="/images/slider_3.jpg"
             />
           </SwiperSlide>
           <SwiperSlide>
-            <Image
-              width={1920}
-              height={1200}
-              priority={true}
+            <ResponsiveImage
+              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[65vh] h-[35vh] object-cover"
+              alt="setCoffee"
               src={"/images/slider_4.jpg"}
-              alt="seCoffee"
-              className="!h-full !w-full object-cover"
+              priority={true}
+              blurDataURL="/images/slider_4.jpg"
             />
           </SwiperSlide>
         </Swiper>
