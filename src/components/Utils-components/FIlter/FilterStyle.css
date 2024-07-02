@@ -1,0 +1,6 @@
+.rc-slider-handle:active {
+    border-color: transparent;
+    box-shadow: 0 0 5px #000000;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}

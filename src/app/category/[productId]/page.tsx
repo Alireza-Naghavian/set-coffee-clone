@@ -4,7 +4,6 @@ import ProductPageLayout from "@/components/layout-components/ProductPage/Produc
 import dbConnection from "@/dbConfigs/db";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 type ProductParams={
   productId:string
 }

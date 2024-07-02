@@ -110,3 +110,12 @@
 .relative img:not(.blur-effect) {
   opacity: 1;
 }
+
+/* category & article page background */
+.headerWrapper {
+  /* background: url(/images/back1.jpg) center center cover ; */
+  background-image: url(/images/back1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
