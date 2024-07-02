@@ -1,5 +1,5 @@
 import React from "react";
-import { Message, Validate, ValidationRule } from "react-hook-form";
+import { Message, ValidationRule } from "react-hook-form";
 
 export type RegisterOptions = Partial<{
   required?: Message | ValidationRule<boolean>;

@@ -54,7 +54,7 @@ function CommentForm({ productId }: { productId: string }) {
         <div className="flex flex-col mt-4 justify-center w-full items-start gap-y-2">
           <TextAriaField
             className="w-full max-h-[200px] h-[200px]"
-            label="دیگاه شما"
+            label="دیدگاه شما"
             errors={errors}
             id="commentBody"
             name="commentBody"

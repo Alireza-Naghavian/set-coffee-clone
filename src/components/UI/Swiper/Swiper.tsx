@@ -23,7 +23,7 @@ function SwiperSlider() {
         >
           <SwiperSlide>
             <ResponsiveImage
-              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[75vh] h-[50vh] object-cover"
+              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[65vh] h-[35vh] object-cover"
               alt="setCoffee"
               src={"/images/slider_1.jpg"}
               priority={true}
@@ -33,7 +33,7 @@ function SwiperSlider() {
           </SwiperSlide>
           <SwiperSlide>
             <ResponsiveImage
-              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[75vh] h-[50vh] object-cover"
+              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[65vh] h-[35vh] object-cover"
               alt="setCoffee"
               src={"/images/slider_3.jpg"}
               priority={true}
@@ -42,7 +42,7 @@ function SwiperSlider() {
           </SwiperSlide>
           <SwiperSlide>
             <ResponsiveImage
-              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[75vh] h-[50vh] object-cover"
+              dimensions="!w-full lg:h-[95vh] md:h-[80vh] sm:h-[65vh] h-[35vh] object-cover"
               alt="setCoffee"
               src={"/images/slider_4.jpg"}
               priority={true}

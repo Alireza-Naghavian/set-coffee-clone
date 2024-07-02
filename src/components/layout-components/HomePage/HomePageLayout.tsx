@@ -26,7 +26,7 @@ async function HomePageLayout({
       <div className="mt-[70px]">
         <HeaderTitle
           title={filteredProdoucts[0]?.title}
-          subTitle={"Coffee Capsule"}
+          subTitle={"قهوه ممتاز"}
         />
         <div className="mt-5 ">
           <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
@@ -42,7 +42,7 @@ async function HomePageLayout({
       <div className="mt-[70px]">
         <HeaderTitle
           title={filteredProdoucts[1].title}
-          subTitle={"قهوه تجاری"}
+          subTitle={"کپسول قهوه"}
         />
         <div className="mt-5 ">
           <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">

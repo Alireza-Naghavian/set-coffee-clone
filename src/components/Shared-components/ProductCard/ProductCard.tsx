@@ -60,7 +60,7 @@ const ProductCardHeader = ({
       </div>
       <div className="flex-center flex-col bg-transparent">
         <div
-          className="w-7 h-7 lg:hidden rounded-full z-50 flex items-center justify-center  
+          className="w-7 h-7 lg:hidden rounded-full z-[2] flex items-center justify-center  
              bg-gray-100 absolute sm:left-6 left-1 top-6 "
         >
           <FaRegHeart className="  text-xl " title="پسندیدن" />
@@ -70,7 +70,7 @@ const ProductCardHeader = ({
           dimensions="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px] "
           src={productData.cover}
           blurDataURL={productData.cover}
-          imageStyles="object-cover"
+          imageStyles={`object-cover ${styles['cover-image']}`}
           sizes="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px]"
           />
         <MainBtn

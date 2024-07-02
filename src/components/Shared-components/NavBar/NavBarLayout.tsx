@@ -13,9 +13,7 @@ function NavBarLayout() {
     <div className="relative">
       <div className=" flex justify-center   ">
         <nav
-          className={`${
-            fixTop ? styles.navbar_fixed : `${styles.navbar}  !bg-white shadow-md`}`}
-        >
+          className={`${ fixTop ? styles.navbar_fixed : `${styles.navbar}  !bg-white shadow-md`}`}>
            
           <NavBarContent />
         </nav>

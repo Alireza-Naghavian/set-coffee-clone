@@ -5,7 +5,7 @@
   }
   
   .cover-image {
-    transition: all 0.7s;
+    transition: all 0.7s !important ;
     @apply relative -z-10 overflow-hidden;
   }
   .overlay-cover {
@@ -16,7 +16,7 @@
     @apply visible opacity-100;
   }
   .cover-option:hover .cover-image {
-    @apply lg:transform lg:scale-[1.09] overflow-hidden;
+    @apply lg:!transform lg:!scale-[1.09] !overflow-hidden ;
   }
   .icon-wrapper{
     transform: translateX(-20rem);

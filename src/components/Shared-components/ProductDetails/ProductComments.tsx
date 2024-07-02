@@ -6,7 +6,7 @@ import { FaChevronDown, FaRegStar, FaStar } from "react-icons/fa";
 import CommentForm from "../Forms/CommentForm";
 import styles from "./productDetails.module.css";
 type FilterAcceptableCommentsType = {
-  filterAcceptableComments: CommentModeltype[] ;
+  filterAcceptableComments: CommentModeltype[];
   commentFor: string;
   productId: string;
 };
@@ -17,6 +17,7 @@ function ProductComments({
   productId,
 }: FilterAcceptableCommentsType) {
   const [showMore, setShowMore] = useState<number>(4);
+  const hasMoreComments = showMore <= filterAcceptableComments.length;
   return (
     <>
       <div className={styles.commentSectionWrapper}>
@@ -28,36 +29,39 @@ function ProductComments({
           </h4>
           {/* comments */}
           <div className="flex w-full flex-col mt-2">
-            {filterAcceptableComments
-              ?.slice(0, showMore)
-              ?.map((commentData) => {
-                return (
-                  <CommentCard
-                    commentData={commentData}
-                    key={commentData._id}
-                  />
-                );
-              })}
+            {filterAcceptableComments?.length === 0 ? (
+              <span className="text-center text-main_brown font-Shabnam_M mt-4">
+                کامنتی برای این محصول ثبت نشده است
+              </span>
+            ) : (
+              filterAcceptableComments
+                ?.slice(0, showMore)
+                ?.map((commentData) => {
+                  return (
+                    <CommentCard
+                      commentData={commentData}
+                      key={commentData._id}
+                    />
+                  );
+                })
+            )}
           </div>
           <div className="  mr-4 mt-2  flex-center">
-            {(
-            !filterAcceptableComments?.length ? 
-              <span>کامنتی برای این محصول ثبت نشده است</span>
-            : (filterAcceptableComments?.length === showMore)) 
-            || showMore > filterAcceptableComments?.length ? (
-              <span>تمام کامنت ها نمایش داده شد.</span>) 
-              : 
-              (
+            {filterAcceptableComments.length > 0 && hasMoreComments && (
               <MainBtn
                 size="small"
                 variant="roundedSecondary"
                 className={`${filterAcceptableComments?.length == 0 && "hidden"}
                   flex items-center justify-center gap-x-2`}
-                onClick={() => setShowMore((prev) => prev + 4)}
-              >
+                onClick={() => setShowMore((prev) => prev + 4)}>
                 <span>مشاهده بیشتر</span>
                 <FaChevronDown />
               </MainBtn>
+            )}
+            {filterAcceptableComments.length >0 && !hasMoreComments && (
+              <span className="text-center text-main_brown font-Shabnam_M mt-4">
+                تمامی کامنت ها نمایش داده شد.
+              </span>
             )}
           </div>
         </div>

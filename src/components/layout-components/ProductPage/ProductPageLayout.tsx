@@ -166,7 +166,7 @@ const ProductRate = ({
             {Array(dynamicScore)
               .fill(0)
               .map((_, index) => {
-               return <FaStar key={index} className="text-[#FFCE00]" />;
+                return <FaStar key={index} className="text-[#FFCE00]" />;
               })}
             {Array(5 - dynamicScore)
               .fill(0)
@@ -176,11 +176,9 @@ const ProductRate = ({
           </>
         ) : (
           <>
-            <FaStar className="text-[#FFCE00]" />
-            <FaStar className="text-[#FFCE00]" />
-            <FaStar className="text-[#FFCE00]" />
-            <FaStar className="text-[#FFCE00]" />
-            <FaStar className="text-[#FFCE00]" />
+            {Array.from({ length: 5 }, (_, index) => (
+              <FaStar key={index} className="text-[#FFCE00]" />
+            ))}
           </>
         )}
         <div className="flex-center my-auto  child:font-Shabnam_M child:text-base mr-2 mt-px child:text-main_green_dark">
