@@ -1,16 +1,47 @@
-"use client";
 import Slider from "rc-slider";
 import React, { useState } from "react";
 import "rc-slider/assets/index.css";
 import Badge from "@/components/UI/badge/Badge";
 import { FaRegStar, FaStar } from "react-icons/fa";
-function FilteredCategory() {
+import { SetState } from "@/types/global.type";
+import MainBtn from "@/components/UI/Buttons/MainBtn";
+import { IoIosClose } from "react-icons/io";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
+type FilteredCategoryType = {
+  isFilterOpen:boolean,
+  setIsFilterOpen:SetState<boolean>
+}
+function FilteredCategory({isFilterOpen,setIsFilterOpen}:FilteredCategoryType) {
+  useScrollLocker(isFilterOpen)
   return (
-    <div className=" max-w-[500px] w-[500px] child:border-b-2 last:border-none flex flex-col px-4 justify-center  bg-white ">
-      <BasedPrice />
-    <BasedWeight/>
-    <BasedRateStart/>
+    <>
+    <div className={` md:max-w-[500px] md:w-[500px]  max-h-max  
+                       relative hidden  md:flex flex-col px-4 justify-start  bg-white `}>
+      <div className={`lg:sticky lg:top-12  my-8  child:border-b-2 last:border-none `}>
+        <BasedPrice />
+        <BasedWeight />
+        <BasedRateStart />
+      </div>
     </div>
+      <div className={`lg:hidden  child:px-4 overflow-hidden w-full  h-full
+         overflow-y-auto  transition-all  fixed right-0 top-0 !z-[99999] tr-400
+          bg-white ${isFilterOpen ? "translate-x-[0rem]" : "translate-x-[-40rem]"}`}>
+         <div
+          className="flex gap-x-1 items-center   w-fit mr-auto child:text-lg  p-4   cursor-pointer "
+          onClick={() => setIsFilterOpen(false)}
+        >
+          <span className="font-Shabnam_M">بستن</span>
+          <IoIosClose size={22} />
+        </div>
+        <BasedPrice />
+        <BasedWeight />
+        <BasedRateStart />
+      <div className="my-8 flex flex-col gap-y-2">
+      <MainBtn onClick={()=>setIsFilterOpen(false)} className="">اعمال</MainBtn>
+      <MainBtn onClick={()=>setIsFilterOpen(false)} className="bg-rose-800">بستن</MainBtn>
+      </div>
+      </div>
+     </>
   );
 }
 
@@ -73,100 +104,110 @@ const BasedPrice = () => {
   );
 };
 
-const BasedWeight =()=>{
-return(
+const BasedWeight = () => {
+  return (
     <div className="flex flex-col gap-y-2  pt-2">
-    <div
-      className="pt-2 child:font-Shabnam_B
-   child:text-dark_shade">
-      <p> فیلتر بر اساس وزن :</p>
-    </div>
-    <div className="">
-        <ul className="space-y-4 py-2 w-full child:w-full child:flex
-                child:cursor-pointer child:items-center child:justify-between">
-            <li className="group">
-                <span>تا ۲۵۰ گرم</span>
-                <span><Badge content={24}/></span>
-            </li>
+      <div
+        className="pt-2 child:font-Shabnam_B
+   child:text-dark_shade"
+      >
+        <p> فیلتر بر اساس وزن :</p>
+      </div>
+      <div className="">
+        <ul
+          className="space-y-4 py-2 w-full child:w-full child:flex
+                child:cursor-pointer child:items-center child:justify-between"
+        >
+          <li className="group">
+            <span>تا ۲۵۰ گرم</span>
+            <span>
+              <Badge content={24} />
+            </span>
+          </li>
 
-            <li className="group">
+          <li className="group">
             <span>۵۰۰ گرم تا ۱ کیلو گرم</span>
-            <span><Badge content={12}/></span>
-            </li>
+            <span>
+              <Badge content={12} />
+            </span>
+          </li>
 
-            <li className="group">
+          <li className="group">
             <span>۱ کیلو به بالا (سازمانی)</span>
-            <span><Badge content={7}/></span>
-            </li>
+            <span>
+              <Badge content={7} />
+            </span>
+          </li>
         </ul>
+      </div>
     </div>
-  </div>
-)
-}
+  );
+};
 
-const BasedRateStart = ()=>{
-    return(
-        <div className="flex flex-col gap-y-2  pt-2">
-        <div
-          className="pt-2 child:font-Shabnam_B
-       child:text-dark_shade">
-          <p> انتخاب بر اساس امتیاز :</p>
-        </div>
-        <div className="flex flex-col child:cursor-pointer gap-y-4 py-2">
+const BasedRateStart = () => {
+  return (
+    <div className="flex flex-col gap-y-2  pt-2">
+      <div
+        className="pt-2 child:font-Shabnam_B
+       child:text-dark_shade"
+      >
+        <p> انتخاب بر اساس امتیاز :</p>
+      </div>
+      <div className="flex flex-col child:cursor-pointer gap-y-4 py-2">
         <div className="flex  w-full items-center  group  ">
-            {Array.from({length:5}).map((_,index)=>{
-                return <FaStar key={index} className="text-goldColor"  />
-            })}
-            <div className="mr-auto">
-                <Badge content={12}/>
-            </div>
-        </div>
-        <div className="flex  w-full items-center  group  ">
-            {Array.from({length:4}).map((_,index)=>{
-                return <FaStar key={index} className="text-goldColor"  />
-            })}
-            {Array.from({length:1}).map((_,index)=>{
-                return <FaRegStar key={index} className=""  />
-            })}
-            <div className="mr-auto">
-                <Badge content={12}/>
-            </div>
+          {Array.from({ length: 5 }).map((_, index) => {
+            return <FaStar key={index} className="text-goldColor" />;
+          })}
+          <div className="mr-auto">
+            <Badge content={12} />
+          </div>
         </div>
         <div className="flex  w-full items-center  group  ">
-            {Array.from({length:3}).map((_,index)=>{
-                return <FaStar key={index} className="text-goldColor"  />
-            })}
-             {Array.from({length:2}).map((_,index)=>{
-                return <FaRegStar key={index} className=""  />
-            })}
-            <div className="mr-auto">
-                <Badge content={12}/>
-            </div>
+          {Array.from({ length: 4 }).map((_, index) => {
+            return <FaStar key={index} className="text-goldColor" />;
+          })}
+          {Array.from({ length: 1 }).map((_, index) => {
+            return <FaRegStar key={index} className="" />;
+          })}
+          <div className="mr-auto">
+            <Badge content={12} />
+          </div>
         </div>
         <div className="flex  w-full items-center  group  ">
-            {Array.from({length:2}).map((_,index)=>{
-                return <FaStar key={index} className="text-goldColor"  />
-            })}
-             {Array.from({length:3}).map((_,index)=>{
-                return <FaRegStar key={index} className=""  />
-            })}
-            <div className="mr-auto">
-                <Badge content={12}/>
-            </div>
+          {Array.from({ length: 3 }).map((_, index) => {
+            return <FaStar key={index} className="text-goldColor" />;
+          })}
+          {Array.from({ length: 2 }).map((_, index) => {
+            return <FaRegStar key={index} className="" />;
+          })}
+          <div className="mr-auto">
+            <Badge content={12} />
+          </div>
         </div>
         <div className="flex  w-full items-center  group  ">
-            {Array.from({length:1}).map((_,index)=>{
-                return <FaStar key={index} className="text-goldColor"  />
-            })}
-             {Array.from({length:4}).map((_,index)=>{
-                return <FaRegStar key={index} className=""  />
-            })}
-            <div className="mr-auto">
-                <Badge content={12}/>
-            </div>
+          {Array.from({ length: 2 }).map((_, index) => {
+            return <FaStar key={index} className="text-goldColor" />;
+          })}
+          {Array.from({ length: 3 }).map((_, index) => {
+            return <FaRegStar key={index} className="" />;
+          })}
+          <div className="mr-auto">
+            <Badge content={12} />
+          </div>
         </div>
+        <div className="flex  w-full items-center  group  ">
+          {Array.from({ length: 1 }).map((_, index) => {
+            return <FaStar key={index} className="text-goldColor" />;
+          })}
+          {Array.from({ length: 4 }).map((_, index) => {
+            return <FaRegStar key={index} className="" />;
+          })}
+          <div className="mr-auto">
+            <Badge content={12} />
+          </div>
         </div>
-        </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 export default FilteredCategory;

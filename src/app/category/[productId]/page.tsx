@@ -4,6 +4,7 @@ import ProductPageLayout from "@/components/layout-components/ProductPage/Produc
 import dbConnection from "@/dbConfigs/db";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
+import dataParser from "@/utils/dataParser/dataParser";
 type ProductParams={
   productId:string
 }
@@ -21,9 +22,7 @@ async function SingleProduct({ params }: {params:ProductParams}) {
         <div className="">
           <main className="max-w-[1920px]  ">
             <ProductPageLayout
-              initialProductData={JSON.parse(
-                JSON.stringify(initialProductData)
-              )}
+              initialProductData={dataParser(initialProductData)}
             />
           </main>
         </div>

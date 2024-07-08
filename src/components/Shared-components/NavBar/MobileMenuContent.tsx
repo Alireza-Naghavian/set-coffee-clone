@@ -19,7 +19,7 @@ function MobileMenuContent() {
                     child:py-[12px] mt-2 child:border-b last:border-none 
                     child:px-5"
       >
-        <NavItem label="صفحه اصلی" />
+        <NavItem targetLink="/" label="صفحه اصلی" />
         <div className="w-full !p-0">
           <DropDown label={"فروشگاه"}>
             <ul
@@ -38,12 +38,12 @@ function MobileMenuContent() {
           </DropDown>
         </div>
 
-        <NavItem label="تماس با ما" />
-        <NavItem label="درباره ما" />
-        <NavItem label="لیست علاقه مندی ها" icon={<FaRegHeart />} />
-        <NavItem label="مقایسه" icon={<FaShuffle />} />
+        <NavItem targetLink="/" label="تماس با ما" />
+        <NavItem targetLink="/" label="درباره ما" />
+        <NavItem targetLink="/" label="لیست علاقه مندی ها" icon={<FaRegHeart />} />
+        <NavItem targetLink="/" label="مقایسه" icon={<FaShuffle />} />
         <Link className={`flex items-center relative gap-x-px ${styles.hasSubMenu} `} href={"/register-login"}>
-        <NavItem label="عضویت/ورورد" icon={<LuUser2 />} />
+        <NavItem targetLink="/register-login" label="عضویت/ورورد" icon={<LuUser2 />} />
         </Link>
       </ul>
     </ul>

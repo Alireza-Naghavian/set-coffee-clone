@@ -1,15 +1,19 @@
 import Link from "next/link";
 import React from "react";
-interface BreadcrumbType {
-  [key: string]: string;
-}
-function Breadcrumb({
+type BreadcrumbProps = {
+  firstTarget: string;
+  firstTitle: React.ReactNode;
+  seperator?: React.ReactNode;
+  nestedStep: number;
+  nestedLinks: { target: string; title: React.ReactNode }[];
+};
+const Breadcrumb: React.FC<BreadcrumbProps> = ({
   firstTarget,
-  secondTarget,
   firstTitle,
-  secondTitle,
-  lastTitle,
-}: BreadcrumbType) {
+  seperator = "/",
+  nestedStep,
+  nestedLinks,
+}) => {
   return (
     <div
       className="flex justify-start items-center  gap-x-2 gap-y-2 max-w-[640px]
@@ -17,13 +21,21 @@ function Breadcrumb({
       <Link href={firstTarget}>
         <span>{firstTitle}</span>
       </Link>
-      /
-      <Link href={secondTarget}>
-        <span>{secondTitle}</span>
-      </Link>
-      /<span>{lastTitle}</span>
+
+      {Array.from({ length: nestedStep }).map((_, index) => (
+        <React.Fragment key={index}>
+          {nestedLinks[index] && (
+            <>
+              <span>{seperator}</span>
+              <Link href={nestedLinks[index].target}>
+                <span>{nestedLinks[index].title}</span>
+              </Link>
+            </>
+          )}
+        </React.Fragment>
+      ))}
     </div>
   );
-}
+};
 
 export default Breadcrumb;

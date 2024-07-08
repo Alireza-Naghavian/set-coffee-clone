@@ -8,11 +8,12 @@ function MobileTabBar() {
 
   return (
     <div className={`${styles.tabBar} `}>
-      <div className="w-full sm:px-[55px] flex-between-center sm:gap-x-4 sm:text-base text-sm child:flex child:flex-col  text-black child:items-center">
-        <div className="child:sm:text-base child:text-sm">
+      <div className="w-full sm:px-[55px] flex-between-center sm:gap-x-4
+       sm:text-base text-sm child:flex child:flex-col  text-black child:items-center">
+        <Link href={"/category"} className="child:sm:text-base child:text-sm">
           <HiOutlineBuildingStorefront size={24} className="" />
           <span className="font-Shabnam_B text-base">فروشگاه</span>
-        </div>
+        </Link>
         <Link className="child:sm:text-base child:text-sm" href={"/register-login"}>
           <RiUser3Line size={24} />
           <span className="font-Shabnam_B text-base">

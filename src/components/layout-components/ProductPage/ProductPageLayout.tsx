@@ -41,7 +41,8 @@ function ProductPageLayout({
           {/* right side */}
 
           <ResponsiveImage
-            dimensions={`md:w-1/2 object-cover md:!h-[380px] w-[min(500px,75vw)] !pb-32 sm:h-[calc(100vh-100px)] xs:h-[calc(100vh-300px)]  lg:h-[400px] md:self-start`}
+            dimensions={`md:w-1/2 object-cover md:!h-[380px] w-[min(500px,75vw)] 
+              !pb-32 sm:h-[calc(100vh-100px)] xs:h-[calc(100vh-300px)]  lg:h-[400px] md:self-start`}
             src={product?.cover}
             imageStyles="md:object-contain object-cover !w-full !h-full"
             blurDataURL={product?.cover}
@@ -52,16 +53,24 @@ function ProductPageLayout({
 
           {/* left side */}
           <div
-            className={`sm:mt-0 flex lg:pr-12  pr-2 flex-col  mt-8  items-end    w-full  lg:gap-y-2 gap-y-4  `}
+            className={`sm:mt-0 flex lg:pr-12  pr-2 flex-col  mt-8  items-end   
+               w-full  lg:gap-y-2 gap-y-4  `}
           >
             {/* breadcrumb */}
             <Breadcrumb
               firstTarget={"/"}
               firstTitle={"خانه"}
-              secondTarget={`/${product?.category?._id}`}
-              lastTarget={`/category/${product?._id}`}
-              secondTitle={product?.category?.title}
-              lastTitle={product?.title}
+              nestedStep={2}
+              nestedLinks={[
+                {
+                  target: `/${product?.category?._id}`,
+                  title: product?.category?.title,
+                },
+                {
+                  title: product?.title,
+                  target: `/category/${product?._id}`,
+                },
+              ]}
             />
             {/* product title & short desc */}
 

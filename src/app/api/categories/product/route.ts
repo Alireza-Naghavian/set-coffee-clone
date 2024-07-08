@@ -74,8 +74,8 @@ export const GET = async () => {
   try {
     await dbConnection();
 
-    const allProducts = await ProductModel.find({}, "-__v -updatedAt")
-      .populate("category", "-products -__v")
+    const allProducts = await ProductModel.find({}, "-__v -updatedAt -longDesc -shortDesc")
+      .populate("category", "-products -__v ")
       .lean();
 
     return Response.json({ data: allProducts }, { status: 200 });

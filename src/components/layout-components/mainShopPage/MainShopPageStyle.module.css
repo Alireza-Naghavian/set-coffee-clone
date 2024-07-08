@@ -1,0 +1,17 @@
+/* grid product layout */
+.productWrapper{
+    @apply  grid-cols-1    lg:grid-cols-2 
+}
+@media screen and (min-width:475px)  {
+    .productWrapper{
+        @apply  grid-cols-2   sm:grid-cols-3 
+    }
+}
+@media screen and (min-width:1200px) {
+    .productWrapper{
+        @apply  grid-cols-3  xl:grid-cols-4
+    }
+}
+
+
+

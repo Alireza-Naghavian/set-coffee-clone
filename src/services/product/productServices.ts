@@ -10,7 +10,17 @@ export const getSingleProductData = async (productId: string) => {
       if (err.response.status === 500) notFound();
     });
 };
-
-export const addCommentOnProduct = async ( {data}:{data: SubmitCommentType}) => {
-  return api.post(`/comments/${data.productId}`,data).then((response) => response?.data)
+export const getInitialCategoryData = async () => {
+  return api
+    .get("/categories/product")
+    .then(({ response }: any) => response?.data);
+};
+export const addCommentOnProduct = async ({
+  data,
+}: {
+  data: SubmitCommentType;
+}) => {
+  return api
+    .post(`/comments/${data.productId}`, data)
+    .then((response) => response?.data);
 };

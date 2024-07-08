@@ -36,18 +36,18 @@ function DesktopMenu() {
         flex items-center h-full
         xl:gap-x-12 gap-x-8"
           >
-            <NavItem label="صفحه اصلی" />
-            <NavItem
+            <NavItem targetLink="/" label="صفحه اصلی" />
+            <NavItem targetLink="/category"
               label="فروشگاه"
               icon={<IoChevronDown />}
               subMenuItem={subMenuTitles}
             />
-            <NavItem label="وبلاگ" />
-            <NavItem label="تماس با ما" />
-            <NavItem label="درباره ما" />
-            <NavItem label="قوانین" />
+            <NavItem targetLink="/category" label="وبلاگ" />
+            <NavItem targetLink="/category" label="تماس با ما" />
+            <NavItem targetLink="/category" label="درباره ما" />
+            <NavItem targetLink="/category" label="قوانین" />
             <div className="py-2" onClick={() => open()}>
-              <NavItem label="ورود/عضویت" />
+              <NavItem targetLink="/category" label="ورود/عضویت" />
             </div>
           </ul>
         </div>
