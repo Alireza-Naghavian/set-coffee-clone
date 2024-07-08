@@ -3,21 +3,23 @@ import ProductCard from "@/components/Shared-components/ProductCard/ProductCard"
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import Loader from "@/components/UI/loader/Loader";
 import FilteredCategory from "@/components/Utils-components/FIlter/FilteredCategory";
+import useGetAllCategories from "@/hooks/categories/useGetCategoryData";
+import useGetProdBasedCat from "@/hooks/categories/useGetProdBasedCat";
 import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
 import useGetInitialCategoryPageData from "@/hooks/product/useGetInitialCategoryPageData";
 import { SingleProductType } from "@/types/models/categories.type";
-import "rc-slider/assets/index.css";
-import { FaSortAmountDown } from "react-icons/fa";
-import { Suspense, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { useState } from "react";
+import { FaChevronDown, FaSortAmountDown } from "react-icons/fa";
 import styles from "./MainShopPageStyle.module.css";
 function MainShopPage({
   initialPageData,
 }: {
   initialPageData: SingleProductType[];
 }) {
-  const { isProductsLoading, products } =
-    useGetInitialCategoryPageData(initialPageData);
+  const { categories, isCatLoading } = useGetAllCategories();
+  const { products } = useGetInitialCategoryPageData(initialPageData);
+  const [categoryId, setCategoryId] = useState<string>("");
+  const { categoryData, isProductLoading } = useGetProdBasedCat(categoryId);
   const [iOpen, { toggle }] = useDisclosure();
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   return (
@@ -52,74 +54,27 @@ function MainShopPage({
                             flex-wrap   mt-2.5   w-full 
                             child:flex child:flex-col md:gap-x-8 gap-y-6 child:gap-y-1 `}
           >
-            <li>
-              <span className="text-white font-Shabnam_M">فروش سازمانی</span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">EXOTIC SERIES</span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">هورکا</span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">
-                COMMERCIAL COFFEE
-              </span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">PREMIUM COFFEE</span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">
-                SPECIALTY COFFEE
-              </span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">EXOTIC</span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">
-                قهوه های خاص و محدود
-              </span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">
-                WORLD CLASS SPECIALTY
-              </span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
-            <li>
-              <span className="text-white font-Shabnam_M">کپسول قهوه</span>
-              <span className="text-mute  text-right font-Shabnam_M">
-                ۴ محصول
-              </span>
-            </li>
+            {isCatLoading ? (
+              <div className=" w-fit">
+                <p>درحال بارگزاری ....</p>
+              </div>
+            ) : (
+              categories?.map((category: any) => {
+                return (
+                  <li key={category?._id}>
+                    <span
+                      onClick={() => setCategoryId(category?._id)}
+                      className="text-white font-Shabnam_M cursor-pointer"
+                    >
+                      {category?.title}
+                    </span>
+                    <span className="text-mute  text-right font-Shabnam_M">
+                      {category?.productCount.toLocaleString("fa-Ir")} محصول
+                    </span>
+                  </li>
+                );
+              })
+            )}
           </ul>
         </div>
       </div>
@@ -144,13 +99,13 @@ function MainShopPage({
                 ]}
               />
             </div>
-            <div className="flex flex-col gap-y-2 justify-end ">
+            <div className="flex flex-col gap-y-2 justify-end  ">
               <span className="text-sm  text-right text-dark_shade font-Shabnam_M">
                 <span className="hidden md:block"> مرتب سازی :</span>
               </span>
               <select
                 className=" bg-gray-100 shadow-sm  
-              appearance-auto text-sm md:max-w-[300px] md:w-[300px]
+              appearance-auto text-sm lg:max-w-[300px] lg:w-[300px] md:max-w-[200px] md:w-[200px]
               child:w-fit focus:outline-none px-2 py-2 rounded-md before:content-['fsdf']  "
               >
                 <option className="text-sm" value="">
@@ -177,15 +132,25 @@ function MainShopPage({
             <span>نمایش فیلتر ها</span>
           </span>
           {/* product grid */}
-          <Suspense fallback={<Loader loadingCondition={isProductsLoading} />}>
-            <div
-              className={`grid ${styles.productWrapper}  mt-4   gap-x-4 gap-y-5`}
-            >
-              {products?.map((product: SingleProductType) => {
-                return <ProductCard key={product?._id} productData={product} />;
-              })}
-            </div>
-          </Suspense>
+
+          <div
+            className={`grid ${styles.productWrapper}  mt-4   gap-x-4 gap-y-5`}
+          >
+            {isProductLoading ? (
+              <div className="flex items-center gap-x-2">
+                <Loader loadingCondition={isProductLoading} />
+                <span>درحال بارگزاری...</span>
+              </div>
+            ) : (
+              (categoryData[0]?.products || products)?.map(
+                (product: SingleProductType) => {
+                  return (
+                    <ProductCard key={product?._id} productData={product} />
+                  );
+                }
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>

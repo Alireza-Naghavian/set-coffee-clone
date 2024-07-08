@@ -13,7 +13,7 @@ export const getSingleProductData = async (productId: string) => {
 export const getInitialCategoryData = async () => {
   return api
     .get("/categories/product")
-    .then(({ response }: any) => response?.data);
+    .then(({ data }: any) => data?.data);
 };
 export const addCommentOnProduct = async ({
   data,

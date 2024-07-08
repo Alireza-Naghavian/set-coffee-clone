@@ -25,7 +25,7 @@ function FilteredCategory({isFilterOpen,setIsFilterOpen}:FilteredCategoryType) {
     </div>
       <div className={`lg:hidden  child:px-4 overflow-hidden w-full  h-full
          overflow-y-auto  transition-all  fixed right-0 top-0 !z-[99999] tr-400
-          bg-white ${isFilterOpen ? "translate-x-[0rem]" : "translate-x-[-40rem]"}`}>
+          bg-white ${isFilterOpen ? "translate-x-[0rem]" : "translate-x-[-100rem]"}`}>
          <div
           className="flex gap-x-1 items-center   w-fit mr-auto child:text-lg  p-4   cursor-pointer "
           onClick={() => setIsFilterOpen(false)}
