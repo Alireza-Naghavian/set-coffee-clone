@@ -5,9 +5,7 @@ const useGetAllCategories = () => {
   const { data, isPending: isCatLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: getAllCategories,
-    staleTime: 60,
-    retry: false,
-    refetchOnReconnect: true,
+
     refetchOnWindowFocus: false,
   });
   const categories = data || [];

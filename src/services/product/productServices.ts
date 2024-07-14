@@ -10,9 +10,11 @@ export const getSingleProductData = async (productId: string) => {
       if (err.response.status === 500) notFound();
     });
 };
-export const getInitialCategoryData = async () => {
+export const getInitialCategoryData = async (queryParams: any) => {
   return api
-    .get("/categories/product")
+    .get(
+      `/categories/product?sort=${queryParams.sort}&&minPrice=${queryParams.minPrice}&&maxPrice=${queryParams.maxPrice}&&rateStar=${queryParams.stars}&&page=${queryParams.page}`
+    )
     .then(({ data }: any) => data?.data);
 };
 export const addCommentOnProduct = async ({
