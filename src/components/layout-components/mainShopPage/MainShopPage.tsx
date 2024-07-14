@@ -21,7 +21,7 @@ const initialFilterAmount = {
   starsInit:5,
 
 }
-function MainShopPage({initialPageData}: {initialPageData: SingleProductType[];}) 
+function MainShopPage() 
 {
   const { categories, isCatLoading } = useGetAllCategories();
   const [categoryId, setCategoryId] = useState<string>("");
