@@ -2,7 +2,6 @@ import dbConnection from "@/dbConfigs/db";
 import CategoryModel from "@/models/categories&products/categories";
 import { categoriesType } from "@/types/models/categories.type";
 import { categorySchema } from "@/utils/validator/categories/categoriesValidator";
-import products from "@/models/categories&products/product";
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
@@ -34,7 +33,7 @@ export const POST = async (req: Request) => {
   }
 };
 
-export const GET = async (): Promise<Response> => {
+export const GET = async ()=> {
   try {
     await dbConnection();
     const allCategories = await CategoryModel.aggregate([

@@ -2,7 +2,6 @@ import { SetState } from "./global.type";
 export type FilteredCategoryType = {
   isFilterOpen: boolean;
   setIsFilterOpen: SetState<boolean>;
-  onApplyFilters: (filters: any) => void;
   filtersEntity: any;
   setMinPrice: SetState<number>;
   setMaxPrice: SetState<number>;
@@ -14,4 +13,7 @@ export type BasedPriceType = Pick<
 > & { applyFilters: () => void };
 export type BasedRateStartType = {
   setStars: SetState<number>;
+  navigate?:any
+newParams?:URLSearchParams
+filtersEntity?:any
 };

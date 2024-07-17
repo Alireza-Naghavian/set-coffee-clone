@@ -3,6 +3,7 @@ import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import { productSchema } from "@/utils/validator/categories/categoriesValidator";
 import { writeFile } from "fs/promises";
+import mongoose from "mongoose";
 import { NextRequest } from "next/server";
 import path from "path";
 
@@ -70,12 +71,24 @@ export const POST = async (req: Request) => {
     );
   }
 };
+const buildMatchQuery = (minPrice: number, maxPrice: number, rateStar: number, categoryId?: string) => {
+  const matchQuery: any = {
+    price: { $gte: minPrice, $lte: maxPrice },
+    score: { $lte: rateStar },
+  };
 
+  if (categoryId && mongoose.isValidObjectId(categoryId)) {
+    matchQuery.category = new mongoose.Types.ObjectId(categoryId);
+  }
+
+  return matchQuery;
+};
 export const GET = async (req: NextRequest) => {
   try {
     await dbConnection();
     const searchParams = req.nextUrl.searchParams;
     const sort = searchParams.get("sort") || "latest";
+    const categoryId = searchParams.get("categoryId") || "";
     const minPrice = parseInt(searchParams.get("minPrice") || "0", 10);
     const maxPrice = parseInt(searchParams.get("maxPrice") || "10000000", 10);
     const rateStar = parseInt(searchParams.get("rateStar") || "5", 10);
@@ -106,17 +119,13 @@ export const GET = async (req: NextRequest) => {
         sortQuery = { "createdAt": -1 };
         break;
     }
-    const matchQuery: any = {
-      price: { $gte: minPrice, $lte: maxPrice },
-      score: { $lte: rateStar },
-    };
-    const products = await ProductModel.find(matchQuery)
+    const matchQuery = buildMatchQuery(minPrice, maxPrice, rateStar, categoryId);
+    const products = await ProductModel.find(matchQuery,"cover title score price createdAt")
       .sort(sortQuery)
       .skip(skip)
       .limit(limit)
       .populate("category", "-products -__v ")
       .lean();
-
     return Response.json({ data: products }, { status: 200 });
   } catch (error) {
     return Response.json(

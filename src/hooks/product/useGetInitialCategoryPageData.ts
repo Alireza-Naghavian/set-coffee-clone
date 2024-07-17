@@ -1,16 +1,15 @@
 import { getInitialCategoryData } from "@/services/product/productServices";
+import { SingleProductType } from "@/types/models/categories.type";
 import { useQuery } from "@tanstack/react-query";
-
-const useGetInitialCategoryPageData = (
-  filtersEntity: any,
-  applyPrice: [number, number]
-) => {
-  const { sort, stars, page } = filtersEntity;
-  const { data, isPending: isProductsLoading } = useQuery({
-    queryKey: ["products", sort, stars, page ,applyPrice],
-    queryFn: () => getInitialCategoryData(filtersEntity),
+import { useSearchParams } from "next/navigation";
+const useGetInitialCategoryPageData = (initProducts:SingleProductType[]) => {
+  const location = useSearchParams();
+  const queryParams = new URLSearchParams(location)
+  const { data, isLoading: isProductsLoading } = useQuery({
+    queryKey: ["products", queryParams.toString()],
+    queryFn: () => getInitialCategoryData(queryParams),
     staleTime:0,
-  
+    initialData:initProducts
   });
   const products = data || [];
 
