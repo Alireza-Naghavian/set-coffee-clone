@@ -56,6 +56,10 @@
       url("/fonts/shabnam/Shabnam-Bold.woff2") format("woff2");
     font-display: swap;
   }
+
+  }
+  html {
+    scroll-behavior: smooth !important;
   }
     .flex-center {
       @apply flex items-center justify-center;

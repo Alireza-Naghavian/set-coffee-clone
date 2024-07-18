@@ -95,7 +95,7 @@ const ProductCardBody = ({
     <div className="px-2.5 md:child:text-base text-sm max-w-[250px]  child:font-Shabnam_M child:leading-5">
       <Link
         href={`/categories/${productData._id}`}
-        className="text-main hover:text-main/55 tr-200  flex-center mt-2 text-center   sm:line-clamp-2 lg:line-clamp-3 md:max-w-[250px] max-h-max overflow-x-hidden"
+        className="text-main hover:text-main/55 tr-200  flex-center mt-2 text-center   sm:line-clamp-2  md:max-w-[250px] max-h-max overflow-x-hidden"
       >
         {productData.title}
       </Link>

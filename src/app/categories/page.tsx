@@ -21,14 +21,15 @@ async function MainShop() {
       },
     },
   ]);
-  const initProducts = await ProductModel.find({}).limit(8);
+  const totalProduct = (await ProductModel.find({},"_id")).length
   return (
     <QueryClientProviderWrapper>
       <main className="max-w-[1920px]">
         <Suspense>
           <MainShopPage
-            initProducts={dataParser(initProducts)}
+
             allCategories={dataParser(allCategories)}
+            totalProduct={totalProduct}
           />
         </Suspense>
       </main>

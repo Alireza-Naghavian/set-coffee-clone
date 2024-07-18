@@ -1,35 +1,34 @@
 import Badge from "@/components/UI/badge/Badge";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
-import { MdOutlineDone } from "react-icons/md";
 import {
   BasedPriceType,
   BasedRateStartType,
   FilteredCategoryType,
 } from "@/types/Filter.type";
+import { useRouter, useSearchParams } from "next/navigation";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { useEffect, useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import { IoIosClose } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { IoIosClose } from "react-icons/io";
+import { MdOutlineDone } from "react-icons/md";
 function FilteredCategory({
   isFilterOpen,
   setIsFilterOpen,
   filtersEntity,
   setMinPrice,
   setMaxPrice,
-  setStars,
 }: FilteredCategoryType) {
   useScrollLocker(isFilterOpen);
   const navigate = useRouter();
-  const location = useSearchParams();
-  const newParams = new URLSearchParams(location);
+  const currLocation = useSearchParams();
+  const newParams = new URLSearchParams(currLocation);
   const applyFilters = (): void => {
     newParams.set("minPrice", filtersEntity?.minPrice?.toString());
     newParams.set("maxPrice", filtersEntity?.maxPrice?.toString());
-    navigate.replace(`?${newParams.toString()}`, { scroll: false });
+    navigate.replace(`?${newParams.toString()}`);
     setIsFilterOpen(false);
   };
   return (
@@ -50,7 +49,7 @@ function FilteredCategory({
           <BasedRateStart
           newParams={newParams}
           navigate={navigate}
-            setStars={setStars}
+ 
           />
         </div>
       </div>
@@ -78,7 +77,6 @@ function FilteredCategory({
         <BasedRateStart
           newParams={newParams}
           navigate={navigate}
-          setStars={setStars}
         />
 
         <div className="my-8 flex flex-col gap-y-2">
@@ -93,8 +91,8 @@ function FilteredCategory({
           </MainBtn>
           <MainBtn
             onClick={() => {
-              navigate.replace("/categories");
-              setIsFilterOpen(false);
+              newParams.delete("")
+              location.replace("/categories")
             }}
             className="!bg-gray-600 hover:!bg-gray-700"
           >
@@ -185,7 +183,15 @@ const BasedPrice = ({
 };
 
 const BasedRateStart = ({newParams,navigate }: BasedRateStartType) => {
-  const [select,setSelect] = useState<number>()
+  const rateStar =newParams?.get("rateStar")
+  const [select,setSelect] = useState<number|null>(null)
+  useEffect(()=>{
+    if (rateStar) {
+      setSelect(Number(rateStar));
+    } else {
+      setSelect(null);
+    }
+  },[rateStar,newParams])
   return (
     <div className="flex flex-col gap-y-2  pt-2">
       <div

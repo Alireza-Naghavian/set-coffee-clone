@@ -1,5 +1,4 @@
 "use client";
-
 import { ChildrenProps } from "@/types/global.type";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { createContext, useContext, useMemo } from "react";
@@ -36,6 +35,7 @@ export const QueryClientProviderWrapper: React.FC<ChildrenProps> = ({ children }
     <QueryClientContext.Provider value={queryClient}>
       <QueryClientProvider client={queryClient}>
         {children}
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </QueryClientContext.Provider>
   );

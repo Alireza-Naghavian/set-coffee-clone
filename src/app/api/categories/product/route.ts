@@ -95,7 +95,7 @@ export const GET = async (req: NextRequest) => {
     const pageParam = searchParams.get("page");
     const limitParam = searchParams.get("limit");
     const page = pageParam ? parseInt(pageParam, 10) : 1;
-    const limit = limitParam ? parseInt(limitParam, 10) : 8;
+    const limit = limitParam ? parseInt(limitParam, 10) : 4;
     const skip = (page - 1) * limit;
     let sortQuery: any = { "createdAt": 1 };
     switch (sort) {
