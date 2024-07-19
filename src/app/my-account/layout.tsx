@@ -23,17 +23,16 @@ function layout({ children }: Readonly<{ children: React.ReactNode }>) {
       {/* sidebar & content */}
            <div className="w-full flex md:flex-row flex-col items-start !lg:px-20  mt-8">
       {/* side bar */}
-      <div className=" py-6 lg:h-full md:h-screen px-4 w-full  md:w-[345px] md:max-w-[345px] border-l border-l-gray-300">
+      <div className=" py-6 lg:h-[555px] md:h-screen px-4 w-full  md:w-[345px] md:max-w-[345px] border-l border-l-gray-300">
         <h3 className="text-right font-Shabnam_B text-xl text-dark_shade  border-b-2 border-b-gray-300 pb-2   ">
             <span className="mr-3">حساب کاربری من</span>
         </h3>
         {/* link list */}
         <ul className="flex flex-col mt-2 mr-2 py-2 gap-y-1 child:text-base
          child:font-Shabnam_B child:transition-all duration-300 child-hover:!bg-gray-100 
-         child:py-2 child:pr-2 child:text-dark_shade child:w-[95%]  ">
+         child:py-2 child:pr-2 child:text-dark_shade child:w-[95%]">
         <Link href={""}><li>پیشخوان</li></Link>
         <Link href={""}><li>سفارش ها</li></Link>
-        <Link href={""}><li>آدرس</li></Link>
         <Link href={""}><li>جزئیات حساب</li></Link>
         <Link href={""}><li>مقایسه</li></Link>
         <Link href={""}><li>لیست علاقه مندی ها</li></Link>

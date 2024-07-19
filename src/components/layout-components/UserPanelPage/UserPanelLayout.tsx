@@ -1,17 +1,19 @@
+import Table from "@/components/UI/Table/Table";
 import Link from "next/link";
-import React from "react";
+import { FaRegHeart } from "react-icons/fa";
+import { FaShuffle } from "react-icons/fa6";
+import { HiOutlineUserCircle } from "react-icons/hi";
+import { IoIosLogOut } from "react-icons/io";
 import { TbChecklist } from "react-icons/tb";
 import styles from "./myAccount.module.css";
-import { FaMapLocationDot, FaShuffle } from "react-icons/fa6";
-import { HiOutlineUserCircle } from "react-icons/hi";
-import { FaRegHeart } from "react-icons/fa";
-import { IoIosLogOut } from "react-icons/io";
-import Table from "@/components/UI/Table/Table";
+import AccountDetail from "./subRoutes/AccountDetail";
 function UserPanelLayout() {
+
   return (
     <div>
       {/* <DefaultPage /> */}
-      <OrderList/>
+      {/* <OrderList/> */}
+      <AccountDetail />
     </div>
   );
 }
@@ -37,10 +39,6 @@ const DefaultPage = () => {
           <span className="text-lg font-Shabnam_M ">سفارش ها</span>
         </Link>
         <Link href={""} className="flex-center flex-col">
-          <FaMapLocationDot className="text-[65px]" />
-          <span className="text-lg font-Shabnam_M ">آدرس</span>
-        </Link>
-        <Link href={""} className="flex-center flex-col">
           <HiOutlineUserCircle className="text-[65px]" />
           <span className="text-lg font-Shabnam_M ">جزئیات حساب</span>
         </Link>
@@ -64,7 +62,102 @@ const DefaultPage = () => {
 };
 const OrderList = ()=>{
   return(
-    <div className="h-[413px] max-h-[413px] overflow-y-auto">
+    <div className="md:h-[513px] h-[315px] px-4 md:max-h-[513px] overflow-y-auto">
+    <Table>
+    <Table.Header cols={"grid-cols-6"}>
+      <th>عنوان</th>
+      <th>قیمت</th>
+      <th>دسته بندی</th>
+      <th>تعداد</th>
+      <th>وضعیت </th>
+
+    </Table.Header>
+    <Table.Body>
+      <Table.Row cols="grid-cols-6">
+        <td>قهوه عربیکا</td>
+        <td>{Number(1_200_000).toLocaleString("fa-Ir")} تومان</td>
+        <td>Primium Coffee</td>
+        <td>{Number(2).toLocaleString("fa-Ir")}</td>
+        <td className="!text-green-600">تکمیل شده</td>
+      </Table.Row>
+    </Table.Body>
+    </Table>
+    <Table>
+    <Table.Header cols={"grid-cols-6"}>
+      <th>عنوان</th>
+      <th>قیمت</th>
+      <th>دسته بندی</th>
+      <th>تعداد</th>
+      <th>وضعیت </th>
+
+    </Table.Header>
+    <Table.Body>
+      <Table.Row cols="grid-cols-6">
+        <td>قهوه عربیکا</td>
+        <td>{Number(1_200_000).toLocaleString("fa-Ir")} تومان</td>
+        <td>Primium Coffee</td>
+        <td>{Number(2).toLocaleString("fa-Ir")}</td>
+        <td className="!text-green-600">تکمیل شده</td>
+      </Table.Row>
+    </Table.Body>
+    </Table>
+    <Table>
+    <Table.Header cols={"grid-cols-6"}>
+      <th>عنوان</th>
+      <th>قیمت</th>
+      <th>دسته بندی</th>
+      <th>تعداد</th>
+      <th>وضعیت </th>
+
+    </Table.Header>
+    <Table.Body>
+      <Table.Row cols="grid-cols-6">
+        <td>قهوه عربیکا</td>
+        <td>{Number(1_200_000).toLocaleString("fa-Ir")} تومان</td>
+        <td>Primium Coffee</td>
+        <td>{Number(2).toLocaleString("fa-Ir")}</td>
+        <td className="!text-green-600">تکمیل شده</td>
+      </Table.Row>
+    </Table.Body>
+    </Table>
+    <Table>
+    <Table.Header cols={"grid-cols-6"}>
+      <th>عنوان</th>
+      <th>قیمت</th>
+      <th>دسته بندی</th>
+      <th>تعداد</th>
+      <th>وضعیت </th>
+
+    </Table.Header>
+    <Table.Body>
+      <Table.Row cols="grid-cols-6">
+        <td>قهوه عربیکا</td>
+        <td>{Number(1_200_000).toLocaleString("fa-Ir")} تومان</td>
+        <td>Primium Coffee</td>
+        <td>{Number(2).toLocaleString("fa-Ir")}</td>
+        <td className="!text-green-600">تکمیل شده</td>
+      </Table.Row>
+    </Table.Body>
+    </Table>
+    <Table>
+    <Table.Header cols={"grid-cols-6"}>
+      <th>عنوان</th>
+      <th>قیمت</th>
+      <th>دسته بندی</th>
+      <th>تعداد</th>
+      <th>وضعیت </th>
+
+    </Table.Header>
+    <Table.Body>
+      <Table.Row cols="grid-cols-6">
+        <td>قهوه عربیکا</td>
+        <td>{Number(1_200_000).toLocaleString("fa-Ir")} تومان</td>
+        <td>Primium Coffee</td>
+        <td>{Number(2).toLocaleString("fa-Ir")}</td>
+        <td className="!text-green-600">تکمیل شده</td>
+      </Table.Row>
+    </Table.Body>
+    </Table>
     <Table>
     <Table.Header cols={"grid-cols-6"}>
       <th>عنوان</th>
@@ -87,4 +180,6 @@ const OrderList = ()=>{
     </div>
   )
 }
+
+
 export default UserPanelLayout;

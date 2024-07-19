@@ -24,6 +24,7 @@ export type TextFieldType = {
   register: any;
   errors: any;
   validattionschema?: RegisterOptions;
+  readOnly?:boolean
 } & React.ComponentProps<"input">;
 
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
