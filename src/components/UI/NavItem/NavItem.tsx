@@ -1,3 +1,4 @@
+"use client"
 import styles from "@/components/Shared-components/NavBar/Navbar.module.css";
 import ProgressBarLink from "@/components/Utils-components/ProgressBar/ProgressBar";
 import Link from "next/link";

@@ -1,0 +1,13 @@
+.defaultPage_Grid_Sec {
+  @apply mt-4 w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 
+    child:shadow-large
+    child:w-full child:h-full
+  child:bg-white
+      child:py-4
+   child:transition-all 
+   child:duration-300
+   child-hover:text-dark_shade
+   child-hover:bg-gray-100
+  child:text-mute 
+    child:gap-y-2;
+}
