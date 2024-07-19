@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import LogoLink from "@/components/UI/LogoLink/LogoLink";
+import NavItem from "@/components/UI/NavItem/NavItem";
+import Overlay from "@/components/UI/Overlay/Overlay";
+import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
+import Link from "next/link";
+import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { IoChevronDown } from "react-icons/io5";
-import LogoLink from "@/components/UI/LogoLink/LogoLink";
-import NavItem from "@/components/UI/NavItem/NavItem";
-import styles from "./Navbar.module.css";
-import Link from "next/link";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
-import Overlay from "@/components/UI/Overlay/Overlay";
-import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
 import AsideUserContainer from "./AsideUserContainer";
-import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
+import styles from "./Navbar.module.css";
 export const subMenuTitles = [
   "Specialty coffee",
   "World Class Specialty",
@@ -47,7 +47,7 @@ function DesktopMenu() {
             <NavItem targetLink="/categories" label="درباره ما" />
             <NavItem targetLink="/categories" label="قوانین" />
             <div className="py-2" onClick={() => open()}>
-              <NavItem targetLink="/category" label="ورود/عضویت" />
+              <NavItem targetLink="#" label="ورود/عضویت" />
             </div>
           </ul>
         </div>

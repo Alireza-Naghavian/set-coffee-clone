@@ -19,6 +19,7 @@ import {
 import { optionValues } from "@/utils/constants";
 
 import styles from "./MainShopPageStyle.module.css";
+import Link from "next/link";
 
 const initialFilterAmount = {
   minPriceInit: 0,
@@ -125,8 +126,8 @@ newParams.delete("")
           >
             {allCategories.map((category: any) => (
               <li key={category?._id}>
-                <button
-                  disabled={category?.productCount === 0}
+                <Link
+                href={`/categories?categoryId=${category?._id}`}
                   onClick={() => {
                     setCategoryData({
                       categoryId: category?._id,
@@ -141,11 +142,11 @@ newParams.delete("")
                   className={`font-Shabnam_M bg-transparent focus:outline-none ${
                     category.productCount !== 0
                       ? "cursor-pointer text-white"
-                      : "cursor-not-allowed text-gray-200/50"
+                      : " text-gray-200/50"
                   }`}
                 >
                   {category?.title}
-                </button>
+                </Link>
                 <span className="text-mute text-right font-Shabnam_M">
                   {category?.productCount.toLocaleString("fa-Ir")} محصول
                 </span>

@@ -1,9 +1,9 @@
 "use client";
 import useNavBarSticker from "@/hooks/helper-hooks/useNavBarSticker";
+import { usePathname } from "next/navigation";
+import MobileTabBar from "./MobileTabBar";
 import NavBarContent from "./NavBarContent";
 import styles from "./Navbar.module.css";
-import MobileTabBar from "./MobileTabBar";
-import { usePathname } from "next/navigation";
 
 function NavBarLayout() {
   const { fixTop } = useNavBarSticker(100);
@@ -14,7 +14,6 @@ function NavBarLayout() {
       <div className=" flex justify-center   ">
         <nav
           className={`${ fixTop ? styles.navbar_fixed : `${styles.navbar}  !bg-white shadow-md`}`}>
-           
           <NavBarContent />
         </nav>
         <MobileTabBar />

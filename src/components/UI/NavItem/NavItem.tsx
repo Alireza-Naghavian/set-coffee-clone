@@ -1,6 +1,7 @@
 import styles from "@/components/Shared-components/NavBar/Navbar.module.css";
+import ProgressBarLink from "@/components/Utils-components/ProgressBar/ProgressBar";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next-nprogress-bar';
 import React from "react";
 type NavItemType = {
   label: string;
@@ -12,6 +13,7 @@ function NavItem({ targetLink, label, icon, subMenuItem = null }: NavItemType) {
   const {push} = useRouter();
   return (
     <li suppressHydrationWarning  className={`flex items-center relative gap-x-px ${styles.hasSubMenu} `}>
+               <ProgressBarLink/>
       <div
         onClick={()=>push(targetLink)}
         className="flex items-center gap-x-2 relative cursor-pointer ">
