@@ -60,8 +60,8 @@ function SignUpForm({
               message: "حداقل ۴ کاراکتر",
             },
             maxLength: {
-              value: 15,
-              message: "حداکثر ۱۵ کاراکتر",
+              value: 30,
+              message: "حداکثر ۳۰ کاراکتر",
             },
           }}
         />

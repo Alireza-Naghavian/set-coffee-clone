@@ -12,4 +12,4 @@ export type SignUpFromType = {
 export type GetMetype = Pick<
   SignUpFromType,
   "email" | "phoneNumber" | "userName"
-> & { isActive?: boolean; role?: string,_id:string };
+> & { isActive?: boolean; role?: string,_id:string,password?:string };

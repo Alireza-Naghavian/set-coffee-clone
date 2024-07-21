@@ -7,15 +7,15 @@ export const signUpUserSchema = Joi.object().keys({
     .required()
     .trim()
     .min(4)
-    .max(15)
+    .max(30)
     .messages({
       "string.empty": `نام کاربری "نمی تواند خالی باشد`,
       "string.min": "نام کاربری وارد شده معتبر نمی باشد (حداقل ۴ کاراکتر)",
-      "string.max": "نام کاربری وارد شده صحیح نمی باشد (حداکثر ۱۵ کاراکتر)",
+      "string.max": "نام کاربری وارد شده صحیح نمی باشد (حداکثر ۳۰ کاراکتر)",
     })
     .error(
       createHttpError.BadRequest(
-        "(حداقل ۴،حداکثر۱۵کاراکتر)نام کاربری وارد شده معتبر نمی باشد"
+        "(حداقل ۴،حداکثر۳۰کاراکتر)نام کاربری وارد شده معتبر نمی باشد"
       )
     ),
   email: Joi.string()
@@ -104,4 +104,48 @@ export const checkOtpSchema = Joi.object().keys({
       "string.max": "حداکثر ۶ کاراکتر",
     })
     .error(createHttpError.BadRequest("کد تایید معتبر نمی باشد")),
+});
+
+
+export const updateProfileSchema = Joi.object().keys({
+  newUserName: Joi.string()
+    .required()
+    .trim()
+    .min(4)
+    .max(30)
+    .messages({
+      "string.empty": `نام کاربری "نمی تواند خالی باشد`,
+      "string.min": "نام کاربری وارد شده معتبر نمی باشد (حداقل ۴ کاراکتر)",
+      "string.max": "نام کاربری وارد شده صحیح نمی باشد (حداکثر ۳۰ کاراکتر)",
+    })
+    .error(
+      createHttpError.BadRequest(
+        "(حداقل ۴،حداکثر۳۰کاراکتر)نام کاربری وارد شده معتبر نمی باشد"
+      )
+    ),
+    lastPassword:Joi.string()
+    .required()
+    .min(4)
+    .max(12)
+    .trim()
+    .messages({
+      "string.min": "کلمه عبور وارد شده معتبر نمی باشد. حداقل ۴ کاراکتر!",
+      "string.max": "کلمه عبور وارد شده معتبر نمی باشد. حداکثر ۱۲ کاراکتر!",
+      "any.required": "کلمه عبور الزامی است.",
+    }),
+    newPassword: Joi.string()
+    .required()
+    .min(4)
+    .max(12)
+    .trim()
+    .messages({
+      "string.min": "کلمه عبور وارد شده معتبر نمی باشد. حداقل ۴ کاراکتر!",
+      "string.max": "کلمه عبور وارد شده معتبر نمی باشد. حداکثر ۱۲ کاراکتر!",
+      "any.required": "کلمه عبور الزامی است.",
+    })
+    .error(
+      createHttpError.BadRequest(
+        "(حداقل ۴ وحداکثر ۱۲ کاراکتر)کلمه عبور وارد شده معتبر نمی باشد!"
+      )
+    ),
 });

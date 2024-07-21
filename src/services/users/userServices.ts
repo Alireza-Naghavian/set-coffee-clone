@@ -1,3 +1,4 @@
+import { UpdateProfileType } from "@/app/api/auth/updateProfile/route";
 import api from "../httpServices";
 import { LoginFormType, SignUpFromType } from "@/types/auth.type";
 export const signInUserWithEmail = async (data: LoginFormType) => {
@@ -20,4 +21,8 @@ export const getUserData = async()=>{
   } catch (error) {
     return null
   }
+}
+
+export const updateUserProfile = async(data:UpdateProfileType)=>{
+  return  api.post("/auth/updateProfile",data).then(({data})=>data.message)
 }

@@ -11,11 +11,11 @@ const getUser = async () => {
     if (!token) throw new Error("خطا در احراز هویت");
     let user = null;
     if (token) {
-      const tokenPayLoad = verifyAccessToken(token.value);
+      const tokenPayLoad:any = verifyAccessToken(token.value);
       if (tokenPayLoad) {
         user = await UserModel.findOne(
           { email: tokenPayLoad?.email },
-          "userName email phoneNumber role isActive"
+          "userName email phoneNumber role isActive password"
         );
       }
     }

@@ -1,6 +1,9 @@
 "use client";
+import { QueryClientProviderWrapper } from "@/app/context/QueryClientProvider";
 import Table from "@/components/UI/Table/Table";
+import { GetMetype } from "@/types/auth.type";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { HiOutlineUserCircle } from "react-icons/hi";
@@ -8,31 +11,37 @@ import { IoIosLogOut } from "react-icons/io";
 import { TbChecklist } from "react-icons/tb";
 import styles from "./myAccount.module.css";
 import AccountDetail from "./subRoutes/AccountDetail";
-import { usePathname } from "next/navigation";
-function UserPanelLayout() {
+function UserPanelLayout({ user }: { user: GetMetype }) {
   const path = usePathname();
   const currPath = path.split("/").at(2);
-  switch (currPath) {
-    case "orders": {
-      return <OrderList />;
+  const renderPath = () => {
+    switch (currPath) {
+      case "orders": {
+        return <OrderList />;
+      }
+      case "details": {
+        return (
+          <QueryClientProviderWrapper>
+            <AccountDetail user={user} />
+          </QueryClientProviderWrapper>
+        );
+      }
+      default: {
+        return <DefaultPage user={user} />;
+      }
     }
-    case "details": {
-      return <AccountDetail />;
-    }
-    default: {
-      return <DefaultPage />;
-    }
-  }
+  };
+  return <>{renderPath()}</>;
 }
 
-const DefaultPage = () => {
+const DefaultPage = ({ user }: { user: GetMetype }) => {
   return (
     <div className="flex flex-col  relative ">
       <div className="w-full  text-mute">
         <p className=" text-right  ">
           <span>سلام</span>
           &nbsp;
-          <b>alireza</b>
+          <b>{user.userName}</b>
         </p>
         <p className="mt-2 pb-2">
           از طریق پیشخوان حساب کاربری‌تان، می‌توانید سفارش‌های اخیرتان را

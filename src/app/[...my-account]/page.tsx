@@ -1,9 +1,11 @@
 import UserPanelLayout from "@/components/layout-components/UserPanelPage/UserPanelLayout";
-import React from "react";
+import { getUser } from "@/utils/auth/authHelper";
+import dataParser from "@/utils/dataParser/dataParser";
 
-function UserAccount() {
+async function UserAccount() {
+  const user = await getUser();
   return <main className="max-w-[1920px] relative">
-    <UserPanelLayout/>
+    <UserPanelLayout user={dataParser(user)}/>
   </main>;
 }
 
