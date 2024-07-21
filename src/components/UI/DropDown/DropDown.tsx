@@ -1,21 +1,26 @@
 "use client";
 import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
-import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
 type DropDownType = {
   label: string;
   children: React.ReactNode;
+  isMenuOpen: boolean;
 };
 
-const DropDown: React.FC<DropDownType> = ({ label, children }) => {
-  const [isOpen, { toggle }] = useDisclosure();
+const DropDown: React.FC<DropDownType> = ({ label, children, isMenuOpen }) => {
+  const [isOpen, { toggle, close }] = useDisclosure();
+  useEffect(() => {
+    setTimeout(() => close(), 1000);
+  }, [isMenuOpen]);
   return (
-    <div className="w-full">
+    <div className="">
       {/* toggler */}
       <div
-        className={`flex items-center tr-200 px-4 py-2  w-full ${isOpen ? "bg-gray-200" : "bg-white"}`}
+        className={`flex items-center tr-200 px-4 py-2  w-full ${
+          isOpen ? "bg-gray-200" : "bg-white"
+        }`}
         onClick={() => toggle()}
       >
         <span className="w-full block p-0">{label}</span>

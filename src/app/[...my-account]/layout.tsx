@@ -1,5 +1,6 @@
 "use client";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
+import { subUserMenu } from "@/utils/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -37,14 +38,7 @@ function layout({ children }: Readonly<{ children: React.ReactNode }>) {
          child:font-Shabnam_B child:transition-all duration-300 child-hover:!bg-gray-100 
          child:py-2 child:pr-2 child:text-dark_shade child:w-[95%]"
           >
-            {[
-              { href: "/my-account", label: "پیشخوان" },
-              { href: "/my-account/orders", label: "سفارش ها" },
-              { href: "/my-account/details", label: "جزئیات حساب" },
-              { href: "/my-account/compare", label: "مقایسه" },
-              { href: "/my-account/wishlist", label: "لیست علاقه مندی ها" },
-              { href: "/my-account/logout", label: "خروج" },
-            ].map((link, index) => {
+            {subUserMenu.map((link:{href:string,label:string}, index) => {
               return (
                 <Link
                   key={index}

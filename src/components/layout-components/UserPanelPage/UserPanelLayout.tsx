@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Table from "@/components/UI/Table/Table";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
@@ -41,25 +41,25 @@ const DefaultPage = () => {
         </p>
       </div>
       <div className={styles.defaultPage_Grid_Sec}>
-        <Link href={""} className="flex-center flex-col">
+        <Link href={"/my-account/orders"} className="flex-center flex-col">
           <TbChecklist className="text-[65px]" />
           <span className="text-lg font-Shabnam_M ">سفارش ها</span>
         </Link>
-        <Link href={""} className="flex-center flex-col">
+        <Link href={"/my-account/details"} className="flex-center flex-col">
           <HiOutlineUserCircle className="text-[65px]" />
           <span className="text-lg font-Shabnam_M ">جزئیات حساب</span>
         </Link>
-        <Link href={""} className="flex-center flex-col">
+        <Link href={"/my-account/compare"} className="flex-center flex-col">
           <FaShuffle className="text-[65px]" />
           <span className="text-lg font-Shabnam_M ">مقایسه</span>
         </Link>
-        <Link href={""} className="flex-center flex-col">
+        <Link href={"/my-account/wishlist"} className="flex-center flex-col">
           <FaRegHeart className="text-[65px]" />
           <span className="text-lg font-Shabnam_M tracking-tighter ">
             لیست علاقه مندی ها
           </span>
         </Link>
-        <Link href={""} className="flex-center flex-col">
+        <Link href={"/my-account/logout"} className="flex-center flex-col">
           <IoIosLogOut className="text-[65px]" />
           <span className="text-lg font-Shabnam_M ">خروج</span>
         </Link>

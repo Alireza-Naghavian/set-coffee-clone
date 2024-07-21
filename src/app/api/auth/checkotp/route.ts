@@ -39,9 +39,8 @@ export const POST = async (req: Request) => {
       return Response.json({ message: response.data?.message },{status:422});
 
 
-    const tokenPayload = { email: user.email };
-    const accessToken = generateAccessToken({ tokenPayload });
-    const refreshToken = generateRefreshToken({ tokenPayload });
+    const accessToken = generateAccessToken({  email: user.email });
+    const refreshToken = generateRefreshToken({  email: user.email });
     const headers = new Headers();
     if (user.isActive) {
       headers.append(

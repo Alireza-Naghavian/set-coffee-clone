@@ -3,6 +3,8 @@ import NavItem from "@/components/UI/NavItem/NavItem";
 import Overlay from "@/components/UI/Overlay/Overlay";
 import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
 import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
+import { GetMetype } from "@/types/auth.type";
+import { subUserMenu } from "@/utils/constants";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -13,14 +15,14 @@ import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
 export const subMenuTitles = [
-  "Specialty coffee",
-  "World Class Specialty",
-  "Premium Coffee",
-  "Commercial Coffee",
-  "Coffee Capsule",
-  "Italian Passion",
+  {label:"Specialty coffee",href:"/categories"},
+  {label:"World Class Specialty",href:"/categories"},
+  {label:"Premium Coffee",href:"/categories"},
+  {label:"Commercial Coffee",href:"/categories"},
+  {label:"Coffee Capsule",href:"/categories"},
+  {label:"Italian Passion",href:"/categories"},
 ];
-function DesktopMenu() {
+function DesktopMenu({user}:{user:GetMetype}) {
   const [isDesktopCartOpen, setIsDesktopCartOpen] = useState<boolean>(false);
   const [isOpen, { close, open }] = useDisclosure();
   useScrollLocker(isOpen || isDesktopCartOpen);
@@ -46,9 +48,20 @@ function DesktopMenu() {
             <NavItem targetLink="/categories" label="تماس با ما" />
             <NavItem targetLink="/categories" label="درباره ما" />
             <NavItem targetLink="/categories" label="قوانین" />
+            {user ?  
+
+             <NavItem targetLink="/my-account"
+             label={user.userName}
+             icon={<IoChevronDown />}
+             subMenuItem={subUserMenu}
+           />
+           :
             <div className="py-2" onClick={() => open()}>
               <NavItem targetLink="#" label="ورود/عضویت" />
-            </div>
+            </div> 
+           
+            }
+           
           </ul>
         </div>
         <div className=" text-main flex-center my-auto gap-x-6">

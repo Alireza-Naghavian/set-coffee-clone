@@ -19,3 +19,12 @@ export const customeBlurDataURL =
       value:"expensive",
     }
   ];
+
+  export const  subUserMenu = [
+    { href: "/my-account", label: "پیشخوان" },
+    { href: "/my-account/orders", label: "سفارش ها" },
+    { href: "/my-account/details", label: "جزئیات حساب" },
+    { href: "/my-account/compare", label: "مقایسه" },
+    { href: "/my-account/wishlist", label: "لیست علاقه مندی ها" },
+    { href: "/my-account/logout", label: "خروج" }
+  ]

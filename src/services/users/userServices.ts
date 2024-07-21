@@ -12,3 +12,12 @@ export const checkOtpCode = async (data: {code:string,phoneNumber:string}) => {
 export const signUpUser = async (data: SignUpFromType) => {
   return api.post("/auth/signup", data).then((data) => data?.data);
 };
+
+export const getUserData = async()=>{
+  try {
+    return await api.get("/auth/getme").then(({data})=>data?.data)
+    
+  } catch (error) {
+    return null
+  }
+}

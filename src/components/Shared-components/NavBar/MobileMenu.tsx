@@ -8,7 +8,8 @@ import { FaBars } from "react-icons/fa";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import MobileMenuContent from "./MobileMenuContent";
 import styles from "./Navbar.module.css";
-function MobileMenu() {
+import { GetMetype } from "@/types/auth.type";
+function MobileMenu({user} :{user:GetMetype}) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   useScrollLocker(isMenuOpen || isCartOpen);
@@ -28,7 +29,7 @@ function MobileMenu() {
           isMenuOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
-        <MobileMenuContent />
+        <MobileMenuContent setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} user={user} />
       </aside>
       <aside
         className={`${styles.sideBars} ${

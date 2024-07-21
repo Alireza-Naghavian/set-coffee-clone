@@ -1,9 +1,11 @@
 "use client";
+import { useCustomQueryClient } from "@/app/context/QueryClientProvider";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import useCheckOtpCode from "@/hooks/authHooks/useCheckOtpCode";
 import useSignInWithOtp from "@/hooks/authHooks/useSignInWithOtp";
 import { SetState } from "@/types/global.type";
+import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -31,8 +33,9 @@ function CheckOtp({
 }: CheckOtpType) {
   const [otp, setOtp] = useState("");
   const { replace } = useRouter();
-  const { handleSubmit } = useForm();
+  const { handleSubmit, reset } = useForm();
   const { signInWithOtp } = useSignInWithOtp();
+  const QueryClient = useCustomQueryClient();
   const resendCodeHandler = async () => {
     try {
       await signInWithOtp(
@@ -50,14 +53,19 @@ function CheckOtp({
 
   const { checkOtp, isPending } = useCheckOtpCode();
   const checkOtpHandler = async () => {
+    const enOtp = convertToEnglishDigits(otp);
+
     try {
       await checkOtp(
-        { phoneNumber: identifier, code: otp },
+        { phoneNumber: identifier, code: enOtp },
         {
-          onSuccess: () => {
+          onSuccess: async () => {
+            await QueryClient.invalidateQueries({ queryKey: ["getMe"] });
+            await QueryClient.refetchQueries({ queryKey: ["getMe"] });
             replace("/");
-            setOtp("");
             setIsCartOpen && setIsCartOpen(false);
+            setOtp("");
+            reset();
           },
         }
       );

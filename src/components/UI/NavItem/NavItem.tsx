@@ -4,10 +4,11 @@ import ProgressBarLink from "@/components/Utils-components/ProgressBar/ProgressB
 import Link from "next/link";
 import { useRouter } from 'next-nprogress-bar';
 import React from "react";
+export type SubItemType = {label:string,href:string}
 type NavItemType = {
   label: string;
   icon?: React.ReactElement;
-  subMenuItem?: null | string[];
+  subMenuItem?: null | SubItemType[];
   targetLink: string;
 };
 function NavItem({ targetLink, label, icon, subMenuItem = null }: NavItemType) {
@@ -29,12 +30,12 @@ function NavItem({ targetLink, label, icon, subMenuItem = null }: NavItemType) {
               subMenuItem ? "flex flex-col" : "hidden"
             }`}
         >
-          {subMenuItem?.map((subItem: string, index: number) => {
-            return (
-              <div key={index} className="tr-200">
-                <Link href={"/category"}>{subItem}</Link>
-              </div>
-            );
+          {subMenuItem?.map((subItem:SubItemType,index)=>{
+              return (
+                <div key={index} className="tr-200">
+                  <Link href={subItem.href}>{subItem.label}</Link>
+                </div>
+              );
           })}
         </ul>
       </div>

@@ -6,6 +6,7 @@ import {
   verifyPassword,
 } from "@/utils/auth/auth";
 import { signInUserSchema } from "@/utils/validator/user/userValidator";
+import { revalidatePath } from "next/cache";
 
 export const POST = async (req: Request) => {
   try {
@@ -26,7 +27,7 @@ export const POST = async (req: Request) => {
         { message: "اطلاعات وارد شده صحیح نمی باشد" },
         { status: 422 }
       );
-
+     
     const accessToken = generateAccessToken({ email:isUserExist.email });
     const refreshToken = generateRefreshToken({ email:isUserExist.email });
 
@@ -39,6 +40,7 @@ export const POST = async (req: Request) => {
       "Set-Cookie",
       `refresh-token=${refreshToken};Path=/; HttpOnly; Max-Age=1296000`
     );
+    revalidatePath("/","layout")
     return Response.json({
       message:"شما با موفقیت وارد شدید"
     },{status:200,headers})
