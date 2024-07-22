@@ -4,8 +4,10 @@ import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 import { RiUser3Line } from "react-icons/ri";
 import styles from "./Navbar.module.css";
 import { GetMetype } from "@/types/auth.type";
+import useGetMe from "@/hooks/authHooks/useGetMe";
 
-function MobileTabBar({ user }: { user: GetMetype | null }) {
+function MobileTabBar() {
+  const { user } = useGetMe();
   return (
     <div className={`${styles.tabBar} `}>
       <div

@@ -9,7 +9,7 @@ import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import MobileMenuContent from "./MobileMenuContent";
 import styles from "./Navbar.module.css";
 import { GetMetype } from "@/types/auth.type";
-function MobileMenu({user} :{user:GetMetype}) {
+function MobileMenu({user,userLoading} :{user:GetMetype,userLoading:boolean}) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   useScrollLocker(isMenuOpen || isCartOpen);
@@ -29,7 +29,7 @@ function MobileMenu({user} :{user:GetMetype}) {
           isMenuOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
-        <MobileMenuContent setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} user={user} />
+        <MobileMenuContent userLoading={userLoading} setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} user={user} />
       </aside>
       <aside
         className={`${styles.sideBars} ${

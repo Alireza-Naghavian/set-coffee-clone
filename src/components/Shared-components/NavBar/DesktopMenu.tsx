@@ -14,6 +14,7 @@ import { IoChevronDown } from "react-icons/io5";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
+import Loader from "@/components/UI/loader/Loader";
 export const subMenuTitles = [
   {label:"Specialty coffee",href:"/categories"},
   {label:"World Class Specialty",href:"/categories"},
@@ -22,7 +23,7 @@ export const subMenuTitles = [
   {label:"Coffee Capsule",href:"/categories"},
   {label:"Italian Passion",href:"/categories"},
 ];
-function DesktopMenu({user}:{user:GetMetype}) {
+function DesktopMenu({user,userLoading}:{user:GetMetype,userLoading:boolean}) {
   const [isDesktopCartOpen, setIsDesktopCartOpen] = useState<boolean>(false);
   const [isOpen, { close, open }] = useDisclosure();
   useScrollLocker(isOpen || isDesktopCartOpen);
@@ -48,7 +49,7 @@ function DesktopMenu({user}:{user:GetMetype}) {
             <NavItem targetLink="/categories" label="تماس با ما" />
             <NavItem targetLink="/categories" label="درباره ما" />
             <NavItem targetLink="/categories" label="قوانین" />
-            {user ?  
+            {userLoading ? <Loader loadingCondition={userLoading}/> : user ?  
 
              <NavItem targetLink="/my-account"
              label={user.userName}

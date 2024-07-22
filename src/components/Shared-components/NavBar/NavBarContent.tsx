@@ -5,18 +5,18 @@ import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 
-function NavBarContent({ user }: { user: GetMetype }) {
+function NavBarContent() {
   const changeNavBar = useMediaQuery("(min-width:1024px)");
-  const { user: userData } = useGetMe(user);
+  const { user: userData,isUserloading } = useGetMe();
   return (
     <>
       {!changeNavBar ? (
         <>
-          <MobileMenu user={userData} />
+          <MobileMenu user={userData}  userLoading={isUserloading}/>
         </>
       ) : (
         <ToastProvider>
-          <DesktopMenu user={userData} />
+          <DesktopMenu user={userData}  userLoading={isUserloading} />
         </ToastProvider>
       )}
     </>

@@ -22,7 +22,7 @@ async function SingleProduct({ params }: {params:ProductParams}) {
         <div className="">
           <main className="max-w-[1920px]  ">
             <ProductPageLayout
-              initialProductData={dataParser(initialProductData)}
+              initialProductData={initialProductData&& dataParser(initialProductData)}
             />
           </main>
         </div>

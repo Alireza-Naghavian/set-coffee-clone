@@ -2,14 +2,13 @@ import { getUserData } from "@/services/users/userServices";
 import { GetMetype } from "@/types/auth.type";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetMe = (initialData?: GetMetype) => {
-  const { data } = useQuery({
+const useGetMe = () => {
+  const { data,isPending:isUserloading } = useQuery({
     queryKey: ["getMe"],
     queryFn: getUserData,
-    staleTime: 60 * 60  *12* 1000,
-    initialData
+    staleTime: 60 * 60  *24* 1000,
   });
   const user = data;
-  return { user };
+  return { user,isUserloading };
 };
 export default useGetMe;

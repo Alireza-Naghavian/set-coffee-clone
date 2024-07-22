@@ -5,7 +5,7 @@ import dataParser from "@/utils/dataParser/dataParser";
 async function UserAccount() {
   const user = await getUser();
   return <main className="max-w-[1920px] relative">
-    <UserPanelLayout user={dataParser(user)}/>
+    <UserPanelLayout user={user&& dataParser(user)}/>
   </main>;
 }
 

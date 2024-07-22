@@ -1,12 +1,7 @@
-"use client";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
-import { subUserMenu } from "@/utils/constants";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import LinkList from "@/components/UI/LinkList/LinkList";
 import React from "react";
-
 function layout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const path = usePathname();
   return (
     <div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
       <div
@@ -38,17 +33,7 @@ function layout({ children }: Readonly<{ children: React.ReactNode }>) {
          child:font-Shabnam_B child:transition-all duration-300 child-hover:!bg-gray-100 
          child:py-2 child:pr-2 child:text-dark_shade child:w-[95%]"
           >
-            {subUserMenu.map((link:{href:string,label:string}, index) => {
-              return (
-                <Link
-                  key={index}
-                  className={`${link.href === path ? "bg-gray-100 " : ""}`}
-                  href={link.href}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+        <LinkList/>
           </ul>
         </div>
         {/* content */}
