@@ -6,7 +6,7 @@ import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
 import { subUserMenu } from "@/utils/constants";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
@@ -15,6 +15,7 @@ import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
 import Loader from "@/components/UI/loader/Loader";
+import Badge from "@/components/UI/badge/Badge";
 export const subMenuTitles = [
   {label:"Specialty coffee",href:"/categories"},
   {label:"World Class Specialty",href:"/categories"},
@@ -26,6 +27,11 @@ export const subMenuTitles = [
 function DesktopMenu({user,userLoading}:{user:GetMetype,userLoading:boolean}) {
   const [isDesktopCartOpen, setIsDesktopCartOpen] = useState<boolean>(false);
   const [isOpen, { close, open }] = useDisclosure();
+  const [getData, setGetData] = useState([]);
+  const storedData: string | null = localStorage.getItem("setCoffeeWishlist");
+  useEffect(() => {
+    setGetData(storedData ? JSON.parse(storedData) : []);
+  }, [setGetData,storedData]);
   useScrollLocker(isOpen || isDesktopCartOpen);
   return (
     <>
@@ -66,7 +72,11 @@ function DesktopMenu({user,userLoading}:{user:GetMetype,userLoading:boolean}) {
           </ul>
         </div>
         <div className=" text-main flex-center my-auto gap-x-6">
-          <Link href={""}>
+          <Link href={"/my-account/wishlist"} className="relative">
+         {getData.length >0 && <Badge additionalClass="text-lg w-5 h-5 flex-center bg-main_brown 
+          text-white rounded-full absolute -top-[5px] -left-[4px]" >
+            {getData.length.toLocaleString("fa-Ir")}
+          </Badge>}
             <FaRegHeart size={28} />
           </Link>
           <Link href={""}>

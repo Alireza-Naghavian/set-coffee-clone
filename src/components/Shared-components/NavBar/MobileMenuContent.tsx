@@ -61,12 +61,14 @@ function MobileMenuContent({
 
         <NavItem targetLink="/" label="تماس با ما" />
         <NavItem targetLink="/" label="درباره ما" />
+        <div className="" onClick={()=>setIsMenuOpen(false)}>
         <NavItem
-          targetLink="/"
-          label="لیست علاقه مندی ها"
-          icon={<FaRegHeart />}
+        targetLink="/my-account/wishlist"
+        label="لیست علاقه مندی ها"
+        icon={<FaRegHeart />}
         />
-        <NavItem targetLink="/" label="مقایسه" icon={<FaShuffle />} />
+        </div>
+        <NavItem targetLink="/my-account/compare" label="مقایسه" icon={<FaShuffle />} />
         {
         userLoading ? (
           <Loader loadingCondition={userLoading} />

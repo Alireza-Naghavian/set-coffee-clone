@@ -13,7 +13,7 @@ const DropDown: React.FC<DropDownType> = ({ label, children, isMenuOpen }) => {
   const [isOpen, { toggle, close }] = useDisclosure();
   useEffect(() => {
     setTimeout(() => close(), 1000);
-  }, [isMenuOpen,close]);
+  }, [isMenuOpen]);
   return (
     <div className="">
       {/* toggler */}

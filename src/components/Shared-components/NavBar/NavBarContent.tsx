@@ -1,9 +1,8 @@
 import { ToastProvider } from "@/app/context/ToastContainerProvider";
+import useGetMe from "@/hooks/authHooks/useGetMe";
 import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
-import { GetMetype } from "@/types/auth.type";
 import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
-import useGetMe from "@/hooks/authHooks/useGetMe";
 
 function NavBarContent() {
   const changeNavBar = useMediaQuery("(min-width:1024px)");

@@ -1,10 +1,9 @@
+import useGetMe from "@/hooks/authHooks/useGetMe";
 import Link from "next/link";
 import { AiOutlineHome, AiOutlineShoppingCart } from "react-icons/ai";
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 import { RiUser3Line } from "react-icons/ri";
 import styles from "./Navbar.module.css";
-import { GetMetype } from "@/types/auth.type";
-import useGetMe from "@/hooks/authHooks/useGetMe";
 
 function MobileTabBar() {
   const { user } = useGetMe();

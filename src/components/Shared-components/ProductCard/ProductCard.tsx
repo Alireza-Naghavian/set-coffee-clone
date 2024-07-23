@@ -1,13 +1,8 @@
-import MainBtn from "@/components/UI/Buttons/MainBtn";
+import ProgressBarLink from "@/components/Utils-components/ProgressBar/ProgressBar";
 import { SingleProductType } from "@/types/models/categories.type";
 import Link from "next/link";
-import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaRegHeart, FaRegStar, FaStar } from "react-icons/fa";
-import { FaShuffle } from "react-icons/fa6";
-import { IoSearch } from "react-icons/io5";
-import styles from "./productCard.module.css";
-import ProgressBarLink from "@/components/Utils-components/ProgressBar/ProgressBar";
+import { FaRegStar, FaStar } from "react-icons/fa";
+import ProductCardHeader from "./ProductCardHeader";
 function ProductCard({ productData }: { productData: SingleProductType }) {
   return (
     <div className="flex flex-col gap-y-2 max-h-[360px]  gap-x-2  mx-auto   max-w-fit  ">
@@ -21,66 +16,7 @@ function ProductCard({ productData }: { productData: SingleProductType }) {
   );
 }
 
-const ProductCardHeader = ({
-  productData,
-}: {
-  productData: SingleProductType;
-}) => {
-  return (
-    <div className={`flex justify-center mx-auto ${styles["cover-option"]}`}>
-      {/* card overlay */}
 
-      <div className={`${styles["overlay-cover"]}`}>
-        <div className=" flex-center h-full w-full relative ">
-          <div
-            className=" bg-transparent child:text-white border
-                       border-white  indent-0 relative  mx-auto  !my-auto "
-          >
-            <button className={`${styles["add-to-cart-btn"]}`}>
-              <span className={`${styles["add-to-basket-text"]}`}>
-                افزودن به سبد خرید
-              </span>
-              <span className={`${styles["add-to-basket-icon"]}`}>
-                <AiOutlineShoppingCart size={22} />
-              </span>
-            </button>
-          </div>
-          <div
-            className={`${styles["icon-wrapper"]} flex flex-col gap-y-4  absolute left-0 mt-6 pl-2 items-end  
-                            bg-transparent h-full child:text-white child:cursor-pointer w-max z-40`}
-          >
-            <FaShuffle size={22} title="مقایسه" />
-            <IoSearch size={22} title="دسترسی سریع" />
-            <FaRegHeart size={22} title="پسندیدن" />
-          </div>
-        </div>
-      </div>
-      <div className="flex-center flex-col bg-transparent">
-        <div
-          className="w-7 h-7 lg:hidden rounded-full z-[6] flex items-center justify-center  
-             bg-gray-100 absolute sm:left-6 left-1 top-6 "
-        >
-          <FaRegHeart className="text-xl " title="پسندیدن" />
-        </div>
-          <ResponsiveImage
-          alt={productData.title}
-          dimensions="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px] z-[5] "
-          src={productData.cover}
-          blurDataURL={productData.cover}
-          imageStyles={`object-cover ${styles['cover-image']} `}
-          sizes="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px]"
-          />
-        <MainBtn
-          variant="primary"
-          size="small"
-          className="lg:hidden  font-Shabnam_B  tracking-tighter "
-        >
-          افزودن به سبد خرید
-        </MainBtn>
-      </div>
-    </div>
-  );
-};
 
 const ProductCardBody = ({
   productData,
