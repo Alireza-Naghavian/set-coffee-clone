@@ -2,10 +2,12 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RateStar from "@/components/UI/RateStart/RateStar";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
 import Loader from "@/components/UI/loader/Loader";
+import useGetMe from "@/hooks/authHooks/useGetMe";
 import useAddNewComment from "@/hooks/product/useAddNewComment";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 export type SubmitCommentType = {
   score: number;
   commentBody: string;
@@ -14,6 +16,7 @@ export type SubmitCommentType = {
 function CommentForm({ productId }: { productId: string }) {
   const [score, setScore] = useState<number>(3);
   const queryclient = useQueryClient();
+  const {user}= useGetMe();
   const {
     register,
     formState: { errors },
@@ -24,6 +27,10 @@ function CommentForm({ productId }: { productId: string }) {
   const submitCommentHandler = async (
     data: Omit<SubmitCommentType, "productId">
   ) => {
+    if(!user){
+      toast.error("ابتدا وارد شوید/ثبت نام کنید")
+      return
+    }
     postComment(
       { data: { ...data, score, productId } },
       {

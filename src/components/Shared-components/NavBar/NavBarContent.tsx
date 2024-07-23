@@ -1,4 +1,3 @@
-import { ToastProvider } from "@/app/context/ToastContainerProvider";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
 import DesktopMenu from "./DesktopMenu";
@@ -14,9 +13,9 @@ function NavBarContent() {
           <MobileMenu user={userData}  userLoading={isUserloading}/>
         </>
       ) : (
-        <ToastProvider>
+
           <DesktopMenu user={userData}  userLoading={isUserloading} />
-        </ToastProvider>
+
       )}
     </>
   );

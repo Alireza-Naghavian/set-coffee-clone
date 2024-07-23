@@ -16,6 +16,8 @@ import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
 import Loader from "@/components/UI/loader/Loader";
 import Badge from "@/components/UI/badge/Badge";
+import useLogOut from "@/hooks/authHooks/useLogout";
+import { toast } from "react-toastify";
 export const subMenuTitles = [
   {label:"Specialty coffee",href:"/categories"},
   {label:"World Class Specialty",href:"/categories"},
@@ -28,11 +30,16 @@ function DesktopMenu({user,userLoading}:{user:GetMetype,userLoading:boolean}) {
   const [isDesktopCartOpen, setIsDesktopCartOpen] = useState<boolean>(false);
   const [isOpen, { close, open }] = useDisclosure();
   const [getData, setGetData] = useState([]);
+  const {logout} = useLogOut();
   const storedData: string | null = localStorage.getItem("setCoffeeWishlist");
   useEffect(() => {
     setGetData(storedData ? JSON.parse(storedData) : []);
   }, [setGetData,storedData]);
   useScrollLocker(isOpen || isDesktopCartOpen);
+  const logOutHandler =()=>{
+     logout();
+     toast.success("خروج موفقیت آمیز")
+  }
   return (
     <>
       <div className="hidden lg:flex  w-full px-[22px] !justify-between h-full ">
@@ -61,6 +68,8 @@ function DesktopMenu({user,userLoading}:{user:GetMetype,userLoading:boolean}) {
              label={user.userName}
              icon={<IoChevronDown />}
              subMenuItem={subUserMenu}
+             optionalEvent={logOutHandler}
+             optionalSubMenu={ [{ label: "خروج" }]}
            />
            :
             <div className="py-2" onClick={() => open()}>

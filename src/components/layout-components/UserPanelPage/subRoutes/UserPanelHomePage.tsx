@@ -7,6 +7,7 @@ import { HiOutlineUserCircle } from 'react-icons/hi2';
 import { IoIosLogOut } from 'react-icons/io';
 import { TbChecklist } from 'react-icons/tb';
 import styles from "./myAccount.module.css"
+import LogoutBtn from './LogoutBtn';
 const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
     return (
       <div className="flex flex-col  relative ">
@@ -41,10 +42,7 @@ const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
               لیست علاقه مندی ها
             </span>
           </Link>
-          <Link href={"/my-account/logout"} className="flex-center flex-col">
-            <IoIosLogOut className="text-[65px]" />
-            <span className="text-lg font-Shabnam_M ">خروج</span>
-          </Link>
+        <LogoutBtn/>
         </div>
       </div>
     );

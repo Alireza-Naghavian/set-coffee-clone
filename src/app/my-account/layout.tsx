@@ -6,6 +6,7 @@ import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 export const dynamic = 'force-dynamic'
 async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
+      <QueryClientProviderWrapper>
     <div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
       <div
         className="w-full relative mx-auto flex-center headerWrapper text-white 
@@ -36,10 +37,8 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
          child:font-Shabnam_B child:transition-all duration-300 child-hover:!bg-gray-100 
          child:py-2 child:pr-2 child:text-dark_shade child:w-[95%]"
           >
-            <QueryClientProviderWrapper>
 
         <LinkList/>
-            </QueryClientProviderWrapper>
           </ul>
         </div>
         {/* content */}
@@ -48,6 +47,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
         </div>
       </div>
     </div>
+            </QueryClientProviderWrapper>
   );
 }
 

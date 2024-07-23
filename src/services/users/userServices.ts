@@ -26,3 +26,6 @@ export const getUserData = async()=>{
 export const updateUserProfile = async(data:UpdateProfileType)=>{
   return  api.post("/auth/updateProfile",data).then(({data})=>data.message)
 }
+export const logOutUser = async()=>{
+  return  api.post("/auth/logout").then(({data})=>data.message)
+}
