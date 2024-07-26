@@ -1,13 +1,10 @@
 import { GetMetype } from '@/types/auth.type';
 import Link from 'next/link';
-import React from 'react'
 import { FaRegHeart } from 'react-icons/fa';
-import { FaShuffle } from 'react-icons/fa6';
 import { HiOutlineUserCircle } from 'react-icons/hi2';
-import { IoIosLogOut } from 'react-icons/io';
 import { TbChecklist } from 'react-icons/tb';
-import styles from "./myAccount.module.css"
 import LogoutBtn from './LogoutBtn';
+import styles from "./myAccount.module.css";
 const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
     return (
       <div className="flex flex-col  relative ">
@@ -19,7 +16,7 @@ const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
           </p>
           <p className="mt-2 pb-2">
             از طریق پیشخوان حساب کاربری‌تان، می‌توانید سفارش‌های اخیرتان را
-            مشاهده، آدرس‌های حمل و نقل و صورتحساب‌تان را مدیریت و جزییات حساب
+            مشاهده،  صورتحساب‌تان را مدیریت و جزییات حساب
             کاربری و کلمه عبور خود را ویرایش کنید.
           </p>
         </div>
@@ -31,10 +28,6 @@ const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
           <Link href={"/my-account/details"} className="flex-center flex-col">
             <HiOutlineUserCircle className="text-[65px]" />
             <span className="text-lg font-Shabnam_M ">جزئیات حساب</span>
-          </Link>
-          <Link href={"/my-account/compare"} className="flex-center flex-col">
-            <FaShuffle className="text-[65px]" />
-            <span className="text-lg font-Shabnam_M ">مقایسه</span>
           </Link>
           <Link href={"/my-account/wishlist"} className="flex-center flex-col">
             <FaRegHeart className="text-[65px]" />

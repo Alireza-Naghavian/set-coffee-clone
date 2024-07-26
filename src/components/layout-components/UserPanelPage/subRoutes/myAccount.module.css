@@ -1,5 +1,5 @@
 .defaultPage_Grid_Sec {
-  @apply mt-4 w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 
+  @apply mt-4 w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5 
     child:shadow-large
     child:w-full child:h-full
   child:bg-white

@@ -18,7 +18,7 @@ const DropDown: React.FC<DropDownType> = ({ label, children, isMenuOpen }) => {
     <div className="">
       {/* toggler */}
       <div
-        className={`flex items-center tr-200 px-4 py-2  w-full ${
+        className={`flex items-center tr-200 px-6 py-2  w-full ${
           isOpen ? "bg-gray-200" : "bg-white"
         }`}
         onClick={() => toggle()}

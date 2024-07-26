@@ -5,14 +5,12 @@ import { usePathname } from "next/navigation";
 import MobileTabBar from "./MobileTabBar";
 import styles from "./Navbar.module.css";
 import NavBarContent from "./NavBarContent";
-import { ToastProvider } from "@/app/context/ToastContainerProvider";
 function NavBarLayout() {
-  const { fixTop } = useNavBarSticker(100);
+  const { fixTop } = useNavBarSticker(50);
   const pathName = usePathname();
   if (pathName === "/register-login") return;
   return (
     <QueryClientProviderWrapper>
-      <ToastProvider>
       <div className="relative">
         <div className=" flex justify-center   ">
           <nav
@@ -27,7 +25,6 @@ function NavBarLayout() {
           <MobileTabBar   />
         </div>
       </div>
-      </ToastProvider>
     </QueryClientProviderWrapper>
   );
 }

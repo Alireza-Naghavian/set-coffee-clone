@@ -1,24 +1,20 @@
-"use client"
+"use client";
 import ProductCard from "@/components/Shared-components/ProductCard/ProductCard";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
+import Loader from "@/components/UI/loader/Loader";
+import useGetWishList from "@/hooks/helper-hooks/useGetWishList";
+import useRemoveWishList from "@/hooks/helper-hooks/useRemoveWishList";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 function UserWishList() {
-    const [getData, setGetData] = useState([]);
-    const { refresh } = useRouter();
-    useEffect(() => {
-      const storedData: Storage|string | null = localStorage.getItem("setCoffeeWishlist");
-    setGetData(storedData ? JSON.parse(storedData) : []);
-  }, [setGetData]);
-  const removeFromWishList = (productId: string) => {
-    const findData = getData.findIndex((data: any) => data._id === productId);
-    if (findData !== -1) {
-      getData.splice(findData, 1);
-      localStorage.setItem("setCoffeeWishlist", JSON.stringify(getData));
+  const { wishList, isLoading } = useGetWishList();
+  const {refresh} = useRouter();
+  const {removeFromList} = useRemoveWishList()
+  const removeFromWishList =async (productId: string) => {
+    await removeFromList({wishList,productId},{onSuccess:()=>{
       refresh();
-    }
+    }})
   };
   return (
     <div className="flex flex-col  relative">
@@ -29,11 +25,17 @@ function UserWishList() {
         محصولات مورد علاقه شما
       </h2>
       {/* grid list  */}
-      {getData.length === 0 && (
+      {isLoading && (
+        <div className=" flex w-[300px] gap-x-2 mt-4 ">
+          <Loader loadingCondition={isLoading} /> 
+          <span>در حال بارگزاری...</span>
+        </div>
+      )}
+      {wishList?.length === 0 && (
         <EmptyResult
           icon={<FaRegHeart />}
-          title="  لیست علاقمندی های خالی است."
-          firstDesc="  هیچ محصولی در لیست علاقمندی ها خود ندارید."
+          title="  لیست علاقمندی ها خالی است."
+          firstDesc="  هیچ محصولی در لیست علاقمندی های خود ندارید."
           secondDesc=" در صفحه فروشگاه محصولات جالب زیادی پیدا خواهید کرد."
         />
       )}
@@ -41,7 +43,7 @@ function UserWishList() {
         className="grid lg:grid-cols-4 md:grid-cols-3 
       sm:grid-cols-2  gap-x-4"
       >
-        {getData?.map((data: any, index) => {
+        {wishList?.map((data: any, index:number) => {
           return (
             <div key={index} className="flex flex-col gap-y-1 mt-4  ">
               <span className="w h-full pb-px ">

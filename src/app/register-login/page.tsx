@@ -7,7 +7,6 @@ import useCountDownTimer from "@/hooks/helper-hooks/useCountDownTimer";
 import { SetState } from "@/types/global.type";
 import React, { useState } from "react";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
-import { ToastProvider } from "../context/ToastContainerProvider";
 
 export type MainWrapperType = {
   setSendOtp: SetState<boolean>;
@@ -65,9 +64,7 @@ const REgisterLogin = (): React.ReactNode => {
   };
   return (
     <QueryClientProviderWrapper>
-      <ToastProvider>
         <>{renderStep()}</>
-      </ToastProvider>
     </QueryClientProviderWrapper>
   );
 };

@@ -1,16 +1,18 @@
 "use client";
+import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
+import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
+import useAddToBasket from "@/hooks/helper-hooks/useAddToBasket";
+import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
 import { SingleProductType } from "@/types/models/categories.type";
-import React, { useEffect, useState } from "react";
+import { isProductInWishlist } from "@/utils/StorageHandlers/WishList";
+import { useCallback, useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
-import { FaShuffle } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
-import styles from "./productCard.module.css";
 import { MdOutlineDone } from "react-icons/md";
-import { useRouter } from "next/navigation";
-import { addProductToWishlist, isProductInWishlist } from "@/utils/StorageHandlers/WishList";
+import styles from "./productCard.module.css";
 
 const ProductCardHeader = ({
   productData,
@@ -18,23 +20,42 @@ const ProductCardHeader = ({
   productData: SingleProductType;
 }) => {
   const [isExist, setIsExist] = useState(false);
-  const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const { addToWishList } = useAddToWishList();
+  const {addToBasket} = useAddToBasket();
+  const {showAlert,hideAlert} = useAlert()
   useEffect(() => {
     if (productData._id === undefined) return;
     setIsExist(isProductInWishlist(productData._id));
   }, [isExist, productData?._id]);
-  const AddTowishList = () => {
-    const newItem = {
-      cover: productData.cover,
-      _id: productData._id,
-      title: productData.title,
-      price: productData.price,
-      score: productData.score,
-    };
-    if (addProductToWishlist(newItem)) setIsExist(true);
-
-    router.refresh();
+  const newItem = {
+    cover: productData.cover,
+    _id: productData._id,
+    title: productData.title,
+    price: productData.price,
+    score: productData.score,
+    count:1
   };
+  const wishListHandler = async () => {
+    await addToWishList(newItem, {
+      onSuccess: () => {
+        setIsExist(true);
+      },
+    });
+  };
+  const addToCartHandler =useCallback(()=>{
+    setIsLoading(true);
+    showAlert('success', 'محصول به سبد خرید افزوده شد');
+    const timeOut =setTimeout(async() => {
+      await addToBasket({product:newItem,value:"setCoffeeBasket",counter:1},{onSuccess:()=>{
+        setIsLoading(false);
+        hideAlert()
+      }})
+    }, 2000);
+
+    return()=>clearTimeout(timeOut)
+  },[hideAlert,newItem,showAlert,addToBasket])
   return (
     <div className={`flex justify-center mx-auto ${styles["cover-option"]}`}>
       {/* card overlay */}
@@ -45,25 +66,28 @@ const ProductCardHeader = ({
             className=" bg-transparent child:text-white border
                          border-white  indent-0 relative  mx-auto  !my-auto "
           >
-            <button className={`${styles["add-to-cart-btn"]}`}>
+    
+            <button onClick={()=>addToCartHandler()} className={`${styles["add-to-cart-btn"]}`}>
+            {isLoading ? <Loader loadingCondition={isLoading}/> :
+             <>
               <span className={`${styles["add-to-basket-text"]}`}>
                 افزودن به سبد خرید
               </span>
               <span className={`${styles["add-to-basket-icon"]}`}>
                 <AiOutlineShoppingCart size={22} />
               </span>
+             </>
+              }
             </button>
           </div>
           <div
-            className={`${styles["icon-wrapper"]} flex flex-col gap-y-4  absolute left-0 mt-6 pl-2 items-end  
-                              bg-transparent h-full child:text-white child:cursor-pointer w-max z-40`}
-          >
-            <FaShuffle size={22} title="مقایسه" />
+            className={`${styles["icon-wrapper"]} flex flex-col gap-y-4  absolute left-0 mt-10 pl-2 items-end  
+                        bg-transparent h-full child:text-white child:cursor-pointer w-max z-40`}>
             <IoSearch size={22} title="دسترسی سریع" />
             {isExist ? (
               <MdOutlineDone className="" title="پسندیدن" size={20} />
             ) : (
-              <FaRegHeart onClick={AddTowishList} size={22} title="پسندیدن" />
+              <FaRegHeart onClick={wishListHandler} size={22} title="پسندیدن" />
             )}
           </div>
         </div>
@@ -73,11 +97,15 @@ const ProductCardHeader = ({
           className="w-7 h-7 lg:hidden rounded-full z-[6] flex items-center justify-center  
                bg-gray-100 absolute sm:left-6 left-1 top-6 "
         >
-             {isExist ? (
-              <MdOutlineDone className="text-xl" title="پسندیدن"  />
-            ) : (
-              <FaRegHeart className="text-xl " onClick={AddTowishList}  title="پسندیدن" />
-            )}
+          {isExist ? (
+            <MdOutlineDone className="text-xl" title="پسندیدن" />
+          ) : (
+            <FaRegHeart
+              className="text-xl "
+              onClick={wishListHandler}
+              title="پسندیدن"
+            />
+          )}
         </div>
         <ResponsiveImage
           alt={productData.title}
@@ -88,14 +116,23 @@ const ProductCardHeader = ({
           sizes="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px]"
         />
         <MainBtn
+        onClick={()=>addToCartHandler()}
           variant="primary"
           size="small"
           className="lg:hidden  font-Shabnam_B  tracking-tighter "
         >
+          {isLoading ? <Loader loadingCondition={isLoading}/> :
+          <span>
+
           افزودن به سبد خرید
+          </span>
+          }
         </MainBtn>
       </div>
     </div>
+ 
+
+
   );
 };
 

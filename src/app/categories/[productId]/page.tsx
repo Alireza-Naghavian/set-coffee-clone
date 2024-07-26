@@ -1,11 +1,12 @@
 import { QueryClientProviderWrapper } from "@/app/context/QueryClientProvider";
-import { ToastProvider } from "@/app/context/ToastContainerProvider";
 import ProductPageLayout from "@/components/layout-components/ProductPage/ProductPageLayout";
 import dbConnection from "@/dbConfigs/db";
 import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import dataParser from "@/utils/dataParser/dataParser";
+import { isValidObjectId } from "mongoose";
+import { notFound } from "next/navigation";
 type ProductParams={
   productId:string
 }
@@ -24,6 +25,7 @@ export const generateStaticParams = async ()=>{
 async function SingleProduct({ params }: {params:ProductParams}) {
   await dbConnection();
   const { productId } = params;
+  if(!isValidObjectId(productId)) return notFound();
   await CommentModel.findOne({}).limit(1);
   const initialProductData = await ProductModel.findOne({ _id: productId })
     .populate("category")
@@ -31,15 +33,15 @@ async function SingleProduct({ params }: {params:ProductParams}) {
     .lean();
   return (
     <QueryClientProviderWrapper>
-      <ToastProvider>
-        <div className="">
+
+        <div className="relative">
           <main className="max-w-[1920px]  ">
             <ProductPageLayout
               initialProductData={dataParser(initialProductData)}
             />
           </main>
         </div>
-      </ToastProvider>
+
     </QueryClientProviderWrapper>
   );
 }

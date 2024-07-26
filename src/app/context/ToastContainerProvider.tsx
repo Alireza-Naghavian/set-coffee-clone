@@ -2,8 +2,7 @@
 
 import React, { createContext, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import "@/app/ReactToastify.css"
 const ToastContext = createContext<typeof toast | undefined>(undefined);
 
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -12,7 +11,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <ToastContext.Provider value={toast}>
       {children}
-      <ToastContainer rtl={true} />
+      <ToastContainer className={"!font-Shabnam_M text-dark_shade"} autoClose={1500} rtl={true} />
     </ToastContext.Provider>
   );
 };

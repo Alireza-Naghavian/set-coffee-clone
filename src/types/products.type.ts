@@ -1,8 +1,10 @@
-export type MiniCardType = {
-  title: string;
+
+export type ProductCartType = {
   cover: string;
-  rate: number;
+  title: string;
   price: number;
+  count: number;
+  _id?: string;
 };
 
 export type MainProductCardType ={

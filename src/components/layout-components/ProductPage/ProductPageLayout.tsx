@@ -5,15 +5,16 @@ import ProductShortDetail from "@/components/Shared-components/ProductDetails/Pr
 import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
 import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
+import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
+import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { customeBlurDataURL } from "@/utils/constants";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
-import { FaShuffle } from "react-icons/fa6";
 import { MdOutlineDone } from "react-icons/md";
 import AddToBasket from "./AddToBasket";
 import SingleProductRate from "./SingleProductRate";
@@ -22,52 +23,38 @@ export const isProductInWishlist = (productId: string): boolean => {
   const getData = storedData ? JSON.parse(storedData) : [];
   return getData.some((data: any) => data._id === productId);
 };
-export const addProductToWishlist = (product: any) => {
-  const storedData: string | null = localStorage.getItem("setCoffeeWishlist");
-  const getData = storedData ? JSON.parse(storedData) : [];
-  if (!getData.some((data: any) => data._id === product._id)) {
-    getData.push(product);
-    localStorage.setItem("setCoffeeWishlist", JSON.stringify(getData));
-    return true;
-  }
-  return false;
-};
-
-function ProductPageLayout({
-  initialProductData,
-}: {
-  initialProductData: SingleProductType;
-}) {
+function ProductPageLayout({initialProductData,}: {initialProductData: SingleProductType;}) 
+{
   const [activeTab, setActiveTab] = useState<string>("desc");
   const { productId }: { productId: string } = useParams();
   const [isExist, setIsExist] = useState(false);
-  const { refresh } = useRouter();
   const { product } = useGetSingleProduct(productId, initialProductData);
   const filterAcceptableComments = product?.ProductComment?.filter(
-    (comment: CommentModeltype) => {
-      return comment.isAccept;
-    }
+    (comment: CommentModeltype) => {return comment.isAccept;}
   );
+
+  const {addToWishList,isPending} = useAddToWishList()
   useEffect(() => {
     setIsExist(isProductInWishlist(productId));
   }, [productId]);
-  const AddTowishList = () => {
-    const { cover, _id, title, price, score } = product;
+  
+  const AddTowishList = async() => {
     const newItem = {
-      cover,
-      _id,
-      title,
-      price,
-      score,
+      cover:product.cover,
+      _id:product._id,
+      title:product.title,
+      price:product.price,
+      score:product.score
     };
+  await  addToWishList(newItem,{onSuccess:()=>{
 
-    if (addProductToWishlist(newItem)) setIsExist(true);
-    refresh();
+    setIsExist(true)
+  }})
   };
   return (
-    <div className="relative">
+    <div className="">
       <div
-        className={`w-full relative mx-auto  
+        className={`w-full  mx-auto  
            sm:px-8 px-4 lg:mt-[180px] md:mt-[100px] mt-[20px] `}
       >
         <div
@@ -134,9 +121,13 @@ function ProductPageLayout({
             </div>
             {/* add to basket & like & compare  */}
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
-              <AddToBasket />
+              <AddToBasket product={product} />
               <div className="flex gap-x-4 text-[15px] font-Shabnam_M items-center child:flex child:items-center child:gap-x-2 mt-2">
-                {isExist ? (
+                {
+                  isPending ? <Loader loadingCondition={isPending}/>:
+                
+                
+                isExist ? (
                   <span className="flex items-center">
                     <span>
                       <MdOutlineDone className="" size={20} />
@@ -149,10 +140,6 @@ function ProductPageLayout({
                     <span>افزودن به علاقمندی ها</span>
                   </button>
                 )}
-                <button>
-                  <FaShuffle />
-                  <span>مقایسه</span>
-                </button>
               </div>
             </div>
             {/* tegs & category title */}

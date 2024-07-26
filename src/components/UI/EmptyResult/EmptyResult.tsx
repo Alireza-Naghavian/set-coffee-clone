@@ -1,6 +1,4 @@
 import Link from "next/link";
-import React from "react";
-import { FaShuffle } from "react-icons/fa6";
 type EmptyResultType ={
     icon:any,
     title:string,
@@ -14,13 +12,13 @@ function EmptyResult({icon,title,firstDesc,secondDesc}:EmptyResultType) {
       {icon}
       </div>
       <div className=" flex flex-col ">
-        <p className=" text-2xl md:text-4xl text-center text-dark_shade font-Shabnam_B">
+        <p className=" text-2xl md:text-[clamp(12px,2vw,22px)] px-2 text-center text-dark_shade font-Shabnam_B">
         {title}
         </p>
-        <p className="md:text-lg text-mute text-center mt-2">
+        <p className="md:text-lg text-mute text-center px-2 mt-2">
         {firstDesc}
         </p>
-        <p className="md:text-lg text-mute text-center">
+        <p className="md:text-lg text-mute text-center px-2">
          {secondDesc}
         </p>
       </div>
