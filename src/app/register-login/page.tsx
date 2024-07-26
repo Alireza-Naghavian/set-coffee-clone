@@ -1,14 +1,12 @@
 "use client";
+import CheckOtp from "@/components/Shared-components/Forms/CheckOtp";
 import LoginForm from "@/components/Shared-components/Forms/LoginForm";
 import SignUpForm from "@/components/Shared-components/Forms/SignUpForm";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
-import Link from "next/link";
-import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
-import { ToastProvider } from "../context/ToastContainerProvider";
-import React, { useEffect, useState } from "react";
-import CheckOtp from "@/components/Shared-components/Forms/CheckOtp";
-import { SetState } from "@/types/global.type";
 import useCountDownTimer from "@/hooks/helper-hooks/useCountDownTimer";
+import { SetState } from "@/types/global.type";
+import React, { useState } from "react";
+import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 
 export type MainWrapperType = {
   setSendOtp: SetState<boolean>;
@@ -66,9 +64,7 @@ const REgisterLogin = (): React.ReactNode => {
   };
   return (
     <QueryClientProviderWrapper>
-      <ToastProvider>
         <>{renderStep()}</>
-      </ToastProvider>
     </QueryClientProviderWrapper>
   );
 };

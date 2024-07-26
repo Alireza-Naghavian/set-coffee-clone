@@ -25,7 +25,7 @@ const config: Config = {
         main_green_dark: "#114639",
         dark_shade: "#242424",
         mute: "#777777",
-        goldColor:"#FFCE00"
+        goldColor: "#FFCE00",
       },
       fontFamily: {
         Dana: "Dana Bold",
@@ -41,6 +41,9 @@ const config: Config = {
         padding: {
           default: "120px",
         },
+      },
+      boxShadow: {
+        large: `0 0 4px rgba(0, 0, 0, 0.18)`,
       },
     },
   },

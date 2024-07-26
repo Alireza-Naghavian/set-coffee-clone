@@ -2,36 +2,59 @@
 import ProductComments from "@/components/Shared-components/ProductDetails/ProductComments";
 import ProductDescription from "@/components/Shared-components/ProductDetails/ProductDescription";
 import ProductShortDetail from "@/components/Shared-components/ProductDetails/ProductShortDetail";
-import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RelateProductSlider from "@/components/UI/Swiper/RelateProductSlider";
 import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
+import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
+import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { customeBlurDataURL } from "@/utils/constants";
 import { useParams } from "next/navigation";
-import { useState } from "react";
-import { FaRegHeart, FaRegStar, FaStar } from "react-icons/fa";
-import { FaShuffle } from "react-icons/fa6";
-function ProductPageLayout({
-  initialProductData,
-}: {
-  initialProductData: SingleProductType;
-}) {
+import { useEffect, useState } from "react";
+import { FaRegHeart } from "react-icons/fa";
+import { MdOutlineDone } from "react-icons/md";
+import AddToBasket from "./AddToBasket";
+import SingleProductRate from "./SingleProductRate";
+export const isProductInWishlist = (productId: string): boolean => {
+  const storedData: string | null = localStorage.getItem("setCoffeeWishlist");
+  const getData = storedData ? JSON.parse(storedData) : [];
+  return getData.some((data: any) => data._id === productId);
+};
+function ProductPageLayout({initialProductData,}: {initialProductData: SingleProductType;}) 
+{
   const [activeTab, setActiveTab] = useState<string>("desc");
   const { productId }: { productId: string } = useParams();
+  const [isExist, setIsExist] = useState(false);
   const { product } = useGetSingleProduct(productId, initialProductData);
   const filterAcceptableComments = product?.ProductComment?.filter(
-    (comment: CommentModeltype) => {
-      return comment.isAccept;
-    }
+    (comment: CommentModeltype) => {return comment.isAccept;}
   );
+
+  const {addToWishList,isPending} = useAddToWishList()
+  useEffect(() => {
+    setIsExist(isProductInWishlist(productId));
+  }, [productId]);
+  
+  const AddTowishList = async() => {
+    const newItem = {
+      cover:product.cover,
+      _id:product._id,
+      title:product.title,
+      price:product.price,
+      score:product.score
+    };
+  await  addToWishList(newItem,{onSuccess:()=>{
+
+    setIsExist(true)
+  }})
+  };
   return (
-    <div className="relative">
+    <div className="">
       <div
-        className={`w-full relative mx-auto  
+        className={`w-full  mx-auto  
            sm:px-8 px-4 lg:mt-[180px] md:mt-[100px] mt-[20px] `}
       >
         <div
@@ -43,7 +66,7 @@ function ProductPageLayout({
           <ResponsiveImage
             dimensions={`md:w-1/2 object-cover md:!h-[380px] w-[min(500px,75vw)] 
               !pb-32 sm:h-[calc(100vh-100px)] xs:h-[calc(100vh-300px)]  lg:h-[400px] md:self-start`}
-            src={product?.cover}
+            src={initialProductData?.cover}
             imageStyles="md:object-contain object-cover !w-full !h-full"
             blurDataURL={product?.cover}
             priority
@@ -63,12 +86,12 @@ function ProductPageLayout({
               nestedStep={2}
               nestedLinks={[
                 {
-                  target: `/${product?.category?._id}`,
+                  target: `/categories?categoryId=${product?.category?._id}`,
                   title: product?.category?.title,
                 },
                 {
                   title: product?.title,
-                  target: `/category/${product?._id}`,
+                  target: `/categories/${product?._id}`,
                 },
               ]}
             />
@@ -79,7 +102,7 @@ function ProductPageLayout({
             </div>
             {/* product rate */}
             <div className="ml-auto mt-6">
-              <ProductRate
+              <SingleProductRate
                 dynamicScore={product?.score}
                 filterAcceptableComments={filterAcceptableComments}
               />
@@ -98,16 +121,25 @@ function ProductPageLayout({
             </div>
             {/* add to basket & like & compare  */}
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
-              <ProductCounter />
+              <AddToBasket product={product} />
               <div className="flex gap-x-4 text-[15px] font-Shabnam_M items-center child:flex child:items-center child:gap-x-2 mt-2">
-                <button>
-                  <FaRegHeart />
-                  <span>افزودن به علاقمندی ها</span>
-                </button>
-                <button>
-                  <FaShuffle />
-                  <span>مقایسه</span>
-                </button>
+                {
+                  isPending ? <Loader loadingCondition={isPending}/>:
+                
+                
+                isExist ? (
+                  <span className="flex items-center">
+                    <span>
+                      <MdOutlineDone className="" size={20} />
+                    </span>
+                    <span>به لیست افزوده شد</span>
+                  </span>
+                ) : (
+                  <button onClick={AddTowishList}>
+                    <FaRegHeart />
+                    <span>افزودن به علاقمندی ها</span>
+                  </button>
+                )}
               </div>
             </div>
             {/* tegs & category title */}
@@ -159,64 +191,4 @@ function ProductPageLayout({
     </div>
   );
 }
-
-const ProductRate = ({
-  filterAcceptableComments,
-  dynamicScore,
-}: {
-  filterAcceptableComments: CommentModeltype[] | [];
-  dynamicScore: number;
-}) => {
-  return (
-    <>
-      <div className="flex   text-[26px] ">
-        {filterAcceptableComments?.length ? (
-          <>
-            {Array(dynamicScore)
-              .fill(0)
-              .map((_, index) => {
-                return <FaStar key={index} className="text-[#FFCE00]" />;
-              })}
-            {Array(5 - dynamicScore)
-              .fill(0)
-              .map((_, index) => {
-                return <FaRegStar key={index} />;
-              })}
-          </>
-        ) : (
-          <>
-            {Array.from({ length: 5 }, (_, index) => (
-              <FaStar key={index} className="text-[#FFCE00]" />
-            ))}
-          </>
-        )}
-        <div className="flex-center my-auto  child:font-Shabnam_M child:text-base mr-2 mt-px child:text-main_green_dark">
-          <p>
-            (دیدگاه {filterAcceptableComments?.length.toLocaleString("fa-Ir")}
-            کاربر)
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const ProductCounter = () => {
-  return (
-    <>
-      <div className="flex gap-x-3 items-center">
-        <div className="flex gap-x-0 items-center child:text-base child:py-2 child:px-3 child:font-bold child:border">
-          <button className="tr-200 hover:text-white hover:bg-main_brown">
-            -
-          </button>
-          <span>1</span>
-          <button className="tr-200 hover:text-white hover:bg-main_brown">
-            +
-          </button>
-        </div>
-        <MainBtn size="small">افزودن به سبد خرید</MainBtn>
-      </div>
-    </>
-  );
-};
 export default ProductPageLayout;

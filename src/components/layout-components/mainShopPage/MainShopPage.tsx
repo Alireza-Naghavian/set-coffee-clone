@@ -106,7 +106,8 @@ newParams.delete("")
   return (
     <div className="relative child:sm:px-10 flex flex-col child:px-4">
       <div
-        className={` ${styles.categoryWrapper} w-full relative mx-auto flex-center headerWrapper text-white flex-col pt-[50px] sm:pt-[100px] lg:pt-[215px]`}
+        className={` ${styles.categoryWrapper} w-full relative mx-auto flex-center 
+        headerWrapper text-white flex-col pt-[50px] sm:pt-[100px] lg:pt-[215px]`}
       >
         <h1 className="text-[clamp(24px,5vw,68px)] font-Shabnam_B text-center">
           فروشگاه

@@ -2,7 +2,9 @@
 import { ChildrenProps } from "@/types/global.type";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { createContext, useContext, useMemo } from "react";
-
+import { ToastProvider } from "./ToastContainerProvider";
+import { ToastContainer } from "react-toastify";
+import "@/app/ReactToastify.css"
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
@@ -34,7 +36,10 @@ export const QueryClientProviderWrapper: React.FC<ChildrenProps> = ({ children }
   return (
     <QueryClientContext.Provider value={queryClient}>
       <QueryClientProvider client={queryClient}>
+       
+
         {children}
+      <ToastContainer rtl={true}  autoClose={1500}/>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </QueryClientContext.Provider>

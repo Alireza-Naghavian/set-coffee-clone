@@ -3,7 +3,6 @@ import ProductCard from "@/components/Shared-components/ProductCard/ProductCard"
 import HeaderTitle from "@/components/UI/HeaderTitle/HeaderTitle";
 import Swiper from "@/components/UI/Swiper/Swiper";
 import WhySetCoffee from "@/components/UI/WhySetCoffee/WhySetCoffee";
-import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 import {
   SingleProductType,
   categoriesType,
@@ -13,11 +12,8 @@ import Image from "next/image";
 interface FilteredProdouctsType extends categoriesType {
   productCount?: number;
 }
-async function HomePageLayout({
-  filteredProdoucts,
-}: {
-  filteredProdoucts: FilteredProdouctsType[];
-}) {
+function HomePageLayout({filteredProdoucts}: {filteredProdoucts: FilteredProdouctsType[]}) {
+
   return (
     <>
       <div className="w-full">

@@ -9,18 +9,20 @@ export const GET = async () => {
   try {
     await dbConnection();
     const token: RequestCookie | undefined = cookies().get("SetCoffeeToken");
+    if(!token) return Response.json({message:"شما لاگین نیستید !"},{status:404})
     let user: string | null | JwtPayload = null;
     if (token) {
       const tokenPayload = verifyAccessToken(token.value);
       if (tokenPayload) {
         user = await UserModel.findOne(
           {
-            email: tokenPayload?.email,
+            email: tokenPayload.email,
           },
-          "-password -refreshToken -__v"
+          "userName email phoneNumber role isActive"
         );
       }
-      return Response.json({ message: user }, { status: 200 });
+    
+      return Response.json({ data: user }, { status: 200 });
     }
   } catch (error) {
     return Response.json(

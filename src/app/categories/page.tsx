@@ -28,7 +28,7 @@ async function MainShop() {
         <Suspense>
           <MainShopPage
 
-            allCategories={dataParser(allCategories)}
+            allCategories={allCategories&& dataParser(allCategories)}
             totalProduct={totalProduct}
           />
         </Suspense>

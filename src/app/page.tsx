@@ -31,7 +31,7 @@ export default async function Home() {
   });
   return (
     <main className="max-w-[1920px]  relative">
-      <HomePageLayout filteredProdoucts={dataParser(filterProductCount)} />
+      <HomePageLayout filteredProdoucts={ dataParser(filterProductCount)} />
     </main>
   );
 }

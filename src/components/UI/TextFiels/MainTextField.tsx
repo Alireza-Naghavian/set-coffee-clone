@@ -40,6 +40,7 @@ function MainTextField({
   size,
   validattionschema,
   errors,
+  readOnly=false
 }: TextFieldType) {
   return (
     <div className="flex flex-col gap-y-2">
@@ -53,6 +54,7 @@ function MainTextField({
         value={value}
         name={name}
         type={type}
+        readOnly={readOnly}
         placeholder={placeHolder}
         className={inputGroup({ variant, size, className, labelVariant })}
       />

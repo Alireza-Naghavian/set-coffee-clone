@@ -1,13 +1,12 @@
 "use client";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "./swiper-bundle.min.css";
+import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Autoplay } from "swiper/modules";
-import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "./swiper-bundle.min.css";
 function SwiperSlider() {
   return (
     <div className="relative">

@@ -7,11 +7,16 @@ const getUser = async () => {
   try {
     await dbConnection();
     const token = cookies().get("SetCoffeeToken");
+
+    if (!token) throw new Error("خطا در احراز هویت");
     let user = null;
     if (token) {
-      const tokenPayLoad = verifyAccessToken(token.value);
+      const tokenPayLoad:any = verifyAccessToken(token.value);
       if (tokenPayLoad) {
-        user = await UserModel.findOne({ email: tokenPayLoad.email });
+        user = await UserModel.findOne(
+          { email: tokenPayLoad?.email },
+          "userName email phoneNumber role isActive password"
+        );
       }
     }
     return user;

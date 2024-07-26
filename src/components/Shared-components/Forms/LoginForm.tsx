@@ -5,6 +5,7 @@ import useSignInWithOtp from "@/hooks/authHooks/useSignInWithOtp";
 import useSignInwithEmail from "@/hooks/authHooks/useSignInwithEmail.";
 import { LoginFormType } from "@/types/auth.type";
 import { SetState } from "@/types/global.type";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,6 +26,7 @@ function LoginForm({
   const { isPending, signIn } = useSignInwithEmail();
   const [loginWIthOtp, setLoginWIthOtp] = useState<boolean>(false);
   const { isPending: isOtpLoading, signInWithOtp } = useSignInWithOtp();
+  const queryClient = useQueryClient()
   const { replace, refresh } = useRouter();
   const {
     register,
@@ -40,6 +42,7 @@ function LoginForm({
       try {
         await signIn(data, {
           onSuccess: () => {
+            queryClient.invalidateQueries({queryKey:["getMe"]})
             replace("/");
             refresh();
             setIsCartOpen && setIsCartOpen(false);

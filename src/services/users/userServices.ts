@@ -1,3 +1,4 @@
+import { UpdateProfileType } from "@/app/api/auth/updateProfile/route";
 import api from "../httpServices";
 import { LoginFormType, SignUpFromType } from "@/types/auth.type";
 export const signInUserWithEmail = async (data: LoginFormType) => {
@@ -12,3 +13,19 @@ export const checkOtpCode = async (data: {code:string,phoneNumber:string}) => {
 export const signUpUser = async (data: SignUpFromType) => {
   return api.post("/auth/signup", data).then((data) => data?.data);
 };
+
+export const getUserData = async()=>{
+  try {
+    return await api.get("/auth/getme").then(({data})=>data?.data)
+    
+  } catch (error) {
+    return null
+  }
+}
+
+export const updateUserProfile = async(data:UpdateProfileType)=>{
+  return  api.post("/auth/updateProfile",data).then(({data})=>data.message)
+}
+export const logOutUser = async()=>{
+  return  api.post("/auth/logout").then(({data})=>data.message)
+}
