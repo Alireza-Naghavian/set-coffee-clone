@@ -59,7 +59,9 @@ function MobileMenuContent({
         </div>
 
         <NavItem targetLink="/" label="تماس با ما" />
-        <NavItem targetLink="/" label="درباره ما" />
+        <div className=""  onClick={() => setIsMenuOpen(false)}>
+        <NavItem targetLink="/about-us" label="درباره ما"  />
+        </div>
         <div className="mr-2" onClick={()=>setIsMenuOpen(false)}>
         <NavItem
         targetLink="/my-account/wishlist"
