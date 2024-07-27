@@ -120,7 +120,7 @@ export const GET = async (req: NextRequest) => {
         break;
     }
     const matchQuery = buildMatchQuery(minPrice, maxPrice, rateStar, categoryId);
-    const products = await ProductModel.find(matchQuery,"cover title score price createdAt")
+    const products = await ProductModel.find(matchQuery,"cover title score price createdAt shortDesc")
       .sort(sortQuery)
       .skip(skip)
       .limit(limit)

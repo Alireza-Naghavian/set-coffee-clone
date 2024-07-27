@@ -13,7 +13,7 @@
 
 .stars svg {
     cursor: pointer;
-    font-size: 18px;
+    font-size: 22px;
     color: gray;
     transition: color 0.1s;
   }

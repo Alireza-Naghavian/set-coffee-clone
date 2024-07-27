@@ -23,6 +23,8 @@ export default async function Home() {
         "products.price": 1,
         "products.cover": 1,
         "products.title": 1,
+        "products.shortDesc" : 1,
+        "products.tags" : 1
       },
     },
   ]);

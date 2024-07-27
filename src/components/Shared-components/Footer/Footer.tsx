@@ -55,10 +55,10 @@ function Footer() {
               className="flex sm:flex-col  xs:flex-row
              xs:gap-x-6 sm:gap-x-0 sm:flex-nowrap
               xs:flex-wrap gap-y-2  ">
-              <li><Link href={"#"}>فروشگاه</Link></li>
+              <li><Link href={"/categories"}>فروشگاه</Link></li>
               <li><Link href={"#"}>وبلاگ</Link></li>
               <li><Link href={"#"}>تماس با ما</Link></li>
-              <li><Link href={"#"}>درباره ما</Link></li>
+              <li><Link href={"/about-us"}>درباره ما</Link></li>
             </ul>
           </div>
           {/* enamand and payments */}
@@ -99,9 +99,11 @@ function Footer() {
         </div>
       </div>
       <div className="border-t py-4">
+        <Link target='_blank' href={"https://github.com/Alireza-Naghavian"}>
         <p className="text-center font-Shabnam_M text-sm text-white">
           redesign شده توسط alireza-naghavian
         </p>
+        </Link>
       </div>
     </footer>
   )

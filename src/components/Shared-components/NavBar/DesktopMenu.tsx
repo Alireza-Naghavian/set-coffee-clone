@@ -66,7 +66,7 @@ function DesktopMenu({
             />
             <NavItem targetLink="/categories" label="وبلاگ" />
             <NavItem targetLink="/categories" label="تماس با ما" />
-            <NavItem targetLink="/categories" label="درباره ما" />
+            <NavItem targetLink="/about-us" label="درباره ما" />
             <NavItem targetLink="/categories" label="قوانین" />
             {userLoading ? (
               <Loader loadingCondition={userLoading} />

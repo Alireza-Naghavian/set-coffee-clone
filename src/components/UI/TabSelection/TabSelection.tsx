@@ -26,17 +26,17 @@ function TabSelection({
         className="flex-center gap-x-8 sm:!gap-x-16 border-b-2
        w-full pb-2 child:font-Shabnam_B child:text-[#777777] sm:text-base  text-sm">
         <button
-          className={`${activeTab == desc && "!text-main_green"}`}
+          className={` !bg-white focus:outline-none  ${activeTab == desc && "!text-main_green"}`}
           onClick={() => setActiveTab(desc)}>
           توضیحات
         </button>
         <button
-          className={`text-nowrap ${activeTab == moreDetail && "!text-main_green"}`}
+          className={`!bg-white focus:outline-none  text-nowrap ${activeTab == moreDetail && "!text-main_green"}`}
           onClick={() => setActiveTab(moreDetail)}>
           اطلاعات بیشتر
         </button>
         <button
-          className={`${activeTab == comments && "!text-main_green"}`}
+          className={`!bg-white focus:outline-none  ${activeTab == comments && "!text-main_green"}`}
           onClick={() => setActiveTab(comments)}>
           <span> نظرات </span>
           <span>({filterAcceptableComments?.length.toLocaleString("fa-Ir")})</span>
