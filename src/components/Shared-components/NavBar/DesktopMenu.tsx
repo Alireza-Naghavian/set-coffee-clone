@@ -65,7 +65,7 @@ function DesktopMenu({
               subMenuItem={subMenuTitles}
             />
             <NavItem targetLink="/categories" label="وبلاگ" />
-            <NavItem targetLink="/categories" label="تماس با ما" />
+            <NavItem targetLink="/contact-us" label="تماس با ما" />
             <NavItem targetLink="/about-us" label="درباره ما" />
             <NavItem targetLink="/categories" label="قوانین" />
             {userLoading ? (

@@ -58,7 +58,7 @@ function MobileMenuContent({
           </DropDown>
         </div>
 
-        <NavItem targetLink="/" label="تماس با ما" />
+        <NavItem targetLink="/contact-us" label="تماس با ما" />
         <div className=""  onClick={() => setIsMenuOpen(false)}>
         <NavItem targetLink="/about-us" label="درباره ما"  />
         </div>
