@@ -31,9 +31,10 @@ function MobileMenuContent({
         className="text-main/90 child:font-Shabnam_M 
                     justify-center my-auto flex-col child:my-auto 
                     child:py-[12px] mt-2 child:border-b last:border-none 
-                    child:px-4"
-      >
-        <NavItem targetLink="/" label="صفحه اصلی" />
+                    child:px-4">
+        <div className="" onClick={() => setIsMenuOpen(false)}>
+          <NavItem targetLink="/" label="صفحه اصلی" />
+        </div>
         <div className="w-full !p-0">
           <DropDown isMenuOpen={isMenuOpen} label={"فروشگاه"}>
             <ul
@@ -57,20 +58,23 @@ function MobileMenuContent({
             </ul>
           </DropDown>
         </div>
-
-        <NavItem targetLink="/contact-us" label="تماس با ما" />
-        <div className=""  onClick={() => setIsMenuOpen(false)}>
-        <NavItem targetLink="/about-us" label="درباره ما"  />
+        <div className="" onClick={() => setIsMenuOpen(false)}>
+          <NavItem targetLink="/contact-us" label="تماس با ما" />
         </div>
-        <div className="mr-2" onClick={()=>setIsMenuOpen(false)}>
-        <NavItem
-        targetLink="/my-account/wishlist"
-        label="لیست علاقه مندی ها"
-        icon={<FaRegHeart />}
-        />
+        <div className="" onClick={() => setIsMenuOpen(false)}>
+          <NavItem targetLink="/policy" label="قوانین" />
         </div>
-        {
-        userLoading ? (
+        <div className="" onClick={() => setIsMenuOpen(false)}>
+          <NavItem targetLink="/about-us" label="درباره ما" />
+        </div>
+        <div className="mr-2" onClick={() => setIsMenuOpen(false)}>
+          <NavItem
+            targetLink="/my-account/wishlist"
+            label="لیست علاقه مندی ها"
+            icon={<FaRegHeart />}
+          />
+        </div>
+        {userLoading ? (
           <Loader loadingCondition={userLoading} />
         ) : !user ? (
           <Link

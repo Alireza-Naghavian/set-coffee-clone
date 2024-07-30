@@ -1,25 +1,11 @@
+import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import React from "react";
 
 function AboutUs() {
   return (
     <div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
-      <div
-        className="w-full relative mx-auto flex-center headerWrapper text-white 
-      flex-col pt-[50px] sm:pt-[100px] lg:pt-[170px]"
-      >
-        <h1 className="text-[clamp(24px,5vw,68px)] font-Shabnam_B text-center">
-          درباره ما
-        </h1>
-        <div className="pb-8 mt-4">
-          <Breadcrumb
-            firstTarget="/"
-            firstTitle={"خانه"}
-            nestedStep={1}
-            nestedLinks={[{ title: "درباره ما", target: "/about-us" }]}
-          />
-        </div>
-      </div>
+      <HeaderPageLayout linkTarget="/about-us" linkTitle="درباره ما" mainTitle="درباره ما"/>
       <div className="bg-gray-100  py-12">
         <div className=" md:mx-16 mx-6  mt-12 flex md:flex-row flex-col  md:justify-between md:items-center gap-x-12">
           <div className="md:w-1/3 flex flex-col gap-y-6 child:text-dark_shade ">
