@@ -18,6 +18,7 @@ export type TextFieldType = {
   name: string;
   value?: string | number;
   className?: string;
+  required?:boolean,
   size?: "mediumSize" | "largeSize";
   variant: "outLine" | "borderFill" | "rounded";
   labelVariant?: "boldSize" | "thinSize";
