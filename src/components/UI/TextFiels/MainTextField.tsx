@@ -37,6 +37,7 @@ function MainTextField({
   variant = "outLine",
   labelVariant = "boldSize",
   register,
+  required = true,
   size,
   validattionschema,
   errors,
@@ -46,7 +47,8 @@ function MainTextField({
     <div className="flex flex-col gap-y-2">
       <label htmlFor={id} className={"relative font-Shabnam_M"}>
         <span>{label}</span>
-        <span className="text-red-500">*</span>
+
+       {required &&  <span className="text-red-500">*</span>}
       </label>
       <input
         {...register(name, validattionschema)}

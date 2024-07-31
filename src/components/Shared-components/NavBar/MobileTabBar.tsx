@@ -27,7 +27,7 @@ function MobileTabBar() {
             <span className="hidden sm:inline">کاربری</span>
           </span>
         </Link>
-        <Link href={"#"} className="child:sm:text-base child:text-sm">
+        <Link href={"/user-cart"} className="child:sm:text-base child:text-sm">
           <AiOutlineShoppingCart size={24} />
           <span className="font-Shabnam_B text-base">سبد خرید</span>
         </Link>

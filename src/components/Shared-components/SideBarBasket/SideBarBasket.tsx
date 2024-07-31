@@ -3,6 +3,7 @@ import MiniProductCard from "@/components/UI/Cards/MiniProductCard";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import Loader from "@/components/UI/loader/Loader";
 import { ProductCartType } from "@/types/products.type";
+import Link from "next/link";
 import React from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
@@ -71,9 +72,11 @@ function SideBarBasket({
           {totalprice?.toLocaleString("fa-Ir")}تومان
         </p>
         <div className="w-full">
-          <MainBtn size="medium" variant="primary">
+          <Link href={"/user-cart"}>
+          <MainBtn onClick={()=>setIsCartOpen(false)} size="medium" variant="primary">
             مشاهده سبد خرید
           </MainBtn>
+          </Link>
         </div>
       </div>
       }

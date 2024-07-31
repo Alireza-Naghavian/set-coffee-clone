@@ -1,0 +1,12 @@
+.total_price_title{
+    @apply text-right font-Shabnam_B text-dark_shade text-2xl
+}
+.total_Price_group{
+    @apply border-b border-b-mute/55 xl:py-2 flex xl:flex-row flex-col justify-between px-1 gap-y-2 w-full mt-8;
+}
+.total_Price_group span{
+    @apply font-Shabnam_B
+}
+.total_price_wrapper{
+    @apply p-5 flex flex-col items-start justify-center xl:gap-y-4
+}
