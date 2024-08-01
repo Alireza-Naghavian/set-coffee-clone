@@ -1,23 +1,12 @@
 "use client"
+
+import ClientOnlyPortal from "@/hooks/helper-hooks/ClientProtal";
 import { ChildrenProps } from "@/types/global.type";
 import { ContentProps, HeaderPropsType, ModalType } from "@/types/modal.type";
 import { cva } from "class-variance-authority";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import React, { useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
-const ClientOnlyPortal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isClient, setIsClient] = useState(false);
 
-  useLayoutEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
-
-  return createPortal(children, document.body);
-};
 const Modal: React.FC<ModalType> = (props) => {
   const { children, effect, isShow, onClose } = props;
   useEffect(() => {

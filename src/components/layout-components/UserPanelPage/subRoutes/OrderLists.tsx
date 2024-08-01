@@ -4,7 +4,7 @@ import React from 'react'
 const OrderLists = () => {
     return (
       <div className="md:h-[513px] h-[315px] px-4 md:max-h-[513px] overflow-y-auto">
-        <Table>
+        {/* <Table>
           <Table.Header cols={"grid-cols-6"}>
             <th>عنوان</th>
             <th>قیمت</th>
@@ -111,7 +111,7 @@ const OrderLists = () => {
               <td className="!text-green-600">تکمیل شده</td>
             </Table.Row>
           </Table.Body>
-        </Table>
+        </Table> */}
       </div>
     );
   };
