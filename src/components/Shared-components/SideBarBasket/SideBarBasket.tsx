@@ -3,8 +3,9 @@ import MiniProductCard from "@/components/UI/Cards/MiniProductCard";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import Loader from "@/components/UI/loader/Loader";
 import { ProductCartType } from "@/types/products.type";
+import Link from "next/link";
 import React from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
 export const dynamic = "force-dynamic";
 export type SideBarBasketType = {
@@ -40,7 +41,7 @@ function SideBarBasket({
           {getCart?.length === 0 && (
           <div className="mt-8">
               <EmptyResult
-              icon={<FaRegHeart size={50} />}
+              icon={<AiOutlineShoppingCart size={50} />}
               title={"سبد خرید شما خالی است."}
               firstDesc={""}
               secondDesc={""}
@@ -71,9 +72,11 @@ function SideBarBasket({
           {totalprice?.toLocaleString("fa-Ir")}تومان
         </p>
         <div className="w-full">
-          <MainBtn size="medium" variant="primary">
+          <Link href={"/user-cart"}>
+          <MainBtn onClick={()=>setIsCartOpen(false)} size="medium" variant="primary">
             مشاهده سبد خرید
           </MainBtn>
+          </Link>
         </div>
       </div>
       }

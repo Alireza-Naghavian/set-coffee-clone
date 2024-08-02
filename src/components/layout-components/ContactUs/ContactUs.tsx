@@ -1,6 +1,7 @@
 import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
-import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import MapLayout from "@/components/UI/Map/Map";
+import ClientOnlyPortal from "@/hooks/helper-hooks/ClientProtal";
+
 import Link from "next/link";
 
 import {
@@ -15,13 +16,13 @@ import { MdEmail } from "react-icons/md";
 function ContactUs() {
   return (
     <div className="">
-    <div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
-      <HeaderPageLayout
-        mainTitle="تماس با ما"
-        linkTarget="/contact-us"
-        linkTitle="تماس با ما"
-      />
-        </div>
+      <div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
+        <HeaderPageLayout
+          mainTitle="تماس با ما"
+          linkTarget="/contact-us"
+          linkTitle="تماس با ما"
+        />
+      </div>
       <div className="w-full md:px-32 md:mt-12  px-8">
         <div className="flex lg:flex-row flex-col gap-y-12 lg:justify-between  lg:items-center w-full p-8 shadow-md lg:h-[500px] mt-8">
           <div className=" lg:w-1/2 flex flex-col items-start justify-center ">
@@ -71,23 +72,25 @@ function ContactUs() {
             </ul>
           </div>
           <div className="lg:w-1/2   ">
-            <MapLayout
-              position={[35.72021225108499, 51.42222691580869]}
-              center={[35.72021225108499, 51.42222691580869]}
-            >
-              <div className=" z-50 relative p-4">
-                <span> فروشگاه ما</span>
-                <h3>آدرس فروشگاه حضوری قهوه ست (شعبه جم)</h3>
-                <p>
-                  تهران – خ کریمخان زند – خ قائم مقام فراهانی – ابتدای خ فجر(جم)
-                  – شماره ۱۰
-                </p>
-                <p>021-88305827</p>
-              </div>
-              <Link href="/about-us" className="p-4 pb-2">
-                درباره فروشگاه
-              </Link>
-            </MapLayout>
+            <ClientOnlyPortal>
+              <MapLayout
+                position={[35.72021225108499, 51.42222691580869]}
+                center={[35.72021225108499, 51.42222691580869]}
+              >
+                <div className=" z-50 relative p-4">
+                  <span> فروشگاه ما</span>
+                  <h3>آدرس فروشگاه حضوری قهوه ست (شعبه جم)</h3>
+                  <p>
+                    تهران – خ کریمخان زند – خ قائم مقام فراهانی – ابتدای خ
+                    فجر(جم) – شماره ۱۰
+                  </p>
+                  <p>021-88305827</p>
+                </div>
+                <Link href="/about-us" className="p-4 pb-2">
+                  درباره فروشگاه
+                </Link>
+              </MapLayout>
+            </ClientOnlyPortal>
           </div>
         </div>
       </div>
