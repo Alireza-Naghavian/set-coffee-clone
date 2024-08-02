@@ -1,8 +1,7 @@
-import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
+import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
 import LinkList from "@/components/UI/LinkList/LinkList";
 import React from "react";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
-import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
 export const dynamic = "force-dynamic";
 async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -22,7 +21,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
             </h3>
             {/* link list */}
             <ul
-              className="flex flex-col mt-2 mr-2 py-2 gap-y-1 child:text-base
+              className="flex flex-col mt-2 mr-2 py-2 gap-y-1 md:border-b-0 border-b-2 border-b-gray-800 child:text-base
          child:font-Shabnam_B child:transition-all duration-300 child-hover:!bg-gray-100 
          child:py-2 child:pr-2 child:text-dark_shade child:w-[95%]"
             >

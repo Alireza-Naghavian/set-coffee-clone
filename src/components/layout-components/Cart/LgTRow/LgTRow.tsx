@@ -12,7 +12,6 @@ function LgTRow({product,removeHandler}:TRowType) {
   return (
     <Table.Row
       variant="singleHead"
-      key={product._id}
       className=" !hidden md:!grid"
     >
       <td>

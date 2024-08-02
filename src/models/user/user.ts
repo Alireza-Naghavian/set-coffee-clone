@@ -36,6 +36,10 @@ const schema = new Schema<UserType>(
     isActive:{
       type:Boolean,
       default:false
+    },
+    postCode:{
+      type:Number,
+      required:false,
     }
   },
   { timestamps: true }

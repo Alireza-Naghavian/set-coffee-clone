@@ -4,13 +4,11 @@ import Link from 'next/link'
 import { IoIosClose } from 'react-icons/io'
 import { TRowType } from '../LgTRow/LgTRow'
 import { ProductCounter } from '../ProductTable/ProductTable'
-import { useState } from 'react'
 
 function SmTRow({product,removeHandler}:TRowType) {
   return (
     <Table.Row
     variant="singleHead"
-    key={product._id}
     className="my-1 child:my-auto  !flex md:!hidden gap-x-4  border-b py-2"
   >
     <td className="">
@@ -22,8 +20,9 @@ function SmTRow({product,removeHandler}:TRowType) {
         height={80}
       />
     </td>
-    <tr className="flex flex-col w-full ">
-      <td className="text-right flex justify-between items-center my-auto gap-x-2  !mb-2">
+
+    <div className="flex flex-col w-full ">
+      <th className="text-right flex justify-between items-center my-auto gap-x-2  !mb-2">
         <Link
           href={`/categories/${product._id}`}
           className="text-sm font-Shabnam_B line-clamp-4 tr-300 hover:text-mute"
@@ -32,34 +31,34 @@ function SmTRow({product,removeHandler}:TRowType) {
         </Link>
         <button
           onClick={() => removeHandler(product)}
-          className="mx-auto w-fit my-auto h-full"
+          className="mr-auto w-fit my-auto h-full"
         >
           <IoIosClose size={24} />
         </button>
-      </td>
+      </th>
       <tr
         className="flex flex-col gap-y-4  child:flex 
                   child:justify-between child:items-center child:w-full
                    child:text-sm  child:pb-[2px] child:child:pb-[2px]"
       >
-        <td>
+        <th>
           <span>قیمت:</span>
           <span>
             {product.price.toLocaleString("fa-Ir")} تومان
           </span>
-        </td>
-        <td className="">
+        </th>
+        <th className="">
           <span>تعداد:</span>
           <span>
             <ProductCounter  product={product}  />
           </span>
-        </td>
-        <td className="!border-b-0">
+        </th>
+        <th className="!border-b-0">
           <span>جمع جزء:</span>
           <span className='font-Shabnam_B'>{(product.price * product.count).toLocaleString("fa-Ir")}</span>
-        </td>
+        </th>
       </tr>
-    </tr>
+    </div>
   </Table.Row>
   )
 }

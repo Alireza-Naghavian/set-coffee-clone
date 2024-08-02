@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     await signUpUserSchema.validateAsync(body);
 
-    const { password, phoneNumber, userName, email }: UserType = body;
+    const { password, phoneNumber, userName, email,postCode}: UserType = body;
 
     const isUserExist = await UserModel.findOne({
       $or: [{ userName }, { email }, { phoneNumber }],
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
       role: users.length > 0 ? "USER" : "ADMIN",
       phoneNumber,
       expTime: CODE_EXPIRES,
+      postCode:0
     });
 
     await axios

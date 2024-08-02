@@ -3,7 +3,7 @@ import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
 import useRemoveFromBasket from "@/hooks/helper-hooks/useRemoveFromBasket";
 import useUpdateBasket from "@/hooks/helper-hooks/useUpdateBasket";
 import { ProductCartType } from "@/types/products.type";
-import { useState } from "react";
+import React, { useState } from "react";
 import LgTRow from "../LgTRow/LgTRow";
 import SmTRow from "../SmTRow/SmTRow";
 function ProductTable({ userBasket }: { userBasket: ProductCartType[] }) {
@@ -38,17 +38,17 @@ function ProductTable({ userBasket }: { userBasket: ProductCartType[] }) {
           variant="singleHead"
           className="child:md:grid-cols-6 grid-cols-2"
         >
-          {userBasket?.map((product: ProductCartType) => {
+          {userBasket?.map((product: ProductCartType,index:number) => {
             return (
-              <>
+              <React.Fragment key={product._id || index}>
                 {/* // large devices */}
                 {changeTRow ? (
-                  <LgTRow removeHandler={removeHandler} product={product} />
+                  <LgTRow key={product?._id} removeHandler={removeHandler} product={product} />
                 ) : (
                   // small devices
-                  <SmTRow removeHandler={removeHandler} product={product} />
+                  <SmTRow key={index} removeHandler={removeHandler} product={product} />
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </Table.Body>
