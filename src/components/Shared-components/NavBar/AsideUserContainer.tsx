@@ -8,10 +8,7 @@ import { SetState } from "@/types/global.type";
 import CheckOtp from "../Forms/CheckOtp";
 import useCountDownTimer from "@/hooks/helper-hooks/useCountDownTimer";
 function AsideUserContainer({ setIsCartOpen, isOpen }: SideBarBasketType) {
-  const { isActive, minutes, seconds, startCountDown } = useCountDownTimer(
-    2,
-    0
-  );
+  const { isActive, minutes, seconds, startCountDown } = useCountDownTimer(2,0);
   const [sendOtp, setSendOtp]: [boolean, SetState<boolean>] = useState(false);
   const [identifier, setIdentifier]: [string, SetState<string>] = useState("");
   return (

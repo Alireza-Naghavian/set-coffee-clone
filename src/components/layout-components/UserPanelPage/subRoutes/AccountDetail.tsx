@@ -8,6 +8,7 @@ import { GetMetype } from "@/types/auth.type";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import AddPostCode from "./AddPostCode";
 const AccountDetail = ({user}:{user:GetMetype}) => {
   const {
     register,
@@ -40,7 +41,7 @@ const AccountDetail = ({user}:{user:GetMetype}) => {
   }
   return (
     <div>
-      <form className="flex flex-col gap-y-4 relative">
+      <div className="flex flex-col gap-y-4 relative">
         <div className="flex sm:flex-row flex-col gap-y-4 sm:gap-y-0  gap-x-4 child:w-full sm:child:w-1/2">
           <MainTextField
             label="نام کاربری"
@@ -65,7 +66,7 @@ const AccountDetail = ({user}:{user:GetMetype}) => {
             readOnly
           />
         </div>
-        <div className=" child:w-full sm:child:w-1/2 sm:pl-4">
+        <div className="flex sm:flex-row flex-col gap-y-4 sm:gap-y-0  gap-x-4 child:w-full sm:child:w-1/2">
           <MainTextField
             label="شماره موبایل"
             register={register}
@@ -78,8 +79,9 @@ const AccountDetail = ({user}:{user:GetMetype}) => {
             readOnly
             className="w-full"
           />
+          <AddPostCode/>
         </div>
-      </form>
+      </div>
       <div className="mt-12">
         <form onSubmit={handleSubmit(updateProfileHandler)} className="flex  flex-col gap-y-4 relative border">
           <h3

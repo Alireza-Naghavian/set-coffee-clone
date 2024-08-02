@@ -5,7 +5,7 @@ import Loader from "@/components/UI/loader/Loader";
 import { ProductCartType } from "@/types/products.type";
 import Link from "next/link";
 import React from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
 export const dynamic = "force-dynamic";
 export type SideBarBasketType = {
@@ -41,7 +41,7 @@ function SideBarBasket({
           {getCart?.length === 0 && (
           <div className="mt-8">
               <EmptyResult
-              icon={<FaRegHeart size={50} />}
+              icon={<AiOutlineShoppingCart size={50} />}
               title={"سبد خرید شما خالی است."}
               firstDesc={""}
               secondDesc={""}

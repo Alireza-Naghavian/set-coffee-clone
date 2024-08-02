@@ -11,6 +11,7 @@ const useLogOut = () => {
     onSuccess: () => {
       router.replace("/")
       queryClient.invalidateQueries({ queryKey: ["getMe"] });
+      toast.success("خروج موفقیت آمیز");
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message);

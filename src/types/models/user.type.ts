@@ -6,7 +6,8 @@ export type UserType = {
   role?: string;
   expTime: number;
   retryTimes: number;
-  isActive:boolean
+  isActive:boolean,
+  postCode:number
 };
 export type CheckOtpType = {
   phoneNumber: string;

@@ -43,7 +43,6 @@ function DesktopMenu({
   useScrollLocker(isOpen || isDesktopCartOpen);
   const logOutHandler = () => {
     logout();
-    toast.success("خروج موفقیت آمیز");
   };
   return (
     <>

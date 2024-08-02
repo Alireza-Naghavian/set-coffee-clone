@@ -15,7 +15,7 @@ const getUser = async () => {
       if (tokenPayLoad) {
         user = await UserModel.findOne(
           { email: tokenPayLoad?.email },
-          "userName email phoneNumber role isActive password"
+          "userName email phoneNumber role isActive password postCode"
         );
       }
     }

@@ -18,7 +18,7 @@ export const GET = async () => {
           {
             email: tokenPayload.email,
           },
-          "userName email phoneNumber role isActive"
+          "userName email phoneNumber role isActive postCode"
         );
       }
     

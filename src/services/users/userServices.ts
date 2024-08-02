@@ -29,3 +29,6 @@ export const updateUserProfile = async(data:UpdateProfileType)=>{
 export const logOutUser = async()=>{
   return  api.post("/auth/logout").then(({data})=>data.message)
 }
+export const UpdateUserPostCode = async(postCode: { postCode: number })=>{
+  return api.post("/auth/updateProfile/postCode",postCode).then(({data})=>data.message)
+}

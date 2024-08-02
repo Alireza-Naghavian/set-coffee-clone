@@ -1,6 +1,6 @@
 import { ProductCartType } from "@/types/products.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-type AddToBasketType = {
+export type BasketType = {
   product: ProductCartType;
   value: string;
   counter: number;
@@ -9,7 +9,7 @@ const addProductTocart = async ({
   product,
   value = "setCoffeeBasket",
   counter = 1,
-}: AddToBasketType) => {
+}: BasketType) => {
   const cart: string | null = localStorage.getItem(value);
   const getData: ProductCartType[] = cart ? JSON.parse(cart) : [];
   if (!getData.some((data: any) => data._id === product._id)) {
