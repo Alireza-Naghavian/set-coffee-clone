@@ -5,6 +5,7 @@ import { HiOutlineUserCircle } from 'react-icons/hi2';
 import { TbChecklist } from 'react-icons/tb';
 import LogoutBtn from './LogoutBtn';
 import styles from "./myAccount.module.css";
+import { HiTicket } from "react-icons/hi2";
 const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
     return (
       <div className="flex flex-col  relative ">
@@ -33,6 +34,12 @@ const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
             <FaRegHeart className="text-[65px]" />
             <span className="text-lg font-Shabnam_M tracking-tighter ">
               لیست علاقه مندی ها
+            </span>
+          </Link>
+          <Link href={"/my-account/tickets"} className="flex-center flex-col">
+            <HiTicket className="text-[65px]" />
+            <span className="text-lg font-Shabnam_M tracking-tighter ">
+             تیکت ها
             </span>
           </Link>
         <LogoutBtn/>

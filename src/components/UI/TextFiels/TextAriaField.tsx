@@ -2,7 +2,7 @@ import { TextAriaType } from "@/types/TextFlieds_Forms.type";
 import { cva } from "class-variance-authority";
 import React from "react";
 
-const inputGroup = cva("focus:outline-none font-Shabnam w-full text-right", {
+const inputGroup = cva("focus:outline-none  font-Shabnam w-full text-right", {
   variants: {
     variant: {
       outLine: "bg-white  text-mute",
@@ -23,6 +23,7 @@ function TextAriaField({
   variant = "outLine",
   type = "text",
   label,
+  required=true,
   placeHolder,
   name,
   id,
@@ -35,7 +36,7 @@ function TextAriaField({
   return   <div className="flex flex-col gap-y-2">
   <label htmlFor={id} className={"relative font-Shabnam_M"}>
     <span>{label}</span>
-    <span className="text-red-500">*</span>
+   {required &&  <span className="text-red-500">*</span>}
   </label>
   <textarea
     cols={80}

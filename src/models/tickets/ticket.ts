@@ -1,5 +1,6 @@
 import { TicketType } from "@/types/models/ticket.type";
 import mongoose, { Schema } from "mongoose";
+import { messageSchema } from "./messages";
 
 const schema = new Schema<TicketType>(
   {
@@ -17,11 +18,20 @@ const schema = new Schema<TicketType>(
       required: true,
     },
     title: { type: String, required: true },
-    user:{
-      type:mongoose.Types.ObjectId,
-      ref:"user",
-      required:true
-    }
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    isOpen: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    messages: {
+      type: [messageSchema],
+      default: [],
+    },
   },
 
   {

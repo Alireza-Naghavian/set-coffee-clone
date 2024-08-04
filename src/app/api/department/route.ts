@@ -29,3 +29,16 @@ export const POST = async (req: Request) => {
     );
   }
 };
+export const GET = async () => {
+  try {
+    await dbConnection();
+
+    const allDept = await DeptModel.find({}, "-__v ");
+    return Response.json(allDept, { status: 200 });
+  } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
