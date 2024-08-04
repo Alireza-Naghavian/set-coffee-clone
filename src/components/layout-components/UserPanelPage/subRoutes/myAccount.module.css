@@ -11,3 +11,12 @@
   child:text-mute 
     child:gap-y-2;
 }
+.add_ticket_header {
+  @apply px-4 py-2 bg-white text-xl sm:text-2xl font-Shabnam_B sm:absolute
+  my-auto -top-[1.4rem];
+}
+.allTicket {
+  @apply rounded-2xl text-base sm:text-lg left-10
+  text-main_brown   border-2 
+   border-main_brown transition-all duration-200 hover:bg-main_brown hover:text-white;
+}
