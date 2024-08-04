@@ -32,4 +32,5 @@ export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
   React.ComponentProps<"textarea"> & {
     variant: "outLine" | "borderFill";
     size?: "medium" | "free";
+    required?:boolean,
   };

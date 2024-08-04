@@ -27,4 +27,5 @@ export const TicketSchema = Joi.object().keys({
     .error(createHttpError.BadRequest("شناسه کاربر معتبر نمی باشد.")),
   priority: Joi.number()
     .error(createHttpError.BadRequest("سطح اولویت معتبر نمی باشد.")),
+   
 });

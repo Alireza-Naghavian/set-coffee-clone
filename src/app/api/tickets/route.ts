@@ -8,7 +8,7 @@ export const POST = async (req: Request) => {
   try {
     await dbConnection();
     const reqBody: TicketType = await req.json();
-    const { body, dept, priority, title ,user} = reqBody;
+    const { body, dept, priority, title ,user,isOpen} = reqBody;
     const IsUser = await getUser();
     if (!IsUser)
       return Response.json(
@@ -20,17 +20,14 @@ export const POST = async (req: Request) => {
       dept,
       priority,
       title,
-      user
+      user,
     });
-
-    await TicketModel.create({ title, user: IsUser._id, priority, dept, body });
-
+    await TicketModel.create({ title, user: IsUser._id, priority, dept, body,isOpen });
     return Response.json(
       { message: "تیکت با موفقیت ایجاد شد." },
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }
