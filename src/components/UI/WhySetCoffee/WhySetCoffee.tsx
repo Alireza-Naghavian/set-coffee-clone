@@ -37,13 +37,13 @@ function WhySetCoffee() {
           </p>
           <div className="flex items-center mt-[30px]">
             <Link
-              href={"#"}
+              href={"/about-us"}
               className="text-white bg-main  py-[14px] px-5  font-Shabnam_M text-sm"
             >
               بیشتر بخوانید
             </Link>
             <Link
-              href={"#"}
+              href={"/categories"}
               className="text-main bg-gray-300/55 tr-200 hover:bg-gray-300  py-[14px] px-5  font-Shabnam_M text-sm"
             >
               فروشگاه

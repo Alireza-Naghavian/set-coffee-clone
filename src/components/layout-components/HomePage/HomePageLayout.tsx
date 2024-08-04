@@ -90,21 +90,21 @@ function HomePageLayout({filteredProdoucts}: {filteredProdoucts: FilteredProdouc
               PublishMonth={"خرداد"}
               category={"قهوه"}
               title={"آیا کرما برای تهیه اسپرسوی عالی ضروری است ؟"}
-              cover={"/images/weblog_cover_1.webp"}
+              cover={"/images/iceCoffee.jpg"}
             />
             <BlogsCard
               publishDay={"04"}
               PublishMonth={"خرداد"}
               category={"قهوه"}
               title={"آیا کرما برای تهیه اسپرسوی عالی ضروری است ؟"}
-              cover={"/images/weblog_cover_1.webp"}
+              cover={"/images/mocaPot_1.jpg"}
             />
             <BlogsCard
               publishDay={"04"}
               PublishMonth={"خرداد"}
               category={"قهوه"}
               title={"آیا کرما برای تهیه اسپرسوی عالی ضروری است ؟"}
-              cover={"/images/weblog_cover_1.webp"}
+              cover={"/images/coffeeMakers.jpg"}
             />
           </div>
         </div>

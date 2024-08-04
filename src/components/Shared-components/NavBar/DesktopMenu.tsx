@@ -15,7 +15,6 @@ import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { IoChevronDown } from "react-icons/io5";
-import { toast } from "react-toastify";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
@@ -61,9 +60,8 @@ function DesktopMenu({
               targetLink="/categories"
               label="فروشگاه"
               icon={<IoChevronDown />}
-              subMenuItem={subMenuTitles}
-            />
-            <NavItem targetLink="/categories" label="وبلاگ" />
+              subMenuItem={subMenuTitles}/>
+            <NavItem targetLink="/blogs" label="وبلاگ" />
             <NavItem targetLink="/contact-us" label="تماس با ما" />
             <NavItem targetLink="/about-us" label="درباره ما" />
             <NavItem targetLink="/policy" label="قوانین" />
