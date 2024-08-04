@@ -2,6 +2,7 @@ import { customeBlurDataURL } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./productCard.module.css";
+import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 export type BlogType = {
   [key: string]: string;
 };
@@ -13,8 +14,9 @@ function BlogsCard({
   cover,
 }: BlogType) {
   return (
+    <>
     <div
-      className={`!overflow-hidden relative   mx-auto  bg-black/20 cursor-pointer ${styles["cover-option"]}`}
+      className={`!overflow-hidden relative  w-full  mx-auto  bg-black/20 cursor-pointer ${styles["cover-option"]}`}
     >
       <div className="flex flex-col h-full w-full justify-between absolute">
         {/* blog card badge */}
@@ -41,17 +43,21 @@ function BlogsCard({
           </div>
         </Link>
       </div>
-      <div className={`${styles["overlay-cover"]}`}></div>
-      <Image
-        width={1920}
-        height={1080}
+      <div className={`${styles["overlay-cover"]} `}></div>
+ <div className="w-[450px]  h-[200px] sm:!h-[390px] md:h-[350px] xl:h-[400px]">
+ <Image
+  fill
         src={cover}
         className={` w-full h-full object-cover ${styles['cover-image']}`}
         alt={title}
         placeholder="blur"
         blurDataURL={cover ? "data:image/png;base64," + cover: customeBlurDataURL}
       />
+ </div>
+     
     </div>
+    </>
+
   );
 }
 
