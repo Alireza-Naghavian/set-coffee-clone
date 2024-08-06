@@ -1,5 +1,5 @@
 import BlogCard from "@/components/Shared-components/BlogCard/BlogCard";
-import React from "react";
+import React, { Suspense } from "react";
 import BlogsPagination from "./BlogsPagination";
 
 function AllBlogs() {
@@ -35,7 +35,9 @@ function AllBlogs() {
       />
     </div>
     <div className="mt-4 flex-center w-full">
+      <Suspense>
 <BlogsPagination/>
+      </Suspense>
     </div>
     </div>
   );

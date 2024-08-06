@@ -6,6 +6,7 @@ import { TbChecklist } from 'react-icons/tb';
 import LogoutBtn from './LogoutBtn';
 import styles from "./myAccount.module.css";
 import { HiTicket } from "react-icons/hi2";
+import { RiAdminFill } from "react-icons/ri";
 const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
     return (
       <div className="flex flex-col  relative ">
@@ -30,6 +31,14 @@ const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
             <HiOutlineUserCircle className="text-[65px]" />
             <span className="text-lg font-Shabnam_M ">جزئیات حساب</span>
           </Link>
+          {user.role === "ADMIN" &&
+          <Link href={"/p-admin"} className="flex-center flex-col">
+          <RiAdminFill className="text-[65px]" />
+          <span className="text-lg font-Shabnam_M tracking-tighter ">
+          پنل ادمین
+          </span>
+        </Link>
+        }
           <Link href={"/my-account/wishlist"} className="flex-center flex-col">
             <FaRegHeart className="text-[65px]" />
             <span className="text-lg font-Shabnam_M tracking-tighter ">

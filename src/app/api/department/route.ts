@@ -7,8 +7,7 @@ export const POST = async (req: Request) => {
   try {
     await dbConnection();
 
-    const reqBody: DepartmentType = await req.json();
-    const { title } = reqBody;
+
     // admin validation
     const user = await getUser();
     if (user.role !== "ADMIN") {
@@ -17,6 +16,8 @@ export const POST = async (req: Request) => {
         { status: 404 }
       );
     }
+    const reqBody: DepartmentType = await req.json();
+    const { title } = reqBody;
     await DeptModel.create({ title });
     return Response.json(
       { message: "دپارتمان با موفقیت ایجاد شد ." },

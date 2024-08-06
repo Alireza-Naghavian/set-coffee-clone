@@ -7,19 +7,17 @@ import React from "react";
 export type SubItemType = { label: string; href: string };
 type NavItemType = {
   label: string;
-  icon?: React.ReactElement;
+  icon?: React.ReactElement|null;
   subMenuItem?: null | SubItemType[];
-  optionalSubMenu?:null |{label:string}[];
+  optionalSubMenu?:null |{label:string,action:()=>void}[];
   targetLink: string;
-  optionalEvent?: () => void;
 };
 function NavItem({
   targetLink,
   label,
   icon,
-  optionalEvent,
-  subMenuItem = null,
-  optionalSubMenu = null,
+  subMenuItem = [],
+  optionalSubMenu = [],
 }: NavItemType) {
   const { push } = useRouter();
   return (
@@ -36,7 +34,7 @@ function NavItem({
         <span>{label}</span>
       </div>
       <div
-        className={`max-w-[220px] w-[220px]  bg-white absolute top-8 right-4 ${styles.subMenu}`}
+        className={`${subMenuItem&& subMenuItem?.length > 0 ? "" : 'hidden'} max-w-[220px] w-[220px]  bg-white absolute top-8 right-4 ${styles.subMenu}`}
       >
         <ul
           className={`py-2 child:py-[6px] child:px-5 child:text-main/60 z-50 child-hover:text-main 
@@ -51,10 +49,10 @@ function NavItem({
               </div>
             );
           })}
-          {optionalSubMenu?.map((subItem:{label:string}, index:number) => {
+          {optionalSubMenu?.map((subItem:{label:string,action:()=>void}, index:number) => {
             return (
               <div key={index} className="tr-200">
-                <button onClick={optionalEvent}>{subItem.label}</button>
+                <button onClick={subItem.action}>{subItem.label}</button>
               </div>
             );
           })}

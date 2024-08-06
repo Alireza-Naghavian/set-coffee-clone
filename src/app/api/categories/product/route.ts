@@ -1,6 +1,7 @@
 import dbConnection from "@/dbConfigs/db";
 import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
+import { getUser } from "@/utils/auth/authHelper";
 import { productSchema } from "@/utils/validator/categories/categoriesValidator";
 import { writeFile } from "fs/promises";
 import mongoose from "mongoose";
@@ -10,6 +11,8 @@ import path from "path";
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
+    const user = await getUser()
+    if(user.role !== "ADMIN") return Response.json({message:"شما به این قسمت دسترسی ندارید"},{status:403})
     const formData = await req.formData();
     const category = formData.get("category") as string;
     const cover = formData.get("cover") as File;
