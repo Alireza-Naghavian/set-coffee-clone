@@ -9,18 +9,21 @@ import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { LuUser2 } from "react-icons/lu";
 import { subMenuTitles } from "./DesktopMenu";
+import { RiAdminFill } from "react-icons/ri";
 import styles from "./Navbar.module.css";
 type MobileMenuContentType = {
   user: GetMetype | null;
   setIsMenuOpen: SetState<boolean>;
   isMenuOpen: boolean;
   userLoading: boolean;
+  userRole: string | undefined;
 };
 function MobileMenuContent({
   user,
   setIsMenuOpen,
   isMenuOpen,
   userLoading,
+  userRole,
 }: MobileMenuContentType) {
   return (
     <ul className="mobile-menu-wrapper min-h-screen overflow-y-auto">
@@ -31,7 +34,8 @@ function MobileMenuContent({
         className="text-main/90 child:font-Shabnam_M 
                     justify-center my-auto flex-col child:my-auto 
                     child:py-[12px] mt-2 child:border-b last:border-none 
-                    child:px-4">
+                    child:px-4"
+      >
         <div className="" onClick={() => setIsMenuOpen(false)}>
           <NavItem targetLink="/" label="صفحه اصلی" />
         </div>
@@ -74,6 +78,16 @@ function MobileMenuContent({
             icon={<FaRegHeart />}
           />
         </div>
+        {userRole === "ADMIN" && (
+          <div className="mr-2" onClick={() => setIsMenuOpen(false)}>
+            <NavItem
+              targetLink="/p-admin"
+              label="پنل ادمین"
+              icon={<RiAdminFill />}
+            />
+          </div>
+        )}
+
         {userLoading ? (
           <Loader loadingCondition={userLoading} />
         ) : !user ? (

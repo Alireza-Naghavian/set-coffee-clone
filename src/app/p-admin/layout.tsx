@@ -5,6 +5,7 @@ import { getUser } from "@/utils/auth/authHelper";
 import { notFound } from "next/navigation";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 import dataParser from "@/utils/dataParser/dataParser";
+export const dynamic = "force-dynamic";
 async function layout({children}:ChildrenProps) {
   await dbConnection();
   const user = await getUser();
