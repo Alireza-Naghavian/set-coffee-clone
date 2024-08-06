@@ -7,7 +7,7 @@ import { FaEnvelope, FaLocationArrow, FaPhone } from 'react-icons/fa'
 
 function Footer() {
   const pathName = usePathname();
-  if(pathName === "/register-login") return
+  if(pathName === "/register-login" || pathName === "/p-admin") return
   return (
     <footer className="bg-[#111111] mt-20  w-full">
       <div className="lg:container  lg:px-8  md:px-12 px-4">

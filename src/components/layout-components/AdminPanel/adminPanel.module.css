@@ -1,0 +1,22 @@
+.sideBar_section {
+  @apply py-6 h-full  transition-all 
+  duration-300  
+  px-4  w-[min(355px,75vw)]
+bg-main_brown ;
+}
+
+.sideBar_section_sm{
+    @apply  lg:hidden block
+}
+.sideBar_section_close{
+    @apply translate-x-[-40rem] 
+}
+.sideBar_section_open {
+    @apply transform  translate-x-[0rem]  
+}
+.Sidbar_list {
+  @apply flex   flex-col h-full mt-2 mr-2 py-2 gap-y-1 md:border-b-0 border-b-2 child:text-base
+    child:font-Shabnam_B child:transition-all duration-300 child-hover:!bg-main/55
+    child:py-3 child:pr-2 child:cursor-pointer child-hover:text-white 
+     child:w-[95%] child:text-white child:child:text-lg;
+}
