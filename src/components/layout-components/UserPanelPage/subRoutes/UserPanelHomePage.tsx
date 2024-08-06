@@ -42,7 +42,7 @@ const UserPanelHomePage = ({ user }: { user: GetMetype }) => {
              تیکت ها
             </span>
           </Link>
-        <LogoutBtn/>
+        <LogoutBtn className='flex-col flex justify-center items-center'/>
         </div>
       </div>
     );
