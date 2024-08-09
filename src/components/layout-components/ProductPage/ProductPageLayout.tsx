@@ -23,33 +23,38 @@ export const isProductInWishlist = (productId: string): boolean => {
   const getData = storedData ? JSON.parse(storedData) : [];
   return getData.some((data: any) => data._id === productId);
 };
-function ProductPageLayout({initialProductData,}: {initialProductData: SingleProductType;}) 
-{
+function ProductPageLayout({
+  initialProductData,
+}: {
+  initialProductData: SingleProductType;
+}) {
   const [activeTab, setActiveTab] = useState<string>("desc");
   const { productId }: { productId: string } = useParams();
   const [isExist, setIsExist] = useState(false);
   const { product } = useGetSingleProduct(productId, initialProductData);
   const filterAcceptableComments = product?.ProductComment?.filter(
-    (comment: CommentModeltype) => {return comment.isAccept;}
+    (comment: CommentModeltype) => {
+      return comment.isAccept;
+    }
   );
-
-  const {addToWishList,isPending} = useAddToWishList()
+  const { addToWishList, isPending } = useAddToWishList();
   useEffect(() => {
     setIsExist(isProductInWishlist(productId));
   }, [productId]);
-  
-  const AddTowishList = async() => {
-    const newItem = {
-      cover:product.cover,
-      _id:product._id,
-      title:product.title,
-      price:product.price,
-      score:product.score
-    };
-  await  addToWishList(newItem,{onSuccess:()=>{
 
-    setIsExist(true)
-  }})
+  const AddTowishList = async () => {
+    const newItem = {
+      cover: product.cover,
+      _id: product._id,
+      title: product.title,
+      price: product.price,
+      score: product.score,
+    };
+    await addToWishList(newItem, {
+      onSuccess: () => {
+        setIsExist(true);
+      },
+    });
   };
   return (
     <div className="">
@@ -123,11 +128,9 @@ function ProductPageLayout({initialProductData,}: {initialProductData: SinglePro
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
               <AddToBasket product={product} />
               <div className="flex gap-x-4 text-[15px] font-Shabnam_M items-center child:flex child:items-center child:gap-x-2 mt-2">
-                {
-                  isPending ? <Loader loadingCondition={isPending}/>:
-                
-                
-                isExist ? (
+                {isPending ? (
+                  <Loader loadingCondition={isPending} />
+                ) : isExist ? (
                   <span className="flex items-center">
                     <span>
                       <MdOutlineDone className="" size={20} />
@@ -148,9 +151,15 @@ function ProductPageLayout({initialProductData,}: {initialProductData: SinglePro
                 <p className="font-Shabnam_B">دسته :</p>
                 <p className="text-sm  mt-1">{product?.category?.title}</p>
               </div>
-              <div className="flex gap-x-4 lg:gap-x-2 items-center  text-main text-right">
-                <span className="font-Shabnam_B">برچسب </span>
-                <span className="text-sm  lg:mt-1">{product?.tags}</span>
+              <div className="flex   items-center  text-main text-right">
+                <span className="font-Shabnam_B">برچسب :</span>
+
+                  {product?.tags?.map((tag: string,index:number) =>{
+
+                    return <span key={index}>{tag},</span>
+                  } 
+                  )}
+                
               </div>
             </div>
           </div>

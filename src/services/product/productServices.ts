@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import api from "../httpServices";
 import { SubmitCommentType } from "@/components/Shared-components/Forms/CommentForm";
+import { SingleProductType } from "@/types/models/categories.type";
+import { FieldValues } from "react-hook-form";
 
 export const getSingleProductData = async (productId: string) => {
   return api
@@ -12,9 +14,7 @@ export const getSingleProductData = async (productId: string) => {
 };
 export const getInitialCategoryData = async (queryParams: URLSearchParams) => {
   return api
-    .get(
-      `/categories/product?${queryParams.toString()}`
-    )
+    .get(`/categories/product?${queryParams.toString()}`)
     .then(({ data }: any) => data?.data);
 };
 export const addCommentOnProduct = async ({
@@ -26,3 +26,10 @@ export const addCommentOnProduct = async ({
     .post(`/comments/${data.productId}`, data)
     .then((response) => response?.data);
 };
+
+export const getAllCategories = async () => {
+  return await api.get("/categories").then(({ data }) => data);
+};
+export const AddNewProduct = async(data:FieldValues)=>{
+return api.post("/categories/product",data).then((response)=>response.data)
+}

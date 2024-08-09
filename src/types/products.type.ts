@@ -1,3 +1,4 @@
+import React from "react";
 
 export type ProductCartType = {
   cover: string;
@@ -15,4 +16,17 @@ export type MainProductCardType ={
 }
 export type ProductCardData ={
   productData : MainProductCardType
+}
+export type ProductFiledValues  = {
+  category: string;
+  cover: FileList;
+  longDesc: string| React.JSX.Element;
+  title: string;
+  price: string;
+  shortDesc: string;
+  smell: string;
+  tags: string;
+  weight: string;
+  suitableFor: string;
+  entities: number;
 }

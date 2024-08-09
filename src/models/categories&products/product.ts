@@ -49,6 +49,11 @@ export const schema = new Schema<SingleProductType>(
       required: true,
       
     },
+    entities:{
+      type:Number,
+      required:false,
+      default:1
+    }
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

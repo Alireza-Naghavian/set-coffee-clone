@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const dbConnection = async () => {
   try {
-    if (mongoose.connections[0].readyState) return false; 
+    if (mongoose.connections[0].readyState) return true; 
 
     await mongoose.connect("mongodb://localhost:27017/SetCoffe");
     console.log("mongoDB connected!");

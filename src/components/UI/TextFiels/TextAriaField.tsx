@@ -35,7 +35,7 @@ function TextAriaField({
 }:TextAriaType) {
   return   <div className="flex flex-col gap-y-2">
   <label htmlFor={id} className={"relative font-Shabnam_M"}>
-    <span>{label}</span>
+    <span className="font-Shabnam_B">{label}</span>
    {required &&  <span className="text-red-500">*</span>}
   </label>
   <textarea

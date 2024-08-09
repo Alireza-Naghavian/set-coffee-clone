@@ -24,7 +24,7 @@ export const POST = async (req: Request) => {
     const tags = (formData.get("tags") as string).split(",");
     const weight = parseFloat(formData.get("weight") as string);
     const suitableFor = formData.get("suitableFor") as string;
-
+    const entities  = formData.get("entities") as unknown
     const productData = {
       category,
       cover: "",
@@ -36,6 +36,7 @@ export const POST = async (req: Request) => {
       tags,
       weight,
       suitableFor,
+      entities
     };
 
     const isProductExist = await ProductModel.findOne({ title });
@@ -68,6 +69,7 @@ export const POST = async (req: Request) => {
       { status: 201 }
     );
   } catch (error) {
+    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

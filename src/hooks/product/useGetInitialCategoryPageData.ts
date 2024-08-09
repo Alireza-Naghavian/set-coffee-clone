@@ -1,5 +1,4 @@
 import { getInitialCategoryData } from "@/services/product/productServices";
-import { SingleProductType } from "@/types/models/categories.type";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 const useGetInitialCategoryPageData = () => {
