@@ -4,11 +4,18 @@ import React from "react";
 import HeaderProductLayout from "./HeaderProductLayout";
 import LargeTRow from "./LargeTRow";
 import SmallTRow from "./SmallTRow";
+import dynamic from "next/dynamic";
+const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
+  ssr: false,
+});
+const NoSSR_2 =dynamic(()=>import("./SmallTRow"),{
+  ssr:false
+})
 function ProductManagement({ products }: { products: SingleProductType[] }) {
   return (
     <HeaderProductLayout title="مدیریت محصولات">
       <div className="lg:h-[480px] overflow-y-auto">
-        <Table variant="singleHead" className="w-full relative mt-10 table">
+        <NoSSR variant="singleHead" className="w-full relative mt-10 table">
           {products.length > 0 && (
             <Table.Header variant="singleHead" className="hidden md:block">
               <tr
@@ -28,24 +35,30 @@ function ProductManagement({ products }: { products: SingleProductType[] }) {
             variant="singleHead"
             className="child:md:grid-cols-6 grid-cols-2"
           >
-            {/* large table row */}
             {products.map((product: SingleProductType, index: number) => {
               return (
-                <React.Fragment  key={index}>
-            <LargeTRow product={product}/>
+                <React.Fragment key={index}>
+                  {/* large table row */}
+
+                  <LargeTRow product={product} />
                 </React.Fragment>
               );
             })}
-            {/* small table row */}
-            {products.map((product:SingleProductType)=>{
-                return(
+            <React.Fragment>
+        
+                {products.map((product: SingleProductType, index: number) => {
+                  return (
                     <React.Fragment key={product._id}>
-                        <SmallTRow product={product}/>
+                      {/* large table row */}
+
+                      <NoSSR_2 product={product} />
                     </React.Fragment>
-                )
-            })}
+                  );
+                })}
+             
+            </React.Fragment>
           </Table.Body>
-        </Table>
+        </NoSSR>
       </div>
     </HeaderProductLayout>
   );

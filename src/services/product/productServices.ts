@@ -33,3 +33,7 @@ export const getAllCategories = async () => {
 export const AddNewProduct = async(data:FieldValues)=>{
 return api.post("/categories/product",data).then((response)=>response.data)
 }
+
+export const deleteProduct = async (productId:string)=>{
+return api.delete(`/categories/product/${productId}`).then((response)=>response.data)
+}

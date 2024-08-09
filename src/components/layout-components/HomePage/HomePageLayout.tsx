@@ -12,44 +12,54 @@ import Image from "next/image";
 interface FilteredProdouctsType extends categoriesType {
   productCount?: number;
 }
-function HomePageLayout({filteredProdoucts}: {filteredProdoucts: FilteredProdouctsType[]}) {
-
+function HomePageLayout({
+  filteredProdoucts,
+}: {
+  filteredProdoucts: FilteredProdouctsType[];
+}) {
   return (
     <>
       <div className="w-full">
         <Swiper />
       </div>
-      <div className="mt-[70px]">
-        <HeaderTitle
-          title={filteredProdoucts[0]?.title}
-          subTitle={"قهوه ممتاز"}
-        />
-        <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
-            {filteredProdoucts[0].products
-              .slice(0, 10)
-              .map((product: SingleProductType) => {
-                return <ProductCard key={product?._id} productData={product} />;
-              })}
+      {filteredProdoucts[0]?.products.length > 0 && (
+        <div className="mt-[70px]">
+          <HeaderTitle
+            title={filteredProdoucts[0]?.title}
+            subTitle={"قهوه ممتاز"}
+          />
+          <div className="mt-5 ">
+            <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+              {filteredProdoucts[0].products
+                .slice(0, 10)
+                .map((product: SingleProductType) => {
+                  return (
+                    <ProductCard key={product?._id} productData={product} />
+                  );
+                })}
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="mt-[70px]">
-        <HeaderTitle
-          title={filteredProdoucts[1].title}
-          subTitle={"کپسول قهوه"}
-        />
-        <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
-            {filteredProdoucts[1].products
-              .slice(0, 10)
-              .map((product: SingleProductType) => {
-                return <ProductCard key={product?._id} productData={product} />;
-              })}
+      )}
+      {filteredProdoucts[1]?.products.length > 0 && (
+        <div className="mt-[70px]">
+          <HeaderTitle
+            title={filteredProdoucts[1].title}
+            subTitle={"کپسول قهوه"}
+          />
+          <div className="mt-5 ">
+            <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+              {filteredProdoucts[1].products
+                .slice(0, 10)
+                .map((product: SingleProductType) => {
+                  return (
+                    <ProductCard key={product?._id} productData={product} />
+                  );
+                })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="sm:mt-[70px] mt-10  ">
         <div className="w-full lg:h-[300px] sm:container xs:px-4 px-0">
           <Image
@@ -62,21 +72,25 @@ function HomePageLayout({filteredProdoucts}: {filteredProdoucts: FilteredProdouc
           />
         </div>
       </div>
-      <div className="mt-[70px]">
-        <HeaderTitle
-          title={filteredProdoucts[2].title}
-          subTitle={"قهوه ایتالیایی"}
-        />
-        <div className="mt-5 ">
-          <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
-            {filteredProdoucts[2].products
-              .slice(0, 10)
-              .map((product: SingleProductType) => {
-                return <ProductCard key={product?._id} productData={product} />;
-              })}
+      {filteredProdoucts[2]?.products.length > 0 && (
+        <div className="mt-[70px]">
+          <HeaderTitle
+            title={filteredProdoucts[2].title}
+            subTitle={"قهوه ایتالیایی"}
+          />
+          <div className="mt-5 ">
+            <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+              {filteredProdoucts[2].products
+                .slice(0, 10)
+                .map((product: SingleProductType) => {
+                  return (
+                    <ProductCard key={product?._id} productData={product} />
+                  );
+                })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <WhySetCoffee />
       <div className="mt-[70px]">
         <HeaderTitle
