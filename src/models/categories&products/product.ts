@@ -53,6 +53,11 @@ export const schema = new Schema<SingleProductType>(
       type:Number,
       required:false,
       default:1
+    },
+    sold:{
+      type:Number,
+      required:false,
+      default:0
     }
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }

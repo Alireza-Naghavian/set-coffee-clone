@@ -14,6 +14,7 @@ export type SingleProductType = {
   tags: string[];
   score?: number;
   entities:number;
+  sold?:number,
   category: typeof mongoose.Types.ObjectId |string;
   _id?:string
 };
