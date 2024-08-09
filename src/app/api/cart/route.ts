@@ -66,7 +66,7 @@ export const POST = async (req: Request) => {
       await ProductModel.findOneAndUpdate(
         { _id: item._id },
         {
-          $inc: { entities: -item.count },
+          $inc: { entities: -item.count,sold:item.count },
         }
       );
       await CategoryModel.findOneAndUpdate(

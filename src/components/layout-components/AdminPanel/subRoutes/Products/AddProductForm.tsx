@@ -59,7 +59,7 @@ function AddProductForm() {
     })
   }
   return (
-    <form onSubmit={handleSubmit(addProductHanlder)} className=" w-full space-y-4  py-10 px-2  h-[500px]  overflow-y-auto">
+    <form onSubmit={handleSubmit(addProductHanlder)} className=" w-full space-y-4  py-10 px-2  lg:h-[480px]  overflow-y-auto">
       <div className="grid sm:grid-cols-2 w-full sm:gap-y-0 gap-y-4 gap-x-6 ">
         <MainTextField
           register={register}

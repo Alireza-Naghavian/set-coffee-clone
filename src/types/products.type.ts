@@ -6,6 +6,7 @@ export type ProductCartType = {
   price: number;
   count: number;
   _id?: string;
+  entities?:number 
 };
 
 export type MainProductCardType ={

@@ -15,12 +15,14 @@ import styles from "./adminPanel.module.css";
 import Overlay from "@/components/UI/Overlay/Overlay";
 import { IoMdHome } from "react-icons/io";
 import DropDown from "@/components/UI/DropDown/DropDown";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 type AdminPanelType = {
   children: React.ReactNode;
   user: GetMetype;
 };
 const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
   const [isOpen, { open, close }] = useDisclosure();
+  useScrollLocker(isOpen)
   return (
     <>
        <Overlay
@@ -33,7 +35,7 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
     <div className="w-full relative px-0 flex ">
       <div
         className={` flex md:flex-row flex-col lg:relative fixed
-         right-0 tr-300 z-50 transform h-screen lg:overflow-y-hidden
+         right-0 tr-300 z-50 transform  lg:overflow-y-hidden
           lg:translate-x-0 !w-[min(355px,75vw)]
          ${isOpen ? "translate-x-0" : "translate-x-[40rem]"} `}
       >
@@ -93,7 +95,7 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
      
       </div>
       {/* content */}
-      <div className="relative w-full bg-gray-100 flex flex-col">
+      <div className="relative w-full bg-gray-100 flex flex-col items-center ">
         <div className=" w-full flex justify-between flex-wrap items-center  h-[70px] px-4 bg-main_brown p-2 ">
           <div className=" flex items-center gap-x-2">
             <div

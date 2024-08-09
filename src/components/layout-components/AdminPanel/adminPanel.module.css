@@ -1,5 +1,5 @@
 .sideBar_section {
-  @apply py-6 h-full  transition-all 
+  @apply py-6 h-screen  transition-all 
   duration-300  
   px-4  w-[min(355px,75vw)]
 bg-main_brown ;
