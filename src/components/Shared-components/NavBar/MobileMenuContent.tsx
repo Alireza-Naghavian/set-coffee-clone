@@ -40,7 +40,7 @@ function MobileMenuContent({
           <NavItem targetLink="/" label="صفحه اصلی" />
         </div>
         <div className="w-full !p-0">
-          <DropDown isMenuOpen={isMenuOpen} label={"فروشگاه"}>
+          <DropDown className="px-6" isMenuOpen={isMenuOpen} label={"فروشگاه"}>
             <ul
               className={`text-main/90 mt-2  child:font-Shabnam_M justify-center 
               my-auto flex-col tr-300 child:py-[6px] 
@@ -103,7 +103,7 @@ function MobileMenuContent({
           </Link>
         ) : (
           <div className="w-full !p-0">
-            <DropDown isMenuOpen={isMenuOpen} label={user.userName}>
+            <DropDown className="px-6" isMenuOpen={isMenuOpen} label={user.userName}>
               <ul
                 className={`text-main/90 mt-2  child:font-Shabnam_M justify-center 
               my-auto flex-col tr-300 child:py-[6px] 
