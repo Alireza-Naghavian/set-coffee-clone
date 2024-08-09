@@ -74,10 +74,13 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
               <button
                 onClick={() => addToCartHandler()}
                 className={`${styles["add-to-cart-btn"]}`}
+                disabled ={productData.entities ===0}
               >
                 {isLoading ? (
                   <Loader loadingCondition={isLoading} />
                 ) : (
+                  <>
+                  {productData?.entities === 0 ? <div><span>ناموجود</span></div>:
                   <>
                     <span className={`${styles["add-to-basket-text"]}`}>
                       افزودن به سبد خرید
@@ -85,6 +88,8 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
                     <span className={`${styles["add-to-basket-icon"]}`}>
                       <AiOutlineShoppingCart size={22} />
                     </span>
+                  </>
+                  } 
                   </>
                 )}
               </button>
@@ -137,12 +142,13 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
           <MainBtn
             onClick={() => addToCartHandler()}
             variant="primary"
+            disabled ={productData.entities ===0}
             size="small"
-            className="lg:hidden  font-Shabnam_B  tracking-tighter "
+            className={`lg:hidden  font-Shabnam_B  tracking-tighter ${productData.entities ===0 && "bg-red-400 hover:bg-red-400"}`}
           >
             {isLoading ? (
               <Loader loadingCondition={isLoading} />
-            ) : (
+            ) :  productData?.entities === 0 ? <div><span>ناموجود</span></div>: (
               <span>افزودن به سبد خرید</span>
             )}
           </MainBtn>
