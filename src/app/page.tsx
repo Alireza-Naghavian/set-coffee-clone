@@ -24,7 +24,8 @@ export default async function Home() {
         "products.cover": 1,
         "products.title": 1,
         "products.shortDesc" : 1,
-        "products.tags" : 1
+        "products.tags" : 1,
+        "products.entities":1
       },
     },
   ]);

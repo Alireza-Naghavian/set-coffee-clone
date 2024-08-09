@@ -15,7 +15,7 @@ import { customeBlurDataURL } from "@/utils/constants";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
-import { MdOutlineDone } from "react-icons/md";
+import { MdClose, MdOutlineDone } from "react-icons/md";
 import AddToBasket from "./AddToBasket";
 import SingleProductRate from "./SingleProductRate";
 export const isProductInWishlist = (productId: string): boolean => {
@@ -143,6 +143,17 @@ function ProductPageLayout({
                     <span>افزودن به علاقمندی ها</span>
                   </button>
                 )}
+                {product?.entities >0 ? 
+                    <div className="flex items-center gap-x-2">
+                    <span> <MdOutlineDone className="" size={20} /></span>
+                    <span>{product?.entities.toLocaleString("fa-Ir")} عدد موجود در انبار</span>
+                  </div> 
+                :
+                <div className="flex items-center gap-x-2">
+                   <span> <MdClose className="text-red-500" size={20} /></span>
+                   <span className="text-red-500">ناموجود</span>
+                </div>  
+                }
               </div>
             </div>
             {/* tegs & category title */}

@@ -13,7 +13,7 @@ export type SingleProductType = {
   cover: string;
   tags: string[];
   score?: number;
-  entities?:number;
+  entities:number;
   category: typeof mongoose.Types.ObjectId |string;
   _id?:string
 };
