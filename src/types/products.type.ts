@@ -6,22 +6,22 @@ export type ProductCartType = {
   price: number;
   count: number;
   _id?: string;
-  entities?:number 
+  entities?: number;
 };
 
-export type MainProductCardType ={
-  cover : string;
-  title:string;
-  rate?:HTMLElement;
-  price:number
-}
-export type ProductCardData ={
-  productData : MainProductCardType
-}
-export type ProductFiledValues  = {
+export type MainProductCardType = {
+  cover: string;
+  title: string;
+  rate?: HTMLElement;
+  price: number;
+};
+export type ProductCardData = {
+  productData: MainProductCardType;
+};
+export type ProductFiledValues = {
   category: string;
   cover: FileList;
-  longDesc: string| React.JSX.Element;
+  longDesc: string | React.JSX.Element;
   title: string;
   price: string;
   shortDesc: string;
@@ -30,4 +30,6 @@ export type ProductFiledValues  = {
   weight: string;
   suitableFor: string;
   entities: number;
-}
+};
+export type UpdateProductField = Omit<
+  ProductFiledValues,  "category" | "cover" | "longDesc" | "tags">;

@@ -1,6 +1,5 @@
 "use client";
 import Table from "@/components/UI/Table/Table";
-import useRemoveProduct from "@/hooks/product/useRemoveProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,10 +8,9 @@ import { MdDelete } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
 import EditProdModal from "./EditProdModal";
 
-function LargeTRow({ product }: { product: SingleProductType }) {
+function LargeTRow({ product }: { product: SingleProductType}) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-
   return (
     <Table.Row variant="singleHead" className=" !hidden md:!grid">
       <td>
@@ -39,7 +37,10 @@ function LargeTRow({ product }: { product: SingleProductType }) {
         </span>
       </td>
       <td className="ml-12">
-        <button onClick={()=>setIsEditOpen(true)} className="text-2xl text-blue-500 mx-auto ml-6 w-fit flex justify-center ">
+        <button
+          onClick={() => setIsEditOpen(true)}
+          className="text-2xl text-blue-500 mx-auto ml-6 w-fit flex justify-center "
+        >
           <FaEdit />
         </button>
       </td>
@@ -66,5 +67,3 @@ function LargeTRow({ product }: { product: SingleProductType }) {
 }
 
 export default LargeTRow;
-// if (product._id === undefined) return;
-// removeHandler(product._id);

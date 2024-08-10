@@ -55,7 +55,7 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
           <span>{counter}</span>
           <button
             aria-label="افزایش تعداد"
-            disabled={counter >= product.entities}
+            disabled={counter >= product?.entities}
             onClick={() => setCounter((prev) => prev + 1)}
             className="tr-200 hover:text-white hover:bg-main_brown"
           >
@@ -63,7 +63,7 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
           </button>
         </div>
         <MainBtn
-          disabled={product.entities === 0}
+          disabled={product?.entities === 0}
           className={`${
             product?.entities == 0 && "bg-red-400 hover:bg-red-400"
           }`}
@@ -72,7 +72,7 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
         >
           {isLoading ? (
             <Loader loadingCondition={isLoading} />
-          ) : product.entities == 0 ? (
+          ) : product?.entities == 0 ? (
             "ناموجود"
           ) : (
             "افزودن به سبد خرید"

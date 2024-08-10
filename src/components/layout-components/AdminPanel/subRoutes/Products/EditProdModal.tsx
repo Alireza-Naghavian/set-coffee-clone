@@ -1,11 +1,18 @@
+import MainBtn from "@/components/UI/Buttons/MainBtn";
+import Loader from "@/components/UI/loader/Loader";
 import CompoundModal from "@/components/UI/Modal/Modal";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
-import { SingleProductType } from "@/types/models/categories.type";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import ProductEntityCounter from "./ProductEntityCounter";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
-import MainBtn from "@/components/UI/Buttons/MainBtn";
+import useUpdateProduct from "@/hooks/product/useUpdateProduct";
+import { SingleProductType } from "@/types/models/categories.type";
+import { UpdateProductField } from "@/types/products.type";
+import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import ProductEntityCounter from "./ProductEntityCounter";
+import { useQueryClient } from "@tanstack/react-query";
 type EditModlaType = {
   product: SingleProductType;
   isEditOpen: boolean;
@@ -17,19 +24,53 @@ function EditProdModal({ product, isEditOpen, setIsEditOpen }: EditModlaType) {
     handleSubmit,
 
     formState: { errors,isValid,dirtyFields },
-  } = useForm({
+  } = useForm<UpdateProductField>({
     
     defaultValues: {
-      price: product.price,
+      price: String(product.price),
       title: product.title,
       shortDesc: product.shortDesc,
       smell: product.smell,
-      weight: product.weight,
+      weight: String(product.weight),
       suitableFor: product.suitableFor,
     },
     mode:"onChange"
   });
   const [counter, setCounter] = useState(product.entities);
+  const {refresh} = useRouter();
+  const queryClient = useQueryClient();
+  const {isProdUpdating,updateProduct} = useUpdateProduct();
+  const updateHandler = async(data:UpdateProductField)=>{
+    const {price,shortDesc,smell,suitableFor,title,weight} = data
+    const ToEndPrice = convertToEnglishDigits(price)
+    const ToEndWeight = convertToEnglishDigits(weight)
+    const ProductData = {
+      entities:counter,
+      shortDesc,
+      smell,
+      suitableFor,
+      title,
+      weight:ToEndWeight,
+      price:ToEndPrice
+    }
+    try {
+      if(product._id === undefined) return
+     await updateProduct({productId:product._id,data:ProductData},{
+      onSuccess:(data:any)=>{
+        toast.success(data.message)
+        setIsEditOpen();
+        queryClient.invalidateQueries({queryKey:["product",product._id]})
+        refresh();
+      },
+      onError:(err:any)=>{
+        toast.error(err?.response?.data?.message)
+      }
+     })
+    } catch (error:any) {
+      console.log(error?.response?.data?.message);
+    }
+  }
+
   return (
     <div>
       <CompoundModal
@@ -44,7 +85,9 @@ function EditProdModal({ product, isEditOpen, setIsEditOpen }: EditModlaType) {
           </div>
         </CompoundModal.Header>
         <CompoundModal.Body>
-          <form className="flex flex-col gap-y-4 justify-center px-6 my-4">
+          <form 
+          onSubmit={handleSubmit(updateHandler)}
+          className="flex flex-col gap-y-4 justify-center px-6 my-4">
             <MainTextField
               register={register}
               errors={errors}
@@ -169,7 +212,7 @@ function EditProdModal({ product, isEditOpen, setIsEditOpen }: EditModlaType) {
                 }`}
                 type="submit"
               >
-                ویرایش
+          {isProdUpdating ? <Loader loadingCondition={isProdUpdating}/> : "ویرایش"}
               </MainBtn>
             </div>
           </form>

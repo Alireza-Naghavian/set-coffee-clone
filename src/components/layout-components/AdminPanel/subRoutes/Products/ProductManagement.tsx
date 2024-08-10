@@ -1,21 +1,23 @@
+"use client"
 import Table from "@/components/UI/Table/Table";
 import { SingleProductType } from "@/types/models/categories.type";
 import dynamic from "next/dynamic";
 import React from "react";
 import HeaderProductLayout from "./HeaderProductLayout";
 import LargeTRow from "./LargeTRow";
+import SmallTRow from "./SmallTRow";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });
-const NoSSR_2 =dynamic(()=>import("./SmallTRow"),{
-  ssr:false
-})
+
 function ProductManagement({ products }: { products: SingleProductType[] }) {
+
+  
   return (
     <HeaderProductLayout title="مدیریت محصولات">
       <div className="lg:h-[480px] overflow-y-auto">
         <NoSSR variant="singleHead" className="w-full relative mt-10 table">
-          {products.length > 0 && (
+          {products?.length > 0 && (
             <Table.Header variant="singleHead" className="hidden md:block">
               <tr
                 className="grid grid-cols-6  rounded-lg child:ml-3 child:text-center p-4
@@ -39,7 +41,7 @@ function ProductManagement({ products }: { products: SingleProductType[] }) {
                 <React.Fragment key={index}>
                   {/* large table row */}
 
-                  <LargeTRow product={product} />
+                  <LargeTRow  product={product} />
                 </React.Fragment>
               );
             })}
@@ -50,7 +52,7 @@ function ProductManagement({ products }: { products: SingleProductType[] }) {
                     <React.Fragment key={product._id}>
                       {/* large table row */}
 
-                      <NoSSR_2 product={product} />
+                      <SmallTRow  product={product} />
                     </React.Fragment>
                   );
                 })}
