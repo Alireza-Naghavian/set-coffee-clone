@@ -96,13 +96,13 @@ const Content: React.FC<ContentProps> = (props) => {
 };
 
 const Header: React.FC<HeaderPropsType> = (props) => {
-  const { children, onClose } = props;
+  const { children, onClose,className } = props;
   return (
 
-    <div className="flex items-center justify-between border-b-2 border-gray-200 pb-2">
+    <div className={`${className} flex items-center justify-between border-b-2 border-gray-200 pb-2`}>
       <span className="text-sm">{children}</span>
       <button onClick={onClose} className="p-1">
-        <IoIosClose size={22} />
+        <IoIosClose size={32} />
       </button>
     </div>
 

@@ -7,9 +7,11 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
+import EditProdModal from "./EditProdModal";
 
 function SmallTRow({ product }: { product: SingleProductType }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
   return (
     <Table.Row
       className="my-1 child:my-auto
@@ -62,7 +64,7 @@ function SmallTRow({ product }: { product: SingleProductType }) {
           </span>
           <span className="!border-b-0">
             <span>ویرایش:</span>
-            <button className="text-2xl text-blue-500">
+            <button  onClick={()=>setIsEditOpen(true)} className="text-2xl text-blue-500">
               <FaEdit />
             </button>
           </span>
@@ -72,6 +74,11 @@ function SmallTRow({ product }: { product: SingleProductType }) {
         productId={product._id}
         isDeleteOpen={isDeleteOpen}
         setIsDeleteOpen={() => setIsDeleteOpen(false)}
+      />
+        <EditProdModal
+        product={product}
+        isEditOpen={isEditOpen}
+        setIsEditOpen={() => setIsEditOpen(false)}
       />
     </Table.Row>
   );

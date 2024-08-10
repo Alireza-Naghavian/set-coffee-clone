@@ -7,9 +7,10 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
+import EditProdModal from "./EditProdModal";
 
 function LargeTRow({ product }: { product: SingleProductType }) {
-
+  const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
@@ -38,7 +39,7 @@ function LargeTRow({ product }: { product: SingleProductType }) {
         </span>
       </td>
       <td className="ml-12">
-        <button className="text-2xl text-blue-500 mx-auto ml-6 w-fit flex justify-center ">
+        <button onClick={()=>setIsEditOpen(true)} className="text-2xl text-blue-500 mx-auto ml-6 w-fit flex justify-center ">
           <FaEdit />
         </button>
       </td>
@@ -47,13 +48,18 @@ function LargeTRow({ product }: { product: SingleProductType }) {
           onClick={() => setIsDeleteOpen(true)}
           className="text-2xl text-red-500 mx-auto ml-8 w-fit flex justify-center "
         >
-            <MdDelete />
+          <MdDelete />
         </button>
       </td>
       <DeleteModal
         productId={product._id}
         isDeleteOpen={isDeleteOpen}
         setIsDeleteOpen={() => setIsDeleteOpen(false)}
+      />
+      <EditProdModal
+        product={product}
+        isEditOpen={isEditOpen}
+        setIsEditOpen={() => setIsEditOpen(false)}
       />
     </Table.Row>
   );

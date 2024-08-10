@@ -15,4 +15,5 @@ export type ContentProps = {
   export type HeaderPropsType ={
     onClose: () => void
     children: React.ReactNode
+    className?:string
   }

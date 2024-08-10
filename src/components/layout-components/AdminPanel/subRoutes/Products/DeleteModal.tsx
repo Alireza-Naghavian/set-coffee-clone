@@ -27,7 +27,7 @@ function DeleteModal({ isDeleteOpen, setIsDeleteOpen,productId }: DeleteModalTyp
   return (
     <div className="">
       <CompoundModal
-        className="w-[500px] top-[30%] bg-slate-100 !z-[99999999999]"
+        className="w-[500px] top-[30%] bg-slate-100 "
         effect="ease_out"
         isShow={isDeleteOpen}
         onClose={setIsDeleteOpen}
