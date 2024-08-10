@@ -1,10 +1,9 @@
 import Table from "@/components/UI/Table/Table";
 import { SingleProductType } from "@/types/models/categories.type";
+import dynamic from "next/dynamic";
 import React from "react";
 import HeaderProductLayout from "./HeaderProductLayout";
 import LargeTRow from "./LargeTRow";
-import SmallTRow from "./SmallTRow";
-import dynamic from "next/dynamic";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });

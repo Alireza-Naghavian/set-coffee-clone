@@ -1,28 +1,17 @@
-"use client"
-import Loader from "@/components/UI/loader/Loader";
+"use client";
 import Table from "@/components/UI/Table/Table";
 import useRemoveProduct from "@/hooks/product/useRemoveProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
+import DeleteModal from "./DeleteModal";
 
 function LargeTRow({ product }: { product: SingleProductType }) {
-  const { isRemoveLoading, removeProduct } = useRemoveProduct();
-  const { refresh } = useRouter();
-  const removeHandler = (productId: string) => {
-    removeProduct(productId, {
-      onSuccess: (data: any) => {
-        toast.success(data.message);
-        refresh();
-      },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.message);
-      },
-    });
-  };
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
   return (
     <Table.Row variant="singleHead" className=" !hidden md:!grid">
       <td>
@@ -55,21 +44,21 @@ function LargeTRow({ product }: { product: SingleProductType }) {
       </td>
       <td className="ml-12">
         <button
-          onClick={() => {
-            if (product._id === undefined) return;
-            removeHandler(product._id);
-          }}
+          onClick={() => setIsDeleteOpen(true)}
           className="text-2xl text-red-500 mx-auto ml-8 w-fit flex justify-center "
         >
-          {isRemoveLoading ? (
-            <Loader loadingCondition={isRemoveLoading} />
-          ) : (
             <MdDelete />
-          )}
         </button>
       </td>
+      <DeleteModal
+        productId={product._id}
+        isDeleteOpen={isDeleteOpen}
+        setIsDeleteOpen={() => setIsDeleteOpen(false)}
+      />
     </Table.Row>
   );
 }
 
 export default LargeTRow;
+// if (product._id === undefined) return;
+// removeHandler(product._id);

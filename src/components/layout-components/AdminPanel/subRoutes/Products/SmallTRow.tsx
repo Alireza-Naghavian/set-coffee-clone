@@ -1,29 +1,15 @@
 "use client";
-import Loader from "@/components/UI/loader/Loader";
 import Table from "@/components/UI/Table/Table";
-import useRemoveProduct from "@/hooks/product/useRemoveProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
+import DeleteModal from "./DeleteModal";
 
 function SmallTRow({ product }: { product: SingleProductType }) {
-  const { isRemoveLoading, removeProduct } = useRemoveProduct();
-  const { refresh } = useRouter();
-  const removeHandler = (productId: string) => {
-    removeProduct(productId, {
-      onSuccess: (data: any) => {
-        toast.success(data.message);
-        refresh();
-      },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.message);
-      },
-    });
-  };
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   return (
     <Table.Row
       className="my-1 child:my-auto
@@ -49,17 +35,10 @@ function SmallTRow({ product }: { product: SingleProductType }) {
             {product.title}
           </Link>
           <button
-            onClick={() => {
-              if (product._id == undefined) return;
-              removeHandler(product._id);
-            }}
+            onClick={() => setIsDeleteOpen(true)}
             className="mr-auto  my-auto h-full text-2xl text-red-500   w-fit flex justify-center"
           >
-            {isRemoveLoading ? (
-              <Loader loadingCondition={isRemoveLoading} />
-            ) : (
-              <MdDelete />
-            )}
+            <MdDelete />
           </button>
         </span>
         <span
@@ -89,6 +68,11 @@ function SmallTRow({ product }: { product: SingleProductType }) {
           </span>
         </span>
       </td>
+      <DeleteModal
+        productId={product._id}
+        isDeleteOpen={isDeleteOpen}
+        setIsDeleteOpen={() => setIsDeleteOpen(false)}
+      />
     </Table.Row>
   );
 }

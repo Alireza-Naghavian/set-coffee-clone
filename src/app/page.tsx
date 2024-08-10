@@ -32,7 +32,6 @@ export default async function Home() {
   const filterProductCount = sortedCategories?.filter((product) => {
     return product.productCount < 12 && product.productCount > 0;
   });
-  console.log(filterProductCount);
   return (
     <main className="max-w-[1920px]  relative">
       <HomePageLayout filteredProdoucts={ dataParser(filterProductCount)} />

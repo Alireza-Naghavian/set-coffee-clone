@@ -16,7 +16,7 @@ function QuickAccessModal({
 }: QAccessType) {
   return (
     <>
-      <CompoundModal effect="ease_out" isShow={isQAcessOpen} onClose={onClose}>
+      <CompoundModal className="hidden lg:block" effect="ease_out" isShow={isQAcessOpen} onClose={onClose}>
         <CompoundModal.Header onClose={onClose}>
           <div className=""></div>
         </CompoundModal.Header>
