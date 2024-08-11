@@ -45,14 +45,6 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
           <MdDelete />
         </button>
       </td>
-      <td className="ml-13">
-        <button
-          // onClick={() => setIsDeleteOpen(true)}
-          className="text-2xl text-red-500 mx-auto ml-10 w-fit flex justify-center "
-        >
-          <FaBan />
-        </button>
-      </td>
       <EditRoleModal
         user={user}
         isRoleOpen={isRoleOpen}

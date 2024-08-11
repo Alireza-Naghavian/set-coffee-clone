@@ -19,7 +19,7 @@ function UserTable() {
     <Table variant="singleHead">
       <Table.Header variant="singleHead" className="hidden md:block">
         <tr
-          className="grid grid-cols-8 rounded-lg child:ml-4 child:text-center p-4
+          className="grid grid-cols-7 rounded-lg child:ml-4 child:text-center p-4
                     bg-main_brown text-white"
         >
           <th>شماره</th>
@@ -29,12 +29,11 @@ function UserTable() {
           <th>نقش</th>
           <th>تغییر سطح</th>
           <th>حذف</th>
-          <th>بن</th>
         </tr>
       </Table.Header>
       <Table.Body
         variant="singleHead"
-        className="child:md:grid-cols-8 grid-cols-2"
+        className="child:md:grid-cols-7 grid-cols-2"
       >
         {users?.users?.map((user:UserRoleType,index:number)=>{
             return (

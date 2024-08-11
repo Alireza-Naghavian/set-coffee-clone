@@ -53,13 +53,6 @@ const [isDeleteOpen,setIsDeleteOpen] = useState<boolean>(false)
             <FaEdit />
           </button>
         </span>
-        <span className="!border-b-0">
-          <span> بن کردن:</span>
-          <button  onClick={()=>setIsRoleOpen(true)} className="text-2xl text-red-500">
-          <FaBan/>
-          </button>
-        </span>
-       
       </span>
     </td>
         <EditRoleModal user={user} isRoleOpen={isRoleOpen} setIsRoleOpen={()=>setIsRoleOpen(false)}/>
