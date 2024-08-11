@@ -13,3 +13,5 @@ export type GetMetype = Pick<
   SignUpFromType,
   "email" | "phoneNumber" | "userName"
 > & { isActive?: boolean; role?: string,_id:string,password?:string,userCart?:any };
+
+export type UserRoleType = Omit<GetMetype,"role">&{role:string}

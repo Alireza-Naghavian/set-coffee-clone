@@ -1,13 +1,19 @@
 "use client";
 import Table from "@/components/UI/Table/Table";
 import useUsers from "@/hooks/authHooks/useUsers";
-import { GetMetype } from "@/types/auth.type";
+import { UserRoleType } from "@/types/auth.type";
 import React from "react";
 import LargeUserTRow from "./LargeUserTRow";
+import Loader from "@/components/UI/loader/Loader";
 
 function UserTable() {
     const {isUserLoading,users} = useUsers();
-    console.log(users);
+    if(isUserLoading) {
+        return <div className="flex items-center gap-x-2 mt-4">
+            <span><Loader loadingCondition={isUserLoading}/></span>
+            <span>درحال بارگزاری...</span>
+        </div>
+      }
   return (
     <Table variant="singleHead">
       <Table.Header variant="singleHead" className="hidden md:block">
@@ -29,10 +35,10 @@ function UserTable() {
         variant="singleHead"
         className="child:md:grid-cols-8 grid-cols-2"
       >
-        {users?.users?.map((user:GetMetype,index:number)=>{
+        {users?.users?.map((user:UserRoleType,index:number)=>{
             return (
                 <React.Fragment key={user._id}>
-                        <LargeUserTRow user={user} index={index}/>
+                        <LargeUserTRow user={user} index={index +1}/>
 
                 </React.Fragment>
             )

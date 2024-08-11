@@ -19,7 +19,13 @@ export const optionValues = [
     value: "expensive",
   },
 ];
-
+export const roleOptions = [
+  {
+    label: "ادمین",
+    value: "ADMIN",
+  },
+  { label: "کاربر عادی", value: "USER" },
+];
 export const subUserMenu = [
   { href: "/my-account", label: "پیشخوان" },
   { href: "/my-account/orders", label: "سفارش ها" },
