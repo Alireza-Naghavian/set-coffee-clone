@@ -3,22 +3,21 @@ import { UserRoleType } from "@/types/auth.type";
 import { useState } from "react";
 import { FaBan, FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import DeleteUserModal from "./DeleteUserModal";
 import EditRoleModal from "./EditRoleModal";
 function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
   const [isRoleOpen, setIsRoleOpen] = useState<boolean>(false);
-
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   return (
-    <Table.Row variant="singleHead" className=" !hidden md:!grid">
+    <Table.Row variant="singleHead" className=" !hidden md:!grid ">
       <td>{index}</td>
       <td>
-        <span className="text-base text-mute font-Shabnam_M">
+        <span  className="text-sm line-clamp-3 font-Shabnam_M px-2 tr-300 hover:text-mute">
           {user?.userName}
         </span>
       </td>
-      <td>
-        <span className="text-sm text-mute line-clamp-2 max-w-[150px]">
-          {user?.email}
-        </span>
+      <td className="   w-[95%]   truncate line-clamp-1">
+        <p className="text-sm relative  font-Shabnam_M px-2 ">{user?.email}</p>
       </td>
       <td>
         <span className="text-base text-mute ml-4">
@@ -26,7 +25,9 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
         </span>
       </td>
       <td>
-        <span className="text-base text-mute ml-4">{user?.role === "ADMIN" ? "ادمین" : "کاربر عادی"}</span>
+        <span className="text-base text-mute ml-4">
+          {user?.role === "ADMIN" ? "ادمین" : "کاربر عادی"}
+        </span>
       </td>
       <td className="ml-12">
         <button
@@ -38,7 +39,7 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
       </td>
       <td className="ml-12">
         <button
-          // onClick={() => setIsDeleteOpen(true)}
+          onClick={() => setIsDeleteOpen(true)}
           className="text-2xl text-red-500 mx-auto ml-8 w-fit flex justify-center "
         >
           <MdDelete />
@@ -52,14 +53,16 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
           <FaBan />
         </button>
       </td>
-      <EditRoleModal user={user} isRoleOpen={isRoleOpen} setIsRoleOpen={()=>setIsRoleOpen(false)}/>
-      {/* <DeleteModal
-    //   productId={product._id}
-    //   isDeleteOpen={isDeleteOpen}
-    //   setIsDeleteOpen={() => setIsDeleteOpen(false)}
-    />
-  
-    /> */}
+      <EditRoleModal
+        user={user}
+        isRoleOpen={isRoleOpen}
+        setIsRoleOpen={() => setIsRoleOpen(false)}
+      />
+      <DeleteUserModal
+        isDeleteOpen={isDeleteOpen}
+        setIsDeleteOpen={() => setIsDeleteOpen(false)}
+        identifier={user?._id}
+      />
     </Table.Row>
   );
 }

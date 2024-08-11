@@ -5,6 +5,7 @@ import { UserRoleType } from "@/types/auth.type";
 import React from "react";
 import LargeUserTRow from "./LargeUserTRow";
 import Loader from "@/components/UI/loader/Loader";
+import SmallUserTRow from "./SmallUserTRow";
 
 function UserTable() {
     const {isUserLoading,users} = useUsers();
@@ -40,6 +41,13 @@ function UserTable() {
                 <React.Fragment key={user._id}>
                         <LargeUserTRow user={user} index={index +1}/>
 
+                </React.Fragment>
+            )
+        })}
+        {users?.users?.map((user:UserRoleType,index:number)=>{
+            return (
+                <React.Fragment key={index}>
+                  <SmallUserTRow index={index} user={user}/>
                 </React.Fragment>
             )
         })}

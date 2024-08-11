@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 async function layout({children}:ChildrenProps) {
   await dbConnection();
   const user = await getUser();
-  if (user.role !== "ADMIN") return notFound();
+  if (user?.role !== "ADMIN") return notFound();
   return (
     <QueryClientProviderWrapper>
         <AdminPanelLayout user={dataParser(user)} >

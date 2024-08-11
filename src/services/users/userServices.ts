@@ -44,6 +44,19 @@ export const getAllUsers = async () => {
     .catch((err) => err.response?.data?.message);
 };
 
-export const updateUserRole = async({userId,data}:{userId:string,data:{role:string}})=>{
-  return api.post(`/auth/all-users/${userId}`,data).then((response)=>response.data)
-}
+export const updateUserRole = async ({
+  userId,
+  data,
+}: {
+  userId: string;
+  data: { role: string };
+}) => {
+  return api
+    .post(`/auth/all-users/${userId}`, data)
+    .then((response) => response.data);
+};
+export const removeUser = async ({userId}:{userId:string}) => {
+  return api
+    .delete(`/auth/all-users/${userId}`)
+    .then((response) => response.data);
+};

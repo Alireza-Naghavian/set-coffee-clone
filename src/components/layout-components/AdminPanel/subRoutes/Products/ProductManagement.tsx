@@ -46,17 +46,15 @@ function ProductManagement({ products }: { products: SingleProductType[] }) {
               );
             })}
             <React.Fragment>
-        
-                {products.map((product: SingleProductType, index: number) => {
-                  return (
-                    <React.Fragment key={product._id}>
-                      {/* large table row */}
+              {products.map((product: SingleProductType, index: number) => {
+                return (
+                  <React.Fragment key={product._id}>
+                    {/* large table row */}
 
-                      <SmallTRow  product={product} />
-                    </React.Fragment>
-                  );
-                })}
-             
+                    <SmallTRow product={product} />
+                  </React.Fragment>
+                );
+              })}
             </React.Fragment>
           </Table.Body>
         </NoSSR>

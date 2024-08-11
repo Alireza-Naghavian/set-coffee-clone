@@ -4,12 +4,12 @@ import CompoundModal from "@/components/UI/Modal/Modal";
 import useRemoveProduct from "@/hooks/product/useRemoveProduct";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-type DeleteModalType = {
+export type DeleteModalType = {
   isDeleteOpen: boolean;
   setIsDeleteOpen: () => void;
-  productId :string|undefined
+  identifier :string|undefined
 };
-function DeleteModal({ isDeleteOpen, setIsDeleteOpen,productId }: DeleteModalType) {
+function DeleteModal({ isDeleteOpen, setIsDeleteOpen,identifier }: DeleteModalType) {
     const { refresh } = useRouter();
     const { isRemoveLoading, removeProduct } = useRemoveProduct();
     const removeHandler = (productId: string) => {
@@ -27,7 +27,7 @@ function DeleteModal({ isDeleteOpen, setIsDeleteOpen,productId }: DeleteModalTyp
   return (
     <div className="">
       <CompoundModal
-        className="w-[500px] top-[30%] bg-slate-100 "
+        className="sm:w-[500px] w-[90vw] top-[30%] bg-slate-100 "
         effect="ease_out"
         isShow={isDeleteOpen}
         onClose={setIsDeleteOpen}
@@ -45,16 +45,16 @@ function DeleteModal({ isDeleteOpen, setIsDeleteOpen,productId }: DeleteModalTyp
               onClick={()=>setIsDeleteOpen()}
                 size="small"
                 variant="roundedSecondary"
-                className="w-[100px] ">
+                className="!w-[100px] ">
                     لغو
               </MainBtn>
               <MainBtn
                 size="small"
                 variant="roundedPrimary"
-                className="w-[100px] bg-red-500 hover:bg-red-600"
+                className="!w-[100px] bg-red-500 hover:bg-red-600"
                 onClick={()=>{
-                    if(productId === undefined) return
-                    removeHandler(productId)
+                    if(identifier === undefined) return
+                    removeHandler(identifier)
                 }}  
               >
          {isRemoveLoading ? <Loader loadingCondition={isRemoveLoading}/> : "حذف"}

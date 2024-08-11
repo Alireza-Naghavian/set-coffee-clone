@@ -71,7 +71,7 @@ function SmallTRow({ product }: { product: SingleProductType }) {
         </span>
       </td>
       <DeleteModal
-        productId={product._id}
+        identifier={product._id}
         isDeleteOpen={isDeleteOpen}
         setIsDeleteOpen={() => setIsDeleteOpen(false)}
       />

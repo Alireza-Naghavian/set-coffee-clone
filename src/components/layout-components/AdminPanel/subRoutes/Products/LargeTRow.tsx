@@ -53,7 +53,7 @@ function LargeTRow({ product }: { product: SingleProductType}) {
         </button>
       </td>
       <DeleteModal
-        productId={product._id}
+        identifier={product._id}
         isDeleteOpen={isDeleteOpen}
         setIsDeleteOpen={() => setIsDeleteOpen(false)}
       />
