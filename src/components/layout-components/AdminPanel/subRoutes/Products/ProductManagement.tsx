@@ -3,7 +3,7 @@ import Table from "@/components/UI/Table/Table";
 import { SingleProductType } from "@/types/models/categories.type";
 import dynamic from "next/dynamic";
 import React from "react";
-import HeaderProductLayout from "./HeaderProductLayout";
+import HeaderProductLayout from "./HeaderAdminLayout";
 import LargeTRow from "./LargeTRow";
 import SmallTRow from "./SmallTRow";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {

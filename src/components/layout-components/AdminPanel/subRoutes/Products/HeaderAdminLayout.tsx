@@ -1,6 +1,6 @@
 import React from "react";
 
-function HeaderProductLayout({
+function HeaderAdminLayout({
   title,
   children,
 }: {
@@ -19,4 +19,4 @@ function HeaderProductLayout({
   );
 }
 
-export default HeaderProductLayout;
+export default HeaderAdminLayout;

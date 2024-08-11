@@ -1,6 +1,6 @@
 "use client"
 import AddProductForm from "./AddProductForm";
-import HeaderProductLayout from "./HeaderProductLayout";
+import HeaderProductLayout from "./HeaderAdminLayout";
 function Products() {
   return (
 <HeaderProductLayout title="افزودن محصول جدید">

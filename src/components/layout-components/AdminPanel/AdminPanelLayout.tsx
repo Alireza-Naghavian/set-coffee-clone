@@ -95,7 +95,7 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
      
       </div>
       {/* content */}
-      <div className="relative w-full bg-gray-100 flex flex-col items-center ">
+      <div className="relative w-full bg-gray-100 flex flex-col  ">
         <div className=" w-full flex justify-between flex-wrap items-center  h-[70px] px-4 bg-main_brown p-2 ">
           <div className=" flex items-center gap-x-2">
             <div

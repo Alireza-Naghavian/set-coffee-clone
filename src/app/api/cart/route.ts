@@ -100,10 +100,3 @@ export const GET = async () => {
     );
   }
 };
-
-// cart.forEach((prod:any)=> sold(prod._id,prod.count))
-// const sold = async(_id:ObjectId|string,count:number):Promise<void> =>{
-//   await ProductModel.findOneAndUpdate({_id},{
-//     entities: entities - count
-//   })
-// }
