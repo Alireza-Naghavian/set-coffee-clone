@@ -1,10 +1,10 @@
-import Table from '@/components/UI/Table/Table'
+import Table from '@/components/UI/Table/Table';
 import { UserRoleType } from '@/types/auth.type';
-import React, { useState } from 'react'
-import { FaBan, FaEdit } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import EditRoleModal from './EditRoleModal';
 import DeleteUserModal from './DeleteUserModal';
+import EditRoleModal from './EditRoleModal';
 
 function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
     const [isRoleOpen, setIsRoleOpen] = useState<boolean>(false);

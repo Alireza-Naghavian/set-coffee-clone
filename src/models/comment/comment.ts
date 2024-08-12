@@ -30,7 +30,11 @@ const schema = new Schema<CommentModeltype>({
     required: true,
   },
 });
-
+schema.virtual("productData",{
+  ref:"product",
+  localField:"productId",
+  foreignField:"_id"
+})
 const CommentModel =
   mongoose.models.comment || mongoose.model("comment", schema);
 export default CommentModel;

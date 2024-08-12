@@ -19,7 +19,7 @@ function UserTable() {
     <Table variant="singleHead">
       <Table.Header variant="singleHead" className="hidden md:block">
         <tr
-          className="grid grid-cols-7 rounded-lg child:ml-4 child:text-center p-4
+          className="grid grid-cols-7 rounded-lg  child:text-center p-4
                     bg-main_brown text-white"
         >
           <th>شماره</th>

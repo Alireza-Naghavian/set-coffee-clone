@@ -9,10 +9,10 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
   const [isRoleOpen, setIsRoleOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   return (
-    <Table.Row variant="singleHead" className=" !hidden md:!grid ">
+    <Table.Row variant="singleHead" className=" !hidden md:!grid p-4 ">
       <td>{index}</td>
       <td>
-        <span  className="text-sm line-clamp-3 font-Shabnam_M px-2 tr-300 hover:text-mute">
+        <span  className="text-sm line-clamp-3 font-Shabnam_M px-2 ">
           {user?.userName}
         </span>
       </td>
@@ -20,19 +20,19 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
         <p className="text-sm relative  font-Shabnam_M px-2 ">{user?.email}</p>
       </td>
       <td>
-        <span className="text-base text-mute ml-4">
+        <span className="text-base text-mute ">
           {user?.userCart?.length?.toLocaleString("fa-Ir")} تراکنش
         </span>
       </td>
       <td>
-        <span className="text-base text-mute ml-4">
+        <span className="text-base text-mute ">
           {user?.role === "ADMIN" ? "ادمین" : "کاربر عادی"}
         </span>
       </td>
       <td className="ml-12">
         <button
           onClick={() => setIsRoleOpen(true)}
-          className="text-2xl text-blue-500 mx-auto ml-6 w-fit flex justify-center "
+          className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center "
         >
           <FaEdit />
         </button>
@@ -40,7 +40,7 @@ function LargeUserTRow({ user, index }: { user: UserRoleType; index: number }) {
       <td className="ml-12">
         <button
           onClick={() => setIsDeleteOpen(true)}
-          className="text-2xl text-red-500 mx-auto ml-8 w-fit flex justify-center "
+          className="text-2xl text-red-500 mx-auto  w-fit flex justify-center "
         >
           <MdDelete />
         </button>

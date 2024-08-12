@@ -12,7 +12,7 @@ function LargeTRow({ product }: { product: SingleProductType}) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   return (
-    <Table.Row variant="singleHead" className=" !hidden md:!grid">
+    <Table.Row variant="singleHead" className=" !hidden md:!grid p-4">
       <td>
         <Link
           href={`/categories/${product._id}`}
@@ -36,18 +36,18 @@ function LargeTRow({ product }: { product: SingleProductType}) {
           {product?.sold?.toLocaleString("fa-Ir")} عدد
         </span>
       </td>
-      <td className="ml-12">
+      <td className="">
         <button
           onClick={() => setIsEditOpen(true)}
-          className="text-2xl text-blue-500 mx-auto ml-6 w-fit flex justify-center "
+          className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center "
         >
           <FaEdit />
         </button>
       </td>
-      <td className="ml-12">
+      <td className="">
         <button
           onClick={() => setIsDeleteOpen(true)}
-          className="text-2xl text-red-500 mx-auto ml-8 w-fit flex justify-center "
+          className="text-2xl text-red-500 mx-auto  w-fit flex justify-center "
         >
           <MdDelete />
         </button>
