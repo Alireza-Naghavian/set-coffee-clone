@@ -1,6 +1,9 @@
 "use client";
+import DropDown from "@/components/UI/DropDown/DropDown";
 import NavItem from "@/components/UI/NavItem/NavItem";
+import Overlay from "@/components/UI/Overlay/Overlay";
 import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
 import Link from "next/link";
 import React from "react";
@@ -8,14 +11,11 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaPlus, FaShoppingBag, FaUsers } from "react-icons/fa";
 import { HiTicket } from "react-icons/hi2";
 import { ImReply } from "react-icons/im";
+import { IoMdHome } from "react-icons/io";
 import { IoDocument, IoMenu } from "react-icons/io5";
-import { MdManageAccounts, MdManageHistory, MdOutlineWavingHand, MdSms } from "react-icons/md";
+import { MdManageAccounts, MdOutlineWavingHand, MdSms } from "react-icons/md";
 import LogoutBtn from "../UserPanelPage/subRoutes/LogoutBtn";
 import styles from "./adminPanel.module.css";
-import Overlay from "@/components/UI/Overlay/Overlay";
-import { IoMdHome } from "react-icons/io";
-import DropDown from "@/components/UI/DropDown/DropDown";
-import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 type AdminPanelType = {
   children: React.ReactNode;
   user: GetMetype;

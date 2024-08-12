@@ -1,10 +1,29 @@
 import Table from "@/components/UI/Table/Table";
 import { CommentModeltype } from "@/types/models/comment.type";
+import { commentStatus } from "@/utils/constants";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { ImReply } from "react-icons/im";
 import { MdDelete, MdOutlineDownloadDone } from "react-icons/md";
+import DeleteModal from "../modals/DeleteModal";
+import EditModal from "../modals/EditModal";
+import SelectModal from "../modals/SelectModal";
+import ReplyModalForm from "./ReplyModalForm";
+import EditCommentForm from "./EditCommentForm";
 function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
+  const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [isReplyOpen, setIsReplyOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [status, setStatus] = useState<boolean>(comment.isAccept);
+  const statusHanlder = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(status);
+  };
+  const removeHandler =()=>{
+
+  }
   return (
     <Table.Row
       variant="singleHead"
@@ -26,12 +45,14 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
         </span>
       </td>
       <td>
-        {comment.productData && 
-
-        <Link href={`/categories/${ comment.productData[0]._id}`} className="text-sm font-Shabnam_M line-clamp-3 text-mute ">
-          {comment.productData[0]?.title}
-        </Link>
-        }
+        {comment.productData && (
+          <Link
+            href={`/categories/${comment.productData[0]._id}`}
+            className="text-sm font-Shabnam_M line-clamp-3 text-mute "
+          >
+            {comment.productData[0]?.title}
+          </Link>
+        )}
       </td>
       <td>
         <span className="text-base text-mute font-Shabnam_M">
@@ -40,13 +61,13 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
       </td>
       <td className=" flex items-center gap-x-4">
         <button
-          // onClick={() => setIsEditOpen(true)}
+          onClick={() => setIsReplyOpen(true)}
           className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center "
         >
           <ImReply />
         </button>
         <button
-          // onClick={() => setIsEditOpen(true)}
+          onClick={() => setIsStatusOpen(true)}
           className="text-3xl font-Shabnam_B text-green-500 mx-auto  w-fit flex justify-center "
         >
           <MdOutlineDownloadDone />
@@ -54,28 +75,51 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
       </td>
       <td className=" flex items-center gap-x-4">
         <button
-          // onClick={() => setIsDeleteOpen(true)}
+          onClick={() => setIsDeleteOpen(true)}
           className="text-2xl text-red-500 mx-auto  w-fit flex justify-center "
         >
           <MdDelete />
         </button>
         <button
-          // onClick={() => setIsDeleteOpen(true)}
-          className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center "
-        >
-       <FaEdit />
+            onClick={() => setIsEditOpen(true)}
+        className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center ">
+          <FaEdit />
         </button>
       </td>
-      {/* <DeleteModal
-        identifier={product._id}
-        isDeleteOpen={isDeleteOpen}
-        setIsDeleteOpen={() => setIsDeleteOpen(false)}
+      <SelectModal
+        isLoading={false}
+        isOpen={isStatusOpen}
+        setIsOpen={() => setIsStatusOpen(false)}
+        modalTitle="تعیین وضعیت کامنت"
+        options={commentStatus}
+        subjectTitle="تایید/ رد"
+        onSelectChange={(e) => setStatus(e.target.value)}
+        value={status}
+        selectHanlder={statusHanlder}
       />
-      <EditProdModal
-        product={product}
-        isEditOpen={isEditOpen}
-        setIsEditOpen={() => setIsEditOpen(false)}
-      /> */}
+   {comment._id !== undefined &&
+      <DeleteModal
+      identifier={comment._id}
+      isDeleteOpen={isDeleteOpen}
+      setIsDeleteOpen={() => setIsDeleteOpen(false)}
+      isLoading={false}
+      removeHandler={removeHandler}
+      subjectTitle="کامنت"
+    />
+   }
+      <EditModal className="!h-auto"  modalTitle="ارسال پاسخ" isOpen={isReplyOpen} setIsOpen={()=>setIsReplyOpen(false) } >
+        <ReplyModalForm data={comment} setIsEditOpen={()=>setIsReplyOpen(false)} />
+      </EditModal>
+      <EditModal
+        modalTitle="ویرایش کامنت"
+        isOpen={isEditOpen}
+        setIsOpen={() => setIsEditOpen(false)}
+      >
+        <EditCommentForm
+          data={comment}
+          setIsEditOpen={() => setIsEditOpen(false)}
+        />
+      </EditModal>
     </Table.Row>
   );
 }

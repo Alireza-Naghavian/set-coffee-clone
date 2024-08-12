@@ -15,7 +15,6 @@ const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   });
 function Comments({ CommentsData }: { CommentsData: CommentModeltype }) {
   const { comments, isCommentsLoading } = useGetAllComments(CommentsData);
-  console.log(comments);
   if(isCommentsLoading) {
     return <div className="flex items-center gap-x-2 mt-4">
         <span><Loader loadingCondition={isCommentsLoading}/></span>

@@ -41,6 +41,10 @@ export const UserPanelAside = [
   { href: "/my-account/tickets", label: "تیکت ها" },
   { href: "/my-account/logout", label: "خروج" },
 ];
+export const commentStatus = [
+  { label: "تایید کردن", value: true },
+  { label: "رد کردن", value: false }
+];
 
 export const priorityValues = [
   { label: "عادی", value: 1 },
