@@ -5,6 +5,8 @@ import CommentModel from "@/models/comment/comment";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { getUser } from "@/utils/auth/authHelper";
 import { commentSchema } from "@/utils/validator/comments/commentsValidator";
+import { isValidObjectId } from "mongoose";
+import { revalidatePath } from "next/cache";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 export const POST = async (req: Request, { params }: Params) => {
@@ -52,13 +54,14 @@ export const POST = async (req: Request, { params }: Params) => {
     );
     //update product in category
     await CategoryModel.findOneAndUpdate(
-      { _id: updatedProuductScore.category, "products._id":id },
+      { _id: updatedProuductScore.category, "products._id": id },
       {
         $set: allProductComments.length
-          ? { "products.$.score": averageScore  }
-          : { "products.$.score": 5   },
+          ? { "products.$.score": averageScore }
+          : { "products.$.score": 5 },
       }
     );
+    revalidatePath("/p-admin/comments")
     return Response.json(
       {
         message:
@@ -78,9 +81,50 @@ export const POST = async (req: Request, { params }: Params) => {
 export const GET = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
+    const user = await getUser();
+    if (user.role !== "ADMIN") {
+      return Response.json(
+        { message: "شما به این قسمت دسترسی ندارید." },
+        { status: 404 }
+      );
+    }
     const { id } = params;
+    if (!isValidObjectId(id))
+      return Response.json(
+        { message: "شناسه کامنت معتبر نمی باشد." },
+        { status: 404 }
+      );
     const comment = await CommentModel.findOne({ productId: id });
     return Response.json({ data: comment });
+  } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
+
+export const DELETE = async (req: Request, { params }: Params) => {
+  try {
+    await dbConnection();
+    const user = await getUser();
+    if (user.role !== "ADMIN") {
+      return Response.json(
+        { message: "شما به این قسمت دسترسی ندارید." },
+        { status: 404 }
+      );
+    }
+    const { id } = params;
+    if (!isValidObjectId(id))
+      return Response.json(
+        { message: "شناسه کامنت معتبر نمی باشد." },
+        { status: 404 }
+      );
+    await CommentModel.findOneAndDelete({ _id: id });
+    return Response.json(
+      { message: "کامنت مورد نظر  با موفقیت حذف گردید" },
+      { status: 200 }
+    );
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },

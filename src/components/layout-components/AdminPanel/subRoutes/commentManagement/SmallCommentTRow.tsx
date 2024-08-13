@@ -11,6 +11,8 @@ import EditModal from "../modals/EditModal";
 import SelectModal from "../modals/SelectModal";
 import ReplyModalForm from "./ReplyModalForm";
 import EditCommentForm from "./EditCommentForm";
+import useDeleteComment from "@/hooks/comments/useDeleteComment";
+import { toast } from "react-toastify";
 
 function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isStatusOpen, setIsStatusOpen] = useState(false);
@@ -18,11 +20,28 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [status, setStatus] = useState<boolean>(comment.isAccept);
+  const { isRemoveLoading, removeComment } = useDeleteComment();
+  const removeHandler = async (identifier: string) => {
+    if (comment._id === undefined) return;
+    try {
+      await removeComment(identifier, {
+        onSuccess: (data: any) => {
+          toast.success(data.message);
+          setIsDeleteOpen(false);
+        },
+        onError: (err: any) => {
+          setIsDeleteOpen(false);
+          toast.error(err?.reponse?.data?.message);
+        },
+      });
+    } catch (error: any) {
+      console.log(error?.reponse?.data?.message);
+    }
+  };
   const statusHanlder = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(status);
   };
-  const removeHandler = () => {};
   return (
     <Table.Row
       className="my-1 child:my-auto
@@ -106,7 +125,7 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
           identifier={comment._id}
           isDeleteOpen={isDeleteOpen}
           setIsDeleteOpen={() => setIsDeleteOpen(false)}
-          isLoading={false}
+          isLoading={isRemoveLoading}
           removeHandler={removeHandler}
           subjectTitle="کامنت"
         />

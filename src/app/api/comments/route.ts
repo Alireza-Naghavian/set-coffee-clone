@@ -15,7 +15,7 @@ export const GET = async () => {
     }
     await ProductModel.findOne({},"")
     const allComments = await CommentModel.find({}, "-__v").populate("productData","title").lean();
-    return Response.json({ data: allComments });
+    return Response.json({ allComments });
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
