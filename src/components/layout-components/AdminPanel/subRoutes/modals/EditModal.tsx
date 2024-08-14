@@ -11,7 +11,7 @@ const EditModal = ({
   return (
     <div>
       <CompoundModal
-        className={`md:w-[550px] w-[310px]  sm:w-[380px] h-[430px] md:h-[500px] overflow-y-auto top-[15%] bg-slate-100 ${className}`}
+        className={`md:w-[550px] w-[310px]  sm:w-[380px] h-[430px] md:h-[500px] overflow-y-auto top-[10%] bg-slate-100 ${className}`}
         isShow={isOpen}
         onClose={setIsOpen}
         effect="ease_out"

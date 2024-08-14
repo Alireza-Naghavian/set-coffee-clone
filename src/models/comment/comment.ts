@@ -1,5 +1,6 @@
 import { CommentModeltype } from "@/types/models/comment.type";
 import mongoose, { Schema } from "mongoose";
+import { messageSchema } from "./commentMessages";
 
 const schema = new Schema<CommentModeltype>({
   commentBody: {
@@ -29,12 +30,17 @@ const schema = new Schema<CommentModeltype>({
     ref: "product",
     required: true,
   },
+  messages: {
+    type: [messageSchema],
+    default: [],
+  },
+  
 });
-schema.virtual("productData",{
-  ref:"product",
-  localField:"productId",
-  foreignField:"_id"
-})
+schema.virtual("productData", {
+  ref: "product",
+  localField: "productId",
+  foreignField: "_id",
+});
 const CommentModel =
   mongoose.models.comment || mongoose.model("comment", schema);
 export default CommentModel;

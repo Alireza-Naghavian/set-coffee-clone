@@ -1,4 +1,6 @@
 import Table from "@/components/UI/Table/Table";
+import useDeleteComment from "@/hooks/comments/useDeleteComment";
+import useEditCommentData from "@/hooks/comments/useEditCommentData";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { commentStatus } from "@/utils/constants";
 import Link from "next/link";
@@ -6,14 +8,12 @@ import { FormEvent, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { ImReply } from "react-icons/im";
 import { MdDelete, MdOutlineDownloadDone } from "react-icons/md";
+import { toast } from "react-toastify";
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import SelectModal from "../modals/SelectModal";
-import ReplyModalForm from "./ReplyModalForm";
 import EditCommentForm from "./EditCommentForm";
-import useDeleteComment from "@/hooks/comments/useDeleteComment";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import ReplyModalForm from "./ReplyModalForm";
 function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isStatusOpen, setIsStatusOpen] = useState(false);
   const [isReplyOpen, setIsReplyOpen] = useState(false);
@@ -21,9 +21,23 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [status, setStatus] = useState<boolean>(comment.isAccept);
   const {isRemoveLoading,removeComment} = useDeleteComment();
-  const statusHanlder = (e: FormEvent<HTMLFormElement>) => {
+  const {editComment,isOperateLoading} = useEditCommentData();
+  const statusHanlder =async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(status);
+    if(comment._id ===undefined) return
+    try {
+      console.log({commentId:comment._id,data:{reply:"",isAccept:status}});
+      await editComment({commentId:comment._id,data:{reply:"",isAccept:status}},{
+        onSuccess:()=>{
+          setIsStatusOpen(false)
+        },
+        onError:()=>{
+          setIsStatusOpen(false)
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }
   };
   const removeHandler =async(identifier:string)=>{
     if(comment._id === undefined) return
@@ -105,7 +119,7 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
         </button>
       </td>
       <SelectModal
-        isLoading={false}
+        isLoading={isOperateLoading}
         isOpen={isStatusOpen}
         setIsOpen={() => setIsStatusOpen(false)}
         modalTitle="تعیین وضعیت کامنت"

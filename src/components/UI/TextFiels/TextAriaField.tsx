@@ -31,7 +31,8 @@ function TextAriaField({
   errors,
   validattionschema,
   value,
-  className
+  className,
+  readOnly=false
 }:TextAriaType) {
   return   <div className="flex flex-col gap-y-2">
   <label htmlFor={id} className={"relative font-Shabnam_M"}>
@@ -40,7 +41,7 @@ function TextAriaField({
   </label>
   <textarea
     cols={80}
-   
+   readOnly={readOnly}
     {...register(name, validattionschema)}
     id={id}
     value={value}

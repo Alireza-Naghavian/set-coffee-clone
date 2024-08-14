@@ -126,7 +126,13 @@ export const GET = async (req: Request, { params }: Params) => {
         select: "-__v",
         populate: { path: "products", options: { limit: 4 } },
       })
-      .populate({ path: "ProductComment", select: "-__v" })
+      .populate({
+        path: "ProductComment",
+        populate: {
+          path: "messages.sender",
+          select: "userName role",
+        },
+      })
       .lean();
 
     if (!product) throw notFound();

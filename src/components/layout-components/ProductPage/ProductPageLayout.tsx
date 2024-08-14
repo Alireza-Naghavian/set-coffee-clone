@@ -127,7 +127,9 @@ function ProductPageLayout({
             {/* add to basket & like & compare  */}
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
               <AddToBasket product={product} />
-              <div className="flex gap-x-4 text-[15px] font-Shabnam_M items-center child:flex child:items-center child:gap-x-2 mt-2">
+              <div className="flex gap-x-4 xs:flex-col sm:flex-row child:items-center
+               text-[15px] font-Shabnam_M xs:gap-y-2 sm:gap-y-0
+               sm:items-center child:flex  child:gap-x-2 mt-2">
                 {isPending ? (
                   <Loader loadingCondition={isPending} />
                 ) : isExist ? (
@@ -138,15 +140,17 @@ function ProductPageLayout({
                     <span>به لیست افزوده شد</span>
                   </span>
                 ) : (
-                  <button onClick={AddTowishList}>
+                  <button onClick={AddTowishList} className="bg-transparent">
                     <FaRegHeart />
                     <span>افزودن به علاقمندی ها</span>
                   </button>
                 )}
                 {product?.entities >0 ? 
-                    <div className="flex items-center gap-x-2">
+                    <div className="flex items-center text-sm gap-x-1">
                     <span> <MdOutlineDone className="" size={20} /></span>
-                    <span>{product?.entities.toLocaleString("fa-Ir")} عدد موجود در انبار</span>
+                    <span>{product?.entities.toLocaleString("fa-Ir")} </span>
+                    <span className="block sm:hidden">عدد موجود</span>
+                    <span className="sm:block hidden"> عدد موجود در انبار</span>
                   </div> 
                 :
                 <div className="flex items-center gap-x-2">
@@ -162,12 +166,12 @@ function ProductPageLayout({
                 <p className="font-Shabnam_B">دسته :</p>
                 <p className="text-sm  mt-1">{product?.category?.title}</p>
               </div>
-              <div className="flex   items-center  text-main text-right">
+              <div className="   items-center  text-main text-right">
                 <span className="font-Shabnam_B">برچسب :</span>
 
                   {product?.tags?.map((tag: string,index:number) =>{
 
-                    return <span key={index}>{tag},</span>
+                    return <span className="" key={index}>{tag},</span>
                   } 
                   )}
                 

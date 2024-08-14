@@ -1,3 +1,12 @@
 .commentSectionWrapper{
     @apply flex lg:flex-row flex-col w-full h-full  sm:px-4 gap-x-4 mt-4 sm:child:px-1 child:py-2
 }
+.admin_badge{
+    @apply flex justify-center items-center
+}
+@media screen and (max-width:420px) {
+    
+    .admin_badge{
+    @apply hidden
+    }
+}

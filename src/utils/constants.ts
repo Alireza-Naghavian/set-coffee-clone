@@ -47,7 +47,7 @@ export const commentStatus = [
 ];
 
 export const priorityValues = [
-  { label: "عادی", value: 1 },
-  { label: "مهم", value: 2 },
-  { label: "بسیار مهم", value: 3 },
+  { label: "عادی", value: "1" },
+  { label: "مهم", value: "2" },
+  { label: "بسیار مهم", value: "3" },
 ];

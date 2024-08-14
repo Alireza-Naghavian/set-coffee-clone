@@ -3,6 +3,7 @@ import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import { CommentModeltype } from "@/types/models/comment.type";
+import { MessagesType } from "@/types/models/ticket.type";
 import { getUser } from "@/utils/auth/authHelper";
 import { commentSchema } from "@/utils/validator/comments/commentsValidator";
 import { isValidObjectId } from "mongoose";
@@ -61,7 +62,7 @@ export const POST = async (req: Request, { params }: Params) => {
           : { "products.$.score": 5 },
       }
     );
-    revalidatePath("/p-admin/comments")
+    revalidatePath("/p-admin/comments");
     return Response.json(
       {
         message:
@@ -126,6 +127,54 @@ export const DELETE = async (req: Request, { params }: Params) => {
       { status: 200 }
     );
   } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
+
+export const PATCH = async (req: Request, { params }: Params) => {
+  try {
+    await dbConnection();
+    const user = await getUser();
+    if (user.role !== "ADMIN") {
+      return Response.json(
+        { message: "شما به این قسمت دسترسی ندارید." },
+        { status: 404 }
+      );
+    }
+    const { id } = params;
+    if (!isValidObjectId(id))
+      return Response.json(
+        { message: "شناسه کامنت معتبر نمی باشد." },
+        { status: 404 }
+      );
+
+    const reqBody = await req.json();
+    const { isAccept, messages }: { isAccept: string; messages: MessagesType } =
+      reqBody;
+    let updateData: any = {};
+    if ( messages && messages?.body.trim().length > 0) {
+      updateData = {
+        isAccept: true,
+        messages: messages,
+      };
+    } else {
+      updateData = {
+        isAccept
+      };
+    }
+    await CommentModel.findOneAndUpdate(
+      { _id: id },
+      { $set:updateData }
+    );
+    return Response.json(
+      { message: "درخواست شما با موفقیت انجام شد!" },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

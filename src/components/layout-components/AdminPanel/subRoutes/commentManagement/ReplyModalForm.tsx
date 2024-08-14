@@ -1,25 +1,59 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
+import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
+import useGetMe from "@/hooks/authHooks/useGetMe";
+import useAnswerComment from "@/hooks/comments/useAnswerComment";
 import { CommentModeltype } from "@/types/models/comment.type";
-import { useForm } from "react-hook-form";
+import { MessagesType } from "@/types/models/ticket.type";
+import { FieldValue, useForm } from "react-hook-form";
 export type ReplyModalForm = {
-  data:CommentModeltype,
-setIsEditOpen:()=>void
-}
-function ReplyModalForm({ data, setIsEditOpen }:ReplyModalForm) {
+  data: CommentModeltype;
+  setIsEditOpen: () => void;
+};
+type ReplyFormType = {
+  userComment: string;
+  reply: string;
+};
+function ReplyModalForm({ data: commentData, setIsEditOpen }: ReplyModalForm) {
+  const { user } = useGetMe();
+  const { answerComment, isAnswerLoading } = useAnswerComment();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, dirtyFields, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm<ReplyFormType>({ mode: "onChange" });
+  const replyHandler = async (data: ReplyFormType) => {
+    if (commentData._id === undefined) return;
+    try {
+      const { reply } = data;
+      const commentInfo: MessagesType = {
+        body: reply,
+        sender: user?._id,
+        sendAt: new Date(),
+      };
+      await answerComment(
+        { commentId: commentData._id, data: commentInfo },
+        {
+          onSuccess: () => {
+            setIsEditOpen();
+          },
+          onError: () => {
+            setIsEditOpen();
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <form
-      //   onSubmit={handleSubmit(updateHandler)}
-      className="flex flex-col gap-y-4 justify-center px-6 my-4"
+      onSubmit={handleSubmit(replyHandler)}
+      className="flex flex-col h-[450px] overflow-y-auto gap-y-4 justify-center px-6 my-4"
     >
-      <MainTextField
+      <TextAriaField
         register={register}
         errors={errors}
         type="text"
@@ -29,6 +63,8 @@ function ReplyModalForm({ data, setIsEditOpen }:ReplyModalForm) {
         name="userComment"
         required={false}
         readOnly={true}
+
+        value={commentData.commentBody}
       />
 
       <TextAriaField
@@ -58,8 +94,8 @@ function ReplyModalForm({ data, setIsEditOpen }:ReplyModalForm) {
           }`}
           type="submit"
         >
-          {/* {isProdUpdating ? <Loader loadingCondition={isProdUpdating}/> : "ویرایش"} */}
-          ارسال
+          {isAnswerLoading ? <Loader loadingCondition={isAnswerLoading}/> : "ارسال"}
+         
         </MainBtn>
       </div>
     </form>

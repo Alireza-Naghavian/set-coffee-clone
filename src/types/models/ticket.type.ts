@@ -13,19 +13,30 @@ export type TicketType = {
   };
   priority: 1 | 2 | 3;
   isOpen: boolean;
-  messages:MessagesType[]
+  messages: MessagesType[];
 };
 
 export type MessagesType = {
-  _id?:string
+  _id?: string;
   sender: {
     sender: mongoose.Types.ObjectId;
     ref: string;
+    userName: string;
+    role: string;
+    _id: string;
   };
   body: string;
   sendAt: Date;
 };
-
+export type AnswerAdminType = {
+  body: string;
+  sendAt: Date;
+  sender: {
+    userName: string;
+    role: string;
+    _id: string;
+  };
+};
 export type DepartmentType = {
   title: string;
 };

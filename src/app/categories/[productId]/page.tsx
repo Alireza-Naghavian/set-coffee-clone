@@ -7,41 +7,45 @@ import CommentModel from "@/models/comment/comment";
 import dataParser from "@/utils/dataParser/dataParser";
 import { isValidObjectId } from "mongoose";
 import { notFound } from "next/navigation";
-type ProductParams={
-  productId:string
-}
-export const revalidate  = 3600
-export const generateStaticParams = async ()=>{
+type ProductParams = {
+  productId: string;
+};
+export const revalidate =1800;
+export const generateStaticParams = async () => {
   await dbConnection();
-  await CommentModel.findOne({}).limit(1);
-  await CategoryModel.findOne({}).limit(1);
-  const initialProductData = await ProductModel.find({score:{$gt:3}})
+  await CommentModel.findOne({}, "_id").limit(1);
+  await CategoryModel.findOne({}, "_id").limit(1);
+  const initialProductData = await ProductModel.find({ score: { $gt: 3 } })
     .populate("category")
     .populate("ProductComment")
     .lean();
-    const params = initialProductData.map((product)=>({_id:product._id}))
-    return params
-}
-async function SingleProduct({ params }: {params:ProductParams}) {
+  const params = initialProductData.map((product) => ({ _id: product._id }));
+  return params;
+};
+async function SingleProduct({ params }: { params: ProductParams }) {
   await dbConnection();
   const { productId } = params;
-  if(!isValidObjectId(productId)) return notFound();
-  await CommentModel.findOne({}).limit(1);
+  if (!isValidObjectId(productId)) return notFound();
+  await CommentModel.findOne({}, "_id").limit(1);
   const initialProductData = await ProductModel.findOne({ _id: productId })
     .populate("category")
-    .populate("ProductComment")
+    .populate({
+      path: "ProductComment",
+      populate: {
+        path: "messages.sender",
+        select: "userName role",
+      },
+    })
     .lean();
   return (
     <QueryClientProviderWrapper>
-
-        <div className="relative">
-          <main className="max-w-[1920px]  ">
-            <ProductPageLayout
-              initialProductData={dataParser(initialProductData)}
-            />
-          </main>
-        </div>
-
+      <div className="relative">
+        <main className="max-w-[1920px]">
+          <ProductPageLayout
+            initialProductData={dataParser(initialProductData)}
+          />
+        </main>
+      </div>
     </QueryClientProviderWrapper>
   );
 }
