@@ -8,7 +8,7 @@ const createErrorMessage = (field: any, min: any, max: any) => ({
 });
 export const TicketSchema = Joi.object().keys({
   title: Joi.string()
-    .max(120)
+    .max(60)
     .required()
     .messages(createErrorMessage("عنوان تیکت", 0, 120)),
   body: Joi.string()
@@ -23,9 +23,11 @@ export const TicketSchema = Joi.object().keys({
   user: Joi.string()
     .min(0)
     .required()
-   
+
     .error(createHttpError.BadRequest("شناسه کاربر معتبر نمی باشد.")),
-  priority: Joi.number()
-    .error(createHttpError.BadRequest("سطح اولویت معتبر نمی باشد.")),
-   
+  priority: Joi.number().error(
+    createHttpError.BadRequest("سطح اولویت معتبر نمی باشد.")
+  ),
+  isAnswered: Joi.boolean(),
+  isPending: Joi.boolean(),
 });

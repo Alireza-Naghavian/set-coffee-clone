@@ -62,25 +62,32 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   return (
     <Table.Row
       className="my-1 child:my-auto
-      !flex md:!hidden  h-full   bg-slate-200 px-4  border-b py-2"
+    !flex flex-col md:!hidden  h-full  w-full  bg-slate-200 px-4  border-b py-2"
       variant="singleHead"
     >
-      <td className={`font-Shabnam_B !ml-3 px-2 rounded-lg text-gray-200 ${comment.isAccept ? "bg-green-500" : "bg-slate-700"}`}>{comment?.userName}</td>
-      <td className="flex flex-col w-full ">
+      <td className="flex items-center justify-between w-full">
+        <span
+          className={`font-Shabnam_B !ml-3 px-2 rounded-lg
+         text-gray-200 ${comment.isAccept ? "bg-green-500" : "bg-slate-700"}`}
+        >
+          {comment?.userName}
+        </span>
         <span className="text-right flex  items-center my-auto gap-x-4  mr-auto !mb-4">
           <button
-            onClick={() => setIsDeleteOpen(true)}
+             onClick={() => setIsDeleteOpen(true)}
             className="  my-auto h-full text-3xl text-red-500   w-fit flex justify-center"
           >
             <MdDelete />
           </button>
           <button
-            onClick={() => setIsEditOpen(true)}
+             onClick={() => setIsEditOpen(true)}
             className="  my-auto h-full text-3xl text-blue-500   w-fit flex justify-center"
           >
-            <FaEdit />
+             <FaEdit />
           </button>
         </span>
+      </td>
+      <td className="flex flex-col w-full ">
         <span
           className="flex flex-col gap-y-2 child:pt-1  child:flex 
                 child:justify-between child:items-center child:w-full

@@ -5,9 +5,6 @@ import Link from "next/link";
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
 import { HiTicket } from "react-icons/hi2";
-{
-  /* <HiTicket className="text-[65px]" /> */
-}
 function UserTicketList({ allTickets }: { allTickets: TicketType[] }) {
   return (
     <div className="relative px-2 sm:px-8 py-4 rounded-md bg-gray-200 h-full w-full">
@@ -52,8 +49,14 @@ function UserTicketList({ allTickets }: { allTickets: TicketType[] }) {
                       <Badge additionalClass="bg-main_brown rounded-lg px-2 py-1 text-sm text-white">
                         {ticket?.dept?.title}
                       </Badge>
-                      <Badge additionalClass="bg-main_brown rounded-lg px-2 py-1 text-sm text-white">
-                        {ticket?.isOpen ? "باز" : "بسته شده"}
+                      <Badge
+                        additionalClass={`${
+                          ticket.isPending ? " bg-main_brown" : "bg-green-500"
+                        } rounded-lg px-2 py-1 text-sm text-white`}
+                      >
+                        {ticket.isAnswered === false &&
+                          ticket.isPending === true &&
+                          "منتظر پاسخ"}
                       </Badge>
                     </span>
                   </Link>

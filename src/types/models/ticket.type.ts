@@ -10,9 +10,12 @@ export type TicketType = {
   };
   user: {
     _id: mongoose.Types.ObjectId;
+    userName?:string
   };
   priority: 1 | 2 | 3;
   isOpen: boolean;
+  isPending:boolean;
+  isAnswered:boolean;
   messages: MessagesType[];
 };
 

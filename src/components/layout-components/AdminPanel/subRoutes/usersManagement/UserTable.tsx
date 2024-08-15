@@ -16,6 +16,7 @@ function UserTable() {
         </div>
       }
   return (
+    <div className="h-[480px] overflow-y-auto">
     <Table variant="singleHead">
       <Table.Header variant="singleHead" className="hidden md:block">
         <tr
@@ -52,6 +53,7 @@ function UserTable() {
         })}
       </Table.Body>
     </Table>
+    </div>
   );
 }
 

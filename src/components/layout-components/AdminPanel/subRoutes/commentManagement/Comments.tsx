@@ -17,7 +17,7 @@ function Comments() {
   const { comments, isCommentsLoading } = useGetAllComments();
   return (
     <HeaderAdminLayout title="مدیریت comment ها">
-      <div className="lg:h-[480px] overflow-y-auto">
+      <div className="h-[480px]  !overflow-y-auto">
         <NoSSR variant="singleHead" className="w-full relative mt-10 table">
           {comments?.allComments?.length > 0 ? (
             <Table.Header variant="singleHead" className="hidden md:block">

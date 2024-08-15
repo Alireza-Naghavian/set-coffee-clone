@@ -15,7 +15,7 @@ const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
 function ProductManagement({ products }: { products: SingleProductType[] }) {
   return (
     <HeaderProductLayout title="مدیریت محصولات">
-      <div className="lg:h-[480px] overflow-y-auto">
+      <div className="h-[480px] overflow-y-auto">
         <NoSSR variant="singleHead" className="w-full relative mt-10 table">
           {products?.length >0 ? (
             <Table.Header variant="singleHead" className="hidden md:block">

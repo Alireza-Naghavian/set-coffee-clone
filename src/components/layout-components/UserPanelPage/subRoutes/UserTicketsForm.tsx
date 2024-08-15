@@ -87,8 +87,8 @@ function UserTicketsForm() {
                   message: "عنوان نمی تواند خالی باشد",
                 },
                 maxLength: {
-                  value: 120,
-                  message: "حداکثر ۱۲۰ کاراکتر",
+                  value: 60,
+                  message: "حداکثر ۶۰ کاراکتر",
                 },
               }}
             />

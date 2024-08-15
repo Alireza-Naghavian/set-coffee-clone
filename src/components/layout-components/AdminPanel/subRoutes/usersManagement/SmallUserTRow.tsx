@@ -64,12 +64,12 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
   };
   return (
     <Table.Row
-      className="my-1 child:my-auto
-      !flex md:!hidden gap-x-4 h-full   bg-slate-200 px-2  border-b py-2"
+    className="my-1 child:my-auto
+    !flex flex-col md:!hidden gap-y-1  h-full  w-full  bg-slate-200 px-4  border-b py-2"
       variant="singleHead"
     >
-      <td className="font-Shabnam_B ">{user?.userName}</td>
-      <td className="flex flex-col w-full ">
+      <td className="flex items-center justify-between w-full">
+        <span className="font-Shabnam_B "> {user?.userName}</span>
         <span className="text-right flex justify-between items-center my-auto gap-x-2  !mb-2">
           <button
             onClick={() => setIsDeleteOpen(true)}
@@ -78,6 +78,9 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
             <MdDelete />
           </button>
         </span>
+       </td>
+      <td className="flex flex-col w-full ">
+        
         <span
           className="flex flex-col gap-y-4  child:flex 
                 child:justify-between child:items-center child:w-full

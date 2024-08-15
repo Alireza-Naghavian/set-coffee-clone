@@ -51,3 +51,32 @@ export const priorityValues = [
   { label: "مهم", value: "2" },
   { label: "بسیار مهم", value: "3" },
 ];
+
+export const ticketStatus = [
+  {
+    cond: {
+      isPending: true,
+      isAnswered: false,
+      isOpen: true,
+    },
+    className: "bg-main_brown",
+  },
+  {
+    cond: {
+      isPending: false,
+      isAnswered: true,
+      isOpen: true,
+    },
+
+    className: "bg-green-500",
+  },
+  {
+    cond: {
+      isPending: false,
+      isAnswered: true,
+      isOpen: false,
+    },
+
+    className: "bg-red-400 ",
+  },
+];
