@@ -2,7 +2,7 @@ import dbConnection from "@/dbConfigs/db";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import { getUser } from "@/utils/auth/authHelper";
-
+export const dynamic = "force-dynamic";
 export const GET = async () => {
   try {
     await dbConnection();

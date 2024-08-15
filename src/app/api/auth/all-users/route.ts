@@ -2,7 +2,7 @@ import dbConnection from "@/dbConfigs/db";
 import CartModel from "@/models/cart/cart";
 import UserModel from "@/models/user/user";
 import { getUser } from "@/utils/auth/authHelper";
-
+export const dynamic = "force-dynamic";
 export const GET = async () => {
   try {
     await dbConnection();

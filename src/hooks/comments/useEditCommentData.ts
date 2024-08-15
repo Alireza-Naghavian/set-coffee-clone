@@ -8,12 +8,10 @@ const useEditCommentData = () => {
     {
       mutationFn: changeCommentStatus,
       onSuccess: (data: any) => {
-        console.log(data);
         queryClinet.invalidateQueries({queryKey:["allComments"]})
         toast.success(data.message);
       },
       onError: (err: any) => {
-        console.log(err);
         toast.error(err?.response?.data?.message);
       },
     }

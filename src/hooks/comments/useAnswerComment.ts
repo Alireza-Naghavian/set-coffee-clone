@@ -9,7 +9,6 @@ const useAnswerComment = () => {
       mutationFn: AnswerComment,
       onSuccess: (data: any) => {
         toast.success(data.message)
-        console.log(data);
         queryclient.invalidateQueries({ queryKey: ["allComments"] });
       },
       onError: (err: any) => {

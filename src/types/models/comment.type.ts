@@ -8,7 +8,7 @@ export type CommentModeltype = {
   isAccept: boolean;
   date: Date;
   productId: typeof mongoose.Types.ObjectId;
-  productData?:[{_id:string,title:string}];
-  _id?:string
-  messages:MessagesType[]
+  productData?: [{ _id: string; title: string }];
+  _id: string;
+  messages: MessagesType[];
 };

@@ -37,6 +37,7 @@ export type AnswerAdminType = {
     _id: string;
   };
 };
+export type UpdateMsgType =Pick<AnswerAdminType,"body"|"sendAt">&{sender:string}
 export type DepartmentType = {
   title: string;
 };

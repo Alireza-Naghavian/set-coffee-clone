@@ -69,7 +69,6 @@ export const POST = async (req: Request) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

@@ -1,4 +1,4 @@
-import { MessagesType } from "@/types/models/ticket.type";
+import { AnswerAdminType, MessagesType } from "@/types/models/ticket.type";
 import api from "../httpServices";
 
 export const getAllComments = async () => {
@@ -13,4 +13,8 @@ return api.patch(`/comments/${commentId}`,data).then((reposne)=>reposne.data)
 
 export const AnswerComment = async({commentId,data}:{commentId:string,data:MessagesType})=>{
   return api.post(`/comments/answer/${commentId}`,data).then(({data})=>data)
+}
+
+export const UpdateAnswerMsg = async({commentId,data}:{commentId:string,data:AnswerAdminType})=>{
+return api.patch(`/comments/answer/${commentId}`,data).then((response)=>response.data)
 }

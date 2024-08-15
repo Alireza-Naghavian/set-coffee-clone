@@ -1,12 +1,11 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
-import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useAnswerComment from "@/hooks/comments/useAnswerComment";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { MessagesType } from "@/types/models/ticket.type";
-import { FieldValue, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 export type ReplyModalForm = {
   data: CommentModeltype;
   setIsEditOpen: () => void;
@@ -94,8 +93,11 @@ function ReplyModalForm({ data: commentData, setIsEditOpen }: ReplyModalForm) {
           }`}
           type="submit"
         >
-          {isAnswerLoading ? <Loader loadingCondition={isAnswerLoading}/> : "ارسال"}
-         
+          {isAnswerLoading ? (
+            <Loader loadingCondition={isAnswerLoading} />
+          ) : (
+            "ارسال"
+          )}
         </MainBtn>
       </div>
     </form>

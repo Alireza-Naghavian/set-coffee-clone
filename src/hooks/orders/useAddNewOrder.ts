@@ -7,7 +7,6 @@ const useAddNewOrder = () => {
   const { mutate: addOrder, isPending: isOrderLoading } = useMutation({
     mutationFn: addNewOrder,
     onSuccess: (data: any) => {
-      console.log(data);
       toast.success(data.message);
       localStorage.removeItem("setCoffeeBasket");
       queryClient.invalidateQueries({ queryKey: ["userBasket"] });

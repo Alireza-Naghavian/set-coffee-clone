@@ -20,42 +20,44 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [status, setStatus] = useState<boolean>(comment.isAccept);
-  const {isRemoveLoading,removeComment} = useDeleteComment();
-  const {editComment,isOperateLoading} = useEditCommentData();
-  const statusHanlder =async (e: FormEvent<HTMLFormElement>) => {
+  const { isRemoveLoading, removeComment } = useDeleteComment();
+  const { editComment, isOperateLoading } = useEditCommentData();
+  const statusHanlder = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(comment._id ===undefined) return
+    if (comment._id === undefined) return;
     try {
-      console.log({commentId:comment._id,data:{reply:"",isAccept:status}});
-      await editComment({commentId:comment._id,data:{reply:"",isAccept:status}},{
-        onSuccess:()=>{
-          setIsStatusOpen(false)
-        },
-        onError:()=>{
-          setIsStatusOpen(false)
+      await editComment(
+        { commentId: comment._id, data: { reply: "", isAccept: status } },
+        {
+          onSuccess: () => {
+            setIsStatusOpen(false);
+          },
+          onError: () => {
+            setIsStatusOpen(false);
+          },
         }
-      })
+      );
     } catch (error) {
       console.log(error);
     }
   };
-  const removeHandler =async(identifier:string)=>{
-    if(comment._id === undefined) return
+  const removeHandler = async (identifier: string) => {
+    if (comment._id === undefined) return;
     try {
-      await removeComment(identifier,{
-        onSuccess:(data:any)=>{
-          toast.success(data.message)
-          setIsDeleteOpen(false)
+      await removeComment(identifier, {
+        onSuccess: (data: any) => {
+          toast.success(data.message);
+          setIsDeleteOpen(false);
         },
-        onError:(err:any)=>{
-          setIsDeleteOpen(false)
+        onError: (err: any) => {
+          setIsDeleteOpen(false);
           toast.error(err?.reponse?.data?.message);
-        }
-      })
-    } catch (error:any) {
+        },
+      });
+    } catch (error: any) {
       console.log(error?.reponse?.data?.message);
     }
-  }
+  };
   return (
     <Table.Row
       variant="singleHead"
@@ -113,8 +115,9 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
           <MdDelete />
         </button>
         <button
-            onClick={() => setIsEditOpen(true)}
-        className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center ">
+          onClick={() => setIsEditOpen(true)}
+          className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center "
+        >
           <FaEdit />
         </button>
       </td>
@@ -129,18 +132,26 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
         value={status}
         selectHanlder={statusHanlder}
       />
-   {comment._id !== undefined &&
-      <DeleteModal
-      identifier={comment._id}
-      isDeleteOpen={isDeleteOpen}
-      setIsDeleteOpen={() => setIsDeleteOpen(false)}
-      isLoading={isRemoveLoading}
-      removeHandler={removeHandler}
-      subjectTitle="کامنت"
-    />
-   }
-      <EditModal className="!h-auto"  modalTitle="ارسال پاسخ" isOpen={isReplyOpen} setIsOpen={()=>setIsReplyOpen(false) } >
-        <ReplyModalForm data={comment} setIsEditOpen={()=>setIsReplyOpen(false)} />
+      {comment._id !== undefined && (
+        <DeleteModal
+          identifier={comment._id}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          isLoading={isRemoveLoading}
+          removeHandler={removeHandler}
+          subjectTitle="کامنت"
+        />
+      )}
+      <EditModal
+        className="!h-auto"
+        modalTitle="ارسال پاسخ"
+        isOpen={isReplyOpen}
+        setIsOpen={() => setIsReplyOpen(false)}
+      >
+        <ReplyModalForm
+          data={comment}
+          setIsEditOpen={() => setIsReplyOpen(false)}
+        />
       </EditModal>
       <EditModal
         modalTitle="ویرایش کامنت"

@@ -33,7 +33,6 @@ export const POST = async (req: Request, { params }: Params) => {
 
     return Response.json({ data: ticket }, { status: 201 });
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

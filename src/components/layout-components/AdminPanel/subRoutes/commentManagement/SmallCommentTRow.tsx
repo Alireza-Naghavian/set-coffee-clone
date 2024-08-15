@@ -13,6 +13,7 @@ import ReplyModalForm from "./ReplyModalForm";
 import EditCommentForm from "./EditCommentForm";
 import useDeleteComment from "@/hooks/comments/useDeleteComment";
 import { toast } from "react-toastify";
+import useEditCommentData from "@/hooks/comments/useEditCommentData";
 
 function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isStatusOpen, setIsStatusOpen] = useState(false);
@@ -21,6 +22,7 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [status, setStatus] = useState<boolean>(comment.isAccept);
   const { isRemoveLoading, removeComment } = useDeleteComment();
+  const { editComment, isOperateLoading } = useEditCommentData();
   const removeHandler = async (identifier: string) => {
     if (comment._id === undefined) return;
     try {
@@ -38,9 +40,24 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
       console.log(error?.reponse?.data?.message);
     }
   };
-  const statusHanlder = (e: FormEvent<HTMLFormElement>) => {
+  const statusHanlder = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(status);
+    if (comment._id === undefined) return;
+    try {
+      await editComment(
+        { commentId: comment._id, data: { reply: "", isAccept: status } },
+        {
+          onSuccess: () => {
+            setIsStatusOpen(false);
+          },
+          onError: () => {
+            setIsStatusOpen(false);
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Table.Row
@@ -48,7 +65,7 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
       !flex md:!hidden  h-full   bg-slate-200 px-4  border-b py-2"
       variant="singleHead"
     >
-      <td className="font-Shabnam_B pl-3">{comment?.userName}</td>
+      <td className={`font-Shabnam_B !ml-3 px-2 rounded-lg text-gray-200 ${comment.isAccept ? "bg-green-500" : "bg-slate-700"}`}>{comment?.userName}</td>
       <td className="flex flex-col w-full ">
         <span className="text-right flex  items-center my-auto gap-x-4  mr-auto !mb-4">
           <button
@@ -110,7 +127,7 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
         </span>
       </td>
       <SelectModal
-        isLoading={false}
+        isLoading={isOperateLoading}
         isOpen={isStatusOpen}
         setIsOpen={() => setIsStatusOpen(false)}
         modalTitle="تعیین وضعیت کامنت"

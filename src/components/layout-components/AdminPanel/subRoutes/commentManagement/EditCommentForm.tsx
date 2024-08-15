@@ -1,23 +1,55 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
-import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
-import React from "react";
+import useUpdateAnswerMsg from "@/hooks/comments/useUpdateAnswerMsg";
 import { useForm } from "react-hook-form";
 import { ReplyModalForm } from "./ReplyModalForm";
+import Loader from "@/components/UI/loader/Loader";
 type EditCommentFormType = Pick<ReplyModalForm, "data" | "setIsEditOpen">;
-function EditCommentForm({ data, setIsEditOpen }: EditCommentFormType) {
+type EditHandlerType = {
+  [props: string]: string;
+};
+function EditCommentForm({
+  data: commentData,
+  setIsEditOpen,
+}: EditCommentFormType) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, dirtyFields, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm<EditHandlerType>({ mode: "onChange" });
+  const lastAdminReply = commentData.messages.findLast((message) => {
+    return message;
+  });
+  const { isMsgUpdating, updateMsg } = useUpdateAnswerMsg();
+  const updateMsgHandler = async (msgData: EditHandlerType) => {
+    if (lastAdminReply?.sender !== undefined)
+      await updateMsg(
+        {
+          commentId: commentData._id,
+          data: {
+            sender: lastAdminReply?.sender,
+            body: msgData.body,
+            sendAt: new Date(),
+          },
+        },
+        {
+          onSuccess: () => {
+            setIsEditOpen();
+            reset();
+          },
+          onError: () => {
+            setIsEditOpen();
+          },
+        }
+      );
+  };
   return (
     <form
-      //   onSubmit={handleSubmit(updateHandler)}
-      className="flex flex-col gap-y-4 justify-center px-6 my-4"
+      onSubmit={handleSubmit(updateMsgHandler)}
+      className="flex flex-col  overflow-y-auto gap-y-4 justify-center px-6 my-4"
     >
-      <MainTextField
+      <TextAriaField
         register={register}
         errors={errors}
         type="text"
@@ -26,9 +58,11 @@ function EditCommentForm({ data, setIsEditOpen }: EditCommentFormType) {
         id="userComment"
         name="userComment"
         required={false}
+        value={commentData.commentBody}
+        className="!bg-gray-100"
         readOnly={true}
       />
-      <MainTextField
+      <TextAriaField
         register={register}
         errors={errors}
         type="text"
@@ -36,15 +70,18 @@ function EditCommentForm({ data, setIsEditOpen }: EditCommentFormType) {
         variant="outLine"
         id="lastReply"
         name="lastReply"
+        className="!bg-gray-100 !h-[100px]"
         required={false}
+        value={lastAdminReply?.body}
         readOnly={true}
       />
 
       <TextAriaField
-        name="reply"
-        id="reply"
-        label="پاسخ"
+        name="body"
+        id="body"
+        label="ویرایش"
         variant="borderFill"
+        placeHolder="متن مربوطه جایگزین اخرین  کامنت شما برای کاربر خواهد شد"
         register={register}
         validattionschema={{
           minLength: {
@@ -66,8 +103,11 @@ function EditCommentForm({ data, setIsEditOpen }: EditCommentFormType) {
           }`}
           type="submit"
         >
-          {/* {isProdUpdating ? <Loader loadingCondition={isProdUpdating}/> : "ویرایش"} */}
-          ویرایش
+          {isMsgUpdating ? (
+            <Loader loadingCondition={isMsgUpdating} />
+          ) : (
+            "ویرایش"
+          )}
         </MainBtn>
       </div>
     </form>

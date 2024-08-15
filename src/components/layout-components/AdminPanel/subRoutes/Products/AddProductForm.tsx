@@ -33,7 +33,6 @@ function AddProductForm() {
     "667fed928adb606b5273c86b" || optionValues[1].value
   );
   const [longDesc, setLongDesc] = useState<string>("");
-  console.log(longDesc);
   const addProductHanlder = async(data:ProductFiledValues)=>{
     const {title,price,shortDesc,weight,suitableFor,smell,cover,tags} = data
     const toValidPriceNumb = Number(convertToEnglishDigits(price))
