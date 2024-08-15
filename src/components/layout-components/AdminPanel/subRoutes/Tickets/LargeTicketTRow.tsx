@@ -4,17 +4,35 @@ import { priorityValues, ticketStatus } from "@/utils/constants";
 import { ImReply } from "react-icons/im";
 import { MdDelete } from "react-icons/md";
 import { IoLockClosed } from "react-icons/io5";
-function LargeTicketTRow({
-  ticket,
-  index,
-}: {
+import DeleteModal from "../modals/DeleteModal";
+import { useState } from "react";
+import useRemoveTicket from "@/hooks/tickets&department/useRemoveTicket";
+type LgTRowType = {
   ticket: TicketType;
   index: number;
-}) {
+};
+function LargeTicketTRow({ ticket, index }: LgTRowType) {
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   let ticketCurrCondition = {
     isPending: ticket.isPending,
     isAnswered: ticket.isAnswered,
     isOpen: ticket.isOpen,
+  };
+  const { isRemoveLoading, removeTicket } = useRemoveTicket();
+  const removeHandler = async () => {
+    try {
+      if (ticket._id === undefined) return;
+      await removeTicket(ticket._id, {
+        onSuccess: () => {
+          setIsDeleteOpen(false);
+        },
+        onError: () => {
+          setIsDeleteOpen(false);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   const ticketCondition = ticketStatus.find((ticketSt) => {
     return JSON.stringify(ticketSt.cond) == JSON.stringify(ticketCurrCondition);
@@ -61,7 +79,7 @@ function LargeTicketTRow({
       </td>
       <td className=" flex items-center gap-x-4">
         <button
-          // onClick={() => setIsDeleteOpen(true)}
+          onClick={() => setIsDeleteOpen(true)}
           className="text-2xl text-red-500 mx-auto  w-fit flex justify-center "
         >
           <MdDelete />
@@ -73,6 +91,16 @@ function LargeTicketTRow({
           <IoLockClosed />
         </button>
       </td>
+      {ticket._id !== undefined && (
+        <DeleteModal
+          identifier={ticket._id}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          isLoading={isRemoveLoading}
+          removeHandler={removeHandler}
+          subjectTitle="تیکت"
+        />
+      )}
     </Table.Row>
   );
 }

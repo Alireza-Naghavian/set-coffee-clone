@@ -14,3 +14,7 @@ export const ReplyTicketMsg = async ({ticketId,data}:{ticketId:string,data:any})
 export const getAllTickets= async()=>{
   return api.get("/tickets").then((response)=>response.data)
 }
+
+export const deleteTicket = async(ticketId:string)=>{
+  return api.delete(`/tickets/${ticketId}`).then((reponse)=>reponse.data)
+}
