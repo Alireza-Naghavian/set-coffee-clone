@@ -1,6 +1,6 @@
 import dbConnection from "@/dbConfigs/db";
 import TicketModel from "@/models/tickets/ticket";
-import { MessagesType } from "@/types/models/ticket.type";
+import { MessagesType, TicketType } from "@/types/models/ticket.type";
 import { getUser } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
@@ -77,6 +77,66 @@ export const DELETE = async (req: Request, { params }: Params) => {
       { status: 200 }
     );
   } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
+
+export const PATCH = async (req: Request, { params }: Params) => {
+  try {
+    await dbConnection();
+    const { ticketId } = params;
+    if (!isValidObjectId(ticketId))
+      return Response.json(
+        { message: "شناسه تیکت معتبر نمیباشد" },
+        { status: 404 }
+      );
+    const user = await getUser();
+    if (user.role !== "ADMIN") {
+      return Response.json(
+        { message: "شما به این قسمت دسترسی ندارید." },
+        { status: 404 }
+      );
+    }
+    const reqBody = await req.json();
+    const { isPending, isAnswered, isOpen } = reqBody;
+    const ticket = await TicketModel.findOne({ _id: ticketId });
+    if (isOpen == true && ticket.isOpen == true) {
+      return Response.json(
+        { message: "تیکت از قبل باز  است" },
+        { status: 422 }
+      );
+    }
+    if (!ticket.isAnswered) {
+      return Response.json(
+        { message: "ابتدا پاسخ تیکت را بدهید" },
+        { status: 403 }
+      );
+    }
+
+    const newTicketCondition = {
+      isPending,
+      isAnswered,
+      isOpen,
+    };
+    const updateTicket = await TicketModel.findOneAndUpdate(
+      { _id: ticketId },
+      { $set: newTicketCondition },
+      { new: true }
+    );
+
+    return Response.json(
+      {
+        message: `تیکت مورد نظر${
+          updateTicket.isOpen == true ? "باز" : "بسته"
+        } شد`,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

@@ -1,12 +1,60 @@
 import Table from "@/components/UI/Table/Table";
-import { TicketType } from "@/types/models/ticket.type";
-import { priorityValues, ticketStatus } from "@/utils/constants";
-import React from "react";
+import useRemoveTicket from "@/hooks/tickets&department/useRemoveTicket";
+import { TicketStatusType, TicketType } from "@/types/models/ticket.type";
+import { priorityValues, ticketOptions, ticketStatus } from "@/utils/constants";
+import React, { FormEvent, useState } from "react";
 import { ImReply } from "react-icons/im";
 import { IoLockClosed } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import DeleteModal from "../modals/DeleteModal";
+import useUpdateTicketST from "@/hooks/tickets&department/useUpdateTicketST";
+import SelectModal from "../modals/SelectModal";
 
 function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const { isRemoveLoading, removeTicket } = useRemoveTicket();
+  const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
+  const [isOpenTicket, setIsOpenTicket] = useState<boolean>(ticket.isOpen);
+  const { isUpdateLoading, updateTicketSt } = useUpdateTicketST();
+  const removeHandler = async () => {
+    try {
+      if (ticket._id === undefined) return;
+      await removeTicket(ticket._id, {
+        onSuccess: () => {
+          setIsDeleteOpen(false);
+        },
+        onError: () => {
+          setIsDeleteOpen(false);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const selectHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (ticket._id === undefined) return;
+      const updateTicketCondtion: TicketStatusType = {
+        isPending: false,
+        isAnswered: true,
+        isOpen: isOpenTicket,
+      };
+      await updateTicketSt(
+        { ticketId: ticket._id, data: updateTicketCondtion },
+        {
+          onSuccess: () => {
+            setIsSelectOpen(false);
+          },
+          onError: () => {
+            setIsSelectOpen(false);
+          },
+        }
+      );
+    } catch (error:any) {
+      console.log(error?.response?.data?.message);
+    }
+  };
   let ticketCurrCondition = {
     isPending: ticket.isPending,
     isAnswered: ticket.isAnswered,
@@ -29,13 +77,13 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
         </span>
         <span className="text-right flex  items-center my-auto gap-x-4  mr-auto !mb-4">
           <button
-            // onClick={() => setIsDeleteOpen(true)}
+            onClick={() => setIsDeleteOpen(true)}
             className="  my-auto h-full text-3xl text-red-500   w-fit flex justify-center"
           >
             <MdDelete />
           </button>
           <button
-            // onClick={() => setIsEditOpen(true)}
+            onClick={() => setIsSelectOpen(true)}
             className="  my-auto h-full text-3xl text-blue-500   w-fit flex justify-center"
           >
             <IoLockClosed />
@@ -50,7 +98,9 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
         >
           <span className="font-Shabnam_B">
             <span> عنوان :</span>
-            <span className="line-clamp-2 max-w-[190px]">{ticket.title}</span>
+            <span className="line-clamp-2 max-w-[130px] text-right">
+              {ticket.title}
+            </span>
           </span>
           <span className="font-Shabnam_B">
             <span>دپارتمان:</span>
@@ -77,6 +127,27 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
           </span>
         </span>
       </td>
+      {ticket._id !== undefined && (
+        <DeleteModal
+          identifier={ticket._id}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          isLoading={isRemoveLoading}
+          removeHandler={removeHandler}
+          subjectTitle="تیکت"
+        />
+      )}
+      <SelectModal
+        isLoading={isUpdateLoading}
+        isOpen={isSelectOpen}
+        modalTitle={"تغییر وضعیت تیکت"}
+        value={String(isOpenTicket)}
+        setIsOpen={() => setIsSelectOpen(false)}
+        onSelectChange={(e) => setIsOpenTicket(e.target.value)}
+        selectHanlder={selectHandler}
+        subjectTitle="باز / بستن تیکت"
+        options={ticketOptions}
+      />
     </Table.Row>
   );
 }

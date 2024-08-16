@@ -43,7 +43,7 @@ export const UserPanelAside = [
 ];
 export const commentStatus = [
   { label: "تایید کردن", value: true },
-  { label: "رد کردن", value: false }
+  { label: "رد کردن", value: false },
 ];
 
 export const priorityValues = [
@@ -79,4 +79,12 @@ export const ticketStatus = [
 
     className: "bg-red-400 ",
   },
+];
+
+export const ticketOptions = [
+  {
+    label: "باز کردن",
+    value: true,
+  },
+  { label: "بستن", value: false },
 ];

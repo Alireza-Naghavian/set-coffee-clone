@@ -1,6 +1,7 @@
 import Badge from "@/components/UI/badge/Badge";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import { TicketType } from "@/types/models/ticket.type";
+import { ticketStatus } from "@/utils/constants";
 import Link from "next/link";
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
@@ -33,6 +34,17 @@ function UserTicketList({ allTickets }: { allTickets: TicketType[] }) {
         <div className="flex flex-col mt-4">
           <ul className="flex flex-col gap-y-4 child:flex child:justify-between child:items-center">
             {allTickets.map((ticket: TicketType) => {
+              let ticketCurrCondition = {
+                isPending: ticket.isPending,
+                isAnswered: ticket.isAnswered,
+                isOpen: ticket.isOpen,
+              };
+              const ticketCondition = ticketStatus.find((ticketSt) => {
+                return (
+                  JSON.stringify(ticketSt.cond) ==
+                  JSON.stringify(ticketCurrCondition)
+                );
+              });
               return (
                 <li
                   key={ticket?._id}
@@ -50,13 +62,11 @@ function UserTicketList({ allTickets }: { allTickets: TicketType[] }) {
                         {ticket?.dept?.title}
                       </Badge>
                       <Badge
-                        additionalClass={`${
-                          ticket.isPending ? " bg-main_brown" : "bg-green-500"
-                        } rounded-lg px-2 py-1 text-sm text-white`}
+                        additionalClass={`${ticketCondition?.className} rounded-lg px-2 py-1 text-sm text-white`}
                       >
-                        {ticket.isAnswered === false &&
-                          ticket.isPending === true &&
-                          "منتظر پاسخ"}
+                        {ticket.isOpen && ticket.isAnswered && "پاسخ داده شد"}
+                        {ticket.isOpen && ticket.isPending && "منتظر پاسخ"}
+                        {!ticket.isOpen && "بسته شد"}
                       </Badge>
                     </span>
                   </Link>

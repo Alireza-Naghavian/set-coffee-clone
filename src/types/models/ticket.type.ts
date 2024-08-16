@@ -10,12 +10,12 @@ export type TicketType = {
   };
   user: {
     _id: mongoose.Types.ObjectId;
-    userName?:string
+    userName?: string;
   };
   priority: 1 | 2 | 3;
   isOpen: boolean;
-  isPending:boolean;
-  isAnswered:boolean;
+  isPending: boolean;
+  isAnswered: boolean;
   messages: MessagesType[];
 };
 
@@ -40,7 +40,15 @@ export type AnswerAdminType = {
     _id: string;
   };
 };
-export type UpdateMsgType =Pick<AnswerAdminType,"body"|"sendAt">&{sender:string}
+export type UpdateMsgType = Pick<AnswerAdminType, "body" | "sendAt"> & {
+  sender: string;
+};
 export type DepartmentType = {
   title: string;
+};
+
+export type TicketStatusType = {
+  isPending: boolean;
+  isAnswered: boolean;
+  isOpen: boolean;
 };

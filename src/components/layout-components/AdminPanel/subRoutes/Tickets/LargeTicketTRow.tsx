@@ -1,24 +1,25 @@
 import Table from "@/components/UI/Table/Table";
-import { TicketType } from "@/types/models/ticket.type";
-import { priorityValues, ticketStatus } from "@/utils/constants";
-import { ImReply } from "react-icons/im";
-import { MdDelete } from "react-icons/md";
-import { IoLockClosed } from "react-icons/io5";
-import DeleteModal from "../modals/DeleteModal";
-import { useState } from "react";
 import useRemoveTicket from "@/hooks/tickets&department/useRemoveTicket";
+import { TicketStatusType, TicketType } from "@/types/models/ticket.type";
+import { priorityValues, ticketOptions, ticketStatus } from "@/utils/constants";
+import { FormEvent, useState } from "react";
+import { ImReply } from "react-icons/im";
+import { IoLockClosed } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
+import DeleteModal from "../modals/DeleteModal";
+import SelectModal from "../modals/SelectModal";
+import useUpdateTicketST from "@/hooks/tickets&department/useUpdateTicketST";
 type LgTRowType = {
   ticket: TicketType;
   index: number;
 };
 function LargeTicketTRow({ ticket, index }: LgTRowType) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
-  let ticketCurrCondition = {
-    isPending: ticket.isPending,
-    isAnswered: ticket.isAnswered,
-    isOpen: ticket.isOpen,
-  };
+  const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
+  const [isOpenTicket, setIsOpenTicket] = useState<boolean>(ticket.isOpen) ;
   const { isRemoveLoading, removeTicket } = useRemoveTicket();
+  const { isUpdateLoading, updateTicketSt } = useUpdateTicketST();
+
   const removeHandler = async () => {
     try {
       if (ticket._id === undefined) return;
@@ -33,6 +34,35 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
     } catch (error) {
       console.log(error);
     }
+  };
+  const selectHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (ticket._id === undefined) return;
+        const updateTicketCondtion :TicketStatusType ={
+          isPending:false,
+          isAnswered:true,
+          isOpen:isOpenTicket
+        }
+      await updateTicketSt(
+        { ticketId: ticket._id, data: updateTicketCondtion },
+        {
+          onSuccess: () => {
+            setIsSelectOpen(false);
+          },
+          onError: () => {
+            setIsSelectOpen(false);
+          },
+        }
+      );
+    } catch (error:any) {
+      console.log(error?.response?.data?.message);
+    }
+  };
+  let ticketCurrCondition = {
+    isPending: ticket.isPending,
+    isAnswered: ticket.isAnswered,
+    isOpen: ticket.isOpen,
   };
   const ticketCondition = ticketStatus.find((ticketSt) => {
     return JSON.stringify(ticketSt.cond) == JSON.stringify(ticketCurrCondition);
@@ -85,7 +115,7 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
           <MdDelete />
         </button>
         <button
-          // onClick={() => setIsEditOpen(true)}
+          onClick={() => setIsSelectOpen(true)}
           className="text-2xl text-emerald-700 mx-auto  w-fit flex justify-center "
         >
           <IoLockClosed />
@@ -101,6 +131,17 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
           subjectTitle="تیکت"
         />
       )}
+      <SelectModal
+        isLoading={isUpdateLoading}
+        isOpen={isSelectOpen}
+        modalTitle={"تغییر وضعیت تیکت"}
+        value={String(isOpenTicket)}
+        setIsOpen={() => setIsSelectOpen(false)}
+        onSelectChange={(e) => setIsOpenTicket(e.target.value)}
+        selectHanlder={selectHandler}
+        subjectTitle="باز / بستن تیکت"
+        options={ticketOptions}
+      />
     </Table.Row>
   );
 }
