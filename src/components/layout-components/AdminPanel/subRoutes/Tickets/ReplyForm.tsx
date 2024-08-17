@@ -1,38 +1,36 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
-import useReplyTicketMsg from "@/hooks/tickets&department/useReplyTicketMsg";
-import { TicketType } from "@/types/models/ticket.type";
+import useGetMe from "@/hooks/authHooks/useGetMe";
+import useReplyAdminTicket from "@/hooks/tickets&department/useReplyAdminTicket";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
-type TicketFormType = {
-  ticketId: string;
-  ticket: TicketType;
-};
-function ReplyFormHandler({ ticketId, ticket }: TicketFormType) {
-  const { SendReply, isSending } = useReplyTicketMsg();
-  const { refresh } = useRouter();
+
+function ReplyForm({ ticketId }: { ticketId: string }) {
+  const { user } = useGetMe();
+  const {refresh} = useRouter();
   const {
     register,
     formState: { errors, isValid, dirtyFields },
     handleSubmit,
     reset,
   } = useForm({ mode: "onChange" });
+  const { isReplyLoading, replyAdmin } = useReplyAdminTicket();
   const sendReplyHandler = async ({ body }: FieldValues) => {
-    await SendReply(
-      {
-        ticketId,
-        data: { body, sender: ticket?.user?._id, sendAt: new Date() },
-      },
-      {
-        onSuccess: () => {
-          reset();
-          refresh();
-        },
-      }
-    );
+    try {
+      await replyAdmin(
+        { ticketId, data: { body, sendAt: new Date(), sender: user?._id } },
+        {
+          onSuccess: () => {
+            reset();
+            refresh();
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   return (
     <form
       onSubmit={handleSubmit(sendReplyHandler)}
@@ -64,11 +62,15 @@ function ReplyFormHandler({ ticketId, ticket }: TicketFormType) {
           variant="roundedPrimary"
           size="small"
         >
-          {isSending ? <Loader loadingCondition={isSending} /> : "ارسال"}
+          {isReplyLoading ? (
+            <Loader loadingCondition={isReplyLoading} />
+          ) : (
+            "ارسال"
+          )}
         </MainBtn>
       </div>
     </form>
   );
 }
 
-export default ReplyFormHandler;
+export default ReplyForm;

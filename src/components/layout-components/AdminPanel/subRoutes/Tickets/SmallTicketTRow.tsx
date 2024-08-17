@@ -9,6 +9,9 @@ import { MdDelete } from "react-icons/md";
 import DeleteModal from "../modals/DeleteModal";
 import useUpdateTicketST from "@/hooks/tickets&department/useUpdateTicketST";
 import SelectModal from "../modals/SelectModal";
+import EditModal from "../modals/EditModal";
+import ReplyModal from "./ReplyModal";
+import { useRouter } from "next/navigation";
 
 function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
@@ -16,12 +19,15 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
   const [isOpenTicket, setIsOpenTicket] = useState<boolean>(ticket.isOpen);
   const { isUpdateLoading, updateTicketSt } = useUpdateTicketST();
+  const {refresh} = useRouter();
+  const [isReplyOpen, setIsReplyOpen] = useState(false);
   const removeHandler = async () => {
     try {
       if (ticket._id === undefined) return;
       await removeTicket(ticket._id, {
         onSuccess: () => {
           setIsDeleteOpen(false);
+          refresh();
         },
         onError: () => {
           setIsDeleteOpen(false);
@@ -51,7 +57,7 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
           },
         }
       );
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error?.response?.data?.message);
     }
   };
@@ -148,6 +154,18 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
         subjectTitle="باز / بستن تیکت"
         options={ticketOptions}
       />
+      {ticket._id !== undefined && (
+        <EditModal
+          isOpen={isReplyOpen}
+          setIsOpen={() => setIsReplyOpen(false)}
+          modalTitle="پاسخ به تیکت"
+          className="!w-[100%] !h-auto  overflow-y-auto py-2 !top-[2%]"
+        >
+          <div className="h-full py-2">
+            <ReplyModal ticketId={ticket._id} />
+          </div>
+        </EditModal>
+      )}
     </Table.Row>
   );
 }

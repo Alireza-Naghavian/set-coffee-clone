@@ -1,5 +1,6 @@
 import Table from "@/components/UI/Table/Table";
 import useRemoveTicket from "@/hooks/tickets&department/useRemoveTicket";
+import useUpdateTicketST from "@/hooks/tickets&department/useUpdateTicketST";
 import { TicketStatusType, TicketType } from "@/types/models/ticket.type";
 import { priorityValues, ticketOptions, ticketStatus } from "@/utils/constants";
 import { FormEvent, useState } from "react";
@@ -7,8 +8,10 @@ import { ImReply } from "react-icons/im";
 import { IoLockClosed } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import DeleteModal from "../modals/DeleteModal";
+import EditModal from "../modals/EditModal";
 import SelectModal from "../modals/SelectModal";
-import useUpdateTicketST from "@/hooks/tickets&department/useUpdateTicketST";
+import ReplyModal from "./ReplyModal";
+
 type LgTRowType = {
   ticket: TicketType;
   index: number;
@@ -16,7 +19,8 @@ type LgTRowType = {
 function LargeTicketTRow({ ticket, index }: LgTRowType) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
-  const [isOpenTicket, setIsOpenTicket] = useState<boolean>(ticket.isOpen) ;
+  const [isReplyOpen, setIsReplyOpen] = useState(false);
+  const [isOpenTicket, setIsOpenTicket] = useState<boolean>(ticket.isOpen);
   const { isRemoveLoading, removeTicket } = useRemoveTicket();
   const { isUpdateLoading, updateTicketSt } = useUpdateTicketST();
 
@@ -39,11 +43,11 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
     e.preventDefault();
     try {
       if (ticket._id === undefined) return;
-        const updateTicketCondtion :TicketStatusType ={
-          isPending:false,
-          isAnswered:true,
-          isOpen:isOpenTicket
-        }
+      const updateTicketCondtion: TicketStatusType = {
+        isPending: false,
+        isAnswered: true,
+        isOpen: isOpenTicket,
+      };
       await updateTicketSt(
         { ticketId: ticket._id, data: updateTicketCondtion },
         {
@@ -55,7 +59,7 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
           },
         }
       );
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error?.response?.data?.message);
     }
   };
@@ -101,7 +105,7 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
       </td>
       <td className=" flex items-center gap-x-4">
         <button
-          // onClick={() => setIsReplyOpen(true)}
+          onClick={() => setIsReplyOpen(true)}
           className="text-2xl text-blue-500 mx-auto  w-fit flex justify-center "
         >
           <ImReply />
@@ -142,6 +146,17 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
         subjectTitle="باز / بستن تیکت"
         options={ticketOptions}
       />
+     {ticket._id !== undefined &&
+      <EditModal
+      isOpen={isReplyOpen}
+      setIsOpen={() => setIsReplyOpen(false)}
+      modalTitle="پاسخ به تیکت"
+      className="!w-[100%] !h-auto  overflow-y-auto py-2 !top-[2%]"
+    >
+     <div className="h-full py-2">
+     <ReplyModal ticketId={ticket._id} />
+     </div>
+    </EditModal>}
     </Table.Row>
   );
 }

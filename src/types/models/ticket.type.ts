@@ -17,6 +17,7 @@ export type TicketType = {
   isPending: boolean;
   isAnswered: boolean;
   messages: MessagesType[];
+  adminMessages?:MessagesType[];
 };
 
 export type MessagesType = {

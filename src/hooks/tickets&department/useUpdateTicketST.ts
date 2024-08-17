@@ -10,6 +10,7 @@ const useUpdateTicketST = () => {
       onSuccess(data: any) {
         toast.success(data.message);
         queryClient.invalidateQueries({ queryKey: ["allTickets"] });
+        queryClient.invalidateQueries({ queryKey: ["ticket"] });
       },
       onError(error: any) {
         toast.error(error?.response?.data?.message);

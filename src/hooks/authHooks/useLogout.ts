@@ -10,6 +10,7 @@ const useLogOut = () => {
     mutationFn: logOutUser,
     onSuccess: () => {
       router.replace("/")
+      router.refresh();
       queryClient.invalidateQueries({ queryKey: ["getMe"] });
       toast.success("خروج موفقیت آمیز");
     },

@@ -1,6 +1,6 @@
 import dbConnection from "@/dbConfigs/db";
 import TicketModel from "@/models/tickets/ticket";
-import { MessagesType, TicketType } from "@/types/models/ticket.type";
+import { MessagesType } from "@/types/models/ticket.type";
 import { getUser } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
@@ -28,7 +28,10 @@ export const POST = async (req: Request, { params }: Params) => {
       body,
       sendAt: new Date(),
     });
-
+    await TicketModel.findOneAndUpdate(
+      { _id: ticketId },
+      { $set: { isAnswered: false, isPending: true } }
+    );
     await ticket.save();
 
     return Response.json({ data: ticket }, { status: 201 });
@@ -44,10 +47,12 @@ export const GET = async (req: Request, { params }: Params) => {
     await dbConnection();
     const { ticketId } = params;
     if (!isValidObjectId(ticketId)) return notFound();
-    const userTickets = await TicketModel.findOne({ _id: ticketId }, "-__v")
+    const data = await TicketModel.findOne({ _id: ticketId }, "-__v")
+      .populate("messages.sender", "userName role")
+      .populate("adminMessages.sender", "userName role")
       .populate("user", "userName")
       .lean();
-    return Response.json({ data: userTickets }, { status: 200 });
+    return Response.json(data, { status: 200 });
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
@@ -136,7 +141,6 @@ export const PATCH = async (req: Request, { params }: Params) => {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

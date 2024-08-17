@@ -42,6 +42,10 @@ const schema = new Schema<TicketType>(
       type: [messageSchema],
       default: [],
     },
+    adminMessages: {
+      type: [messageSchema],
+      default: [],
+    },
   },
 
   {
