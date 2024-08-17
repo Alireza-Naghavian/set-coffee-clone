@@ -2,7 +2,6 @@ import { ChildrenProps } from "@/types/global.type";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import "react-toastify/dist/ReactToastify.css";
 function layout({ children }: ChildrenProps) {
   return (
     <div className="w-full   h-screen flex items-center">

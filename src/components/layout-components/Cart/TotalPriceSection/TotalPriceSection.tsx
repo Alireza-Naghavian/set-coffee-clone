@@ -1,12 +1,11 @@
+import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
-import React from "react";
-import styles from "../Cart.module.css";
-import { ProductCartType } from "@/types/products.type";
+import Loader from "@/components/UI/loader/Loader";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useAddNewOrder from "@/hooks/orders/useAddNewOrder";
+import { ProductCartType } from "@/types/products.type";
 import { useRouter } from "next/navigation";
-import Loader from "@/components/UI/loader/Loader";
-import { toast } from "react-toastify";
+import styles from "../Cart.module.css";
 
 function TotalPriceSection({ userBasket }: { userBasket: ProductCartType[] }) {
   const totalCount = userBasket.reduce((acc, curr) => {
@@ -23,10 +22,11 @@ function TotalPriceSection({ userBasket }: { userBasket: ProductCartType[] }) {
   const { user } = useGetMe();
   const { replace } = useRouter();
   const { addOrder, isOrderLoading } = useAddNewOrder();
+  const {showAlert} = useAlert();
   // payment
   const addOrderHandler = () => {
     if(user?.postCode ===0) {
-      toast.error("لطفا از داخل پنل کاربری کد پستی خود را ثبت کنید")
+      showAlert("error", "لطفا از داخل پنل کاربری کد پستی خود را ثبت کنید");
       return
     }
     addOrder(

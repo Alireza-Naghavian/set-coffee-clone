@@ -124,7 +124,7 @@ function SmallTicketTRow({ ticket }: { ticket: TicketType }) {
             <span>مشاهده / پاسخ:</span>
             <div className="flex justify-center items-center ">
               <button
-                // onClick={() => setIsReplyOpen(true)}
+                onClick={() => setIsReplyOpen(true)}
                 className="text-2xl text-blue-500"
               >
                 <ImReply />

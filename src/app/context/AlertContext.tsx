@@ -1,28 +1,32 @@
-"use client"
+"use client";
 import Alert from "@/components/UI/Alert/Alert";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 type AlertContexType = {
-  showAlert: (status: string, title: string) => void;
-  hideAlert: () => void;
+  showAlert: (status: string, title: string, duration?: number) => void;
 };
 const AlertContext = createContext<AlertContexType | undefined>(undefined);
 function AlertContextProvider({ children }: { children: ReactNode }) {
-  const [alert, setAlert] = useState<{ status: string; title: string } | null>(
-    null
-  );
-  const showAlert = (status: string, title: string) => {
-    setAlert({ status, title });
-  };
-
-  const hideAlert = () => {
-    setAlert(null);
+  const [alertData, setAlertData] = useState<{
+    status: string;
+    title: string;
+    show: boolean;
+  } >({ show: false, status: "", title: "" });
+  const showAlert = (
+    status: string,
+    title: string,
+    duration: number = 2000
+  ) => {
+    setAlertData({ status, title, show: true });
+    setTimeout(() => {
+      setAlertData({ ...alertData, show: false });
+    }, duration);
   };
   return (
-    <AlertContext.Provider value={{ showAlert, hideAlert }}>
+    <AlertContext.Provider value={{ showAlert }}>
       {children}
-      {alert && (
-        <Alert status={alert.status} title={alert.title} startShow={!!alert} />
-      )}
+   
+        <Alert status={alertData.status} title={alertData.title} startShow={alertData.show} />
+    
     </AlertContext.Provider>
   );
 }

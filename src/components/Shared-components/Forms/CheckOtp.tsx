@@ -1,4 +1,5 @@
 "use client";
+import { useAlert } from "@/app/context/AlertContext";
 import { useCustomQueryClient } from "@/app/context/QueryClientProvider";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
@@ -10,7 +11,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import OTPInput from "react-otp-input";
-import { toast } from "react-toastify";
 
 type CheckOtpType = {
   setIsCartOpen?: SetState<boolean>;
@@ -36,6 +36,7 @@ function CheckOtp({
   const { handleSubmit, reset } = useForm();
   const { signInWithOtp } = useSignInWithOtp();
   const QueryClient = useCustomQueryClient();
+  const {showAlert} = useAlert();
   const resendCodeHandler = async () => {
     try {
       await signInWithOtp(
@@ -47,7 +48,9 @@ function CheckOtp({
         }
       );
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+  
+      showAlert("error", error?.response?.data?.message);
+    
     }
   };
 
@@ -70,7 +73,7 @@ function CheckOtp({
         }
       );
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      showAlert("error", error?.response?.data?.message);
     }
   };
   return (

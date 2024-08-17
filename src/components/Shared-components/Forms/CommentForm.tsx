@@ -1,3 +1,4 @@
+import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import RateStar from "@/components/UI/RateStart/RateStar";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
@@ -7,7 +8,6 @@ import useAddNewComment from "@/hooks/product/useAddNewComment";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 export type SubmitCommentType = {
   score: number;
   commentBody: string;
@@ -16,20 +16,23 @@ export type SubmitCommentType = {
 function CommentForm({ productId }: { productId: string }) {
   const [score, setScore] = useState<number>(3);
   const queryclient = useQueryClient();
-  const {user}= useGetMe();
+  const { showAlert } = useAlert();
+  const { user } = useGetMe();
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm<SubmitCommentType>();
+
   const { isCommentSending, postComment } = useAddNewComment();
   const submitCommentHandler = async (
     data: Omit<SubmitCommentType, "productId">
   ) => {
-    if(!user){
-      toast.error("ابتدا وارد شوید/ثبت نام کنید")
-      return
+    if (!user) {
+      showAlert("error", "ابتدا ثبت نام کنید /وارد شوید.");
+
+      return;
     }
     postComment(
       { data: { ...data, score, productId } },
@@ -67,7 +70,7 @@ function CommentForm({ productId }: { productId: string }) {
             name="commentBody"
             register={register}
             validattionschema={{
-              required:{value:true,message:"دیدگاه نمی تواند خالی باشد"}
+              required: { value: true, message: "دیدگاه نمی تواند خالی باشد" },
             }}
             variant="borderFill"
             type="text"
@@ -75,7 +78,11 @@ function CommentForm({ productId }: { productId: string }) {
         </div>
         <div className="mt-4 max-w-[120px]  ">
           <MainBtn type="submit" size="small">
-          {isCommentSending ?  <Loader loadingCondition={isCommentSending}/> : "ثبت"}
+            {isCommentSending ? (
+              <Loader loadingCondition={isCommentSending} />
+            ) : (
+              "ثبت"
+            )}
           </MainBtn>
         </div>
       </form>

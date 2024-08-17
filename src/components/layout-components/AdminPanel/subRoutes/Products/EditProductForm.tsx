@@ -1,17 +1,17 @@
-import MainTextField from "@/components/UI/TextFiels/MainTextField";
-import React, { useState } from "react";
-import ProductEntityCounter from "./ProductEntityCounter";
+import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
-import { useForm } from "react-hook-form";
+import MainTextField from "@/components/UI/TextFiels/MainTextField";
+import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
+import useUpdateProduct from "@/hooks/product/useUpdateProduct";
+import { SingleProductType } from "@/types/models/categories.type";
 import { UpdateProductField } from "@/types/products.type";
 import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
-import useUpdateProduct from "@/hooks/product/useUpdateProduct";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { SingleProductType } from "@/types/models/categories.type";
-import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import ProductEntityCounter from "./ProductEntityCounter";
 type EditModlaType = {
   product: SingleProductType;
   setIsOpen: () => void;
@@ -35,6 +35,7 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
   });
   const [counter, setCounter] = useState(product.entities);
   const { refresh } = useRouter();
+  const {showAlert} = useAlert();
   const queryClient = useQueryClient();
   const { isProdUpdating, updateProduct } = useUpdateProduct();
   const updateHandler = async (data: UpdateProductField) => {
@@ -56,7 +57,9 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
         { productId: product._id, data: ProductData },
         {
           onSuccess: (data: any) => {
-            toast.success(data.message);
+           
+
+             showAlert("success",data.message)
             setIsOpen();
             queryClient.invalidateQueries({
               queryKey: ["product", product._id],
@@ -65,7 +68,8 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
           },
           onError: (err: any) => {
             setIsOpen();
-            toast.error(err?.response?.data?.message);
+           
+             showAlert("error",err?.response?.data?.message)
           },
         }
       );

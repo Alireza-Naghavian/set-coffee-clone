@@ -1,18 +1,19 @@
 "use client";
+import { useAlert } from "@/app/context/AlertContext";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useLogOut from "@/hooks/authHooks/useLogout";
 import { UserPanelAside } from "@/utils/constants";
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 function LinkList() {
   const Path = usePathname();
+  const { showAlert } = useAlert();
   const { user } = useGetMe();
   const { push } = useRouter();
   const { logout } = useLogOut();
   const logOutHandler = () => {
     logout();
-    toast.success("خروج موفقیت آمیز");
+    showAlert("success", "خروج موفقیت آمیز");
   };
   return (
     <>

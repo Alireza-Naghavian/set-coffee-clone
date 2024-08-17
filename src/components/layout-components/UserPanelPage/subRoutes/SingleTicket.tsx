@@ -59,7 +59,7 @@ const  SingleTicket :React.FC<ChildrenProps&{ticketId:string}> =({ticketId,child
           {concatMsgs.length > 0 &&
             concatMsgs.map((message: MessagesType, index: number) => {
               const isOwnMessage =
-                String(message.sender._id) === String(user._id);
+                String(message.sender._id) == String(user?._id ||"");
               return (
                 <div
                   key={index}

@@ -1,12 +1,13 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { signInUserWithEmail } from "@/services/users/userServices";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 const useSignInwithEmail = () => {
+  const { showAlert } = useAlert();
   const { isPending, mutateAsync: signIn } = useMutation({
     mutationFn: signInUserWithEmail,
- 
+
     onError: (err: any) => {
-      toast.error(err?.response?.data?.error?.message);
+      showAlert("error", err?.response?.data?.message);
     },
   });
   return { isPending, signIn };

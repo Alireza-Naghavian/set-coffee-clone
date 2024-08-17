@@ -11,6 +11,7 @@ import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import SelectModal from "../modals/SelectModal";
 import ReplyModal from "./ReplyModal";
+import { useRouter } from "next/navigation";
 
 type LgTRowType = {
   ticket: TicketType;
@@ -23,13 +24,14 @@ function LargeTicketTRow({ ticket, index }: LgTRowType) {
   const [isOpenTicket, setIsOpenTicket] = useState<boolean>(ticket.isOpen);
   const { isRemoveLoading, removeTicket } = useRemoveTicket();
   const { isUpdateLoading, updateTicketSt } = useUpdateTicketST();
-
+  const {refresh} = useRouter();
   const removeHandler = async () => {
     try {
       if (ticket._id === undefined) return;
       await removeTicket(ticket._id, {
         onSuccess: () => {
           setIsDeleteOpen(false);
+          refresh();
         },
         onError: () => {
           setIsDeleteOpen(false);

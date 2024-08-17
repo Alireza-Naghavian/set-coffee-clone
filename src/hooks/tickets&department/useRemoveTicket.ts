@@ -1,18 +1,19 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { deleteTicket } from "@/services/tickets&departments/ticketServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 const useRemoveTicket = () => {
   const queryClient = useQueryClient();
+  const { showAlert } = useAlert();
   const { mutateAsync: removeTicket, isPending: isRemoveLoading } = useMutation(
     {
       mutationFn: deleteTicket,
       onSuccess: (data: any) => {
-        toast.success(data?.message);
+        showAlert("success", data?.message);
         queryClient.invalidateQueries({ queryKey: ["allTickets"] });
       },
       onError: (err: any) => {
-        toast.error(err?.response?.data?.message);
+        showAlert("error", err?.response?.data?.message);
       },
     }
   );

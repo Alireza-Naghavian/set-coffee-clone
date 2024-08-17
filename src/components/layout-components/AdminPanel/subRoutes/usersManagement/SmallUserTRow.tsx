@@ -1,3 +1,4 @@
+import { useAlert } from "@/app/context/AlertContext";
 import Table from "@/components/UI/Table/Table";
 import useChangeRole from "@/hooks/authHooks/useChangeRole";
 import useGetMe from "@/hooks/authHooks/useGetMe";
@@ -8,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
 import DeleteModal from "../modals/DeleteModal";
 import SelectModal from "../modals/SelectModal";
 
@@ -23,6 +23,7 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
   }, [user?.role, replace]);
   const [role, setRole] = useState<string>(user.role);
   const { isRoleUpdate, updateRole } = useChangeRole();
+  const { showAlert } = useAlert();
   const roleHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -30,12 +31,12 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
         { userId: user?._id, data: { role } },
         {
           onSuccess: (data: any) => {
-            toast.success(data.message);
+            showAlert("success", data?.message);
             setIsRoleOpen(false);
           },
           onError: (err: any) => {
             setIsRoleOpen(false);
-            toast.error(err?.response?.data?.message);
+            showAlert("error", err?.response?.data?.message);
           },
         }
       );
@@ -49,11 +50,11 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
         { userId: userId },
         {
           onSuccess: (data: any) => {
-            toast.success(data?.message);
+            showAlert("success", data?.message);
             setIsDeleteOpen(false);
           },
           onError: (err: any) => {
-            toast.error(err?.response?.data?.message);
+            showAlert("error", err?.response?.data?.message);
             setIsDeleteOpen(false);
           },
         }
@@ -64,7 +65,7 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
   };
   return (
     <Table.Row
-    className="my-1 child:my-auto
+      className="my-1 child:my-auto
     !flex flex-col md:!hidden gap-y-1  h-full  w-full  bg-slate-200 px-4  border-b py-2"
       variant="singleHead"
     >
@@ -78,9 +79,8 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
             <MdDelete />
           </button>
         </span>
-       </td>
+      </td>
       <td className="flex flex-col w-full ">
-        
         <span
           className="flex flex-col gap-y-4  child:flex 
                 child:justify-between child:items-center child:w-full

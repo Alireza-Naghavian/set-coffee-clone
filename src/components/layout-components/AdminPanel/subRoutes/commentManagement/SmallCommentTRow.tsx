@@ -1,4 +1,7 @@
+import { useAlert } from "@/app/context/AlertContext";
 import Table from "@/components/UI/Table/Table";
+import useDeleteComment from "@/hooks/comments/useDeleteComment";
+import useEditCommentData from "@/hooks/comments/useEditCommentData";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { commentStatus } from "@/utils/constants";
 import Link from "next/link";
@@ -9,11 +12,8 @@ import { MdDelete, MdOutlineDownloadDone } from "react-icons/md";
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import SelectModal from "../modals/SelectModal";
-import ReplyModalForm from "./ReplyModalForm";
 import EditCommentForm from "./EditCommentForm";
-import useDeleteComment from "@/hooks/comments/useDeleteComment";
-import { toast } from "react-toastify";
-import useEditCommentData from "@/hooks/comments/useEditCommentData";
+import ReplyModalForm from "./ReplyModalForm";
 
 function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isStatusOpen, setIsStatusOpen] = useState(false);
@@ -23,17 +23,18 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [status, setStatus] = useState<boolean>(comment.isAccept);
   const { isRemoveLoading, removeComment } = useDeleteComment();
   const { editComment, isOperateLoading } = useEditCommentData();
+  const { showAlert } = useAlert();
   const removeHandler = async (identifier: string) => {
     if (comment._id === undefined) return;
     try {
       await removeComment(identifier, {
         onSuccess: (data: any) => {
-          toast.success(data.message);
+          showAlert("success", data.message);
           setIsDeleteOpen(false);
         },
         onError: (err: any) => {
+          showAlert("error", err?.reponse?.data?.message);
           setIsDeleteOpen(false);
-          toast.error(err?.reponse?.data?.message);
         },
       });
     } catch (error: any) {
@@ -74,16 +75,16 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
         </span>
         <span className="text-right flex  items-center my-auto gap-x-4  mr-auto !mb-4">
           <button
-             onClick={() => setIsDeleteOpen(true)}
+            onClick={() => setIsDeleteOpen(true)}
             className="  my-auto h-full text-3xl text-red-500   w-fit flex justify-center"
           >
             <MdDelete />
           </button>
           <button
-             onClick={() => setIsEditOpen(true)}
+            onClick={() => setIsEditOpen(true)}
             className="  my-auto h-full text-3xl text-blue-500   w-fit flex justify-center"
           >
-             <FaEdit />
+            <FaEdit />
           </button>
         </span>
       </td>

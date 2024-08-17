@@ -1,18 +1,19 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { AnswerComment } from "@/services/comments/commentsServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 const useAnswerComment = () => {
   const queryclient = useQueryClient();
+  const { showAlert } = useAlert();
   const { mutateAsync: answerComment, isPending: isAnswerLoading } =
     useMutation({
       mutationFn: AnswerComment,
       onSuccess: (data: any) => {
-        toast.success(data.message)
+        showAlert("success", data?.message);
         queryclient.invalidateQueries({ queryKey: ["allComments"] });
       },
       onError: (err: any) => {
-      toast.error(err?.response?.data?.message)
+        showAlert("error", err?.response?.data?.message);
       },
     });
   return { answerComment, isAnswerLoading };

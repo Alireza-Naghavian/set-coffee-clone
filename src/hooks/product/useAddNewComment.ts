@@ -1,16 +1,17 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { addCommentOnProduct } from "@/services/product/productServices";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 const useAddNewComment = () => {
+  const { showAlert } = useAlert();
   const { mutate: postComment, isPending: isCommentSending } = useMutation({
     mutationFn: addCommentOnProduct,
     onSuccess: (data) => {
-      toast.success(data?.message)
+      showAlert("success", data?.message);
     },
-    onError: (err:any) => {
-      toast.error(err?.response?.data?.error?.message);
-      toast.error(err?.response?.data?.message);
+    onError: (err: any) => {
+      showAlert("error", err?.response?.data?.error?.message);
+      showAlert("error", err?.response?.data?.message);
     },
   });
   return { postComment, isCommentSending };

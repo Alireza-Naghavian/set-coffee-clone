@@ -1,3 +1,4 @@
+import { useAlert } from "@/app/context/AlertContext";
 import Table from "@/components/UI/Table/Table";
 import useDeleteComment from "@/hooks/comments/useDeleteComment";
 import useEditCommentData from "@/hooks/comments/useEditCommentData";
@@ -8,7 +9,6 @@ import { FormEvent, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { ImReply } from "react-icons/im";
 import { MdDelete, MdOutlineDownloadDone } from "react-icons/md";
-import { toast } from "react-toastify";
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import SelectModal from "../modals/SelectModal";
@@ -21,6 +21,8 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [status, setStatus] = useState<boolean>(comment.isAccept);
   const { isRemoveLoading, removeComment } = useDeleteComment();
+  const {showAlert} = useAlert();
+ 
   const { editComment, isOperateLoading } = useEditCommentData();
   const statusHanlder = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,12 +48,13 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
     try {
       await removeComment(identifier, {
         onSuccess: (data: any) => {
-          toast.success(data.message);
+          showAlert("success",data.message)
           setIsDeleteOpen(false);
         },
         onError: (err: any) => {
           setIsDeleteOpen(false);
-          toast.error(err?.reponse?.data?.message);
+          showAlert("error",err?.reponse?.data?.message)
+     
         },
       });
     } catch (error: any) {

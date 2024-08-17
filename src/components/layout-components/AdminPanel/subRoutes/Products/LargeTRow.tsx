@@ -1,4 +1,5 @@
 "use client";
+import { useAlert } from "@/app/context/AlertContext";
 import Table from "@/components/UI/Table/Table";
 import useRemoveProduct from "@/hooks/product/useRemoveProduct";
 import { SingleProductType } from "@/types/models/categories.type";
@@ -7,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from "../modals/EditModal";
 import EditProductForm from "./EditProductForm";
@@ -16,17 +16,18 @@ function LargeTRow({ product }: { product: SingleProductType }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { refresh } = useRouter();
+  const { showAlert } = useAlert();
   const { isRemoveLoading, removeProduct } = useRemoveProduct();
   const removeHandler = (productId: string) => {
     removeProduct(productId, {
       onSuccess: (data: any) => {
-        toast.success(data.message);
+        showAlert("success", data.message);
         setIsDeleteOpen(false);
         refresh();
       },
       onError: (err: any) => {
         setIsDeleteOpen(false);
-        toast.error(err?.response?.data?.message);
+        showAlert("error", err?.response?.data?.message);
       },
     });
   };
@@ -84,7 +85,8 @@ function LargeTRow({ product }: { product: SingleProductType }) {
       <EditModal
         isOpen={isEditOpen}
         modalTitle="ویرایش محصول"
-        setIsOpen={() => setIsEditOpen(false)}>
+        setIsOpen={() => setIsEditOpen(false)}
+      >
         <EditProductForm
           product={product}
           setIsOpen={() => setIsEditOpen(false)}

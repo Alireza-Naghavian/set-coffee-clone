@@ -2,14 +2,12 @@
 import { ChildrenProps } from "@/types/global.type";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { createContext, useContext, useMemo } from "react";
-import { ToastProvider } from "./ToastContainerProvider";
-import { ToastContainer } from "react-toastify";
-import "@/app/ReactToastify.css"
+import AlertContextProvider from "./AlertContext";
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 *60 * 1000,
+        staleTime: 60 * 60 * 1000,
       },
     },
   });
@@ -18,7 +16,7 @@ function makeQueryClient() {
 let browserQueryClient: QueryClient | undefined = undefined;
 
 function getQueryClient() {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return makeQueryClient();
   } else {
     if (!browserQueryClient) browserQueryClient = makeQueryClient();
@@ -29,19 +27,19 @@ function getQueryClient() {
 //making new query client
 const QueryClientContext = createContext<QueryClient | undefined>(undefined);
 
-
-export const QueryClientProviderWrapper: React.FC<ChildrenProps> = ({ children }) => {
+export const QueryClientProviderWrapper: React.FC<ChildrenProps> = ({
+  children,
+}) => {
   const queryClient = useMemo(() => getQueryClient(), []);
 
   return (
     <QueryClientContext.Provider value={queryClient}>
-      <QueryClientProvider client={queryClient}>
-       
-
-        {children}
-      <ToastContainer rtl={true}  autoClose={1500}/>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      </QueryClientProvider>
+      <AlertContextProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        </QueryClientProvider>
+      </AlertContextProvider>
     </QueryClientContext.Provider>
   );
 };
@@ -50,8 +48,9 @@ export const QueryClientProviderWrapper: React.FC<ChildrenProps> = ({ children }
 export const useCustomQueryClient = () => {
   const context = useContext(QueryClientContext);
   if (!context) {
-    throw new Error('useCustomQueryClient must be used within a QueryClientProviderWrapper');
+    throw new Error(
+      "useCustomQueryClient must be used within a QueryClientProviderWrapper"
+    );
   }
   return context;
 };
-

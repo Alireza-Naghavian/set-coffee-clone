@@ -1,15 +1,16 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { checkOtpCode } from "@/services/users/userServices";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 const useCheckOtpCode = () => {
+  const { showAlert } = useAlert();
   const { isPending, mutateAsync: checkOtp } = useMutation({
     mutationFn: checkOtpCode,
     onSuccess: (data: any) => {
-      toast.success(data?.message);
+      showAlert("success", data?.message);
     },
     onError: (err: any) => {
-      toast.error(err?.response?.data?.error?.message);
+      showAlert("error", err?.response?.data?.message);
     },
   });
   return { isPending, checkOtp };

@@ -1,17 +1,18 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { signUpUser } from "@/services/users/userServices";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 const useSignUpUser = () => {
-  const {isPending:isSignUpLoading,mutateAsync:signUp} = useMutation({
+  const { showAlert } = useAlert();
+  const { isPending: isSignUpLoading, mutateAsync: signUp } = useMutation({
     mutationFn: signUpUser,
     onSuccess: (data: any) => {
-      toast.success(data?.message);
+      showAlert("success", data?.message);
     },
     onError: (err: any) => {
-      toast.error(err?.response?.data?.error?.message);
+      showAlert("error", err?.response?.data?.message);
     },
   });
-  return {isSignUpLoading,signUp}
+  return { isSignUpLoading, signUp };
 };
-export default useSignUpUser
+export default useSignUpUser;
