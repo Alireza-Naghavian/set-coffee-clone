@@ -16,6 +16,7 @@ import { IoDocument, IoMenu } from "react-icons/io5";
 import { MdManageAccounts, MdOutlineWavingHand, MdSms } from "react-icons/md";
 import LogoutBtn from "../UserPanelPage/subRoutes/LogoutBtn";
 import styles from "./adminPanel.module.css";
+import { FaListUl } from "react-icons/fa";
 type AdminPanelType = {
   children: React.ReactNode;
   user: GetMetype;
@@ -47,7 +48,10 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
           {/* link list */}
           <ul className={styles.Sidbar_list}>
             <NavItem targetLink="/p-admin" icon={<ImReply />} label="پیشخوان" />
-            <DropDown className=" gap-x-2 py-0 hover:!bg-transparent" bgColor="bg-transparent" activeBg="bg-transparent px-2" icon={<FaShoppingBag className=""/>} isMenuOpen={isOpen} label="محصولات">
+            <DropDown className=" gap-x-2 py-0 hover:!bg-transparent" 
+            bgColor="bg-transparent" activeBg="bg-transparent px-2"
+             icon={<FaShoppingBag className=""/>} isMenuOpen={isOpen}
+              label="محصولات">
             <div className=" flex flex-col gap-y-8  child-hover:bg-transparent py-2 hover:bg-main_brown">
 
             <div className="child:mr-3 child:text-base flex flex-col gap-y-2 child:mt-2 child-hover:bg-transparent">
@@ -79,11 +83,26 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
               icon={<HiTicket />}
               label="تیکت ها"
             />
+              <DropDown className=" gap-x-2 py-0 hover:!bg-transparent" 
+            bgColor="bg-transparent" activeBg="bg-transparent px-2"
+             icon={<BiSolidOffer className="text-2xl"/>} isMenuOpen={isOpen}
+              label="تخفیفات">
+            <div className=" flex flex-col gap-y-8  child-hover:bg-transparent py-2 hover:bg-main_brown">
+
+            <div className="child:mr-3 child:text-base flex flex-col gap-y-2 child:mt-2 child-hover:bg-transparent">
             <NavItem
-              targetLink="/p-admin/offers"
-              icon={<BiSolidOffer />}
-              label="تخفیفات"
-            />
+              targetLink="/p-admin/offers/create"
+              icon={<FaPlus/>}
+              label="افزودن کد تخفیف"
+              />
+            <NavItem
+              targetLink="/p-admin/offers/list"
+              icon={<FaListUl />}
+              label="لیست کد ها"
+              />
+            </div>
+              </div>
+            </DropDown>
             <NavItem
               targetLink="/p-admin/blogs"
               icon={<IoDocument />}

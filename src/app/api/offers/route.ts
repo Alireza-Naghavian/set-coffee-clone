@@ -48,7 +48,7 @@ export const GET = async () => {
         { status: 404 }
       );
 
-    return Response.json({ offerCodes }, { status: 200 });
+    return Response.json( offerCodes , { status: 200 });
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
