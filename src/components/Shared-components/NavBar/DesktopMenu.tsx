@@ -113,7 +113,7 @@ function DesktopMenu({
               additionalClass="text-lg w-5 h-5 flex-center bg-main_brown 
           text-white rounded-full absolute -top-[5px] -left-[4px]"
             >
-              {userBasket?.length.toLocaleString("fa-Ir")}
+              {userBasket ? userBasket?.length.toLocaleString("fa-Ir"):"۰"}
             </Badge>
             <AiOutlineShoppingCart className="cursor-pointer" size={28} />
           </div>
@@ -137,7 +137,7 @@ function DesktopMenu({
         >
           <SideBarBasket
             basketLoading={basketLoading}
-            getCart={userBasket}
+            getCart={userBasket ?? []}
             setIsCartOpen={setIsDesktopCartOpen}
           />
         </aside>

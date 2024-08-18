@@ -21,7 +21,7 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { addToWishList } = useAddToWishList();
   const { addToBasket } = useAddToBasket();
-  const { showAlert, hideAlert } = useAlert();
+  const { showAlert } = useAlert();
   const [isQAcessOpen,{open,close}] = useDisclosure();
   useEffect(() => {
     if (productData._id === undefined) return;
@@ -44,21 +44,20 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
   };
   const addToCartHandler = useCallback(() => {
     setIsLoading(true);
-    showAlert("success", "محصول به سبد خرید افزوده شد");
     const timeOut = setTimeout(async () => {
       await addToBasket(
         { product: newItem, value: "setCoffeeBasket", counter: 1 },
         {
           onSuccess: () => {
+            showAlert("success", "محصول به سبد خرید افزوده شد");
             setIsLoading(false);
-            hideAlert();
           },
         }
       );
     }, 2000);
 
     return () => clearTimeout(timeOut);
-  }, [hideAlert, newItem, showAlert, addToBasket]);
+  }, [ newItem, showAlert, addToBasket]);
 
   return (
     <>

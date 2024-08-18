@@ -4,7 +4,6 @@ import Loader from "@/components/UI/loader/Loader";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useAddNewOrder from "@/hooks/orders/useAddNewOrder";
 import { ProductCartType } from "@/types/products.type";
-import { useRouter } from "next/navigation";
 import styles from "../Cart.module.css";
 
 function TotalPriceSection({ userBasket }: { userBasket: ProductCartType[] }) {
@@ -20,7 +19,6 @@ function TotalPriceSection({ userBasket }: { userBasket: ProductCartType[] }) {
   const taxPerBasket = totalBaketPrice * VATRate;
   const finalPayPrice = totalBaketPrice + taxPerBasket;
   const { user } = useGetMe();
-  const { replace } = useRouter();
   const { addOrder, isOrderLoading } = useAddNewOrder();
   const {showAlert} = useAlert();
   // payment
@@ -41,7 +39,7 @@ function TotalPriceSection({ userBasket }: { userBasket: ProductCartType[] }) {
       },
       {
         onSuccess: () => {
-          replace("/my-account/orders");
+          location.replace("/my-account/orders")
         },
       }
     );

@@ -7,8 +7,9 @@ import { ProductCounter } from "../ProductTable/ProductTable";
 export type TRowType = {
   removeHandler:(product:ProductCartType)=>void
   product:ProductCartType
+  lockCounter:boolean
 }
-function LgTRow({product,removeHandler}:TRowType) {
+function LgTRow({product,removeHandler,lockCounter}:TRowType) {
   return (
     <Table.Row
       variant="singleHead"
@@ -45,7 +46,7 @@ function LgTRow({product,removeHandler}:TRowType) {
         </span>
       </td>
       <td className="!mr-4">
-        <ProductCounter  product={product}  />
+        <ProductCounter lockCounter={lockCounter}  product={product}  />
       </td>
       <td className="!mr-4 !flex xl:flex-row  lg:flex-col md:flex-col flow-row">
         <span>{(product.price * product.count).toLocaleString("fa-Ir")}</span>

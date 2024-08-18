@@ -49,7 +49,7 @@ function MobileMenu({ user, userLoading }: MobileMenuType) {
           isCartOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
-        <SideBarBasket getCart={userBasket} setIsCartOpen={setIsCartOpen} />
+        <SideBarBasket getCart={userBasket ??[]} setIsCartOpen={setIsCartOpen} />
       </aside>
       <div className="lg:hidden grid grid-cols-4 h-full ">
         <div className="flex sm:pr-8 pr-4 my-auto">
@@ -69,7 +69,7 @@ function MobileMenu({ user, userLoading }: MobileMenuType) {
             additionalClass="text-sm w-4 h-4 flex-center bg-main_brown 
           text-white rounded-full absolute -top-[5px] "
           >
-            {userBasket?.length.toLocaleString("fa-Ir")}
+        {userBasket ? userBasket?.length.toLocaleString("fa-Ir"):"۰"}
           </Badge>
           <AiOutlineShoppingCart
             className="text-2xl sm:text-4xl cursor-pointer"

@@ -11,6 +11,8 @@ const useAddNewOrder = () => {
       showAlert("success", data?.message);
       localStorage.removeItem("setCoffeeBasket");
       queryClient.invalidateQueries({ queryKey: ["userBasket"] });
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["product"] });
       queryClient.invalidateQueries({ queryKey: ["orders"] });
     },
     onError: (err: any) => {

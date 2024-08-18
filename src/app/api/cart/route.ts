@@ -32,7 +32,7 @@ export const POST = async (req: Request) => {
         },
         { status: 422 }
       );
-    if (!postCode || !cart.length || !totalItem || !totalPrice || !user) {
+    if (!postCode || !cart.length || !totalItem || !user) {
       return Response.json(
         { message: "لطفا اطلاعات را به صورت کامل وارد کنید" },
         { status: 422 }

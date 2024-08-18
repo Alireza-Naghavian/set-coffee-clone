@@ -6,7 +6,7 @@ import useGetAllOffers from "@/hooks/offers/useGetAllOffers";
 import { OfferModelType } from "@/types/models/offers.type";
 import dynamic from "next/dynamic";
 import React from "react";
-import { HiTicket } from "react-icons/hi2";
+import { BiSolidOffer } from "react-icons/bi";
 import LargeOfferTRow from "./LargeOfferTRow";
 import SmallOfferTRow from "./SmallOfferTRow";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
@@ -41,10 +41,10 @@ function OffersTable() {
           )
         ) : (
           <EmptyResult
-            icon={<HiTicket />}
-            firstDesc="هنوز هیچ تیکتی توسط کاربر ثبت نشده است"
+            icon={<BiSolidOffer />}
+            firstDesc="هنوز هیچ  کد تخفیفی  ثبت نشده است"
             secondDesc=""
-            title="تیکت وجود ندارد"
+            title="کد تخفیف وجود ندارد"
             addressLink={false}
           />
         )}

@@ -17,6 +17,13 @@ export const POST = async (req: Request) => {
     const reqBody: OfferModelType = await req.json();
     const { code, maxUsage, percent } = reqBody;
     await offerSchema.validateAsync(reqBody);
+    const isCodeExist = await OfferModel.findOne({ code: code });
+    if (isCodeExist) {
+      return Response.json(
+        { message: "این کد قبلا ثبت شده است" },
+        { status: 403 }
+      );
+    }
     await OfferModel.create({ code, maxUsage, percent });
     return Response.json(
       { message: "کد تخفیف با موفقیت ایجاد شد" },
@@ -48,8 +55,42 @@ export const GET = async () => {
         { status: 404 }
       );
 
-    return Response.json( offerCodes , { status: 200 });
+    return Response.json(offerCodes, { status: 200 });
   } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
+export const PATCH = async (req: Request) => {
+  try {
+    await dbConnection();
+    const reqBody = await req.json();
+    const { code } = reqBody;
+
+    const offer = await OfferModel.findOne({ code: code });
+    if (!offer) {
+      return Response.json({ message: "کد تخفیف معتبر نیست" }, { status: 404 });
+    }
+    if (offer.uses >= offer.maxUsage) {
+      return Response.json(
+        { message: "تعداد دفعات استفاده بیش از حد مجاز رسیده است" },
+        { status: 403 }
+      );
+    }
+
+    const newOfferData = await OfferModel.findOneAndUpdate(
+      { code: code },
+      { $set: { uses: offer.uses + 1 } }
+    );
+
+    return Response.json(
+      { message: "کد تخفیف با موفقیت اعمال شد", data: newOfferData },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

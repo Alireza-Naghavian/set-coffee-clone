@@ -5,7 +5,7 @@ import { IoIosClose } from 'react-icons/io'
 import { TRowType } from '../LgTRow/LgTRow'
 import { ProductCounter } from '../ProductTable/ProductTable'
 
-function SmTRow({product,removeHandler}:TRowType) {
+function SmTRow({product,removeHandler,lockCounter}:TRowType) {
   return (
     <Table.Row
     variant="singleHead"
@@ -50,7 +50,7 @@ function SmTRow({product,removeHandler}:TRowType) {
         <th className="">
           <span>تعداد:</span>
           <span>
-            <ProductCounter  product={product}  />
+            <ProductCounter  lockCounter={lockCounter} product={product}  />
           </span>
         </th>
         <th className="!border-b-0">

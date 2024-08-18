@@ -1,17 +1,20 @@
 import { ProductCartType } from "@/types/products.type";
+import { decryptData, encryptData } from "@/utils/auth/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 type RemoveType = {
     key: string, value: ProductCartType
 }
  const RemoveFromBasket = async({key, value}:RemoveType) => {
     const storedData: string | null = localStorage.getItem(key);
-    const getData: ProductCartType[] = storedData ? JSON.parse(storedData) : [];
+    const getData:ProductCartType[] = storedData ? decryptData(storedData) ?? [] : [];
     const dataIndex = getData.findIndex((data: ProductCartType) => {
       return data._id === value._id;
     });
     if (dataIndex !== -1) {
       getData.splice(dataIndex, 1);
-      localStorage.setItem(key, JSON.stringify(getData));
+      const encyptedData = encryptData(getData)
+      if(encyptedData)
+      localStorage.setItem(key, encyptedData);
     }
   };
 const useRemoveFromBasket = ()=>{

@@ -11,3 +11,6 @@ export const getAllOffers = async () => {
 export const removeOfferCode = async (offerId: string) => {
   return api.delete(`/offers/${offerId}`).then((response) => response.data);
 };
+export const useOfferCode = async ({code}:{code:string})=>{
+  return api.patch(`/offers`,{code}).then((response)=>response.data)
+}

@@ -1,3 +1,5 @@
+import { ProductCartType } from "@/types/products.type";
+import { decryptData } from "@/utils/auth/auth";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetBasketData = ()=>{
@@ -6,7 +8,11 @@ const useGetBasketData = ()=>{
         queryKey:["userBasket"],
         queryFn:async()=>{
             const storedData = localStorage.getItem("setCoffeeBasket");
-            return JSON.parse(storedData || "[]")
+            if(storedData){
+                const decryptedData = decryptData(storedData)
+
+                return decryptedData as ProductCartType[]
+            }
         }
     })
     return {userBasket,basketLoading}
