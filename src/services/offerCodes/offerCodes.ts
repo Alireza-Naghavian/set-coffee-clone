@@ -8,3 +8,6 @@ export const createNewOffCode = async ({ data }: { data: OfferModelType }) => {
 export const getAllOffers = async () => {
   return api.get("/offers").then((response) => response.data);
 };
+export const removeOfferCode = async (offerId: string) => {
+  return api.delete(`/offers/${offerId}`).then((response) => response.data);
+};

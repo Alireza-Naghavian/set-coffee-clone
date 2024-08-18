@@ -3,4 +3,5 @@ export type OfferModelType ={
     percent:number,
     maxUsage:number,
     uses?:number,
+    _id?:string
 }

@@ -1,9 +1,28 @@
 import Table from '@/components/UI/Table/Table'
+import useRemoveOfferCode from '@/hooks/offers/useRemoveOfferCode';
 import { OfferModelType } from '@/types/models/offers.type'
-import React from 'react'
+import React, { useState } from 'react'
 import { MdDelete } from 'react-icons/md'
+import DeleteModal from '../modals/DeleteModal';
 
 function SmallOfferTRow({offer}:{offer:OfferModelType}) {
+  const { isRemoveLoading, removeOffer } = useRemoveOfferCode();
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const removeHandler = async () => {
+    try {
+      if (offer._id === undefined) return;
+      await removeOffer(offer._id, {
+        onSuccess: () => {
+          setIsDeleteOpen(false);
+        },
+        onError: () => {
+          setIsDeleteOpen(false);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Table.Row
     className="my-1 child:my-auto
@@ -14,7 +33,7 @@ function SmallOfferTRow({offer}:{offer:OfferModelType}) {
       <span className="font-Shabnam_M "> {offer.code}</span>
       <span className="text-right flex justify-between items-center my-auto gap-x-2  !mb-2">
         <button
-        //   onClick={() => setIsDeleteOpen(true)}
+          onClick={() => setIsDeleteOpen(true)}
           className="mr-auto  my-auto h-full text-2xl text-red-500   w-fit flex justify-center"
         >
           <MdDelete />
@@ -48,16 +67,16 @@ function SmallOfferTRow({offer}:{offer:OfferModelType}) {
       </span>
     </td>
    
-    {/* {user._id !== undefined && (
-      <DeleteModal
-        identifier={user._id}
-        isDeleteOpen={isDeleteOpen}
-        setIsDeleteOpen={() => setIsDeleteOpen(false)}
-        isLoading={isRemoveLoading}
-        removeHandler={removeHandler}
-        subjectTitle={"کاربر"}
-      />
-    )} */}
+    {offer._id !== undefined && (
+        <DeleteModal
+          identifier={offer._id}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          isLoading={isRemoveLoading}
+          removeHandler={removeHandler}
+          subjectTitle={"کد تخفیف"}
+        />
+      )}
   </Table.Row>
   )
 }
