@@ -5,6 +5,7 @@ import dataParser from "@/utils/dataParser/dataParser";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 import ProductModel from "@/models/categories&products/product";
 import { Suspense } from "react";
+export const revalidate =1800;
 async function MainShop() {
   await dbConnection();
   const allCategories = await CategoryModel.aggregate([

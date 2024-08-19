@@ -10,6 +10,7 @@ const useAddNewProduct = () => {
     onSuccess: (data: any) => {
       showAlert("success", data?.message);
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["product"] });
     },
     onError: (err: any) => {
       showAlert("error", err?.response?.data?.message);

@@ -2,7 +2,7 @@ import HomePageLayout from "@/components/layout-components/HomePage/HomePageLayo
 import dbConnection from "@/dbConfigs/db";
 import CategoryModel from "@/models/categories&products/categories";
 import dataParser from "@/utils/dataParser/dataParser";
-
+export const revalidate =1800;
 export default async function Home() {
   await dbConnection();
   const sortedCategories = await CategoryModel.aggregate([
