@@ -1,19 +1,17 @@
 import dbConnection from "@/dbConfigs/db";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin } from "@/utils/auth/authHelper";
 export const dynamic = "force-dynamic";
 export const GET = async () => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
+   const isAdmin =  await authAdmin();
+
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
-    await ProductModel.findOne({},"")
+    await ProductModel.findOne({},"_id")
     const allComments = await CommentModel.find({}, "-__v").populate("productData","title").lean();
     return Response.json({ allComments });
   } catch (error) {

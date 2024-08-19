@@ -4,7 +4,7 @@ import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import { CommentModeltype } from "@/types/models/comment.type";
 import { MessagesType } from "@/types/models/ticket.type";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin, getUser } from "@/utils/auth/authHelper";
 import { commentSchema } from "@/utils/validator/comments/commentsValidator";
 import { isValidObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
@@ -82,12 +82,9 @@ export const POST = async (req: Request, { params }: Params) => {
 export const GET = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     const { id } = params;
     if (!isValidObjectId(id))
@@ -108,12 +105,9 @@ export const GET = async (req: Request, { params }: Params) => {
 export const DELETE = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     const { id } = params;
     if (!isValidObjectId(id))
@@ -137,12 +131,9 @@ export const DELETE = async (req: Request, { params }: Params) => {
 export const PATCH = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     const { id } = params;
     if (!isValidObjectId(id))

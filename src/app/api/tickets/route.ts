@@ -3,7 +3,7 @@ import DeptModel from "@/models/department/department";
 import TicketModel from "@/models/tickets/ticket";
 import UserModel from "@/models/user/user";
 import { TicketType } from "@/types/models/ticket.type";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin, getUser } from "@/utils/auth/authHelper";
 import { TicketSchema } from "@/utils/validator/tickets/ticketValidator";
 
 export const POST = async (req: Request) => {
@@ -51,12 +51,9 @@ export const POST = async (req: Request) => {
 export const GET = async () => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     await DeptModel.findOne({},"_id").limit(1)
     await UserModel.findOne({},"_id").limit(1)

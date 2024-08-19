@@ -1,17 +1,14 @@
 import dbConnection from "@/dbConfigs/db";
 import CartModel from "@/models/cart/cart";
 import UserModel from "@/models/user/user";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin } from "@/utils/auth/authHelper";
 export const dynamic = "force-dynamic";
 export const GET = async () => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user?.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید!" },
-        { status: 422 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     await CartModel.findOne({}, "_id").limit(1);
 

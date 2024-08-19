@@ -1,23 +1,21 @@
 import dbConnection from "@/dbConfigs/db";
-import CommentModel from "@/models/comment/comment";
+import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
+import CommentModel from "@/models/comment/comment";
+import { SingleProductType } from "@/types/models/categories.type";
+import { authAdmin } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
+import { revalidatePath } from "next/cache";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { notFound } from "next/navigation";
-import { getUser } from "@/utils/auth/authHelper";
-import CategoryModel from "@/models/categories&products/categories";
-import { revalidatePath } from "next/cache";
-import { SingleProductType } from "@/types/models/categories.type";
 
 export const DELETE = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN")
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید" },
-        { status: 422 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+    }
     const { productId } = params;
     if (!isValidObjectId(productId))
       return Response.json(
@@ -50,14 +48,10 @@ export const DELETE = async (req: Request, { params }: Params) => {
 export const POST = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user?.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید" },
-        { status: 422 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
-
     const { productId } = params;
     if (!isValidObjectId(productId))
       return Response.json(

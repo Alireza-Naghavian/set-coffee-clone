@@ -1,7 +1,7 @@
 import dbConnection from "@/dbConfigs/db";
 import TicketModel from "@/models/tickets/ticket";
 import { MessagesType } from "@/types/models/ticket.type";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { notFound } from "next/navigation";
@@ -69,13 +69,10 @@ export const DELETE = async (req: Request, { params }: Params) => {
         { message: "شناسه تیکت معتبر نمیباشد" },
         { status: 404 }
       );
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
-    }
+      const isAdmin =  await authAdmin();
+      if (!isAdmin) {
+        return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+      }
     await TicketModel.findOneAndDelete({ _id: ticketId });
     return Response.json(
       { message: "تیکت مورد نظر حذف گردید" },
@@ -98,13 +95,10 @@ export const PATCH = async (req: Request, { params }: Params) => {
         { message: "شناسه تیکت معتبر نمیباشد" },
         { status: 404 }
       );
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
-    }
+      const isAdmin =  await authAdmin();
+      if (!isAdmin) {
+        return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+      }
     const reqBody = await req.json();
     const { isPending, isAnswered, isOpen } = reqBody;
     const ticket = await TicketModel.findOne({ _id: ticketId });

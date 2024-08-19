@@ -1,7 +1,7 @@
 import dbConnection from "@/dbConfigs/db";
 import TicketModel from "@/models/tickets/ticket";
 import { MessagesType } from "@/types/models/ticket.type";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { notFound } from "next/navigation";
@@ -9,12 +9,9 @@ import { notFound } from "next/navigation";
 export const POST = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     const { ticketId } = params;
     if (!isValidObjectId(ticketId)) return notFound();

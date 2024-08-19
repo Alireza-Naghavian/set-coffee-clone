@@ -1,18 +1,16 @@
 import dbConnection from "@/dbConfigs/db";
 import UserModel from "@/models/user/user";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 export const POST = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user?.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید!" },
-        { status: 422 }
-      );
+    const isAdmin =  await authAdmin();
+
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     const reqBody = await req.json();
     const { role }: { role: string } = reqBody;
@@ -38,12 +36,9 @@ export const POST = async (req: Request, { params }: Params) => {
 export const DELETE = async(req:Request,{params}:Params)=>{
   try {
     await dbConnection();
-    const user = await getUser();
-    if (user?.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید!" },
-        { status: 422 }
-      );
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
     }
     const { userId } = params;
     if (!isValidObjectId(userId))
