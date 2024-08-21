@@ -41,4 +41,8 @@ export const blogSchema = Joi.object().keys({
         "  محتوای مقاله معتبر نمی‌باشد (حداقل ۱۰ کاراکتر)"
       )
     ),
+    provider: Joi.string()
+    .required()
+    .messages(createErrorMessage("نویسنده مقاله", 1, Infinity))
+    .error(createHttpError.BadRequest("نویسنده مقاله معتبر نمی‌باشد")),
 });

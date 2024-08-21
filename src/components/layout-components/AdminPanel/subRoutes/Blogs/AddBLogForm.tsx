@@ -1,8 +1,12 @@
 "use client";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
+import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
 import TextEditor from "@/components/Utils-components/TextEditor/TextEditor";
+import useGetMe from "@/hooks/authHooks/useGetMe";
+import useAddBlog from "@/hooks/blogs/useAddBlog";
+import { MainBlogType } from "@/types/blog.type";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -11,10 +15,28 @@ function AddBLogForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid, dirtyFields },
-  } = useForm({ mode: "onChange" });
+  } = useForm<MainBlogType>({ mode: "onChange" });
+  const { user } = useGetMe();
+  const { addBlog, isAddLoading } = useAddBlog();
+  const addBlogHandler = async (data: MainBlogType) => {
+    try {
+      const blogData = {...data,longDesc,provider:user._id}
+      await addBlog({data:blogData},{
+        onSuccess:()=>{
+          reset();
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <form className=" w-full space-y-4  py-10 px-2  lg:h-[480px]  overflow-y-auto">
+    <form
+      onSubmit={handleSubmit(addBlogHandler)}
+      className=" w-full space-y-4  py-10 px-2  lg:h-[480px]  overflow-y-auto"
+    >
       <div className="grid sm:grid-cols-2 w-full sm:gap-y-0 gap-y-4 gap-x-6 ">
         <MainTextField
           register={register}
@@ -90,8 +112,7 @@ function AddBLogForm() {
               : "opacity-100"
           }`}
         >
-          افرودن
-          {/* {isAddLoading ? <Loader loadingCondition={isAddLoading}/> : "افزودن"} */}
+          {isAddLoading ? <Loader loadingCondition={isAddLoading} /> : "افزودن"}
         </MainBtn>
       </div>
     </form>
