@@ -1,3 +1,4 @@
+import { Url } from "next/dist/shared/lib/router/router";
 import { GetMetype } from "./auth.type";
 
 export type BlogsCard = {
@@ -5,7 +6,8 @@ export type BlogsCard = {
   title: string;
   shortDesc: string;
 };
-export type MainBlogType = Pick<BlogsCard, "cover" | "shortDesc" | "title"> & {
+export type MainBlogType = Pick<BlogsCard, "shortDesc" | "title"> & {
   longDesc: string;
   provider: GetMetype;
+  cover:Url
 };
