@@ -10,4 +10,6 @@ export type MainBlogType = Pick<BlogsCard, "shortDesc" | "title"> & {
   longDesc: string;
   provider: GetMetype;
   cover:Url
+  createdAt?:Date
+  _id?:string
 };
