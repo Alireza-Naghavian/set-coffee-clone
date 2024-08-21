@@ -1,48 +1,38 @@
 import { SetState } from "@/types/global.type";
-import { CommentModeltype } from "@/types/models/comment.type";
 import React from "react";
-type TabSelectionType = {
-  comments: string;
-  moreDetail: string;
-  desc: string;
+export type TabSelectionType = {
   setActiveTab: SetState<string>;
   children: React.ReactNode;
   activeTab: string;
-  filterAcceptableComments:CommentModeltype[]|[]
+  options:{label:string,value:string,optionalItem?:any}[];
+  optionalValue?:any
+  wrapperClassName?:string
+  btnClassName?:string
 };
 function TabSelection({
-  desc,
-  moreDetail,
-  comments,
   setActiveTab,
+  options,
   children,
   activeTab,
-  filterAcceptableComments
+  optionalValue,
+  wrapperClassName,
+  btnClassName
 }: TabSelectionType) {
   return (
     <div className="relative !w-[90%] mx-auto ">
       {/* tab header */}
       <div
-        className="flex-center gap-x-8 sm:!gap-x-16 border-b-2
-       w-full pb-2 child:font-Shabnam_B child:text-[#777777] sm:text-base  text-sm">
-        <button
-          className={` !bg-white focus:outline-none  ${activeTab == desc && "!text-main_green"}`}
-          onClick={() => setActiveTab(desc)}>
-          توضیحات
-        </button>
-        <button
-          className={`!bg-white focus:outline-none  text-nowrap ${activeTab == moreDetail && "!text-main_green"}`}
-          onClick={() => setActiveTab(moreDetail)}>
-          اطلاعات بیشتر
-        </button>
-        <button
-          className={`!bg-white focus:outline-none  ${activeTab == comments && "!text-main_green"}`}
-          onClick={() => setActiveTab(comments)}>
-          <span> نظرات </span>
-          <span>({filterAcceptableComments?.length.toLocaleString("fa-Ir")})</span>
-        </button>
+        className={`flex-center gap-x-8 sm:!gap-x-16 border-b-2
+       w-full pb-2 child:font-Shabnam_B child:text-[#777777] sm:text-base  text-sm ${wrapperClassName}`}>
+         {options.map((option,index:number)=>{
+        return   <button key={index}
+        className={` !bg-white focus:outline-none ${btnClassName}  ${activeTab == option.value && "!text-main_green"}`}
+        onClick={() => setActiveTab(option.value)}>
+        {option.label}
+        {option.optionalItem ? <span className="pr-1">({optionalValue})</span>:null}
+      </button>
+      })}
       </div>
-      {/* this part must be reponse in many mediaQueries */}
       <div className="">{children}</div>
     </div>
   );

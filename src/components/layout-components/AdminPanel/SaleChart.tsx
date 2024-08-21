@@ -2,6 +2,7 @@
 import { CartType } from "@/types/models/cart.type";
 import { SingleProductType } from "@/types/models/categories.type";
 import { ProductCartType } from "@/types/products.type";
+import formatNumber from "@/utils/convertors/toIrString";
 import {
   Bar,
   BarChart,
@@ -52,71 +53,71 @@ function SaleChart({ allOrders }: { allOrders: CartType[] }) {
     ...formattedSalesData.map((data: any) => data.فروش)
   );
   const YAxisMax = maxSales + 1_000_000;
-  const formatNumber = (number: number | string) =>
-    number.toLocaleString("fa-IR");
+
 
   return (
-      <div className="w-full bg-main_brown/5
-       flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 items-center 
-        py-4 ">
-        <div className="flex flex-col gap-y-4 px-4 justify-start  items-start h-full mt-12">
-          <div className="font-Shabnam_B text-gray-100 rounded-md bg-main_brown/55 p-2 flex items-start  gap-x-2 ">
-            <span className="">پرفروش ترین ماه :</span>
-            <span>
-              {bestSalesMonth[0].createdAt !== undefined &&
-                new Date(bestSalesMonth[0].createdAt).toLocaleDateString("fa-Ir")}
-            </span>
-          </div>
-          <div className="font-Shabnam_B text-gray-100 w-[300px] leading-7 rounded-md bg-main_green/55 p-2 flex flex-col gap-y-4 items-start  gap-x-2 ">
-            <p className="">
-            <span className="">پرفروش ترین محصول:</span>
-            <span className="line-clamp-2">
-                {mostPopularProduct.title}
-            </span>
-            </p>
-            <p className="">
-            <span className="">شناسه:&nbsp;{mostPopularProduct._id}</span>
-            </p>
-            <p className="">
-            <span className="">سفارش ثبت شده:&nbsp; {mostPopularProduct.count.toLocaleString("fa-Ir")} عدد</span>
-            </p>
-          </div>
+    <div
+      className="w-full bg-main_brown/5 px-2
+       flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 items-center sm:items-start overflow-x-hidden
+        py-4 "
+    >
+      <div className="flex flex-col gap-y-4 sm:px-4 justify-start  items-start h-full mt-12">
+        <div className="font-Shabnam_B text-gray-100 rounded-md  bg-main_brown/55 p-2 flex items-start  gap-x-2 ">
+          <span className="">پرفروش ترین ماه :</span>
+          <span>
+            {bestSalesMonth[0].createdAt !== undefined &&
+              new Date(bestSalesMonth[0].createdAt).toLocaleDateString("fa-Ir")}
+          </span>
         </div>
-        <ResponsiveContainer className="!h-[400px] !w-[85%]   px-4 !flex !justify-start">
-          <BarChart width={850} height={40} data={formattedSalesData}>
-            <CartesianGrid strokeDasharray=".1 .1" />
-            <XAxis
-              dataKey="تاریخ"
-              tickFormatter={formatNumber}
-              style={{ marginRight: "auto" }}
-            />
-            <YAxis
-dx={-45}
-    domain={[0, YAxisMax]}
-                
-     fontSize={"13px"}
-              tickFormatter={formatNumber}
-            />
-            <Tooltip formatter={(value: any) => formatNumber(value)} />
-            <Legend formatter={(value) => formatNumber(value)} />
-            <Bar
-              dataKey={"تعداد_فروش"}
-              stroke="#711D1C"
-              fill="#711D1C"
-              width={100}
-              height={40}
-
-            />
-            <Bar
-              dataKey="فروش"
-              stroke="#82ca9d"
-              fill="#8884d8"
-              width={100}
-              height={40}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+        <div className="font-Shabnam_B text-gray-100  leading-7 rounded-md bg-main_green/55 p-2 flex flex-col gap-y-4 items-start  gap-x-2 ">
+          <p className="">
+            <span className="">پرفروش ترین محصول:</span>
+            <span className="line-clamp-2">{mostPopularProduct.title}</span>
+          </p>
+          <p className="">
+            <span className="">شناسه:&nbsp;{mostPopularProduct._id}</span>
+          </p>
+          <p className="">
+            <span className="">
+              سفارش ثبت شده:&nbsp;{" "}
+              {mostPopularProduct.count.toLocaleString("fa-Ir")} عدد
+            </span>
+          </p>
+        </div>
       </div>
+      <ResponsiveContainer className="!h-[400px] sm:!w-[85%]   px-4 !flex !justify-start">
+        <BarChart width={850} height={40} data={formattedSalesData}>
+          <CartesianGrid strokeDasharray=".1 .1" />
+          <XAxis
+            dataKey="تاریخ"
+            tickFormatter={formatNumber}
+            style={{ marginRight: "auto" }}
+          />
+          <YAxis
+            dx={-45}
+            domain={[0, YAxisMax]}
+            fontSize={"13px"}
+            tickFormatter={formatNumber}
+          />
+          <Tooltip formatter={(value: any) => formatNumber(value)} />
+          <Legend formatter={(value) => formatNumber(value)} />
+          <Bar
+            dataKey={"تعداد_فروش"}
+            stroke="#711D1C"
+            fill="#711D1C"
+            width={100}
+            height={40}
+          />
+          <Bar
+            dataKey="فروش"
+            stroke="#82ca9d"
+            fill="#8884d8"
+            width={100}
+            height={40}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 

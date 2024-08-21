@@ -11,7 +11,7 @@ import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import { CommentModeltype } from "@/types/models/comment.type";
-import { customeBlurDataURL } from "@/utils/constants";
+import { customeBlurDataURL, productSelectionOption } from "@/utils/constants";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
@@ -181,10 +181,8 @@ function ProductPageLayout({
         </div>
         <div className="mt-24">
           <TabSelection
-            filterAcceptableComments={filterAcceptableComments}
-            comments="comments"
-            desc="desc"
-            moreDetail="moreDetail"
+          options={productSelectionOption}
+          optionalValue={filterAcceptableComments?.length.toLocaleString("fa-Ir")}
             setActiveTab={setActiveTab}
             activeTab={activeTab}
           >
