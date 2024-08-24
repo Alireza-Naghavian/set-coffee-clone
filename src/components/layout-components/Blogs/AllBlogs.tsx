@@ -4,7 +4,7 @@ import Loader from "@/components/UI/loader/Loader";
 import Pagination from "@/components/UI/Pagination/Pagination";
 import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
 import { MainBlogType } from "@/types/blog.type";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function AllBlogs({ allBlogs }: { allBlogs: MainBlogType[] }) {
   const [page, setPage] = useState<number>(1);

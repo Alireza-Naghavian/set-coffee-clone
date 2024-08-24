@@ -1,21 +1,22 @@
 "use client";
+import Chart from "@/components/UI/Chart/Chart";
+import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import { CartType } from "@/types/models/cart.type";
-import { SingleProductType } from "@/types/models/categories.type";
-import { ProductCartType } from "@/types/products.type";
-import formatNumber from "@/utils/convertors/toIrString";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { IoStatsChart } from "react-icons/io5";
 function SaleChart({ allOrders }: { allOrders: CartType[] }) {
+  if (allOrders.length === 0) {
+    return (
+      <EmptyResult
+        icon={<IoStatsChart />}
+        firstDesc="اطلاعاتی برای رصد نمودار موجود نیست"
+        secondDesc="ممکن است که تراکنشی صورت نگرفته باشد"
+        title="هیچ دیتایی موجود نیست"
+        addressLink={false}
+      />
+    );
+  }
   // best month besed sales
-  const bestSalesMonth = allOrders.sort((a, b) => b.totalPrice - a.totalPrice);
+  const bestSalesMonth = allOrders?.sort((a, b) => b.totalPrice - a.totalPrice);
   // most popular product & its order quantity
   const flatCart = allOrders.flatMap((order: any) => order.cart);
   const productMap = new Map();
@@ -54,7 +55,6 @@ function SaleChart({ allOrders }: { allOrders: CartType[] }) {
   );
   const YAxisMax = maxSales + 1_000_000;
 
-
   return (
     <div
       className="w-full bg-main_brown/5 px-2
@@ -65,8 +65,10 @@ function SaleChart({ allOrders }: { allOrders: CartType[] }) {
         <div className="font-Shabnam_B text-gray-100 rounded-md  bg-main_brown/55 p-2 flex items-start  gap-x-2 ">
           <span className="">پرفروش ترین ماه :</span>
           <span>
-            {bestSalesMonth[0].createdAt !== undefined &&
-              new Date(bestSalesMonth[0].createdAt).toLocaleDateString("fa-Ir")}
+            {bestSalesMonth[0]?.createdAt !== undefined &&
+              new Date(bestSalesMonth[0]?.createdAt).toLocaleDateString(
+                "fa-Ir"
+              )}
           </span>
         </div>
         <div className="font-Shabnam_B text-gray-100  leading-7 rounded-md bg-main_green/55 p-2 flex flex-col gap-y-4 items-start  gap-x-2 ">
@@ -85,38 +87,7 @@ function SaleChart({ allOrders }: { allOrders: CartType[] }) {
           </p>
         </div>
       </div>
-      <ResponsiveContainer className="!h-[400px] sm:!w-[85%]   px-4 !flex !justify-start">
-        <BarChart width={850} height={40} data={formattedSalesData}>
-          <CartesianGrid strokeDasharray=".1 .1" />
-          <XAxis
-            dataKey="تاریخ"
-            tickFormatter={formatNumber}
-            style={{ marginRight: "auto" }}
-          />
-          <YAxis
-            dx={-45}
-            domain={[0, YAxisMax]}
-            fontSize={"13px"}
-            tickFormatter={formatNumber}
-          />
-          <Tooltip formatter={(value: any) => formatNumber(value)} />
-          <Legend formatter={(value) => formatNumber(value)} />
-          <Bar
-            dataKey={"تعداد_فروش"}
-            stroke="#711D1C"
-            fill="#711D1C"
-            width={100}
-            height={40}
-          />
-          <Bar
-            dataKey="فروش"
-            stroke="#82ca9d"
-            fill="#8884d8"
-            width={100}
-            height={40}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+      <Chart mainData={formattedSalesData} YDomain={[0, YAxisMax]} />
     </div>
   );
 }

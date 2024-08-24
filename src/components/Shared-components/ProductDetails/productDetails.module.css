@@ -10,3 +10,25 @@
     @apply hidden
     }
 }
+@media screen and (min-width:320px) and (max-width:400px) {
+    .blogContainer{
+        @apply !px-4 relative w-full overflow-x-hidden
+    }
+}
+
+.blogContainer h1{
+@apply md:text-4xl text-3xl
+}
+.blogContainer h2{
+@apply md:text-3xl text-2xl
+}
+.blogContainer p{
+@apply text-base leading-7
+}
+
+.blogContainer li{
+@apply mr-6 space-y-4
+}
+.blogContainer ul{
+@apply space-y-1 mt-4
+}

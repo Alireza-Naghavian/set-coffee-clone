@@ -11,7 +11,7 @@ export type SingleProductType = {
   suitableFor: string;
   smell: string;
   cover: string;
-  tags: string[];
+  tags: string;
   score?: number;
   entities:number;
   sold?:number,

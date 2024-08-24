@@ -12,11 +12,10 @@ export type ContentProps = {
   children: React.ReactNode;
   className?: string;
 };
-export type HeaderPropsType = {
-  onClose: () => void;
-  children: React.ReactNode;
-  className?: string;
-};
+export type HeaderPropsType = Pick<
+  ContentProps,
+  "children" | "className" | "onClose"
+>;
 
 export type DeleteModalType = {
   isDeleteOpen: boolean;
@@ -26,12 +25,10 @@ export type DeleteModalType = {
   identifier: string;
   isLoading: boolean;
 };
-export type SelectModalType = {
+export type SelectModalType =Pick<DeleteModalType,"isLoading"|"subjectTitle">& {
   isOpen: boolean;
   setIsOpen: () => void;
   selectHanlder: (e: FormEvent<HTMLFormElement>) => void;
-  subjectTitle: string;
-  isLoading: boolean;
   modalTitle: string;
   value: string | number | boolean;
   onSelectChange: ChangeEventHandler<any>;
@@ -42,5 +39,5 @@ export type EditModalType = Pick<
   "modalTitle" | "isOpen" | "setIsOpen"
 > & {
   children: React.ReactNode;
-  className?:string
+  className?: string;
 };

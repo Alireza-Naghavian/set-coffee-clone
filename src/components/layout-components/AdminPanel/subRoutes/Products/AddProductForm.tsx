@@ -25,7 +25,7 @@ function AddProductForm() {
   } = useForm<ProductFiledValues>({ mode: "onChange" });
   const { categories, isCatLoading } = useGetAllCat();
   const [counter, setCounter] = useState(1);
-  const {addProduct,isAddLoading} = useAddNewProduct();
+  const { addProduct, isAddLoading } = useAddNewProduct();
   const optionValues = categories?.data?.map((category: CategoryType) => {
     return { label: category.title, value: category._id };
   });
@@ -33,32 +33,38 @@ function AddProductForm() {
     "667fed928adb606b5273c86b" || optionValues[1].value
   );
   const [longDesc, setLongDesc] = useState<string>("");
-  const addProductHanlder = async(data:ProductFiledValues)=>{
-    const {title,price,shortDesc,weight,suitableFor,smell,cover,tags} = data
-    const toValidPriceNumb = Number(convertToEnglishDigits(price))
-    const toValidWeight = Number(convertToEnglishDigits(weight))
-    const formData = new FormData();
-    formData.append('category', catId);
-    formData.append('cover', cover[0]);
-    formData.append('longDesc',longDesc);
-    formData.append('title', title);
-    formData.append('price', toValidPriceNumb.toString());
-    formData.append('shortDesc', shortDesc);
-    formData.append('smell', smell);
-    formData.append('tags', tags);
-    formData.append('weight', toValidWeight.toString());
-    formData.append('suitableFor', suitableFor);
-    formData.append('entities', counter.toString());
-    await addProduct(formData,{
-      onSuccess:()=>{
-        setLongDesc("")
-        setCounter(1)
+  const addProductHanlder = async (data: ProductFiledValues) => {
+    const { price, weight } = data;
+    const toValidPriceNumb = Number(convertToEnglishDigits(String(price)));
+    const toValidWeight = Number(convertToEnglishDigits(String(weight)));
+    const prodData = {
+      title: data.title,
+      price: toValidPriceNumb,
+      shortDesc: data.shortDesc,
+      weight: toValidWeight,
+      suitableFor: data.suitableFor,
+      smell: data.smell,
+      cover: data.cover,
+      tags: data.tags,
+      category: catId,
+      longDesc,
+      entities: counter,
+    };
+    console.log(prodData);
+
+    await addProduct(prodData, {
+      onSuccess: () => {
+        setLongDesc("");
+        setCounter(1);
         reset();
-      }
-    })
-  }
+      },
+    });
+  };
   return (
-    <form onSubmit={handleSubmit(addProductHanlder)} className=" w-full space-y-4  py-10 px-2  lg:h-[480px]  overflow-y-auto">
+    <form
+      onSubmit={handleSubmit(addProductHanlder)}
+      className=" w-full space-y-4  py-10 px-2  lg:h-[480px]  overflow-y-auto"
+    >
       <div className="grid sm:grid-cols-2 w-full sm:gap-y-0 gap-y-4 gap-x-6 ">
         <MainTextField
           register={register}
@@ -114,22 +120,16 @@ function AddProductForm() {
           id="cover"
           label="کاور محصول"
           variant="borderFill"
-          type="file"
+          type="url"
           validattionschema={{
             required: {
               value: true,
               message: "این فیلد الزامی است",
             },
           }}
-          placeHolder="لطفا عکس مورنظر را انتخاب کنید"
+          placeHolder="لطفا url عکس مورد نظر را وارد کنید"
           errors={errors}
-          className="border-main_brown block w-full 
-    text-sm text-slate-500
-    file:mr-4  file:px-4 file:rounded-md
-    file:border-0 file:text-sm file:font-semibold 
-    file:bg-pink-50 file:text-main_brown
-    hover:file:bg-main hover:file:text-white file:-mt-10
-    !leading-none file:flex-center"
+          className="border-main_brown"
         />
         <Select
           className="border-2 py-2 bg-transparent font-Shabnam_B border-main_brown"
@@ -262,7 +262,7 @@ function AddProductForm() {
               : "opacity-100"
           }`}
         >
-        {isAddLoading ? <Loader loadingCondition={isAddLoading}/> : "افزودن"}
+          {isAddLoading ? <Loader loadingCondition={isAddLoading} /> : "افزودن"}
         </MainBtn>
       </div>
     </form>

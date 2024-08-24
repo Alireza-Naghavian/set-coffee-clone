@@ -1,9 +1,7 @@
-import { CartType } from '@/types/models/cart.type';
-import SaleChart from './SaleChart';
-import HeaderAdminLayout from './subRoutes/Products/HeaderAdminLayout';
-import GrowthChart from './GrowthChart';
-import FirstPageLayout from './subRoutes/FirstPageLayout/FirstPageLayout';
 import { GrowthDataType } from '@/types/auth.type';
+import { CartType } from '@/types/models/cart.type';
+import FirstPageLayout from './subRoutes/FirstPageLayout/FirstPageLayout';
+import HeaderAdminLayout from './subRoutes/Products/HeaderAdminLayout';
 function AdminPanel({allOrders,growthData}:{allOrders:CartType[],growthData:GrowthDataType}) {
 
   return (

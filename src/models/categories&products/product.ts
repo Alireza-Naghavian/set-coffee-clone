@@ -32,7 +32,7 @@ export const schema = new Schema<SingleProductType>(
       required: true,
     },
     tags: {
-      type: [String],
+      type: String,
       required: true,
     },
     cover: {

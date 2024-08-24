@@ -96,13 +96,8 @@ export const productSchema = Joi.object().keys({
       )
     ),
 
-  tags: Joi.array()
+  tags: Joi.string()
     .required()
-    .max(8)
-    .messages({
-      "array.max": "حداکثر ۸ تگ مجاز است",
-      "any.required": "تگ‌های وارد شده معتبر نمی‌باشند",
-    })
     .error(createHttpError.BadRequest("تگ‌های وارد شده معتبر نمی‌باشند")),
 
   weight: Joi.number()

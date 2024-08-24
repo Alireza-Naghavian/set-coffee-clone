@@ -5,7 +5,7 @@ import UserModel from '@/models/user/user';
 import { getUser } from '@/utils/auth/authHelper';
 import dataParser from '@/utils/dataParser/dataParser';
 import { notFound } from 'next/navigation';
-
+export const revalidate = 900;
 async function page() {
     await dbConnection();
     const user = await getUser();

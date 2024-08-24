@@ -15,7 +15,7 @@ export const getSingleProductData = async (productId: string) => {
 export const getInitialCategoryData = async (queryParams: URLSearchParams) => {
   return api
     .get(`/categories/product?${queryParams.toString()}`)
-    .then(({ data }: any) => data?.data);
+    .then(( data : any) => data?.data);
 };
 export const addCommentOnProduct = async ({
   data,

@@ -169,7 +169,7 @@ function ProductPageLayout({
               <div className="   items-center  text-main text-right">
                 <span className="font-Shabnam_B">برچسب :</span>
 
-                  {product?.tags?.map((tag: string,index:number) =>{
+                  {product?.tags?.split("،")?.map((tag: string,index:number) =>{
 
                     return <span className="" key={index}>{tag},</span>
                   } 

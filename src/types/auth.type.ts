@@ -12,7 +12,16 @@ export type SignUpFromType = {
 export type GetMetype = Pick<
   SignUpFromType,
   "email" | "phoneNumber" | "userName"
-> & { isActive?: boolean; role?: string,_id:string,password?:string,userCart?:any };
+> & {
+  isActive?: boolean;
+  role?: string;
+  _id: string;
+  password?: string;
+  userCart?: any;
+};
 
-export type GrowthDataType = Pick<GetMetype,"email"|"userName"|"role"|"userCart">[]
-export type UserRoleType = Omit<GetMetype,"role">&{role:string}
+export type GrowthDataType = Pick<
+  GetMetype,
+  "email" | "userName" | "role" | "userCart"
+>[];
+export type UserRoleType = Omit<GetMetype, "role"> & { role: string };

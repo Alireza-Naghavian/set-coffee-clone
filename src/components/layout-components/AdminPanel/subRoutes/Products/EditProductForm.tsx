@@ -24,24 +24,24 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
     formState: { errors, isValid, dirtyFields },
   } = useForm<UpdateProductField>({
     defaultValues: {
-      price: String(product.price),
+      price: Number(String(product.price)),
       title: product.title,
       shortDesc: product.shortDesc,
       smell: product.smell,
-      weight: String(product.weight),
+      weight: Number(String(product.weight)),
       suitableFor: product.suitableFor,
     },
     mode: "onChange",
   });
   const [counter, setCounter] = useState(product.entities);
   const { refresh } = useRouter();
-  const {showAlert} = useAlert();
+  const { showAlert } = useAlert();
   const queryClient = useQueryClient();
   const { isProdUpdating, updateProduct } = useUpdateProduct();
   const updateHandler = async (data: UpdateProductField) => {
     const { price, shortDesc, smell, suitableFor, title, weight } = data;
-    const ToEndPrice = convertToEnglishDigits(price);
-    const ToEndWeight = convertToEnglishDigits(weight);
+    const ToEndPrice = Number(convertToEnglishDigits(String(price)));
+    const ToEndWeight = Number(convertToEnglishDigits(String(weight)));
     const ProductData = {
       entities: counter,
       shortDesc,
@@ -57,9 +57,7 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
         { productId: product._id, data: ProductData },
         {
           onSuccess: (data: any) => {
-           
-
-             showAlert("success",data.message)
+            showAlert("success", data.message);
             setIsOpen();
             queryClient.invalidateQueries({
               queryKey: ["product", product._id],
@@ -68,8 +66,8 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
           },
           onError: (err: any) => {
             setIsOpen();
-           
-             showAlert("error",err?.response?.data?.message)
+
+            showAlert("error", err?.response?.data?.message);
           },
         }
       );

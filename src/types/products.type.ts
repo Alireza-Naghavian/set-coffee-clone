@@ -1,35 +1,49 @@
 import React from "react";
+import { categoriesType, SingleProductType } from "./models/categories.type";
+import { SetState } from "./global.type";
 
-export type ProductCartType = {
-  cover: string;
-  title: string;
-  price: number;
+export type ShopPageType = {
+  allCategories: categoriesType[];
+  totalProduct: number;
+};
+export type ProductCartType = Pick<
+  SingleProductType,
+  "cover" | "title" | "price"
+> & {
   count: number;
   _id?: string;
   entities?: number;
 };
 
-export type MainProductCardType = {
-  cover: string;
-  title: string;
+export type MainProductCardType = Pick<
+  ProductCartType,
+  "cover" | "title" | "price"
+> & {
   rate?: HTMLElement;
-  price: number;
 };
 export type ProductCardData = {
   productData: MainProductCardType;
 };
-export type ProductFiledValues = {
+export type ProductFiledValues = Omit<
+  SingleProductType,
+"category"|"cover"
+> & {
   category: string;
   cover: FileList;
-  longDesc: string | React.JSX.Element;
-  title: string;
-  price: string;
-  shortDesc: string;
-  smell: string;
-  tags: string;
-  weight: string;
-  suitableFor: string;
-  entities: number;
 };
 export type UpdateProductField = Omit<
-  ProductFiledValues,  "category" | "cover" | "longDesc" | "tags">;
+  ProductFiledValues,
+  "category" | "cover" | "longDesc" | "tags"
+>
+
+export type FilterProductType = {
+  isFilterOpen: boolean;
+  setIsFilterOpen: SetState<boolean>;
+  filtersEntity: any;
+  setMinPrice: SetState<number>;
+  setMaxPrice: SetState<number>;
+  setSort: SetState<string>;
+  sort: string;
+  isProductsLoading: boolean;
+  products: { products: SingleProductType[] };
+};

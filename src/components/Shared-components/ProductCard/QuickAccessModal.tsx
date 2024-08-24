@@ -42,7 +42,7 @@ function QuickAccessModal({
                w-full  lg:gap-y-2 gap-y-4"
               >
                 <Link
-                  href={`/categories/${product._id}`}
+                  href={`/categories/${product?._id}`}
                   className="   child:font-Shabnam_B 
                mt-8 text-gray-600 hover:text-gray-400 tr-300 child:text-2xl sm:child:text-2xl 
               child:text-right ml-auto  child:tracking-tight"
@@ -69,7 +69,7 @@ function QuickAccessModal({
                     <span className="font-Shabnam_B">برچسب </span>
                     <span className="text-sm  lg:mt-1">
                       {" "}
-                      {product?.tags?.map((tag: string, index: number) => {
+                      {product?.tags?.split("،").map((tag: string, index: number) => {
                         return <span key={index}>{tag},</span>;
                       })}
                     </span>

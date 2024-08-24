@@ -1,9 +1,14 @@
 import { getInitialCategoryData } from "@/services/product/productServices";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-const useGetInitialCategoryPageData = () => {
+const useGetProductData = ({limit="4",page}:{limit?:string,page?:number}) => {
   const location = useSearchParams();
   const queryParams = new URLSearchParams(location)
+  if(page !== undefined ){
+
+    queryParams.set("page",  page.toString()); 
+    queryParams.set("limit", limit);
+  }
   const { data, isLoading: isProductsLoading } = useQuery({
     queryKey: ["products", queryParams.toString()],
     queryFn: () => getInitialCategoryData(queryParams),
@@ -14,4 +19,4 @@ const useGetInitialCategoryPageData = () => {
 
   return { products, isProductsLoading };
 };
-export default useGetInitialCategoryPageData;
+export default useGetProductData;

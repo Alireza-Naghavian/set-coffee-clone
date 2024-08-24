@@ -107,3 +107,11 @@ export const adminCharts:OptionSelectionType =[
   {label:"نرخ فروش روزانه",value:"sales"},
   {label:"نرخ رشد وب سایت",value:"growth"}
 ] 
+
+
+export const initialFilterAmount = {
+  minPriceInit: 0,
+  maxPriceInit: 10_000_000,
+  sortInit: "latest",
+  starsInit: 5,
+};

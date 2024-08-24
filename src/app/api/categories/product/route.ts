@@ -1,35 +1,39 @@
 import dbConnection from "@/dbConfigs/db";
 import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
+import { SingleProductType } from "@/types/models/categories.type";
 import { authAdmin } from "@/utils/auth/authHelper";
 import { productSchema } from "@/utils/validator/categories/categoriesValidator";
-import { writeFile } from "fs/promises";
 import mongoose from "mongoose";
 import { NextRequest } from "next/server";
-import path from "path";
 
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
-    const isAdmin =  await authAdmin();
+    const isAdmin = await authAdmin();
     if (!isAdmin) {
-      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+      return Response.json(
+        { message: "شما اجازه دسترسی ندارید" },
+        { status: 403 }
+      );
     }
-    const formData = await req.formData();
-    const category = formData.get("category") as string;
-    const cover = formData.get("cover") as File;
-    const longDesc = formData.get("longDesc") as string;
-    const title = formData.get("title") as string;
-    const price = parseFloat(formData.get("price") as string);
-    const shortDesc = formData.get("shortDesc") as string;
-    const smell = formData.get("smell") as string;
-    const tags = (formData.get("tags") as string).split(",");
-    const weight = parseFloat(formData.get("weight") as string);
-    const suitableFor = formData.get("suitableFor") as string;
-    const entities  = formData.get("entities") as unknown
+    const reqBody = await req.json();
+    const {
+      category,
+      cover,
+      entities,
+      longDesc,
+      price,
+      shortDesc,
+      smell,
+      suitableFor,
+      tags,
+      title,
+      weight,
+    }: SingleProductType = reqBody;
     const productData = {
       category,
-      cover: "",
+      cover,
       longDesc,
       title,
       price,
@@ -38,9 +42,9 @@ export const POST = async (req: Request) => {
       tags,
       weight,
       suitableFor,
-      entities
+      entities,
     };
-
+    console.log(reqBody);
     const isProductExist = await ProductModel.findOne({ title });
     if (isProductExist) {
       return Response.json(
@@ -48,12 +52,8 @@ export const POST = async (req: Request) => {
         { status: 400 }
       );
     }
-    const buffer = Buffer.from(await cover.arrayBuffer());
-    const fileName = Date.now() + path.extname(cover.name);
-    const imgPath = path.join(process.cwd(), "public/uploads/" + fileName);
-    await writeFile(imgPath, buffer);
-    productData.cover = `http://localhost:3000/uploads/${fileName}`;
-    await productSchema.validateAsync(productData);
+
+    await productSchema.validateAsync(reqBody);
 
     //add product to category
 
@@ -77,7 +77,12 @@ export const POST = async (req: Request) => {
     );
   }
 };
-const buildMatchQuery = (minPrice: number, maxPrice: number, rateStar: number, categoryId?: string) => {
+const buildMatchQuery = (
+  minPrice: number,
+  maxPrice: number,
+  rateStar: number,
+  categoryId?: string
+) => {
   const matchQuery: any = {
     price: { $gte: minPrice, $lte: maxPrice },
     score: { $lte: rateStar },
@@ -92,47 +97,54 @@ const buildMatchQuery = (minPrice: number, maxPrice: number, rateStar: number, c
 export const GET = async (req: NextRequest) => {
   try {
     await dbConnection();
-    const searchParams = req.nextUrl.searchParams;
+    const { searchParams } = new URL(req.url);
     const sort = searchParams.get("sort") || "latest";
     const categoryId = searchParams.get("categoryId") || "";
     const minPrice = parseInt(searchParams.get("minPrice") || "0", 10);
     const maxPrice = parseInt(searchParams.get("maxPrice") || "10000000", 10);
     const rateStar = parseInt(searchParams.get("rateStar") || "5", 10);
-    const pageParam = searchParams.get("page");
-    const limitParam = searchParams.get("limit");
-    const page = pageParam ? parseInt(pageParam, 10) : 1;
-    const limit = limitParam ? parseInt(limitParam, 10) : 4;
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "8", 10);
     const skip = (page - 1) * limit;
-    let sortQuery: any = { "createdAt": 1 };
+    let sortQuery: any = { createdAt: 1 };
     switch (sort) {
       case "latest":
-        sortQuery = { "createdAt": -1 };
+        sortQuery = { createdAt: -1 };
         break;
 
       case "earliest":
-        sortQuery = { "createdAt": 1 };
+        sortQuery = { createdAt: 1 };
         break;
 
       case "expensive":
-        sortQuery = { "price": -1 };
+        sortQuery = { price: -1 };
         break;
 
       case "lower_price":
-        sortQuery = { "price": 1 };
+        sortQuery = { price: 1 };
         break;
 
       default:
-        sortQuery = { "createdAt": -1 };
+        sortQuery = { createdAt: -1 };
         break;
     }
-    const matchQuery = buildMatchQuery(minPrice, maxPrice, rateStar, categoryId);
-    const products = await ProductModel.find(matchQuery,"cover title score price createdAt shortDesc")
+    const matchQuery = buildMatchQuery(
+      minPrice,
+      maxPrice,
+      rateStar,
+      categoryId
+    );
+    const totalProduct = await ProductModel.countDocuments();
+    const products = await ProductModel.find(
+      matchQuery,
+      "cover title score price createdAt shortDesc"
+    )
       .sort(sortQuery)
       .skip(skip)
       .limit(limit)
       .populate("category", "-products -__v ")
       .lean();
-    return Response.json({ data: products }, { status: 200 });
+    return Response.json({  products ,totalProduct,page,limit}, { status: 200 });
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },

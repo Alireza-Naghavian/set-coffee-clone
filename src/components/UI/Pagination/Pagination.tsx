@@ -42,7 +42,7 @@ const Pagination: React.FC<Props> = ({
     (pageNumber: number) => {
       const newParams = new URLSearchParams(location);
       newParams.set("page", pageNumber.toString());
-      navigate.replace(`?${newParams.toString()}`);
+      navigate.replace(`?${newParams.toString()}`,{scroll:false});
     },
     [location, navigate]
   );
