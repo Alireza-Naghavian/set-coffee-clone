@@ -13,13 +13,15 @@ async function page({ params }: { params: SingleBlogType }) {
   await dbConnection();
   const { blogId } = params;
   if (!isValidObjectId(blogId)) return notFound();
-  await UserModel.findOne({},"_id").limit(1)
+  await UserModel.findOne({}, "_id").limit(1);
   const blogData = await BlogsModel.findOne({ _id: blogId }, "-__v -updatedAt")
     .populate("provider", "userName")
     .lean();
   return (
     <QueryClientProviderWrapper>
-      <SingleBlogPage blogData={dataParser(blogData)} />
+      <main className="relative max-w-[1920px]">
+        <SingleBlogPage blogData={dataParser(blogData)} />
+      </main>
     </QueryClientProviderWrapper>
   );
 }

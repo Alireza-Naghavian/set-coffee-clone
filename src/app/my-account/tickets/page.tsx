@@ -1,10 +1,11 @@
-import UserTicketsForm from "@/components/layout-components/UserPanelPage/subRoutes/UserTicketsForm"
-
+import UserTicketsForm from "@/components/layout-components/UserPanelPage/subRoutes/UserTicketsForm";
 
 function page() {
   return (
-<UserTicketsForm/>
-  )
+    <main className="relative max-w-[1920px]">
+      <UserTicketsForm />
+    </main>
+  );
 }
 
-export default page
+export default page;

@@ -9,7 +9,7 @@ import useGetBasketData from "@/hooks/helper-hooks/useGetBasketData";
 import useGetWishList from "@/hooks/helper-hooks/useGetWishList";
 import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
-import { subUserMenu } from "@/utils/constants";
+import { subMenuTitles, subUserMenu } from "@/utils/constants";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -19,14 +19,7 @@ import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
 import { useRouter } from "next/navigation";
-export const subMenuTitles = [
-  { label: "Specialty coffee", href: "/categories" },
-  { label: "World Class Specialty", href: "/categories" },
-  { label: "Premium Coffee", href: "/categories" },
-  { label: "Commercial Coffee", href: "/categories" },
-  { label: "Coffee Capsule", href: "/categories" },
-  { label: "Italian Passion", href: "/categories" },
-];
+
 function DesktopMenu({
   user,
   userLoading,

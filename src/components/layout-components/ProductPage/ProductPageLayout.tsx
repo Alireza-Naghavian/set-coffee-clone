@@ -41,7 +41,6 @@ function ProductPageLayout({
   useEffect(() => {
     setIsExist(isProductInWishlist(productId));
   }, [productId]);
-
   const AddTowishList = async () => {
     const newItem = {
       cover: product.cover,
@@ -49,6 +48,8 @@ function ProductPageLayout({
       title: product.title,
       price: product.price,
       score: product.score,
+      shortDesc:product.shortDesc,
+      tags:product.tags
     };
     await addToWishList(newItem, {
       onSuccess: () => {

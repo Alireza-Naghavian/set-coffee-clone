@@ -34,6 +34,8 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
     price: productData.price,
     score: productData.score,
     count: 1,
+    shortDesc:productData.shortDesc,
+    tags:productData.tags
   };
   const wishListHandler = async () => {
     await addToWishList(newItem, {

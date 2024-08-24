@@ -10,6 +10,7 @@ import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import { FaCommentAlt } from "react-icons/fa";
 import Loader from "@/components/UI/loader/Loader";
 import dynamic from "next/dynamic";
+import TextLoader from "@/components/UI/loader/TextLoader";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });
@@ -35,12 +36,7 @@ function Comments() {
             </Table.Header>
           ) : isCommentsLoading ? (
             isCommentsLoading && (
-              <div className="flex items-center gap-x-2 mt-4">
-                <span>
-                  <Loader loadingCondition={isCommentsLoading} />
-                </span>
-                <span>درحال بارگزاری...</span>
-              </div>
+              <TextLoader loadingCondition={isCommentsLoading} />
             )
           ) : (
             <EmptyResult

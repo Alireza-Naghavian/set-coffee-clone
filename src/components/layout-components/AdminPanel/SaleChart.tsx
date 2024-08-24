@@ -3,6 +3,7 @@ import Chart from "@/components/UI/Chart/Chart";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import { CartType } from "@/types/models/cart.type";
 import { IoStatsChart } from "react-icons/io5";
+import { Bar } from "recharts";
 function SaleChart({ allOrders }: { allOrders: CartType[] }) {
   if (allOrders.length === 0) {
     return (
@@ -54,7 +55,6 @@ function SaleChart({ allOrders }: { allOrders: CartType[] }) {
     ...formattedSalesData.map((data: any) => data.فروش)
   );
   const YAxisMax = maxSales + 1_000_000;
-
   return (
     <div
       className="w-full bg-main_brown/5 px-2
@@ -87,7 +87,22 @@ function SaleChart({ allOrders }: { allOrders: CartType[] }) {
           </p>
         </div>
       </div>
-      <Chart mainData={formattedSalesData} YDomain={[0, YAxisMax]} />
+      <Chart mainData={formattedSalesData} YDomain={[0, YAxisMax]}>
+        <Bar
+          dataKey={"تعداد_فروش"}
+          stroke="#711D1C"
+          fill="#711D1C"
+          width={100}
+          height={40}
+        />
+        <Bar
+          dataKey={"فروش"}
+          stroke="#82ca9d"
+          fill="#8884d8"
+          width={100}
+          height={40}
+        />
+      </Chart>
     </div>
   );
 }

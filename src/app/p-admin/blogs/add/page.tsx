@@ -2,7 +2,11 @@ import Blogs from "@/components/layout-components/AdminPanel/subRoutes/Blogs/Blo
 import React from "react";
 
 function page() {
-  return <Blogs />;
+  return (
+    <main className="relative max-w-[1920px]">
+      <Blogs />
+    </main>
+  );
 }
 
 export default page;

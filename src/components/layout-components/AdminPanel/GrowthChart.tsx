@@ -1,5 +1,6 @@
 import Chart from "@/components/UI/Chart/Chart";
 import { GrowthDataType } from "@/types/auth.type";
+import { Bar } from "recharts";
 function GrowthChart({ growthData }: { growthData: GrowthDataType }) {
   const numOfUser = growthData.length;
 
@@ -51,7 +52,22 @@ function GrowthChart({ growthData }: { growthData: GrowthDataType }) {
           </p>
         </div>
       </div>
-    <Chart mainData={growthDataValues} YDomain={[0,yAxisMax]}/>
+      <Chart mainData={growthDataValues} YDomain={[0, yAxisMax]}>
+        <Bar
+          dataKey={"تعداد_کاربران_جدید"}
+          stroke="#711D1C"
+          fill="#711D1C"
+          width={100}
+          height={40}
+        />
+        <Bar
+          dataKey={"مجموع_درآمد_کاربر"}
+          stroke="#711D1C"
+          fill="#711D1C"
+          width={100}
+          height={40}
+        />
+      </Chart>
     </div>
   );
 }

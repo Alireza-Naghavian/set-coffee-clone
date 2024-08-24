@@ -9,6 +9,7 @@ import React from "react";
 import { BiSolidOffer } from "react-icons/bi";
 import LargeOfferTRow from "./LargeOfferTRow";
 import SmallOfferTRow from "./SmallOfferTRow";
+import TextLoader from "@/components/UI/loader/TextLoader";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });
@@ -31,14 +32,7 @@ function OffersTable() {
             </tr>
           </Table.Header>
         ) : isOfferLoading ? (
-          isOfferLoading && (
-            <div className="flex items-center gap-x-2 mt-4">
-              <span>
-                <Loader loadingCondition={isOfferLoading} />
-              </span>
-              <span>درحال بارگزاری...</span>
-            </div>
-          )
+          isOfferLoading && <TextLoader loadingCondition={isOfferLoading} />
         ) : (
           <EmptyResult
             icon={<BiSolidOffer />}

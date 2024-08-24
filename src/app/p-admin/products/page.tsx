@@ -2,9 +2,9 @@ import Products from "@/components/layout-components/AdminPanel/subRoutes/Produc
 
 function page() {
   return (
-    <>
+    <main className="relative max-w-[1920px]">
       <Products />
-    </>
+    </main>
   );
 }
 

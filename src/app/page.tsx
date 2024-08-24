@@ -1,5 +1,6 @@
 import HomePageLayout from "@/components/layout-components/HomePage/HomePageLayout";
 import dbConnection from "@/dbConfigs/db";
+import BlogsModel from "@/models/blogs/blogs";
 import CategoryModel from "@/models/categories&products/categories";
 import dataParser from "@/utils/dataParser/dataParser";
 export const revalidate =1800;
@@ -32,9 +33,11 @@ export default async function Home() {
   const filterProductCount = sortedCategories?.filter((product) => {
     return product.productCount < 12 && product.productCount > 0;
   });
+
+  const allBlogs = await BlogsModel.find({},"-__v -updatedAt").limit(3)
   return (
     <main className="max-w-[1920px]  relative">
-      <HomePageLayout filteredProdoucts={ dataParser(filterProductCount)} />
+      <HomePageLayout allBlogs={dataParser(allBlogs)} filteredProdoucts={ dataParser(filterProductCount)} />
     </main>
   );
 }

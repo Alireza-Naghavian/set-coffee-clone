@@ -11,6 +11,7 @@ import { optionValues } from "@/utils/constants";
 import { FaSortAmountDown } from "react-icons/fa";
 import styles from "./MainShopPageStyle.module.css";
 import { useSearchParams } from "next/navigation";
+import TextLoader from "@/components/UI/loader/TextLoader";
 
 function Filter_Result({
   filtersEntity,
@@ -79,10 +80,7 @@ function Filter_Result({
         </span>
         <div className={`grid ${styles.productWrapper} mt-4 gap-x-4 gap-y-5`}>
           {isProductsLoading ? (
-            <div className="flex items-center gap-x-2">
-              <Loader loadingCondition={isProductsLoading} />
-              <span>درحال بارگزاری...</span>
-            </div>
+            <TextLoader loadingCondition={isProductsLoading} />
           ) : products?.products?.length === 0 ? (
             <EmptySearch />
           ) : (

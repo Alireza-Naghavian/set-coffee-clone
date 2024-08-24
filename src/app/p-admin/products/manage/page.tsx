@@ -11,7 +11,11 @@ async function page() {
     {},
     "-createdAt -updatedAt -longDesc -shortDesc"
   ).sort({ sold: -1 });
-  return <ProductManagement products={dataParser(allProduct)} />;
+  return (
+    <main className="relative max-w-[1920px]">
+      <ProductManagement products={dataParser(allProduct)} />
+    </main>
+  );
 }
 
 export default page;

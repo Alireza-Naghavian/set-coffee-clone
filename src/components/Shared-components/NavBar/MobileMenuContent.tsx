@@ -1,14 +1,12 @@
 import DropDown from "@/components/UI/DropDown/DropDown";
 import Loader from "@/components/UI/loader/Loader";
 import NavItem, { SubItemType } from "@/components/UI/NavItem/NavItem";
-import SearchFields from "@/components/UI/TextFiels/SearchFields";
 import { GetMetype } from "@/types/auth.type";
 import { SetState } from "@/types/global.type";
-import { subUserMenu } from "@/utils/constants";
+import { subMenuTitles, subUserMenu } from "@/utils/constants";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { LuUser2 } from "react-icons/lu";
-import { subMenuTitles } from "./DesktopMenu";
 import { RiAdminFill } from "react-icons/ri";
 import styles from "./Navbar.module.css";
 type MobileMenuContentType = {
@@ -27,13 +25,13 @@ function MobileMenuContent({
 }: MobileMenuContentType) {
   return (
     <ul className="mobile-menu-wrapper min-h-screen overflow-y-auto">
-      <form className="flex relative mt-2 px-1 py-3 shadow-md">
-        <SearchFields placeholder="جستجو محصولات" type="text" />
-      </form>
+      <div className="flex relative mt-2 px-5 py-3 font-Shabnam_M shadow-md">
+        <span>منوی دسترسی</span>
+      </div>
       <ul
         className="text-main/90 child:font-Shabnam_M 
                     justify-center my-auto flex-col child:my-auto 
-                    child:py-[12px] mt-2 child:border-b last:border-none 
+                    child:py-[12px] mt-4 child:border-b last:border-none 
                     child:px-4"
       >
         <div className="" onClick={() => setIsMenuOpen(false)}>

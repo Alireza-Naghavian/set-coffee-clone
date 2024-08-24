@@ -4,6 +4,7 @@ import { MainBlogType } from "@/types/blog.type";
 import { useParams } from "next/navigation";
 import styles from "./blog.module.css";
 import Loader from "@/components/UI/loader/Loader";
+import TextLoader from "@/components/UI/loader/TextLoader";
 function SingleBlogPage({ blogData }: { blogData: MainBlogType }) {
   const params = useParams<{ blogId: string }>();
   const {
@@ -13,12 +14,9 @@ function SingleBlogPage({ blogData }: { blogData: MainBlogType }) {
     params.blogId,
     blogData
   );
-if(isBlogLoading){
-    <div className="flex items-center gap-x-2">
-    <Loader loadingCondition={isBlogLoading} />
-    <span>درحال بارگزاری...</span>
-  </div>;
-}
+  if (isBlogLoading) {
+    return <TextLoader loadingCondition={isBlogLoading} />;
+  }
   return (
     <div className="flex flex-col  xs:px-6 sm:px-14 py-10 w-full relative">
       <div className="text-center flex flex-col gap-y-4 font-Shabnam_B text-dark_shade ">

@@ -1,3 +1,4 @@
+import { QueryClientProviderWrapper } from "@/app/context/QueryClientProvider";
 import BlogsCard from "@/components/Shared-components/ProductCard/BlogsCard";
 import ProductCard from "@/components/Shared-components/ProductCard/ProductCard";
 import HeaderTitle from "@/components/UI/HeaderTitle/HeaderTitle";
@@ -8,14 +9,19 @@ import {
   categoriesType,
 } from "@/types/models/categories.type";
 import Image from "next/image";
+import BlogCardHomePage from "./BlogCardHomePage";
+import { MainBlogType } from "@/types/blog.type";
+import { Suspense } from "react";
 
 interface FilteredProdouctsType extends categoriesType {
   productCount?: number;
 }
 function HomePageLayout({
   filteredProdoucts,
+  allBlogs,
 }: {
   filteredProdoucts: FilteredProdouctsType[];
+  allBlogs: MainBlogType[];
 }) {
   return (
     <>
@@ -99,27 +105,11 @@ function HomePageLayout({
         />
         <div className="mt-5 ">
           <div className="sm:px-8 px-2 grid sm:grid-cols-3  child:max-w-max grid-cols-1 md:gap-x-8 gap-x-2 gap-y-6 md:container">
-            <BlogsCard
-              publishDay={"04"}
-              PublishMonth={"خرداد"}
-              category={"قهوه"}
-              title={"آیا کرما برای تهیه اسپرسوی عالی ضروری است ؟"}
-              cover={"/images/iceCoffee.jpg"}
-            />
-            <BlogsCard
-              publishDay={"04"}
-              PublishMonth={"خرداد"}
-              category={"قهوه"}
-              title={"آیا کرما برای تهیه اسپرسوی عالی ضروری است ؟"}
-              cover={"/images/mocaPot_1.jpg"}
-            />
-            <BlogsCard
-              publishDay={"04"}
-              PublishMonth={"خرداد"}
-              category={"قهوه"}
-              title={"آیا کرما برای تهیه اسپرسوی عالی ضروری است ؟"}
-              cover={"/images/coffeeMakers.jpg"}
-            />
+            <QueryClientProviderWrapper>
+              <Suspense>
+                <BlogCardHomePage allBlogs={allBlogs} />
+              </Suspense>
+            </QueryClientProviderWrapper>
           </div>
         </div>
       </div>

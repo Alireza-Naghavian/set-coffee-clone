@@ -1,6 +1,7 @@
 "use client";
 import BlogCard from "@/components/Shared-components/BlogCard/BlogCard";
 import Loader from "@/components/UI/loader/Loader";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import Pagination from "@/components/UI/Pagination/Pagination";
 import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
 import { MainBlogType } from "@/types/blog.type";
@@ -8,12 +9,9 @@ import { useState } from "react";
 
 function AllBlogs({ allBlogs }: { allBlogs: MainBlogType[] }) {
   const [page, setPage] = useState<number>(1);
-  const { blogs, isBlogsLoading } = useGetAllBlogs({allBlogs,page});
+  const { blogs, isBlogsLoading } = useGetAllBlogs({ allBlogs, page });
   if (isBlogsLoading) {
-    <div className="flex items-center gap-x-2">
-      <Loader loadingCondition={isBlogsLoading} />
-      <span>درحال بارگزاری...</span>
-    </div>;
+    return <TextLoader loadingCondition={isBlogsLoading} />;
   }
   return (
     <div className="flex justify-between flex-col w-full mt-8 px-4 sm:px-8 ">
@@ -33,7 +31,6 @@ function AllBlogs({ allBlogs }: { allBlogs: MainBlogType[] }) {
           pageSize={parseInt(blogs?.pageSize || "8")}
           totalCount={blogs?.totalBLogs}
         />
-
       </div>
     </div>
   );

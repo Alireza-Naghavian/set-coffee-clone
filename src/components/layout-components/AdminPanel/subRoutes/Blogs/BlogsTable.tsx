@@ -10,29 +10,23 @@ import { TfiPackage } from "react-icons/tfi";
 import LgBlogTRow from "./LgBlogTRow";
 import SmBlogTRow from "./SmBlogTRow";
 import { useRouter, useSearchParams } from "next/navigation";
+import TextLoader from "@/components/UI/loader/TextLoader";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });
 function BlogsTable() {
-  const [limit,setLimit]  = useState("10000")
-  const { blogs, isBlogsLoading } = useGetAllBlogs({limit});
-  const {replace} = useRouter();
+  const [limit, setLimit] = useState("10000");
+  const { blogs, isBlogsLoading } = useGetAllBlogs({ limit });
+  const { replace } = useRouter();
   const path = useSearchParams();
-  const url = new URLSearchParams(path)
-  useEffect(()=>{
-    setLimit(limit)
+  const url = new URLSearchParams(path);
+  useEffect(() => {
+    setLimit(limit);
     url.set("limit", limit.toString());
     replace(`?${url.toString()}`);
-  },[])
+  }, []);
   if (isBlogsLoading) {
-    return (
-      <div className="flex items-center gap-x-2 mt-4">
-        <span>
-          <Loader loadingCondition={isBlogsLoading} />
-        </span>
-        <span>درحال بارگزاری...</span>
-      </div>
-    );
+    return <TextLoader loadingCondition={isBlogsLoading} />;
   }
   return (
     <div className="h-[480px] overflow-y-auto">
@@ -41,7 +35,8 @@ function BlogsTable() {
           <Table.Header variant="singleHead" className="hidden md:block">
             <tr
               className="grid grid-cols-5 rounded-lg  child:text-center p-4
-                bg-main_brown text-white">
+                bg-main_brown text-white"
+            >
               <th>شماره</th>
               <th>عنوان</th>
               <th>نویسنده</th>
@@ -62,21 +57,19 @@ function BlogsTable() {
           variant="singleHead"
           className="child:md:grid-cols-5 grid-cols-2"
         >
-          {blogs?.blogs?.map((blog:MainBlogType,index:number)=>{
-            return(
+          {blogs?.blogs?.map((blog: MainBlogType, index: number) => {
+            return (
               <React.Fragment key={index}>
-                <LgBlogTRow blog={blog} index={index+1}/>
+                <LgBlogTRow blog={blog} index={index + 1} />
               </React.Fragment>
-
-            )
+            );
           })}
-          {blogs?.blogs?.map((blog:MainBlogType,index:number)=>{
-            return(
+          {blogs?.blogs?.map((blog: MainBlogType, index: number) => {
+            return (
               <React.Fragment key={index}>
                 <SmBlogTRow blog={blog} />
               </React.Fragment>
-
-            )
+            );
           })}
         </Table.Body>
       </NoSSR>

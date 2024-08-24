@@ -18,6 +18,7 @@ import LogoutBtn from "../UserPanelPage/subRoutes/LogoutBtn";
 import styles from "./adminPanel.module.css";
 import { FaListUl } from "react-icons/fa";
 import { FaNewspaper } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 type AdminPanelType = {
   children: React.ReactNode;
   user: GetMetype;
@@ -25,6 +26,8 @@ type AdminPanelType = {
 const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
   const [isOpen, { open, close }] = useDisclosure();
   useScrollLocker(isOpen);
+  const path = usePathname();
+  console.log(path);
   return (
     <>
       <Overlay
@@ -47,14 +50,24 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
               <span className="mr-3">پنل ادمین</span>
             </h3>
             {/* link list */}
-            <ul className={styles.Sidbar_list}>
+            <ul className={`${styles.Sidbar_list} !w-full child:child:!w-full  `}>
               <NavItem
                 targetLink="/p-admin"
+                className={`!w-full  ${
+                  path === "/p-admin" 
+                  ? "bg-main/55"
+                   : "bg-transparent"
+                }`}
                 icon={<ImReply />}
+                onClick={() => close()}
                 label="پیشخوان"
               />
               <DropDown
-                className=" gap-x-2 py-0 hover:!bg-transparent"
+                className={` gap-x-2 py-0 hover:!bg-transparent ${
+                  path.startsWith("/p-admin/products")
+                    ? "bg-main/55"
+                    : "bg-transparent"
+                }`}
                 bgColor="bg-transparent"
                 activeBg="bg-transparent px-2"
                 icon={<FaShoppingBag className="" />}
@@ -64,11 +77,13 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
                 <div className=" flex flex-col gap-y-8  child-hover:bg-transparent py-2 hover:bg-main_brown">
                   <div className="child:mr-3 child:text-base flex flex-col gap-y-2 child:mt-2 child-hover:bg-transparent">
                     <NavItem
+                      onClick={() => close()}
                       targetLink="/p-admin/products"
                       icon={<FaPlus />}
                       label="افزودن"
                     />
                     <NavItem
+                      onClick={() => close()}
                       targetLink="/p-admin/products/manage"
                       icon={<MdManageAccounts />}
                       label="مدیریت محصولات"
@@ -77,22 +92,44 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
                 </div>
               </DropDown>
               <NavItem
+                className={`${
+                  path === "/p-admin/users"
+                   ? "bg-main/55" 
+                   : "bg-transparent"
+                }`}
+                onClick={() => close()}
                 targetLink="/p-admin/users"
                 icon={<FaUsers />}
                 label="کاربران"
               />
               <NavItem
+                className={`${
+                  path === "/p-admin/comments" 
+                  ? "bg-main/55"
+                   : "bg-transparent"
+                }`}
+                onClick={() => close()}
                 targetLink="/p-admin/comments"
                 icon={<MdSms />}
                 label="کامنت ها"
               />
               <NavItem
+                className={`${
+                  path === "/p-admin/tickets"
+                   ? "bg-main/55"
+                   : "bg-transparent"
+                }`}
+                onClick={() => close()}
                 targetLink="/p-admin/tickets"
                 icon={<HiTicket />}
                 label="تیکت ها"
               />
               <DropDown
-                className=" gap-x-2 py-0 hover:!bg-transparent"
+                  className={`gap-x-2 py-0 hover:!bg-transparent ${
+                    path.startsWith("/p-admin/offers")
+                      ? "bg-main/55"
+                      : "bg-transparent"
+                  }`}
                 bgColor="bg-transparent"
                 activeBg="bg-transparent px-2"
                 icon={<BiSolidOffer className="text-2xl" />}
@@ -102,11 +139,13 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
                 <div className=" flex flex-col gap-y-8  child-hover:bg-transparent py-2 hover:bg-main_brown">
                   <div className="child:mr-3 child:text-base flex flex-col gap-y-2 child:mt-2 child-hover:bg-transparent">
                     <NavItem
+                      onClick={() => close()}
                       targetLink="/p-admin/offers/create"
                       icon={<FaPlus />}
                       label="افزودن کد تخفیف"
                     />
                     <NavItem
+                      onClick={() => close()}
                       targetLink="/p-admin/offers/list"
                       icon={<FaListUl />}
                       label="لیست کد ها"
@@ -115,7 +154,12 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
                 </div>
               </DropDown>
               <DropDown
-                className=" gap-x-2 py-0 hover:!bg-transparent"
+              
+                className={`gap-x-2 py-0 hover:!bg-transparent ${
+                  path.startsWith("/p-admin/blogs")
+                    ? "bg-main/55"
+                    : "bg-transparent"
+                }`}
                 bgColor="bg-transparent"
                 activeBg="bg-transparent px-2"
                 icon={<FaNewspaper className="text-2xl" />}
@@ -125,11 +169,13 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
                 <div className=" flex flex-col gap-y-8  child-hover:bg-transparent py-2 hover:bg-main_brown">
                   <div className="child:mr-3 child:text-base flex flex-col gap-y-2 child:mt-2 child-hover:bg-transparent">
                     <NavItem
+                      onClick={() => close()}
                       targetLink="/p-admin/blogs/add"
                       icon={<FaPlus />}
                       label="افزودن"
                     />
                     <NavItem
+                      onClick={() => close()}
                       targetLink="/p-admin/blogs/list"
                       icon={<IoDocument />}
                       label="لیست  مقالات"
@@ -137,7 +183,9 @@ const AdminPanelLayout: React.FC<AdminPanelType> = ({ user, children }) => {
                   </div>
                 </div>
               </DropDown>
-              <LogoutBtn className="flex items-center gap-x-2 " />
+             <div className="child:cursor-pointer -mr-1 child:text-white">
+             <LogoutBtn className="flex  child:text-[22px] items-center gap-x-2 " />
+             </div>
             </ul>
           </aside>
         </div>

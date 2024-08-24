@@ -11,7 +11,9 @@ async function page() {
   return (
     <QueryClientProviderWrapper>
       <Suspense>
-        <AllBlogs allBlogs={dataParser(allBlogs)} />
+        <main className="relative max-w-[1920px]">
+          <AllBlogs allBlogs={dataParser(allBlogs)} />
+        </main>
       </Suspense>
     </QueryClientProviderWrapper>
   );
