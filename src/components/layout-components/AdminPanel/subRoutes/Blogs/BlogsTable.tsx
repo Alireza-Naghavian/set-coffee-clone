@@ -5,16 +5,25 @@ import Table from "@/components/UI/Table/Table";
 import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
 import { MainBlogType } from "@/types/blog.type";
 import dynamic from "next/dynamic";
-import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TfiPackage } from "react-icons/tfi";
 import LgBlogTRow from "./LgBlogTRow";
 import SmBlogTRow from "./SmBlogTRow";
+import { useRouter, useSearchParams } from "next/navigation";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });
 function BlogsTable() {
-  const { blogs, isBlogsLoading } = useGetAllBlogs();
+  const [limit,setLimit]  = useState("10000")
+  const { blogs, isBlogsLoading } = useGetAllBlogs({limit});
+  const {replace} = useRouter();
+  const path = useSearchParams();
+  const url = new URLSearchParams(path)
+  useEffect(()=>{
+    setLimit(limit)
+    url.set("limit", limit.toString());
+    replace(`?${url.toString()}`);
+  },[])
   if (isBlogsLoading) {
     return (
       <div className="flex items-center gap-x-2 mt-4">
@@ -28,7 +37,7 @@ function BlogsTable() {
   return (
     <div className="h-[480px] overflow-y-auto">
       <NoSSR variant="singleHead" className="w-full relative mt-10 table">
-        {blogs?.length > 0 ? (
+        {blogs?.blogs?.length > 0 ? (
           <Table.Header variant="singleHead" className="hidden md:block">
             <tr
               className="grid grid-cols-5 rounded-lg  child:text-center p-4
@@ -53,7 +62,7 @@ function BlogsTable() {
           variant="singleHead"
           className="child:md:grid-cols-5 grid-cols-2"
         >
-          {blogs?.map((blog:MainBlogType,index:number)=>{
+          {blogs?.blogs?.map((blog:MainBlogType,index:number)=>{
             return(
               <React.Fragment key={index}>
                 <LgBlogTRow blog={blog} index={index+1}/>
@@ -61,7 +70,7 @@ function BlogsTable() {
 
             )
           })}
-          {blogs?.map((blog:MainBlogType,index:number)=>{
+          {blogs?.blogs?.map((blog:MainBlogType,index:number)=>{
             return(
               <React.Fragment key={index}>
                 <SmBlogTRow blog={blog} />

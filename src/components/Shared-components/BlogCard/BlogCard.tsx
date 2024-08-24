@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 function BlogCard({ cover, shortDesc, title,_id,provider,createdAt,isBlogsLoading }: MainBlogType&{isBlogsLoading:boolean}) {
+  if(_id === undefined) return
   return (
     <div className="relative  flex flex-col   gap-y-2 bg-gray-100">
       <Link className="w-full h-full relative " href={`blogs/${_id}`}>
@@ -14,13 +15,13 @@ function BlogCard({ cover, shortDesc, title,_id,provider,createdAt,isBlogsLoadin
         alt={title}
         blurDataURL={cover}/>
           <div
-          className="w-[53px] h-[56px]      absolute top-0 child:font-Shabnam_M !z-50  child:text-lg 
+          className=" h-[56px]      absolute top-0 child:font-Shabnam_M !z-50  child:text-lg 
                 child:text-main flex flex-col
                     gap-y-px ml-auto 
                     justify-center shadow-md 
                     items-center bg-white mt-[15px] mr-[15px] ">
-          <span>{createdAt&& new Date(createdAt).toLocaleDateString("fa-Ir",{day:"2-digit"})} </span>
-          <span>{createdAt&& new Date(createdAt).toLocaleDateString("fa-Ir",{month:"long"})}</span>
+          <span className="!px-2">{createdAt&& new Date(createdAt).toLocaleDateString("fa-Ir",{day:"2-digit"})} </span>
+          <span className="!px-2">{createdAt&& new Date(createdAt).toLocaleDateString("fa-Ir",{month:"long"})}</span>
         </div>
         <span className={`w-full h-[40px] bg-gray-100 shadow-none outline-none absolute bottom-0 ${isBlogsLoading ? "hidden" : "block"}`}></span>
       </Link>
