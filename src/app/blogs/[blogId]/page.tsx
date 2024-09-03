@@ -5,10 +5,15 @@ import BlogsModel from "@/models/blogs/blogs";
 import UserModel from "@/models/user/user";
 import dataParser from "@/utils/dataParser/dataParser";
 import { isValidObjectId } from "mongoose";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 type SingleBlogType = {
   blogId: string;
 };
+type Props = {
+  params: { blogId: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 export const generateStaticParams = async () => {
   await dbConnection();
   await UserModel.findOne({}, "_id").limit(1);
@@ -18,6 +23,13 @@ export const generateStaticParams = async () => {
   const params = initialProductData.map((blog) => ({ _id: blog._id }));
   return params;
 };
+export const generateMetadata = async({params,searchParams}:Props): Promise<Metadata>=>{
+  const allBlogs = await BlogsModel.findOne({_id:params.blogId})
+const title  = `فروشگاه -مقالات-${allBlogs.title}`
+return {
+  title
+}
+}
 async function page({ params }: { params: SingleBlogType }) {
   await dbConnection();
   const { blogId } = params;

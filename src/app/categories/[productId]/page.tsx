@@ -6,10 +6,15 @@ import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import dataParser from "@/utils/dataParser/dataParser";
 import { isValidObjectId } from "mongoose";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 type ProductParams = {
   productId: string;
 };
+type Props = {
+  params: { productId: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 export const revalidate =1800;
 export const generateStaticParams = async () => {
   await dbConnection();
@@ -50,4 +55,13 @@ async function SingleProduct({ params }: { params: ProductParams }) {
   );
 }
 
+
+export const generateMetadata = async({params,searchParams}:Props): Promise<Metadata>=>{
+  const allProducts = await ProductModel.findOne({_id:params.productId})
+const title  = `فروشگاه -${allProducts.title}`
+return {
+  title
+}
+}
 export default SingleProduct;
+ 
