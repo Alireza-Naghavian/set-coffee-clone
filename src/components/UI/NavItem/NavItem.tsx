@@ -1,9 +1,9 @@
 "use client";
 import styles from "@/components/Shared-components/NavBar/Navbar.module.css";
 import ProgressBarLink from "@/components/Utils-components/ProgressBar/ProgressBar";
-import Link from "next/link";
 import { useRouter } from "next-nprogress-bar";
-import React, { DOMAttributes } from "react";
+import Link from "next/link";
+import React from "react";
 export type SubItemType = { label: string; href: string };
 type NavItemType = {
   label: string;

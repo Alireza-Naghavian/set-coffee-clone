@@ -38,7 +38,7 @@ function SmallCommentTRow({ comment }: { comment: CommentModeltype }) {
         },
       });
     } catch (error: any) {
-      console.log(error?.reponse?.data?.message);
+      showAlert("error", error?.reponse?.data?.message);
     }
   };
   const statusHanlder = async (e: FormEvent<HTMLFormElement>) => {

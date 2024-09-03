@@ -72,7 +72,7 @@ function EditProductForm({ product, setIsOpen }: EditModlaType) {
         }
       );
     } catch (error: any) {
-      console.log(error?.response?.data?.message);
+      showAlert("error", error?.response?.data?.message);
     }
   };
 

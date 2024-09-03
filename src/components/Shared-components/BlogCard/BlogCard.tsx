@@ -1,7 +1,6 @@
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
-import { BlogsCard, MainBlogType } from "@/types/blog.type";
+import { MainBlogType } from "@/types/blog.type";
 import Link from "next/link";
-import React from "react";
 
 function BlogCard({ cover, shortDesc, title,_id,provider,createdAt,isBlogsLoading }: MainBlogType&{isBlogsLoading:boolean}) {
   if(_id === undefined) return

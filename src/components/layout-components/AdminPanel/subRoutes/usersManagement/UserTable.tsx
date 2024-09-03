@@ -1,12 +1,11 @@
 "use client";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import Table from "@/components/UI/Table/Table";
 import useUsers from "@/hooks/authHooks/useUsers";
 import { UserRoleType } from "@/types/auth.type";
 import React from "react";
 import LargeUserTRow from "./LargeUserTRow";
-import Loader from "@/components/UI/loader/Loader";
 import SmallUserTRow from "./SmallUserTRow";
-import TextLoader from "@/components/UI/loader/TextLoader";
 
 function UserTable() {
   const { isUserLoading, users } = useUsers();

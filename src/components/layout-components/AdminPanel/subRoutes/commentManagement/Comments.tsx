@@ -1,16 +1,15 @@
 "use client";
+import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import Table from "@/components/UI/Table/Table";
 import useGetAllComments from "@/hooks/comments/useGetAllComments";
 import { CommentModeltype } from "@/types/models/comment.type";
+import dynamic from "next/dynamic";
 import React from "react";
+import { FaCommentAlt } from "react-icons/fa";
 import HeaderAdminLayout from "../Products/HeaderAdminLayout";
 import LargeCommentTRow from "./LargeCommentTRow";
 import SmallCommentTRow from "./SmallCommentTRow";
-import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
-import { FaCommentAlt } from "react-icons/fa";
-import Loader from "@/components/UI/loader/Loader";
-import dynamic from "next/dynamic";
-import TextLoader from "@/components/UI/loader/TextLoader";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 type BadgeType = {
   children: React.ReactNode;
   additionalClass?: string;

@@ -2,16 +2,15 @@ import ProductCard from "@/components/Shared-components/ProductCard/ProductCard"
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import EmptySearch from "@/components/UI/EmptySearch/EmptySearch";
-import Loader from "@/components/UI/loader/Loader";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import FilteredCategory from "@/components/Utils-components/FIlter/FilteredCategory";
 import Select from "@/components/Utils-components/Select/Select";
 import { SingleProductType } from "@/types/models/categories.type";
 import { FilterProductType } from "@/types/products.type";
 import { optionValues } from "@/utils/constants";
+import { useSearchParams } from "next/navigation";
 import { FaSortAmountDown } from "react-icons/fa";
 import styles from "./MainShopPageStyle.module.css";
-import { useSearchParams } from "next/navigation";
-import TextLoader from "@/components/UI/loader/TextLoader";
 
 function Filter_Result({
   filtersEntity,

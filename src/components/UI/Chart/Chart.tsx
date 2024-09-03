@@ -1,6 +1,6 @@
 import formatNumber from '@/utils/convertors/toIrString'
 import React from 'react'
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 type ChartType ={
     mainData:any,
     YDomain:[0,number]

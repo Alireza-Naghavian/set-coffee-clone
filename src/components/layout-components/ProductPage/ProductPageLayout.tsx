@@ -7,7 +7,7 @@ import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
-import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
+import useAddToWishList from "@/hooks/wishList/useAddToWishList";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import { CommentModeltype } from "@/types/models/comment.type";

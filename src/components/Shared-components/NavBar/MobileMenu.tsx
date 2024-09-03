@@ -1,7 +1,7 @@
 "use client";
 import LogoLink from "@/components/UI/LogoLink/LogoLink";
 import Overlay from "@/components/UI/Overlay/Overlay";
-import useGetBasketData from "@/hooks/helper-hooks/useGetBasketData";
+import useGetBasketData from "@/hooks/orders/useGetBasketData";
 import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
 import { useState } from "react";

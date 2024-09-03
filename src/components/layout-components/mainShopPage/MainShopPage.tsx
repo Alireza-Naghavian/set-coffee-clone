@@ -35,7 +35,7 @@ function MainShopPage({ allCategories, totalProduct }: ShopPageType) {
 
   const updateParams = (key: string, value: string) => {
     newParams.set(key, value);
-    navigate.replace(`?${newParams.toString()}`,{scroll:false});
+    navigate.replace(`?${newParams.toString()}`, { scroll: false });
   };
 
   const removeParams = (key: string) => {
@@ -62,7 +62,9 @@ function MainShopPage({ allCategories, totalProduct }: ShopPageType) {
     } else {
       removeParams("categoryId");
     }
-  }, [categoryData.categoryId]);
+  }, [
+    categoryData.categoryId
+  ]);
   return (
     <div className="relative child:sm:px-10 flex flex-col child:px-4">
       <CategoryList
@@ -75,18 +77,20 @@ function MainShopPage({ allCategories, totalProduct }: ShopPageType) {
         setStars={setStars}
       />
       <Filter_Result
-      filtersEntity={filtersEntity}
-      isFilterOpen={isFilterOpen}
-      setIsFilterOpen={setIsFilterOpen}
-      setMaxPrice={setMaxPrice}
-      setMinPrice={setMinPrice}
-      setSort={setSort}
-      sort={sort}
-      products={products}
-      isProductsLoading={isProductsLoading}
+        filtersEntity={filtersEntity}
+        isFilterOpen={isFilterOpen}
+        setIsFilterOpen={setIsFilterOpen}
+        setMaxPrice={setMaxPrice}
+        setMinPrice={setMinPrice}
+        setSort={setSort}
+        sort={sort}
+        products={products}
+        isProductsLoading={isProductsLoading}
       />
-      <div className="flex self-end mx-auto lg:justify-center md:w-[calc(100vw-320px)] 
-      lg:md:w-[calc(100vw-400px)] md:!h-[80px]   md:ml-0  lg:!mr-auto md:mt-4">
+      <div
+        className="flex self-end mx-auto lg:justify-center md:w-[calc(100vw-320px)] 
+      lg:md:w-[calc(100vw-400px)] md:!h-[80px]   md:ml-0  lg:!mr-auto md:mt-4"
+      >
         {!categoryData.categoryId &&
           products?.totalProduct !== products?.products?.length && (
             <Pagination

@@ -1,16 +1,15 @@
 "use client";
-import React from "react";
-import HeaderAdminLayout from "../Products/HeaderAdminLayout";
-import dynamic from "next/dynamic";
-import Table from "@/components/UI/Table/Table";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
-import { HiTicket } from "react-icons/hi2";
-import Loader from "@/components/UI/loader/Loader";
-import useGetAllTickets from "@/hooks/tickets&department/useGetAllTickets";
-import LargeTicketTRow from "./LargeTicketTRow";
-import { TicketType } from "@/types/models/ticket.type";
-import SmallTicketTRow from "./SmallTicketTRow";
 import TextLoader from "@/components/UI/loader/TextLoader";
+import Table from "@/components/UI/Table/Table";
+import useGetAllTickets from "@/hooks/tickets&department/useGetAllTickets";
+import { TicketType } from "@/types/models/ticket.type";
+import dynamic from "next/dynamic";
+import React from "react";
+import { HiTicket } from "react-icons/hi2";
+import HeaderAdminLayout from "../Products/HeaderAdminLayout";
+import LargeTicketTRow from "./LargeTicketTRow";
+import SmallTicketTRow from "./SmallTicketTRow";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });

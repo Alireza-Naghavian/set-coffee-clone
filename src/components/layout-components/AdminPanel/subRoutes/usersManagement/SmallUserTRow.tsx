@@ -20,7 +20,7 @@ function SmallUserTRow({ user, index }: { user: UserRoleType; index: number }) {
   const { user: userData } = useGetMe();
   useEffect(() => {
     if (userData?.role === "USER") replace("/");
-  }, [user?.role, replace]);
+  }, [user?.role, replace,userData?.role]);
   const [role, setRole] = useState<string>(user.role);
   const { isRoleUpdate, updateRole } = useChangeRole();
   const { showAlert } = useAlert();

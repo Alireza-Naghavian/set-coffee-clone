@@ -3,14 +3,14 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
-import useGetBasketData from "@/hooks/helper-hooks/useGetBasketData";
-import useUpdateUserBasket from "@/hooks/helper-hooks/useUpdateUserBasket";
 import useApplyOfferCode from "@/hooks/offers/useApplyOfferCode";
+import useGetBasketData from "@/hooks/orders/useGetBasketData";
+import useUpdateUserBasket from "@/hooks/orders/useUpdateUserBasket";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProductTable from "./ProductTable/ProductTable";
 import TotalPriceSection from "./TotalPriceSection/TotalPriceSection";
-import { useEffect, useState } from "react";
 type dataType = {
   code: string;
 };
@@ -33,7 +33,6 @@ function Cart() {
         { code: data.code },
         {
           onSuccess: async (data) => {
-            console.log(data.data.percent);
             await updateBasketPrice({
               value: "setCoffeeBasket",
               offerPercent: data.data.percent,
@@ -44,7 +43,7 @@ function Cart() {
         }
       );
     } catch (error) {
-      console.log(error);
+      return null
     }
   };
   if (basketLoading)

@@ -1,11 +1,11 @@
 import Table from "@/components/UI/Table/Table";
 import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
-import useRemoveFromBasket from "@/hooks/helper-hooks/useRemoveFromBasket";
-import useUpdateBasket from "@/hooks/helper-hooks/useUpdateBasket";
+import useRemoveFromBasket from "@/hooks/orders/useRemoveFromBasket";
 import { ProductCartType } from "@/types/products.type";
 import React, { useState } from "react";
 import LgTRow from "../LgTRow/LgTRow";
 import SmTRow from "../SmTRow/SmTRow";
+import useUpdateBasket from "@/hooks/orders/useUpdateBasket";
 function ProductTable({ userBasket,lockCounter }: { userBasket: ProductCartType[],lockCounter:boolean }) {
   const changeTRow = useMediaQuery("(min-width:768px)");
   const { removeFromCart } = useRemoveFromBasket();

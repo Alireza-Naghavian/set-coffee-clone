@@ -1,20 +1,19 @@
 "use client"
-import Loader from "@/components/UI/loader/Loader";
 import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
 import { MainBlogType } from "@/types/blog.type";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 function LastBlogs() {
   const { blogs } = useGetAllBlogs({ limit: "8" });
   return (
     <div>
       {blogs?.blogs?.slice(0, 2).map((blog:MainBlogType) => {
-        if(blog.createdAt !==undefined)
+        if(blog.createdAt !==undefined && blog._id !==undefined)
         return (
           <MinBlogCard
           key={blog._id}
+          identifier={blog._id}
             cover={blog.cover}
             title={blog.title}
             publishDate={  new Date(blog.createdAt).toLocaleDateString("fa-Ir") }
@@ -25,11 +24,11 @@ function LastBlogs() {
   );
 }
 
-const MinBlogCard = ({title,publishDate,cover}:
-{title:string,publishDate:string,cover:string})=>{
+const MinBlogCard = ({title,publishDate,cover,identifier}:
+{title:string,publishDate:string,cover:string,identifier:string})=>{
     return(
         <Link
-        href=""
+        href={`/blogs/${identifier}`}
         className="max-w-[265px] py-4 flex gap-x-4 border-b 
         last:border-b-0 border-b-gray-300/55"
         >

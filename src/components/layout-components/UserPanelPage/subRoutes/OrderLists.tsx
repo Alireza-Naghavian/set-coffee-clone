@@ -1,6 +1,5 @@
 "use client";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
-import Loader from "@/components/UI/loader/Loader";
 import TextLoader from "@/components/UI/loader/TextLoader";
 import Table from "@/components/UI/Table/Table";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";

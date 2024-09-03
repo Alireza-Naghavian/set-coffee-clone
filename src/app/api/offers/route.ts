@@ -84,7 +84,6 @@ export const PATCH = async (req: Request) => {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
       { status: 500 }

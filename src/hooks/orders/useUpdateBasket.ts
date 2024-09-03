@@ -1,5 +1,5 @@
 import { ProductCartType } from "@/types/products.type";
-import { BasketType } from "./useAddToBasket";
+import { BasketType } from "../orders/useAddToBasket";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { decryptData, encryptData } from "@/utils/auth/auth";
 

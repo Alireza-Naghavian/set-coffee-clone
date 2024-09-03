@@ -25,7 +25,6 @@ export const POST = async (req: Request, { params }: Params) => {
 
     return Response.json({ message: "نقش کاربر آپدیت گردید" }, { status: 201 });
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطای سمت سرور => `, error },
       { status: 500 }

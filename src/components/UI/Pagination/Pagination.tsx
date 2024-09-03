@@ -1,3 +1,4 @@
+"use client"
 import { DOTS, usePagination } from "@/hooks/helper-hooks/usePagination";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useCallback } from "react";

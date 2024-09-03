@@ -1,6 +1,5 @@
 "use client";
 import BlogCard from "@/components/Shared-components/BlogCard/BlogCard";
-import Loader from "@/components/UI/loader/Loader";
 import TextLoader from "@/components/UI/loader/TextLoader";
 import Pagination from "@/components/UI/Pagination/Pagination";
 import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
@@ -19,7 +18,7 @@ function AllBlogs({ allBlogs }: { allBlogs: MainBlogType[] }) {
         className="relative grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
        gap-x-4 sm:gap-x-8 mx-auto gap-y-8 "
       >
-        {blogs?.blogs?.map((blog: MainBlogType) => {
+        {allBlogs.map((blog: MainBlogType) => {
           if (blog._id !== undefined)
             return <BlogCard key={blog._id} {...blog} isBlogsLoading={false} />;
         })}

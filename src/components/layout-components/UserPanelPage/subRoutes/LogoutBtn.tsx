@@ -7,7 +7,7 @@ function LogoutBtn({ className }: { className?: string }) {
   const { showAlert } = useAlert();
   const logoutHandler = () => {
     logout();
-    showAlert("error", "خروج موفقیت آمیز");
+    showAlert("success", "خروج موفقیت آمیز");
   };
   return (
     <button onClick={logoutHandler} className={`${className}`}>

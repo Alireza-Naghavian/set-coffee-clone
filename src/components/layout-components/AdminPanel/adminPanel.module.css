@@ -20,3 +20,8 @@ bg-main_brown ;
     child:py-3 child:pr-2 child:cursor-pointer child-hover:text-white 
      child:w-[95%] child:text-white child:child:text-lg;
 }
+.NavItem{
+  @apply  relative
+  !grid !grid-cols-5 
+}
+

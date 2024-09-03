@@ -2,8 +2,8 @@
 import ProductCard from "@/components/Shared-components/ProductCard/ProductCard";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
 import Loader from "@/components/UI/loader/Loader";
-import useGetWishList from "@/hooks/helper-hooks/useGetWishList";
-import useRemoveWishList from "@/hooks/helper-hooks/useRemoveWishList";
+import useGetWishList from "@/hooks/wishList/useGetWishList";
+import useRemoveWishList from "@/hooks/wishList/useRemoveWishList";
 import { useRouter } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";

@@ -28,7 +28,6 @@ async function MainShop() {
       <main className="max-w-[1920px]">
         <Suspense>
           <MainShopPage
-
             allCategories={allCategories&& dataParser(allCategories)}
             totalProduct={totalProduct}
           />

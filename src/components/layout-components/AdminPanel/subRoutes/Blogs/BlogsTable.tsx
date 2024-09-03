@@ -1,16 +1,15 @@
 "use client";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
-import Loader from "@/components/UI/loader/Loader";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import Table from "@/components/UI/Table/Table";
 import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
 import { MainBlogType } from "@/types/blog.type";
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useMemo, useState } from "react";
 import { TfiPackage } from "react-icons/tfi";
 import LgBlogTRow from "./LgBlogTRow";
 import SmBlogTRow from "./SmBlogTRow";
-import { useRouter, useSearchParams } from "next/navigation";
-import TextLoader from "@/components/UI/loader/TextLoader";
 const NoSSR = dynamic(() => import("@/components/UI/Table/Table"), {
   ssr: false,
 });
@@ -24,7 +23,7 @@ function BlogsTable() {
     setLimit(limit);
     url.set("limit", limit.toString());
     replace(`?${url.toString()}`);
-  }, []);
+  }, [limit,replace,setLimit,url]);
   if (isBlogsLoading) {
     return <TextLoader loadingCondition={isBlogsLoading} />;
   }

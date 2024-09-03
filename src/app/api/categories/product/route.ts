@@ -44,7 +44,6 @@ export const POST = async (req: Request) => {
       suitableFor,
       entities,
     };
-    console.log(reqBody);
     const isProductExist = await ProductModel.findOne({ title });
     if (isProductExist) {
       return Response.json(

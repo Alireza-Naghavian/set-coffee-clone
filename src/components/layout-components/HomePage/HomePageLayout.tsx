@@ -1,17 +1,16 @@
 import { QueryClientProviderWrapper } from "@/app/context/QueryClientProvider";
-import BlogsCard from "@/components/Shared-components/ProductCard/BlogsCard";
 import ProductCard from "@/components/Shared-components/ProductCard/ProductCard";
 import HeaderTitle from "@/components/UI/HeaderTitle/HeaderTitle";
 import Swiper from "@/components/UI/Swiper/Swiper";
 import WhySetCoffee from "@/components/UI/WhySetCoffee/WhySetCoffee";
+import { MainBlogType } from "@/types/blog.type";
 import {
   SingleProductType,
   categoriesType,
 } from "@/types/models/categories.type";
 import Image from "next/image";
-import BlogCardHomePage from "./BlogCardHomePage";
-import { MainBlogType } from "@/types/blog.type";
 import { Suspense } from "react";
+import BlogCardHomePage from "./BlogCardHomePage";
 
 interface FilteredProdouctsType extends categoriesType {
   productCount?: number;

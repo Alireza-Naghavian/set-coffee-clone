@@ -58,7 +58,7 @@ function LargeCommentTRow({ comment }: { comment: CommentModeltype }) {
         },
       });
     } catch (error: any) {
-      console.log(error?.reponse?.data?.message);
+      showAlert("error",error?.reponse?.data?.message)
     }
   };
   return (

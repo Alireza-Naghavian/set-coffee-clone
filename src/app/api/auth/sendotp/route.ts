@@ -48,7 +48,6 @@ export const POST = async (req: Request) => {
         );
       })
       .catch(function (error) {
-        console.log(error);
         return Response.json(
           { message: "ارسال پیام اعتبارسنجی ناموفق بود" },
           { status: HttpStatus.INTERNAL_SERVER_ERROR }
@@ -72,7 +71,6 @@ export const POST = async (req: Request) => {
       { status: HttpStatus.OK }
     );
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: `خطای سمت سرور => `, error },
       { status: 500 }

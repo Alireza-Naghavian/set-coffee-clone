@@ -3,18 +3,18 @@ import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
-import useAddToBasket from "@/hooks/helper-hooks/useAddToBasket";
-import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
+import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
+import useAddToBasket from "@/hooks/orders/useAddToBasket";
+import useAddToWishList from "@/hooks/wishList/useAddToWishList";
 import { SingleProductType } from "@/types/models/categories.type";
 import { isProductInWishlist } from "@/utils/StorageHandlers/WishList";
 import { useCallback, useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
+import { IoSearch } from "react-icons/io5";
 import { MdOutlineDone } from "react-icons/md";
 import styles from "./productCard.module.css";
 import QuickAccessModal from "./QuickAccessModal";
-import { IoSearch } from "react-icons/io5";
-import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
 
 const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
   const [isExist, setIsExist] = useState(false);

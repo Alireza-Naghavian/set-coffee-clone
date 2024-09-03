@@ -9,7 +9,7 @@ export const getSingleTicketData = async (ticketId:string) => {
 };
 
 export const ReplyTicketMsg = async ({ticketId,data}:{ticketId:string,data:any})=>{
-  return await api.post(`/tickets/${ticketId}`,data).then(({data})=>console.log(data))
+  return await api.post(`/tickets/${ticketId}`,data).then(({data})=>data)
 }
 
 export const getAllTickets= async()=>{

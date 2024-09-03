@@ -1,7 +1,7 @@
 import Alert from "@/components/UI/Alert/Alert";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
-import useAddToBasket from "@/hooks/helper-hooks/useAddToBasket";
+import useAddToBasket from "@/hooks/orders/useAddToBasket";
 import { SingleProductType } from "@/types/models/categories.type";
 import { useCallback, useState } from "react";
 

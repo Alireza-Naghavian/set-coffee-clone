@@ -1,10 +1,9 @@
 "use client";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import useGetBlog from "@/hooks/blogs/useGetBlog";
 import { MainBlogType } from "@/types/blog.type";
 import { useParams } from "next/navigation";
 import styles from "./blog.module.css";
-import Loader from "@/components/UI/loader/Loader";
-import TextLoader from "@/components/UI/loader/TextLoader";
 function SingleBlogPage({ blogData }: { blogData: MainBlogType }) {
   const params = useParams<{ blogId: string }>();
   const {

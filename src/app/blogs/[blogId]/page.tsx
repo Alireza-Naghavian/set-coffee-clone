@@ -9,6 +9,15 @@ import { notFound } from "next/navigation";
 type SingleBlogType = {
   blogId: string;
 };
+export const generateStaticParams = async () => {
+  await dbConnection();
+  await UserModel.findOne({}, "_id").limit(1);
+  const initialProductData = await BlogsModel.find({})
+    .populate("provider", "userName")
+    .lean();
+  const params = initialProductData.map((blog) => ({ _id: blog._id }));
+  return params;
+};
 async function page({ params }: { params: SingleBlogType }) {
   await dbConnection();
   const { blogId } = params;
