@@ -5,11 +5,11 @@ import NavItem from "@/components/UI/NavItem/NavItem";
 import Overlay from "@/components/UI/Overlay/Overlay";
 import useLogOut from "@/hooks/authHooks/useLogout";
 import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
-import useGetBasketData from "@/hooks/helper-hooks/useGetBasketData";
-import useGetWishList from "@/hooks/helper-hooks/useGetWishList";
+import useGetBasketData from "@/hooks/orders/useGetBasketData";
+import useGetWishList from "@/hooks/wishList/useGetWishList";
 import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
-import { subUserMenu } from "@/utils/constants";
+import { subMenuTitles, subUserMenu } from "@/utils/constants";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -18,14 +18,8 @@ import { IoChevronDown } from "react-icons/io5";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
-export const subMenuTitles = [
-  { label: "Specialty coffee", href: "/categories" },
-  { label: "World Class Specialty", href: "/categories" },
-  { label: "Premium Coffee", href: "/categories" },
-  { label: "Commercial Coffee", href: "/categories" },
-  { label: "Coffee Capsule", href: "/categories" },
-  { label: "Italian Passion", href: "/categories" },
-];
+import { useRouter } from "next/navigation";
+
 function DesktopMenu({
   user,
   userLoading,
@@ -35,10 +29,10 @@ function DesktopMenu({
 }) {
   const [isDesktopCartOpen, setIsDesktopCartOpen] = useState<boolean>(false);
   const [isOpen, { close, open }] = useDisclosure();
-  const {userBasket,basketLoading} = useGetBasketData();
+  const { userBasket, basketLoading } = useGetBasketData();
   const { logout } = useLogOut();
-  const {wishList:getData,isLoading} =useGetWishList();
-
+  const { push } = useRouter();
+  const { wishList: getData, isLoading } = useGetWishList();
   useScrollLocker(isOpen || isDesktopCartOpen);
   const logOutHandler = () => {
     logout();
@@ -60,7 +54,8 @@ function DesktopMenu({
               targetLink="/categories"
               label="فروشگاه"
               icon={<IoChevronDown />}
-              subMenuItem={subMenuTitles}/>
+              subMenuItem={subMenuTitles}
+            />
             <NavItem targetLink="/blogs" label="وبلاگ" />
             <NavItem targetLink="/contact-us" label="تماس با ما" />
             <NavItem targetLink="/about-us" label="درباره ما" />
@@ -73,8 +68,14 @@ function DesktopMenu({
                 label={user.userName}
                 icon={<IoChevronDown />}
                 subMenuItem={subUserMenu}
-                optionalEvent={logOutHandler}
-                optionalSubMenu={[{ label: "خروج" }]}
+                optionalSubMenu={
+                  user.role === "ADMIN"
+                    ? [
+                        { label: "پنل ادمین", action:()=> push("/p-admin") },
+                        { label: "خروج", action: logOutHandler },
+                      ]
+                    : [{ label: "خروج", action: logOutHandler }]
+                }
               />
             ) : (
               <div className="py-2" onClick={() => open()}>
@@ -85,29 +86,30 @@ function DesktopMenu({
         </div>
         <div className=" text-main flex-center my-auto gap-x-6">
           <Link href={"/my-account/wishlist"} className="relative">
-            {isLoading ? "" :   getData.length > 0 && (
-              <Badge
-                additionalClass="text-lg w-5 h-5 flex-center bg-main_brown 
+            {isLoading
+              ? ""
+              : getData.length > 0 && (
+                  <Badge
+                    additionalClass="text-lg w-5 h-5 flex-center bg-main_brown 
           text-white rounded-full absolute -top-[5px] -left-[4px]"
-              >
-                {getData.length.toLocaleString("fa-Ir")}
-              </Badge>
-            )}
+                  >
+                    {getData.length.toLocaleString("fa-Ir")}
+                  </Badge>
+                )}
             <FaRegHeart size={28} />
           </Link>
-            <div  onClick={() => setIsDesktopCartOpen(true)} className="cursor-pointer relative">
+          <div
+            onClick={() => setIsDesktopCartOpen(true)}
+            className="cursor-pointer relative"
+          >
             <Badge
-                additionalClass="text-lg w-5 h-5 flex-center bg-main_brown 
+              additionalClass="text-lg w-5 h-5 flex-center bg-main_brown 
           text-white rounded-full absolute -top-[5px] -left-[4px]"
-              >
-                {userBasket?.length.toLocaleString("fa-Ir")}
-              </Badge>
-          <AiOutlineShoppingCart
-            className="cursor-pointer"
-           
-            size={28}
-            />
-            </div>
+            >
+              {userBasket ? userBasket?.length.toLocaleString("fa-Ir"):"۰"}
+            </Badge>
+            <AiOutlineShoppingCart className="cursor-pointer" size={28} />
+          </div>
         </div>
       </div>
       <>
@@ -124,8 +126,13 @@ function DesktopMenu({
         <aside
           className={`${styles.freeSideBar} ${
             isDesktopCartOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
-          }`}>
-          <SideBarBasket basketLoading={basketLoading} getCart={userBasket} setIsCartOpen={setIsDesktopCartOpen} />
+          }`}
+        >
+          <SideBarBasket
+            basketLoading={basketLoading}
+            getCart={userBasket ?? []}
+            setIsCartOpen={setIsDesktopCartOpen}
+          />
         </aside>
         {/* sideBarBasket aside */}
         {/* shared overlay */}

@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
 
 const Modal: React.FC<ModalType> = (props) => {
-  const { children, effect, isShow, onClose } = props;
+  const { children, effect, isShow, onClose ,className} = props;
   useEffect(() => {
     document.body.style.overflow = isShow ? "hidden" : "unset";
   }, [isShow]);
@@ -22,7 +22,7 @@ const Modal: React.FC<ModalType> = (props) => {
   }, [isShow, onClose]);
 
   //styles
-  const modalStyle = cva("bg-white hidden lg:block", {
+  const modalStyle = cva("bg-white ", {
     variants: {
       effect: {
         bottom_to_top: `${
@@ -63,7 +63,7 @@ const Modal: React.FC<ModalType> = (props) => {
         onClick={() => onClose()}
       />
 
-      <div className={modalStyle({ effect })}>
+      <div className={modalStyle({ effect ,className} )}>
         {React.Children.map(children, (child) =>
           React.isValidElement(child)
             ? // eslint-disable-next-line no-use-before-define
@@ -96,13 +96,13 @@ const Content: React.FC<ContentProps> = (props) => {
 };
 
 const Header: React.FC<HeaderPropsType> = (props) => {
-  const { children, onClose } = props;
+  const { children, onClose,className } = props;
   return (
 
-    <div className="flex items-center justify-between border-b-2 border-gray-200 pb-2">
+    <div className={`${className} flex items-center justify-between border-b-2 border-gray-200 pb-2`}>
       <span className="text-sm">{children}</span>
       <button onClick={onClose} className="p-1">
-        <IoIosClose size={22} />
+        <IoIosClose size={32} />
       </button>
     </div>
 

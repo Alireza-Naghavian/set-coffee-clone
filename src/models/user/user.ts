@@ -18,7 +18,6 @@ const schema = new Schema<UserType>(
     phoneNumber: {
       type: String,
       required: true,
-      
     },
     expTime: {
       type: Number,
@@ -26,24 +25,29 @@ const schema = new Schema<UserType>(
     },
     role: {
       type: String,
-      required:false,
+      required: false,
       default: "USER",
     },
     retryTimes: {
       type: Number,
       default: 3,
     },
-    isActive:{
-      type:Boolean,
-      default:false
+    isActive: {
+      type: Boolean,
+      default: false,
     },
-    postCode:{
-      type:Number,
-      required:false,
-    }
+    postCode: {
+      type: Number,
+      required: false,
+    },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+schema.virtual("userCart", {
+  ref: "cart",
+  foreignField: "user",
+  localField: "_id",
+});
 
 const UserModel = mongoose.models.user || mongoose.model("user", schema);
 

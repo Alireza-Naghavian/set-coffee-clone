@@ -3,25 +3,25 @@ import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
-import useAddToBasket from "@/hooks/helper-hooks/useAddToBasket";
-import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
+import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
+import useAddToBasket from "@/hooks/orders/useAddToBasket";
+import useAddToWishList from "@/hooks/wishList/useAddToWishList";
 import { SingleProductType } from "@/types/models/categories.type";
 import { isProductInWishlist } from "@/utils/StorageHandlers/WishList";
 import { useCallback, useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
+import { IoSearch } from "react-icons/io5";
 import { MdOutlineDone } from "react-icons/md";
 import styles from "./productCard.module.css";
 import QuickAccessModal from "./QuickAccessModal";
-import { IoSearch } from "react-icons/io5";
-import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
 
 const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
   const [isExist, setIsExist] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { addToWishList } = useAddToWishList();
   const { addToBasket } = useAddToBasket();
-  const { showAlert, hideAlert } = useAlert();
+  const { showAlert } = useAlert();
   const [isQAcessOpen,{open,close}] = useDisclosure();
   useEffect(() => {
     if (productData._id === undefined) return;
@@ -34,6 +34,8 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
     price: productData.price,
     score: productData.score,
     count: 1,
+    shortDesc:productData.shortDesc,
+    tags:productData.tags
   };
   const wishListHandler = async () => {
     await addToWishList(newItem, {
@@ -44,21 +46,20 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
   };
   const addToCartHandler = useCallback(() => {
     setIsLoading(true);
-    showAlert("success", "محصول به سبد خرید افزوده شد");
     const timeOut = setTimeout(async () => {
       await addToBasket(
         { product: newItem, value: "setCoffeeBasket", counter: 1 },
         {
           onSuccess: () => {
+            showAlert("success", "محصول به سبد خرید افزوده شد");
             setIsLoading(false);
-            hideAlert();
           },
         }
       );
     }, 2000);
 
     return () => clearTimeout(timeOut);
-  }, [hideAlert, newItem, showAlert, addToBasket]);
+  }, [ newItem, showAlert, addToBasket]);
 
   return (
     <>
@@ -74,10 +75,13 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
               <button
                 onClick={() => addToCartHandler()}
                 className={`${styles["add-to-cart-btn"]}`}
+                disabled ={productData.entities ===0}
               >
                 {isLoading ? (
                   <Loader loadingCondition={isLoading} />
                 ) : (
+                  <>
+                  {productData?.entities === 0 ? <div><span>ناموجود</span></div>:
                   <>
                     <span className={`${styles["add-to-basket-text"]}`}>
                       افزودن به سبد خرید
@@ -85,6 +89,8 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
                     <span className={`${styles["add-to-basket-icon"]}`}>
                       <AiOutlineShoppingCart size={22} />
                     </span>
+                  </>
+                  } 
                   </>
                 )}
               </button>
@@ -137,12 +143,13 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
           <MainBtn
             onClick={() => addToCartHandler()}
             variant="primary"
+            disabled ={productData.entities ===0}
             size="small"
-            className="lg:hidden  font-Shabnam_B  tracking-tighter "
+            className={`lg:hidden  font-Shabnam_B  tracking-tighter ${productData.entities ===0 && "bg-red-400 hover:bg-red-400"}`}
           >
             {isLoading ? (
               <Loader loadingCondition={isLoading} />
-            ) : (
+            ) :  productData?.entities === 0 ? <div><span>ناموجود</span></div>: (
               <span>افزودن به سبد خرید</span>
             )}
           </MainBtn>

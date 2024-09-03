@@ -1,6 +1,6 @@
 "use client";
 import EmptyResult from "@/components/UI/EmptyResult/EmptyResult";
-import Loader from "@/components/UI/loader/Loader";
+import TextLoader from "@/components/UI/loader/TextLoader";
 import Table from "@/components/UI/Table/Table";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 import useGetOrders from "@/hooks/orders/useGetOrders";
@@ -9,20 +9,17 @@ import { ProductCartType } from "@/types/products.type";
 import { BsFillCartXFill } from "react-icons/bs";
 const OrderLists = () => {
   const { UserOrders, isOrderLoading } = useGetOrders();
-  if (isOrderLoading)
+  if (isOrderLoading) return <TextLoader loadingCondition={isOrderLoading} />;
+  if (!UserOrders?.data.length) {
     return (
-      <div className="flex gap-x-2">
-        <span>
-          <Loader loadingCondition={isOrderLoading} />
-        </span>
-        <span>درحال بارگزاری...</span>
-      </div>
+      <EmptyResult
+        icon={<BsFillCartXFill />}
+        title="هیچ سفارشی یافت نشد."
+        firstDesc="هیچ سفارشی تاکنون ثبت نشده است"
+        secondDesc="محصولات مورد نظر خود را سفارش دهید."
+      />
     );
-    if(!UserOrders?.data.length){
-      return <EmptyResult  icon={<BsFillCartXFill/>} title="هیچ سفارشی یافت نشد." 
-      firstDesc="هیچ سفارشی تاکنون ثبت نشده است" 
-      secondDesc="محصولات مورد نظر خود را سفارش دهید."/>
-    }
+  }
   return (
     <div className="md:h-[513px] h-[315px] px-4 md:max-h-[513px] overflow-y-auto  ">
       <Table variant="singleHead">
@@ -44,7 +41,7 @@ const OrderLists = () => {
               <Table.Row
                 key={order?._id}
                 variant="singleHead"
-                className="mt-4 lg:grid-cols-5 grid-cols-1 child:font-Shabnam_M  lg:gap-y-0 gap-y-4" 
+                className="mt-4 lg:grid-cols-5 grid-cols-1 child:font-Shabnam_M  lg:gap-y-0 gap-y-4"
               >
                 <td className="flex gap-x-1">
                   <span>{order?.totalItem.toLocaleString("fa-Ir")}</span>

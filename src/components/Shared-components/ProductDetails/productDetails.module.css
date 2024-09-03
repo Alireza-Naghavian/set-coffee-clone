@@ -1,3 +1,34 @@
 .commentSectionWrapper{
     @apply flex lg:flex-row flex-col w-full h-full  sm:px-4 gap-x-4 mt-4 sm:child:px-1 child:py-2
 }
+.admin_badge{
+    @apply flex justify-center items-center
+}
+@media screen and (max-width:420px) {
+    
+    .admin_badge{
+    @apply hidden
+    }
+}
+@media screen and (min-width:320px) and (max-width:400px) {
+    .blogContainer{
+        @apply !px-4 relative w-full overflow-x-hidden
+    }
+}
+
+.blogContainer h1{
+@apply md:text-4xl text-3xl
+}
+.blogContainer h2{
+@apply md:text-3xl text-2xl
+}
+.blogContainer p{
+@apply text-base leading-7
+}
+
+.blogContainer li{
+@apply mr-6 space-y-4
+}
+.blogContainer ul{
+@apply space-y-1 mt-4
+}

@@ -3,8 +3,11 @@ import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
 import { CommentModeltype } from "@/types/models/comment.type";
-import { getUser } from "@/utils/auth/authHelper";
+import { MessagesType } from "@/types/models/ticket.type";
+import { authAdmin, getUser } from "@/utils/auth/authHelper";
 import { commentSchema } from "@/utils/validator/comments/commentsValidator";
+import { isValidObjectId } from "mongoose";
+import { revalidatePath } from "next/cache";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 export const POST = async (req: Request, { params }: Params) => {
@@ -52,13 +55,14 @@ export const POST = async (req: Request, { params }: Params) => {
     );
     //update product in category
     await CategoryModel.findOneAndUpdate(
-      { _id: updatedProuductScore.category, "products._id":id },
+      { _id: updatedProuductScore.category, "products._id": id },
       {
         $set: allProductComments.length
-          ? { "products.$.score": averageScore  }
-          : { "products.$.score": 5   },
+          ? { "products.$.score": averageScore }
+          : { "products.$.score": 5 },
       }
     );
+    revalidatePath("/p-admin/comments");
     return Response.json(
       {
         message:
@@ -78,9 +82,88 @@ export const POST = async (req: Request, { params }: Params) => {
 export const GET = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+    }
     const { id } = params;
+    if (!isValidObjectId(id))
+      return Response.json(
+        { message: "شناسه کامنت معتبر نمی باشد." },
+        { status: 404 }
+      );
     const comment = await CommentModel.findOne({ productId: id });
     return Response.json({ data: comment });
+  } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
+
+export const DELETE = async (req: Request, { params }: Params) => {
+  try {
+    await dbConnection();
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+    }
+    const { id } = params;
+    if (!isValidObjectId(id))
+      return Response.json(
+        { message: "شناسه کامنت معتبر نمی باشد." },
+        { status: 404 }
+      );
+    await CommentModel.findOneAndDelete({ _id: id });
+    return Response.json(
+      { message: "کامنت مورد نظر  با موفقیت حذف گردید" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return Response.json(
+      { message: `خطا سمت سرور =>`, error },
+      { status: 500 }
+    );
+  }
+};
+
+export const PATCH = async (req: Request, { params }: Params) => {
+  try {
+    await dbConnection();
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+    }
+    const { id } = params;
+    if (!isValidObjectId(id))
+      return Response.json(
+        { message: "شناسه کامنت معتبر نمی باشد." },
+        { status: 404 }
+      );
+
+    const reqBody = await req.json();
+    const { isAccept, messages }: { isAccept: string; messages: MessagesType } =
+      reqBody;
+    let updateData: any = {};
+    if ( messages && messages?.body.trim().length > 0) {
+      updateData = {
+        isAccept: true,
+        messages: messages,
+      };
+    } else {
+      updateData = {
+        isAccept
+      };
+    }
+    await CommentModel.findOneAndUpdate(
+      { _id: id },
+      { $set:updateData }
+    );
+    return Response.json(
+      { message: "درخواست شما با موفقیت انجام شد!" },
+      { status: 201 }
+    );
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },

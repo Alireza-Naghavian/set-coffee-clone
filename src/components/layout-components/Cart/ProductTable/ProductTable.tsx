@@ -1,12 +1,12 @@
 import Table from "@/components/UI/Table/Table";
 import useMediaQuery from "@/hooks/helper-hooks/useMediaQuery";
-import useRemoveFromBasket from "@/hooks/helper-hooks/useRemoveFromBasket";
-import useUpdateBasket from "@/hooks/helper-hooks/useUpdateBasket";
+import useRemoveFromBasket from "@/hooks/orders/useRemoveFromBasket";
 import { ProductCartType } from "@/types/products.type";
 import React, { useState } from "react";
 import LgTRow from "../LgTRow/LgTRow";
 import SmTRow from "../SmTRow/SmTRow";
-function ProductTable({ userBasket }: { userBasket: ProductCartType[] }) {
+import useUpdateBasket from "@/hooks/orders/useUpdateBasket";
+function ProductTable({ userBasket,lockCounter }: { userBasket: ProductCartType[],lockCounter:boolean }) {
   const changeTRow = useMediaQuery("(min-width:768px)");
   const { removeFromCart } = useRemoveFromBasket();
   const removeHandler = async (product: ProductCartType) => {
@@ -43,10 +43,10 @@ function ProductTable({ userBasket }: { userBasket: ProductCartType[] }) {
               <React.Fragment key={product._id || index}>
                 {/* // large devices */}
                 {changeTRow ? (
-                  <LgTRow key={product?._id} removeHandler={removeHandler} product={product} />
+                  <LgTRow lockCounter={lockCounter} key={product?._id} removeHandler={removeHandler} product={product} />
                 ) : (
                   // small devices
-                  <SmTRow key={index} removeHandler={removeHandler} product={product} />
+                  <SmTRow lockCounter={lockCounter} key={index} removeHandler={removeHandler} product={product} />
                 )}
               </React.Fragment>
             );
@@ -57,7 +57,7 @@ function ProductTable({ userBasket }: { userBasket: ProductCartType[] }) {
   );
 }
 
-export const ProductCounter = ({ product }: { product: ProductCartType }) => {
+export const ProductCounter = ({ product,lockCounter }: { product: ProductCartType ,lockCounter:boolean}) => {
   const [counter, setCounter] = useState<number>(product.count);
   const { updateBasketCart } = useUpdateBasket();
   const decrementCounter = () => {
@@ -76,7 +76,7 @@ export const ProductCounter = ({ product }: { product: ProductCartType }) => {
         <button
           aria-label="کاهش تعداد"
           onClick={decrementCounter}
-          disabled={counter <= 1}
+          disabled={counter <= 1 ||lockCounter}
           className="tr-200 hover:text-white hover:bg-main_brown "
         >
           -
@@ -84,6 +84,7 @@ export const ProductCounter = ({ product }: { product: ProductCartType }) => {
         <span>{counter}</span>
         <button
           aria-label="افزایش تعداد"
+          disabled={ lockCounter}
           onClick={incrementCounter}
           className="tr-200 hover:text-white hover:bg-main_brown "
         >

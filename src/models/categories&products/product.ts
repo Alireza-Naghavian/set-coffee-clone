@@ -32,7 +32,7 @@ export const schema = new Schema<SingleProductType>(
       required: true,
     },
     tags: {
-      type: [String],
+      type: String,
       required: true,
     },
     cover: {
@@ -49,6 +49,16 @@ export const schema = new Schema<SingleProductType>(
       required: true,
       
     },
+    entities:{
+      type:Number,
+      required:false,
+      default:1
+    },
+    sold:{
+      type:Number,
+      required:false,
+      default:0
+    }
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );

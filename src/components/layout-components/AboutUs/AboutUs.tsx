@@ -1,6 +1,4 @@
 import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
-import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
-import React from "react";
 
 function AboutUs() {
   return (

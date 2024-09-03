@@ -7,15 +7,15 @@ import TabSelection from "@/components/UI/TabSelection/TabSelection";
 import Breadcrumb from "@/components/UI/breadcrumb/Breadcrumb";
 import Loader from "@/components/UI/loader/Loader";
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
-import useAddToWishList from "@/hooks/helper-hooks/useAddToWishList";
+import useAddToWishList from "@/hooks/wishList/useAddToWishList";
 import useGetSingleProduct from "@/hooks/product/useGetSingleProduct";
 import { SingleProductType } from "@/types/models/categories.type";
 import { CommentModeltype } from "@/types/models/comment.type";
-import { customeBlurDataURL } from "@/utils/constants";
+import { customeBlurDataURL, productSelectionOption } from "@/utils/constants";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
-import { MdOutlineDone } from "react-icons/md";
+import { MdClose, MdOutlineDone } from "react-icons/md";
 import AddToBasket from "./AddToBasket";
 import SingleProductRate from "./SingleProductRate";
 export const isProductInWishlist = (productId: string): boolean => {
@@ -23,33 +23,39 @@ export const isProductInWishlist = (productId: string): boolean => {
   const getData = storedData ? JSON.parse(storedData) : [];
   return getData.some((data: any) => data._id === productId);
 };
-function ProductPageLayout({initialProductData,}: {initialProductData: SingleProductType;}) 
-{
+function ProductPageLayout({
+  initialProductData,
+}: {
+  initialProductData: SingleProductType;
+}) {
   const [activeTab, setActiveTab] = useState<string>("desc");
   const { productId }: { productId: string } = useParams();
   const [isExist, setIsExist] = useState(false);
   const { product } = useGetSingleProduct(productId, initialProductData);
   const filterAcceptableComments = product?.ProductComment?.filter(
-    (comment: CommentModeltype) => {return comment.isAccept;}
+    (comment: CommentModeltype) => {
+      return comment.isAccept;
+    }
   );
-
-  const {addToWishList,isPending} = useAddToWishList()
+  const { addToWishList, isPending } = useAddToWishList();
   useEffect(() => {
     setIsExist(isProductInWishlist(productId));
   }, [productId]);
-  
-  const AddTowishList = async() => {
+  const AddTowishList = async () => {
     const newItem = {
-      cover:product.cover,
-      _id:product._id,
-      title:product.title,
-      price:product.price,
-      score:product.score
+      cover: product.cover,
+      _id: product._id,
+      title: product.title,
+      price: product.price,
+      score: product.score,
+      shortDesc:product.shortDesc,
+      tags:product.tags
     };
-  await  addToWishList(newItem,{onSuccess:()=>{
-
-    setIsExist(true)
-  }})
+    await addToWishList(newItem, {
+      onSuccess: () => {
+        setIsExist(true);
+      },
+    });
   };
   return (
     <div className="">
@@ -122,12 +128,12 @@ function ProductPageLayout({initialProductData,}: {initialProductData: SinglePro
             {/* add to basket & like & compare  */}
             <div className="flex flex-col mt-8 ml-auto gap-y-2 border-b-2 pb-4 w-full">
               <AddToBasket product={product} />
-              <div className="flex gap-x-4 text-[15px] font-Shabnam_M items-center child:flex child:items-center child:gap-x-2 mt-2">
-                {
-                  isPending ? <Loader loadingCondition={isPending}/>:
-                
-                
-                isExist ? (
+              <div className="flex gap-x-4 xs:flex-col sm:flex-row child:items-center
+               text-[15px] font-Shabnam_M xs:gap-y-2 sm:gap-y-0
+               sm:items-center child:flex  child:gap-x-2 mt-2">
+                {isPending ? (
+                  <Loader loadingCondition={isPending} />
+                ) : isExist ? (
                   <span className="flex items-center">
                     <span>
                       <MdOutlineDone className="" size={20} />
@@ -135,11 +141,24 @@ function ProductPageLayout({initialProductData,}: {initialProductData: SinglePro
                     <span>به لیست افزوده شد</span>
                   </span>
                 ) : (
-                  <button onClick={AddTowishList}>
+                  <button onClick={AddTowishList} className="bg-transparent">
                     <FaRegHeart />
                     <span>افزودن به علاقمندی ها</span>
                   </button>
                 )}
+                {product?.entities >0 ? 
+                    <div className="flex items-center text-sm gap-x-1">
+                    <span> <MdOutlineDone className="" size={20} /></span>
+                    <span>{product?.entities.toLocaleString("fa-Ir")} </span>
+                    <span className="block sm:hidden">عدد موجود</span>
+                    <span className="sm:block hidden"> عدد موجود در انبار</span>
+                  </div> 
+                :
+                <div className="flex items-center gap-x-2">
+                   <span> <MdClose className="text-red-500" size={20} /></span>
+                   <span className="text-red-500">ناموجود</span>
+                </div>  
+                }
               </div>
             </div>
             {/* tegs & category title */}
@@ -148,19 +167,23 @@ function ProductPageLayout({initialProductData,}: {initialProductData: SinglePro
                 <p className="font-Shabnam_B">دسته :</p>
                 <p className="text-sm  mt-1">{product?.category?.title}</p>
               </div>
-              <div className="flex gap-x-4 lg:gap-x-2 items-center  text-main text-right">
-                <span className="font-Shabnam_B">برچسب </span>
-                <span className="text-sm  lg:mt-1">{product?.tags}</span>
+              <div className="   items-center  text-main text-right">
+                <span className="font-Shabnam_B">برچسب :</span>
+
+                  {product?.tags?.split("،")?.map((tag: string,index:number) =>{
+
+                    return <span className="" key={index}>{tag},</span>
+                  } 
+                  )}
+                
               </div>
             </div>
           </div>
         </div>
         <div className="mt-24">
           <TabSelection
-            filterAcceptableComments={filterAcceptableComments}
-            comments="comments"
-            desc="desc"
-            moreDetail="moreDetail"
+          options={productSelectionOption}
+          optionalValue={filterAcceptableComments?.length.toLocaleString("fa-Ir")}
             setActiveTab={setActiveTab}
             activeTab={activeTab}
           >

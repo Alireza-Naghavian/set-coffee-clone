@@ -37,8 +37,9 @@ function SideBarBasket({
       </div>
       <div className=" h-full overflow-y-auto relative">
         <ul className="h-full  ">
-          {basketLoading && <Loader loadingCondition={basketLoading} />}
-          {getCart?.length === 0 && (
+          {basketLoading && <Loader loadingCondition={basketLoading} /> }
+          
+          {getCart === undefined || getCart?.length === 0 &&  (
           <div className="mt-8">
               <EmptyResult
               icon={<AiOutlineShoppingCart size={50} />}

@@ -1,8 +1,6 @@
 import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 import { customeBlurDataURL } from "@/utils/constants";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 function LogoLink() {
   return (

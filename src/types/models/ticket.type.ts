@@ -10,22 +10,46 @@ export type TicketType = {
   };
   user: {
     _id: mongoose.Types.ObjectId;
+    userName?: string;
   };
   priority: 1 | 2 | 3;
   isOpen: boolean;
-  messages:MessagesType[]
+  isPending: boolean;
+  isAnswered: boolean;
+  messages: MessagesType[];
+  adminMessages?:MessagesType[];
 };
 
 export type MessagesType = {
-  _id?:string
+  _id?: string;
   sender: {
     sender: mongoose.Types.ObjectId;
     ref: string;
+    userName: string;
+    role: string;
+    _id: string;
   };
   body: string;
   sendAt: Date;
 };
-
+export type AnswerAdminType = {
+  body: string;
+  sendAt: Date;
+  sender: {
+    userName: string;
+    role: string;
+    _id: string;
+  };
+};
+export type UpdateMsgType = Pick<AnswerAdminType, "body" | "sendAt"> & {
+  sender: string;
+};
 export type DepartmentType = {
   title: string;
+};
+
+export type TicketStatusType = {
+  isPending: boolean;
+  isAnswered: boolean;
+  isOpen: boolean;
 };

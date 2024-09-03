@@ -1,4 +1,4 @@
-import useRemoveFromBasket from "@/hooks/helper-hooks/useRemoveFromBasket";
+import useRemoveFromBasket from "@/hooks/orders/useRemoveFromBasket";
 import { SetState } from "@/types/global.type";
 import { ProductCartType } from "@/types/products.type";
 import Image from "next/image";

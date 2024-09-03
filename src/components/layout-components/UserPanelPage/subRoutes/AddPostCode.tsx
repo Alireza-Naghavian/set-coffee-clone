@@ -1,40 +1,41 @@
+import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import useUpdatePostCode from "@/hooks/authHooks/useUpdatePostCode";
 import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 type ForValuesType = {
   postCode: string;
 };
 
 function AddPostCode() {
-
-
+  const { showAlert } = useAlert();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ForValuesType>();
   const { UpdatePostCode, isUpdating } = useUpdatePostCode();
-  const postCodeHandler: SubmitHandler<ForValuesType> = async ({postCode}) => {
+  const postCodeHandler: SubmitHandler<ForValuesType> = async ({
+    postCode,
+  }) => {
     try {
-      const toEnDigit = convertToEnglishDigits(postCode)
-      const postCodeNumber = parseInt(toEnDigit, 10); 
+      const toEnDigit = convertToEnglishDigits(postCode);
+      const postCodeNumber = parseInt(toEnDigit, 10);
       await UpdatePostCode(
-        { postCode:postCodeNumber },
+        { postCode: postCodeNumber },
         {
           onSuccess: (data: any) => {
-            toast.success(data);
+            showAlert("success", data?.message);
           },
           onError: (error: any) => {
-            toast.error(error.response.data.message);
+            showAlert("error", error?.response?.data?.message);
           },
         }
       );
     } catch (error: any) {
-     return console.log(error.response.data.message);
+      return console.log(error.response.data.message);
     }
   };
   return (
@@ -73,7 +74,7 @@ function AddPostCode() {
         variant="secondary"
         type="submit"
       >
-{isUpdating ? <Loader loadingCondition={isUpdating}/> : "ذخیره"}
+        {isUpdating ? <Loader loadingCondition={isUpdating} /> : "ذخیره"}
       </MainBtn>
     </form>
   );

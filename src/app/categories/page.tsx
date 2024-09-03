@@ -5,6 +5,7 @@ import dataParser from "@/utils/dataParser/dataParser";
 import { QueryClientProviderWrapper } from "../context/QueryClientProvider";
 import ProductModel from "@/models/categories&products/product";
 import { Suspense } from "react";
+export const revalidate =1800;
 async function MainShop() {
   await dbConnection();
   const allCategories = await CategoryModel.aggregate([
@@ -27,7 +28,6 @@ async function MainShop() {
       <main className="max-w-[1920px]">
         <Suspense>
           <MainShopPage
-
             allCategories={allCategories&& dataParser(allCategories)}
             totalProduct={totalProduct}
           />

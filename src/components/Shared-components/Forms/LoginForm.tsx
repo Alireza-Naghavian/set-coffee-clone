@@ -1,3 +1,4 @@
+import { useAlert } from "@/app/context/AlertContext";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import Loader from "@/components/UI/loader/Loader";
@@ -10,7 +11,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 type LoginForEntriesType = {
   setSendOtp: SetState<boolean>;
   setIdentifier: SetState<string>;
@@ -28,6 +28,7 @@ function LoginForm({
   const [loginWIthOtp, setLoginWIthOtp] = useState<boolean>(false);
   const { isPending: isOtpLoading, signInWithOtp } = useSignInWithOtp();
   const queryClient = useQueryClient()
+  const {showAlert} = useAlert();
   const { replace, refresh } = useRouter();
   const {
     register,
@@ -51,7 +52,8 @@ function LoginForm({
           },
         });
       } catch (error: any) {
-        toast.error(error?.response?.data?.message);
+      
+        showAlert("error", error?.response?.data?.message);
       }
     } else {
       try {
@@ -68,7 +70,8 @@ function LoginForm({
           }
         );
       } catch (error: any) {
-        toast.error(error?.response?.data?.message);
+       
+         showAlert("error", error?.response?.data?.message);
       }
     }
   };

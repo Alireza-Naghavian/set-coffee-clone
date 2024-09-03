@@ -33,4 +33,5 @@ export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
     variant: "outLine" | "borderFill";
     size?: "medium" | "free";
     required?:boolean,
+    readOnly?:boolean
   };

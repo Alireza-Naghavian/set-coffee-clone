@@ -1,7 +1,7 @@
 import Alert from "@/components/UI/Alert/Alert";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
-import useAddToBasket from "@/hooks/helper-hooks/useAddToBasket";
+import useAddToBasket from "@/hooks/orders/useAddToBasket";
 import { SingleProductType } from "@/types/models/categories.type";
 import { useCallback, useState } from "react";
 
@@ -9,11 +9,11 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
   const [counter, setCounter] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isShow, setIsshow] = useState(false);
-  const {addToBasket} = useAddToBasket();
+  const { addToBasket } = useAddToBasket();
   const addToCartHandler = useCallback(() => {
     setIsLoading(true);
     setIsshow(true);
-    const timeOut = setTimeout(async() => {
+    const timeOut = setTimeout(async () => {
       const newItem = {
         cover: product?.cover,
         title: product?.title,
@@ -22,16 +22,19 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
         count: counter,
       };
       if (product._id === undefined) return;
-      await addToBasket({product:newItem,value:"setCoffeeBasket",counter},{onSuccess:()=>{
-
-        setIsshow(false);
-        setCounter(1);
-        setIsLoading(false);
-      }})
-
+      await addToBasket(
+        { product: newItem, value: "setCoffeeBasket", counter },
+        {
+          onSuccess: () => {
+            setIsshow(false);
+            setCounter(1);
+            setIsLoading(false);
+          },
+        }
+      );
     }, 2000);
     return () => clearTimeout(timeOut);
-  }, [product, counter,addToBasket]);
+  }, [product, counter, addToBasket]);
   return (
     <>
       <Alert
@@ -52,15 +55,25 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
           <span>{counter}</span>
           <button
             aria-label="افزایش تعداد"
+            disabled={counter >= product?.entities}
             onClick={() => setCounter((prev) => prev + 1)}
             className="tr-200 hover:text-white hover:bg-main_brown"
           >
             +
           </button>
         </div>
-        <MainBtn onClick={() => addToCartHandler()} size="small">
+        <MainBtn
+          disabled={product?.entities === 0}
+          className={`${
+            product?.entities == 0 && "bg-red-400 hover:bg-red-400"
+          }`}
+          onClick={() => addToCartHandler()}
+          size="small"
+        >
           {isLoading ? (
             <Loader loadingCondition={isLoading} />
+          ) : product?.entities == 0 ? (
+            "ناموجود"
           ) : (
             "افزودن به سبد خرید"
           )}

@@ -28,7 +28,21 @@ const schema = new Schema<TicketType>(
       required: true,
       default: true,
     },
+    isAnswered: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    isPending: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     messages: {
+      type: [messageSchema],
+      default: [],
+    },
+    adminMessages: {
       type: [messageSchema],
       default: [],
     },

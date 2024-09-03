@@ -1,22 +1,20 @@
 import dbConnection from "@/dbConfigs/db";
 import DeptModel from "@/models/department/department";
 import { DepartmentType } from "@/types/models/ticket.type";
-import { getUser } from "@/utils/auth/authHelper";
+import { authAdmin } from "@/utils/auth/authHelper";
 
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
 
+
+    // admin validation
+    const isAdmin =  await authAdmin();
+    if (!isAdmin) {
+      return Response.json({ message: "شما اجازه دسترسی ندارید" }, { status: 403 });
+    }
     const reqBody: DepartmentType = await req.json();
     const { title } = reqBody;
-    // admin validation
-    const user = await getUser();
-    if (user.role !== "ADMIN") {
-      return Response.json(
-        { message: "شما به این قسمت دسترسی ندارید." },
-        { status: 404 }
-      );
-    }
     await DeptModel.create({ title });
     return Response.json(
       { message: "دپارتمان با موفقیت ایجاد شد ." },

@@ -1,42 +1,36 @@
+"use client";
 import BlogCard from "@/components/Shared-components/BlogCard/BlogCard";
-import React from "react";
-import BlogsPagination from "./BlogsPagination";
+import TextLoader from "@/components/UI/loader/TextLoader";
+import Pagination from "@/components/UI/Pagination/Pagination";
+import useGetAllBlogs from "@/hooks/blogs/useGetAllBlogs";
+import { MainBlogType } from "@/types/blog.type";
+import { useState } from "react";
 
-function AllBlogs() {
+function AllBlogs({ allBlogs }: { allBlogs: MainBlogType[] }) {
+  const [page, setPage] = useState<number>(1);
+  const { blogs, isBlogsLoading } = useGetAllBlogs({ allBlogs, page });
+  if (isBlogsLoading) {
+    return <TextLoader loadingCondition={isBlogsLoading} />;
+  }
   return (
     <div className="flex justify-between flex-col w-full mt-8 px-4 sm:px-8 ">
-
-
-    <div className="relative grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 sm:gap-x-8 mx-auto gap-y-8 ">
-      <BlogCard
-        cover="/images/mocaPot_1.jpg"
-        shortDesc="سرو کردن قهوه در خانه می تواند برای یک صبحانه ساده، لذت بردن از یک استراحت کوتاه مدت، مراسم مهمانی،"
-        title="چطور یک قهوه موکاپات عالی تهیه کنیم؟"
-      />
-      <BlogCard
-        cover="/images/mocaPot_2.jpg"
-        shortDesc="سرو کردن قهوه در خانه می تواند برای یک صبحانه ساده، لذت بردن از یک استراحت کوتاه مدت، مراسم مهمانی،"
-        title="چطور یک قهوه موکاپات عالی تهیه کنیم؟"
-      />
-      <BlogCard
-        cover="/images/coffeeMakers.jpg"
-        shortDesc="سرو کردن قهوه در خانه می تواند برای یک صبحانه ساده، لذت بردن از یک استراحت کوتاه مدت، مراسم مهمانی،"
-        title="چطور یک قهوه موکاپات عالی تهیه کنیم؟"
-      />
-      <BlogCard
-        cover="/images/coffeeBeans.jpg"
-        shortDesc="سرو کردن قهوه در خانه می تواند برای یک صبحانه ساده، لذت بردن از یک استراحت کوتاه مدت، مراسم مهمانی،"
-        title="چطور یک قهوه موکاپات عالی تهیه کنیم؟"
-      />
-      <BlogCard
-        cover="/images/mocaPot_1.jpg"
-        shortDesc="سرو کردن قهوه در خانه می تواند برای یک صبحانه ساده، لذت بردن از یک استراحت کوتاه مدت، مراسم مهمانی،"
-        title="چطور یک قهوه موکاپات عالی تهیه کنیم؟"
-      />
-    </div>
-    <div className="mt-4 flex-center w-full">
-<BlogsPagination/>
-    </div>
+      <div
+        className="relative grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+       gap-x-4 sm:gap-x-8 mx-auto gap-y-8 "
+      >
+        {allBlogs.map((blog: MainBlogType) => {
+          if (blog._id !== undefined)
+            return <BlogCard key={blog._id} {...blog} isBlogsLoading={false} />;
+        })}
+      </div>
+      <div className="mt-10 flex-center w-full">
+        <Pagination
+          currentPage={page}
+          onPageChange={setPage}
+          pageSize={parseInt(blogs?.pageSize || "8")}
+          totalCount={blogs?.totalBLogs}
+        />
+      </div>
     </div>
   );
 }

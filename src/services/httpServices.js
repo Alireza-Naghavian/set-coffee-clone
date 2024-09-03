@@ -15,4 +15,4 @@ const api = {
 
 export default api;
 
-// we have to set refresh token interceptors later
+//  refresh token interceptors

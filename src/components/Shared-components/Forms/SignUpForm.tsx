@@ -1,3 +1,4 @@
+import { useAlert } from "@/app/context/AlertContext";
 import { MainWrapperType } from "@/app/register-login/page";
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
@@ -5,7 +6,6 @@ import Loader from "@/components/UI/loader/Loader";
 import useSignUpUser from "@/hooks/authHooks/useSignUpUser";
 import { SignUpFromType } from "@/types/auth.type";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 function SignUpForm({
   setSendOtp,
@@ -20,6 +20,7 @@ function SignUpForm({
     formState: { errors },
   } = useForm<SignUpFromType>();
   const { isSignUpLoading, signUp } = useSignUpUser();
+  const { showAlert } = useAlert();
   const signUpHandler = async (data: SignUpFromType) => {
     const { phoneNumber: identifier } = data;
     try {
@@ -35,7 +36,7 @@ function SignUpForm({
         },
       });
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      showAlert("error", error?.response?.data?.message);
     }
   };
 
@@ -43,7 +44,8 @@ function SignUpForm({
     <div className=" px-4 py-2  mt-4">
       <form
         onSubmit={handleSubmit(signUpHandler)}
-        className="flex flex-col gap-y-4 ">
+        className="flex flex-col gap-y-4 "
+      >
         <MainTextField
           errors={errors}
           register={register}
@@ -121,11 +123,14 @@ function SignUpForm({
           }}
         />
         <MainBtn variant="primary" type="submit" size="medium">
-          {isSignUpLoading 
-          ? 
-          (<Loader loadingCondition={isSignUpLoading} className={"font-extrabold text-lg "}/>) 
-            : 
-            ("ثبت نام")}
+          {isSignUpLoading ? (
+            <Loader
+              loadingCondition={isSignUpLoading}
+              className={"font-extrabold text-lg "}
+            />
+          ) : (
+            "ثبت نام"
+          )}
         </MainBtn>
       </form>
     </div>

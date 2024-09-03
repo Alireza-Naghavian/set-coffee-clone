@@ -1,6 +1,5 @@
 import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
-import MapLayout from "@/components/UI/Map/Map";
-import ClientOnlyPortal from "@/hooks/helper-hooks/ClientProtal";
+import dynamic from "next/dynamic";
 
 import Link from "next/link";
 
@@ -12,7 +11,9 @@ import {
   FaTelegramPlane,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-
+const NoSSR = dynamic(() => import("@/components/UI/Map/Map"), {
+  ssr: false,
+});
 function ContactUs() {
   return (
     <div className="">
@@ -72,8 +73,8 @@ function ContactUs() {
             </ul>
           </div>
           <div className="lg:w-1/2   ">
-            <ClientOnlyPortal>
-              <MapLayout
+          
+              <NoSSR
                 position={[35.72021225108499, 51.42222691580869]}
                 center={[35.72021225108499, 51.42222691580869]}
               >
@@ -89,8 +90,8 @@ function ContactUs() {
                 <Link href="/about-us" className="p-4 pb-2">
                   درباره فروشگاه
                 </Link>
-              </MapLayout>
-            </ClientOnlyPortal>
+              </NoSSR>
+           
           </div>
         </div>
       </div>

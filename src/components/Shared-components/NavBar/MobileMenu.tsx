@@ -1,7 +1,7 @@
 "use client";
 import LogoLink from "@/components/UI/LogoLink/LogoLink";
 import Overlay from "@/components/UI/Overlay/Overlay";
-import useGetBasketData from "@/hooks/helper-hooks/useGetBasketData";
+import useGetBasketData from "@/hooks/orders/useGetBasketData";
 import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
 import { useState } from "react";
@@ -11,11 +11,14 @@ import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import MobileMenuContent from "./MobileMenuContent";
 import styles from "./Navbar.module.css";
 import Badge from "@/components/UI/badge/Badge";
-
-function MobileMenu({user,userLoading} :{user:GetMetype,userLoading:boolean}) {
+type MobileMenuType = {
+  user: GetMetype;
+  userLoading: boolean;
+};
+function MobileMenu({ user, userLoading }: MobileMenuType) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-  const {userBasket} = useGetBasketData();
+  const { userBasket } = useGetBasketData();
   useScrollLocker(isMenuOpen || isCartOpen);
   return (
     <div className=" w-full  ">
@@ -33,14 +36,20 @@ function MobileMenu({user,userLoading} :{user:GetMetype,userLoading:boolean}) {
           isMenuOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
-        <MobileMenuContent userLoading={userLoading} setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} user={user} />
+        <MobileMenuContent
+          userLoading={userLoading}
+          setIsMenuOpen={setIsMenuOpen}
+          isMenuOpen={isMenuOpen}
+          user={user}
+          userRole={user?.role}
+        />
       </aside>
       <aside
         className={`${styles.sideBars} ${
           isCartOpen ? "translate-x-[0rem] " : "translate-x-[-40rem]"
         }`}
       >
-        <SideBarBasket getCart={userBasket} setIsCartOpen={setIsCartOpen} />
+        <SideBarBasket getCart={userBasket ??[]} setIsCartOpen={setIsCartOpen} />
       </aside>
       <div className="lg:hidden grid grid-cols-4 h-full ">
         <div className="flex sm:pr-8 pr-4 my-auto">
@@ -52,18 +61,21 @@ function MobileMenu({user,userLoading} :{user:GetMetype,userLoading:boolean}) {
         <div className="col-span-2 flex-center mx-auto my-auto">
           <LogoLink />
         </div>
-        <div  onClick={() => setIsCartOpen(true)} className="flex justify-end sm:pl-8 pl-4 text-main my-auto relative">
-            <Badge
-                additionalClass="text-sm w-4 h-4 flex-center bg-main_brown 
+        <div
+          onClick={() => setIsCartOpen(true)}
+          className="flex justify-end sm:pl-8 pl-4 text-main my-auto relative"
+        >
+          <Badge
+            additionalClass="text-sm w-4 h-4 flex-center bg-main_brown 
           text-white rounded-full absolute -top-[5px] "
-              >
-                {userBasket?.length.toLocaleString("fa-Ir")}
-              </Badge>
+          >
+        {userBasket ? userBasket?.length.toLocaleString("fa-Ir"):"۰"}
+          </Badge>
           <AiOutlineShoppingCart
             className="text-2xl sm:text-4xl cursor-pointer"
             size={28}
-            />
-            </div>
+          />
+        </div>
       </div>
     </div>
   );

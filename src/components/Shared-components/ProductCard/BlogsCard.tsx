@@ -2,7 +2,6 @@ import { customeBlurDataURL } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./productCard.module.css";
-import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/ResponsiveImage";
 export type BlogType = {
   [key: string]: string;
 };
@@ -12,6 +11,7 @@ function BlogsCard({
   category,
   title,
   cover,
+  identifier
 }: BlogType) {
   return (
     <>
@@ -32,7 +32,7 @@ function BlogsCard({
         </div>
         {/* blog card desc */}
         <Link
-          href="#"
+          href={`/blogs/${identifier}`}
           className="flex flex-col justify-center items-center pb-[32px] gap-y-[7px] z-50"
         >
           <span className="w-10 h-6 flex-center bg-main_brown text-white text-xs font-Shabnam_M ">

@@ -7,6 +7,7 @@ const useReplyTicketMsg =  () => {
     mutationFn:  ReplyTicketMsg,
     onSuccess: () => {
       QueryClient.invalidateQueries({ queryKey: ["ticket"] });
+      QueryClient.invalidateQueries({ queryKey: ["allTickets"] });
     },
   });
   return { SendReply, isSending };

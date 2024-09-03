@@ -18,7 +18,7 @@ const AccountDetail = ({user}:{user:GetMetype}) => {
   } = useForm({mode:"onChange",defaultValues:{
     lastPassword: '',
     newPassword: '',
-    newUserName: ''
+    newUserName: user.userName
   }});
   const queryClient = useQueryClient();
   const {isUpdating,updateProfile} = useUpdateUserProfile();

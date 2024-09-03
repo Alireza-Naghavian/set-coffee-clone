@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MessagesType } from "./ticket.type";
 
 export type CommentModeltype = {
   userName: string;
@@ -7,5 +8,7 @@ export type CommentModeltype = {
   isAccept: boolean;
   date: Date;
   productId: typeof mongoose.Types.ObjectId;
-  _id?:string
+  productData?: [{ _id: string; title: string }];
+  _id: string;
+  messages: MessagesType[];
 };

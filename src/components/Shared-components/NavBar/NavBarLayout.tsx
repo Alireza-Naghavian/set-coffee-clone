@@ -8,7 +8,7 @@ import NavBarContent from "./NavBarContent";
 function NavBarLayout() {
   const { fixTop } = useNavBarSticker(50);
   const pathName = usePathname();
-  if (pathName === "/register-login") return;
+  if (pathName === "/register-login" || pathName.startsWith("/p-admin") ) return;
   return (
     <QueryClientProviderWrapper>
       <div className="relative">
