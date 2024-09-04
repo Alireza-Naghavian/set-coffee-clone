@@ -1,7 +1,10 @@
 const { default: axios } = require("axios");
-
+const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/api"
+    : process.env.NEXT_PUBLIC_API_URL;
 const http = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL,
   withCredentials: true,
 });
 
