@@ -40,6 +40,7 @@ const REgisterLogin = (): React.ReactNode => {
             minutes={minutes}
             seconds={seconds}
             identifier={identifier}
+            setSendOtp={setSendOtp}
           />
         );
 
@@ -58,6 +59,7 @@ const REgisterLogin = (): React.ReactNode => {
             minutes={minutes}
             seconds={seconds}
             identifier={identifier}
+            setSendOtp={setSendOtp}
           />
         );
     }

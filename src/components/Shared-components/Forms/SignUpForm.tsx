@@ -5,6 +5,7 @@ import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import Loader from "@/components/UI/loader/Loader";
 import useSignUpUser from "@/hooks/authHooks/useSignUpUser";
 import { SignUpFromType } from "@/types/auth.type";
+import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
 import { useForm } from "react-hook-form";
 
 function SignUpForm({
@@ -23,12 +24,13 @@ function SignUpForm({
   const { showAlert } = useAlert();
   const signUpHandler = async (data: SignUpFromType) => {
     const { phoneNumber: identifier } = data;
+    const validPhoneNumber = convertToEnglishDigits(identifier);
     try {
       await signUp(data, {
         onSuccess: () => {
           setSendOtp(true);
           reset();
-          setIdentifier(identifier);
+          setIdentifier(validPhoneNumber);
           startCountDown();
         },
         onError: () => {

@@ -6,6 +6,7 @@ import useSignInWithOtp from "@/hooks/authHooks/useSignInWithOtp";
 import useSignInwithEmail from "@/hooks/authHooks/useSignInwithEmail.";
 import { LoginFormType } from "@/types/auth.type";
 import { SetState } from "@/types/global.type";
+import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -43,7 +44,8 @@ function LoginForm({
     if (!loginWIthOtp) {
       try {
         await signIn(data, {
-          onSuccess: () => {
+          onSuccess: (data) => {
+            showAlert("success",data?.message)
             queryClient.invalidateQueries({queryKey:["getMe"]})
             replace("/");
             refresh();
@@ -58,6 +60,7 @@ function LoginForm({
     } else {
       try {
         const { identifier } = data;
+        console.log(identifier);
         await signInWithOtp(
           { identifier },
           {
@@ -138,7 +141,7 @@ function LoginForm({
           className="text-main font-Shabnam text-right 
           tr-200 hover:text-main/55 mt-2"
         >
-          گذرواژه خود را فراموش کرده اید ؟
+       گذرواژه خود را فراموش کرده اید؟ (به زودی)  
         </Link>
         <MainBtn
           onClick={() => {
