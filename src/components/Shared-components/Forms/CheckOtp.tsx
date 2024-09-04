@@ -19,6 +19,7 @@ type CheckOtpType = {
   isActive?: boolean;
   minutes?: number;
   seconds?: number;
+  setSendOtp: SetState<boolean>
   startCountDown: () => void;
 };
 
@@ -29,6 +30,7 @@ function CheckOtp({
   isActive,
   minutes,
   seconds,
+  setSendOtp,
   startCountDown,
 }: CheckOtpType) {
   const [otp, setOtp] = useState("");
@@ -66,6 +68,7 @@ function CheckOtp({
             await QueryClient.invalidateQueries({ queryKey: ["getMe"] });
             await QueryClient.refetchQueries({ queryKey: ["getMe"] });
             replace("/");
+            setSendOtp(false)
             setIsCartOpen && setIsCartOpen(false);
             setOtp("");
             reset();

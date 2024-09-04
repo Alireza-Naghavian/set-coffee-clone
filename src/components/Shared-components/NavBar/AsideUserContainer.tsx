@@ -44,6 +44,7 @@ function AsideUserContainer({ setIsCartOpen, isOpen }: SideBarBasketType) {
             isActive={isActive}
             minutes={minutes}
             seconds={seconds}
+            setSendOtp={setSendOtp}
             setIsCartOpen={setIsCartOpen}
             isOpen={isOpen}
             identifier={identifier}

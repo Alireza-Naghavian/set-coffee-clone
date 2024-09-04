@@ -34,7 +34,7 @@ function HomePageLayout({
             subTitle={"قهوه ممتاز"}
           />
           <div className="mt-5 ">
-            <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+            <div className="sm:px-12 px-2 grid  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
               {filteredProdoucts[0].products
                 .slice(0, 10)
                 .map((product: SingleProductType) => {
@@ -53,7 +53,7 @@ function HomePageLayout({
             subTitle={"کپسول قهوه"}
           />
           <div className="mt-5 ">
-            <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+            <div className="sm:px-12 px-2 grid  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
               {filteredProdoucts[1].products
                 .slice(0, 10)
                 .map((product: SingleProductType) => {
@@ -84,7 +84,7 @@ function HomePageLayout({
             subTitle={"قهوه ایتالیایی"}
           />
           <div className="mt-5 ">
-            <div className="sm:px-8 px-2 grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
+            <div className="sm:px-12 px-2 grid  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
               {filteredProdoucts[2].products
                 .slice(0, 10)
                 .map((product: SingleProductType) => {
