@@ -34,7 +34,7 @@ async function page({
   return (
     <QueryClientProviderWrapper>
       <Suspense>
-        <HydrationBoundary state={{ dehydratedState }}>
+        <HydrationBoundary state={dataParser({ dehydratedState })}>
           <main className="relative max-w-[1920px]">
             <AllBlogs allBlogs={dataParser(allBlogs)} />
           </main>

@@ -10,9 +10,9 @@ const useLogOut = () => {
   const { mutate: logout, isPending } = useMutation({
     mutationFn: logOutUser,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["getMe"] });
       router.replace("/");
       router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["getMe"] });
       showAlert("success", "خروج موفقیت آمیز");
     },
     onError: (err: any) => {

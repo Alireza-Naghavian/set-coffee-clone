@@ -21,7 +21,7 @@ function BlogsCard({
       <div className="flex flex-col h-full w-full justify-between absolute">
         {/* blog card badge */}
         <div
-          className="w-[53px] h-[56px] child:font-Shabnam_M !z-50  child:text-lg 
+          className="w-[53px] h-[56px] child:font-Shabnam_M z-[8] lg:!z-50  child:text-lg 
                 child:text-main flex flex-col
                     gap-y-px ml-auto 
                     justify-center shadow-md 
@@ -33,7 +33,7 @@ function BlogsCard({
         {/* blog card desc */}
         <Link
           href={`/blogs/${identifier}`}
-          className="flex flex-col justify-center items-center pb-[32px] gap-y-[7px] z-50"
+          className="flex flex-col justify-center items-center pb-[32px] gap-y-[7px] z-[8] lg:!z-50"
         >
           <span className="w-10 h-6 flex-center bg-main_brown text-white text-xs font-Shabnam_M ">
             {category}
