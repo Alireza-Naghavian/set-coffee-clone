@@ -16,6 +16,7 @@ type CategoryListType = {
   setMaxPrice: SetState<number>;
   setSort: SetState<string>;
   setStars: SetState<number>;
+  setPage: SetState<number>;
 };
 function CategoryList({
   allCategories,
@@ -25,6 +26,7 @@ function CategoryList({
   setMinPrice,
   setSort,
   setStars,
+  setPage,
 }: CategoryListType) {
   const [iOpen, { toggle }] = useDisclosure();
   return (
@@ -66,6 +68,7 @@ function CategoryList({
                   setMaxPrice(10_000_000);
                   setSort("latest");
                   setStars(5);
+                  setPage(1);
                 }}
                 className={`font-Shabnam_M bg-transparent focus:outline-none ${
                   category.productCount !== 0

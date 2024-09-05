@@ -136,7 +136,7 @@ export const GET = async (req: NextRequest) => {
     const totalProduct = await ProductModel.countDocuments();
     const products = await ProductModel.find(
       matchQuery,
-      "cover title score price createdAt shortDesc"
+      "cover title score price createdAt shortDesc tags"
     )
       .sort(sortQuery)
       .skip(skip)

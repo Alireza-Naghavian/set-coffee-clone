@@ -75,6 +75,7 @@ function MainShopPage({ allCategories, totalProduct }: ShopPageType) {
         setMinPrice={setMinPrice}
         setSort={setSort}
         setStars={setStars}
+        setPage={setPage}
       />
       <Filter_Result
         filtersEntity={filtersEntity}
