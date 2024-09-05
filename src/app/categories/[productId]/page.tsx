@@ -15,7 +15,7 @@ type Props = {
   params: { productId: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
-export const revalidate =1800;
+export const revalidate =60;
 export const generateStaticParams = async () => {
   await dbConnection();
   await CommentModel.findOne({}, "_id").limit(1);
@@ -31,6 +31,7 @@ async function SingleProduct({ params }: { params: ProductParams }) {
   await dbConnection();
   const { productId } = params;
   if (!isValidObjectId(productId)) return notFound();
+  await CategoryModel.findOne({}, "_id").limit(1);
   await CommentModel.findOne({}, "_id").limit(1);
   const initialProductData = await ProductModel.findOne({ _id: productId })
     .populate("category")

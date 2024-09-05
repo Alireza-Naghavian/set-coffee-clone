@@ -17,7 +17,7 @@ function TextEditor({
         <span className="text-red-500">{required && "*"}</span>
       </div>
       <Editor
-        apiKey={"xih272btuqush09fze8beljzhlm58bxdenk9hh91ees6pmfm"}
+        apiKey={process.env.NEXT_PUBLIC_TEXT_EDITOR}
         id="tiny-react_82864994311723119370649"
         init={{
           language: "fa",

@@ -17,7 +17,7 @@ function ProductComments({
   productId,
 }: FilterCommentsType) {
   const [showMore, setShowMore] = useState<number>(4);
-  const hasMoreComments = showMore <= filterAcceptableComments.length;
+  const hasMoreComments = showMore <= filterAcceptableComments?.length;
 
   return (
     <>
