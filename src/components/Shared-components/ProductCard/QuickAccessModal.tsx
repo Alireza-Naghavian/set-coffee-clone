@@ -4,6 +4,7 @@ import ResponsiveImage from "@/components/Utils-components/ResponsiveImage/Respo
 import { SingleProductType } from "@/types/models/categories.type";
 import { customeBlurDataURL } from "@/utils/constants";
 import Link from "next/link";
+import { MdClose, MdOutlineDone } from "react-icons/md";
 type QAccessType = {
   isQAcessOpen: boolean;
   close: () => void;
@@ -63,6 +64,19 @@ function QuickAccessModal({
                   <div className="flex  mt-6 gap-y-2 pb-4 w-full  ">
                     <AddToBasket product={product} />
                   </div>
+                  {product?.entities >0 ? 
+                    <div className="flex items-center text-sm gap-x-1">
+                    <span> <MdOutlineDone className="" size={20} /></span>
+                    <span>{product?.entities.toLocaleString("fa-Ir")} </span>
+                    <span className="block sm:hidden">عدد موجود</span>
+                    <span className="sm:block hidden"> عدد موجود در انبار</span>
+                  </div> 
+                :
+                <div className="flex items-center gap-x-2">
+                   <span> <MdClose className="text-red-500" size={20} /></span>
+                   <span className="text-red-500">ناموجود</span>
+                </div>  
+                }
                 </div>
                 <div className="flex flex-col  ml-auto gap-y-2 border-b-2 pb-4 w-full">
                   <div className="flex gap-x-4 lg:gap-x-2   text-main text-right">

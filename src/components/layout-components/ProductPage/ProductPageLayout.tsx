@@ -49,7 +49,9 @@ function ProductPageLayout({
       price: product.price,
       score: product.score,
       shortDesc:product.shortDesc,
-      tags:product.tags
+      tags:product.tags,
+      entities:product.entities
+
     };
     await addToWishList(newItem, {
       onSuccess: () => {

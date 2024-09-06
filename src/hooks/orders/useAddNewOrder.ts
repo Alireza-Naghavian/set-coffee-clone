@@ -13,6 +13,12 @@ const useAddNewOrder = () => {
       queryClient.invalidateQueries({ queryKey: ["userBasket"] });
       queryClient.invalidateQueries({ queryKey: ["categories"] });
       queryClient.invalidateQueries({ queryKey: ["product"] });
+      const productQueries = queryClient
+      .getQueryCache()
+      .findAll({queryKey:["products"]});
+      productQueries.forEach(query => {
+        queryClient.invalidateQueries({queryKey:query.queryKey});
+      });
       queryClient.invalidateQueries({ queryKey: ["orders"] });
     },
     onError: (err: any) => {

@@ -33,6 +33,9 @@ export const DELETE = async (req: Request, { params }: Params) => {
       { $pull: { products: { _id: productId } } }
     );
     await CommentModel.deleteMany({productId:productId})
+    revalidatePath(`/categories/${productId}`);
+    revalidatePath(`/`);
+    revalidatePath(`/categories/product`);
     revalidatePath("/p-admin/products/manage");
     return Response.json(
       { message: "محصول با موفقیت حذف شد." },
@@ -94,7 +97,10 @@ export const POST = async (req: Request, { params }: Params) => {
         },
       }
     );
-    revalidatePath("/p-admin/products/manage");
+    revalidatePath(`/categories/${productId}`);
+    revalidatePath(`/`);
+    revalidatePath(`/categories/product`);
+    revalidatePath(`/categories`);
     return Response.json(
       { message: "محصول با موفقیت آپدیت شد" },
       { status: 200 }
