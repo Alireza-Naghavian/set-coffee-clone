@@ -20,6 +20,7 @@ const AddToBasket = ({ product }: { product: SingleProductType }) => {
         _id: product?._id,
         price: product?.price,
         count: counter,
+        entities:product.entities
       };
       if (product._id === undefined) return;
       await addToBasket(

@@ -38,8 +38,14 @@ export const deleteProduct = async (productId:string)=>{
 return api.delete(`/categories/product/${productId}`).then((response)=>response.data)
 }
 
-export const UpdateProductData = async ({productId,data}:{productId:string,data:UpdateProductField})=>{
- 
-  return api.post(`/categories/product/${productId}`,data).then((response)=>response.data)
-
-}
+export const UpdateProductData = async ({
+  productId,
+  data,
+}: {
+  productId: string;
+  data: UpdateProductField;
+}) => {
+  return api
+    .post(`/categories/product/${productId}`, data)
+    .then((response) => response.data);
+};

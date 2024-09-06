@@ -84,7 +84,7 @@ export const ProductCounter = ({ product,lockCounter }: { product: ProductCartTy
         <span>{counter}</span>
         <button
           aria-label="افزایش تعداد"
-          disabled={ lockCounter}
+          disabled={ product.entities !==undefined  && counter>= product.entities||  lockCounter}
           onClick={incrementCounter}
           className="tr-200 hover:text-white hover:bg-main_brown "
         >

@@ -4,6 +4,7 @@ import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import { CartType } from "@/types/models/cart.type";
 import { getUser } from "@/utils/auth/authHelper";
+import { revalidatePath } from "next/cache";
 
 export const POST = async (req: Request) => {
   try {
@@ -48,7 +49,7 @@ export const POST = async (req: Request) => {
       }
       if (product.entities < item.count) {
         return Response.json(
-          { message: `موجودی کافی برای محصول ${product.title}وجود ندارد` },
+          { message: `موجودی کافی برای محصول ${item.title}  وجود  ندارد` },
           { status: 422 }
         );
       }
@@ -66,13 +67,18 @@ export const POST = async (req: Request) => {
       await ProductModel.findOneAndUpdate(
         { _id: item._id },
         {
-          $inc: { entities: -item.count,sold:item.count },
+          $inc: { entities: -item.count, sold: item.count },
         }
       );
       await CategoryModel.findOneAndUpdate(
         { "products._id": item._id },
         { $inc: { "products.$.entities": -item.count } }
       );
+
+      revalidatePath(`/categories/${item._id}`);
+      revalidatePath(`/`);
+      revalidatePath(`/categories`);
+      revalidatePath(`/categories/product`);
     }
     return Response.json(
       { message: "سفارش با موفقیت ثبت شد.", data: addToCart },
@@ -83,7 +89,7 @@ export const POST = async (req: Request) => {
       { message: `خطای سمت سرور => `, error },
       { status: 500 }
     );
-  } 
+  }
 };
 
 export const GET = async () => {

@@ -21,7 +21,6 @@ const useGetProductData = ({limit="4",page}:ProdDataType) => {
     gcTime:5*60*1000,
   });
   const products = data || [];
-
   return { products, isProductsLoading };
 };
 export default useGetProductData;
