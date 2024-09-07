@@ -87,7 +87,7 @@ function ContactUs() {
                   </p>
                   <p>021-88305827</p>
                 </div>
-                <Link href="/about-us" className="p-4 pb-2">
+                <Link href="/about-us" className="p-4 pb-2 hidden lg:inline">
                   درباره فروشگاه
                 </Link>
               </NoSSR>

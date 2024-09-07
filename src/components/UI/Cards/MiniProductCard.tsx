@@ -26,16 +26,16 @@ await removeFromCart({key:"setCoffeeBasket",value:product})
         <div className="flex gap-x-2 w-full">
           <div className="sm:w-[100px]">
             <Image
-              width={800}
-              height={800}
+              width={500}
+              height={500}
               src={cover}
               className="w-full h-full object-cover"
               alt={title}
               />
           </div>
-          <div className="desc flex gap-x-2 my-auto pl-2">
+          <div className="desc flex gap-x-2 my-auto pl-1">
             <div className="h-full">
-              <h2 className="text-main tracking-tighter text-sm w-[130px] line-clamp-2 font-Shabnam_M">
+              <h2 className="text-main tracking-tighter text-sm w-[120px] line-clamp-2 font-Shabnam_M">
                 {title}
               </h2>
               <p className="text-xs flex items-center gap-x-1">
@@ -49,7 +49,7 @@ await removeFromCart({key:"setCoffeeBasket",value:product})
           </div>
         </div>
     </Link>
-            <IoIosClose onClick={handleRemove} className="md:text-[35px] cursor-pointer text-[50px] pl-2"  />
+            <IoIosClose onClick={handleRemove} className="md:text-[45px] cursor-pointer -mt-5 text-[100px] pl-2"  />
       </li></>
   );
 }
