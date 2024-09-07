@@ -5,14 +5,17 @@ import { hashPassword, verifyPassword } from "@/utils/auth/auth";
 import { getUser } from "@/utils/auth/authHelper";
 import { updateProfileSchema } from "@/utils/validator/user/userValidator";
 export type UpdateProfileType = {
-  [key: string]: string;
-};
+  lastPassword:string,
+  newPassword:string,
+  newUserName:string,
+  updatePostCode:number
+}
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
-    const body = await req.json();
-    const { lastPassword, newPassword, newUserName }: UpdateProfileType = body;
-    await updateProfileSchema.validateAsync(body);
+    const body :UpdateProfileType= await req.json();
+    const { lastPassword, newPassword, newUserName,updatePostCode }  = body;
+    await updateProfileSchema.validateAsync({ lastPassword, newPassword, newUserName});
     const user: GetMetype = await getUser();
     if (!user)
       return Response.json(
@@ -28,7 +31,7 @@ export const POST = async (req: Request) => {
       );
 
       const hashedPassword = await hashPassword(newPassword)
-    const newProfileData = { password: hashedPassword, userName: newUserName.trim() || user.userName };
+    const newProfileData = { password: hashedPassword, userName: newUserName.trim() || user.userName,postCode:updatePostCode };
     await UserModel.findOneAndUpdate({email: user.email},{$set:newProfileData});
     return Response.json(
       { message: "اطلاعات با موفقیت آپدیت شد" },

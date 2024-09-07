@@ -18,6 +18,7 @@ export type GetMetype = Pick<
   _id: string;
   password?: string;
   userCart?: any;
+  postCode?:number
 };
 
 export type GrowthDataType = Pick<

@@ -3,13 +3,14 @@ import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import useUpdatePostCode from "@/hooks/authHooks/useUpdatePostCode";
+import { SetState } from "@/types/global.type";
 import { convertToEnglishDigits } from "@/utils/convertors/ToEnDigits";
 import { SubmitHandler, useForm } from "react-hook-form";
 type ForValuesType = {
   postCode: string;
 };
 
-function AddPostCode() {
+function AddPostCode({setIsPostCodeOpen}:{setIsPostCodeOpen?:SetState<boolean>}) {
   const { showAlert } = useAlert();
   const {
     register,
@@ -28,6 +29,9 @@ function AddPostCode() {
         {
           onSuccess: (data: any) => {
             showAlert("success", data?.message);
+            if( setIsPostCodeOpen !== undefined ){
+              setIsPostCodeOpen(false)
+            }
           },
           onError: (error: any) => {
             showAlert("error", error?.response?.data?.message);

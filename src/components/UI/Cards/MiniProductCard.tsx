@@ -49,7 +49,7 @@ await removeFromCart({key:"setCoffeeBasket",value:product})
           </div>
         </div>
     </Link>
-            <IoIosClose onClick={handleRemove} className="md:text-[45px] cursor-pointer -mt-5 text-[100px] pl-2"  />
+            <IoIosClose onClick={handleRemove} className="md:text-[35px] sm:text-[40px] cursor-pointer -mt-5 sm:mt-0 text-[100px] pl-2"  />
       </li></>
   );
 }
