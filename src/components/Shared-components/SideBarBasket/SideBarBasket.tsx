@@ -32,7 +32,7 @@ function SideBarBasket({
           className="flex gap-x-1 items-center cursor-pointer"
           onClick={() => setIsCartOpen(false)}>
           <span>بستن</span>
-          <IoIosClose size={22} />
+          <IoIosClose size={28} />
         </div>
       </div>
       <div className=" h-full overflow-y-auto relative">

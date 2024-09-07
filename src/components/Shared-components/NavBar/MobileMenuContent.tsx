@@ -38,7 +38,7 @@ function MobileMenuContent({
           <NavItem targetLink="/" label="صفحه اصلی" />
         </div>
         <div className="w-full !p-0">
-          <DropDown className="px-6" isMenuOpen={isMenuOpen} label={"فروشگاه"}>
+          <DropDown className="px-6 cursor-pointer" isMenuOpen={isMenuOpen} label={"فروشگاه"}>
             <ul
               className={`text-main/90 mt-2  child:font-Shabnam_M justify-center 
               my-auto flex-col tr-300 child:py-[6px] 
@@ -65,6 +65,9 @@ function MobileMenuContent({
         </div>
         <div className="" onClick={() => setIsMenuOpen(false)}>
           <NavItem targetLink="/policy" label="قوانین" />
+        </div>
+        <div className="" onClick={() => setIsMenuOpen(false)}>
+          <NavItem targetLink="/blogs" label="وبلاگ" />
         </div>
         <div className="" onClick={() => setIsMenuOpen(false)}>
           <NavItem targetLink="/about-us" label="درباره ما" />
@@ -101,7 +104,7 @@ function MobileMenuContent({
           </Link>
         ) : (
           <div className="w-full !p-0">
-            <DropDown className="px-6" isMenuOpen={isMenuOpen} label={user.userName}>
+            <DropDown className="px-6 cursor-pointer" isMenuOpen={isMenuOpen} label={user.userName}>
               <ul
                 className={`text-main/90 mt-2  child:font-Shabnam_M justify-center 
               my-auto flex-col tr-300 child:py-[6px] 

@@ -15,6 +15,7 @@ import { IoSearch } from "react-icons/io5";
 import { MdOutlineDone } from "react-icons/md";
 import styles from "./productCard.module.css";
 import QuickAccessModal from "./QuickAccessModal";
+import Link from "next/link";
 
 const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
   const [isExist, setIsExist] = useState(false);
@@ -133,6 +134,9 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
               />
             )}
           </div>
+          <div className="relative w-full h-full">
+            <Link className="w-full h-full lg:-z-10 z-50 !absolute inset-0" href={`/categories/${productData._id}`}>
+            </Link>
           <ResponsiveImage
             alt={productData.title}
             dimensions="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px] z-[5] "
@@ -140,7 +144,8 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
             blurDataURL={productData.cover}
             imageStyles={`object-cover ${styles["cover-image"]} `}
             sizes="w-[202px] lg:w-[222px] h-[202px] lg:h-[222px]"
-          />
+            />
+            </div>
           <MainBtn
             onClick={() => addToCartHandler()}
             variant="primary"
