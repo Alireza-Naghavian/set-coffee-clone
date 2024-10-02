@@ -3,14 +3,16 @@ import Loader from "@/components/UI/loader/Loader";
 import LogoLink from "@/components/UI/LogoLink/LogoLink";
 import NavItem from "@/components/UI/NavItem/NavItem";
 import Overlay from "@/components/UI/Overlay/Overlay";
+import NotificationWrapper from "@/components/Utils-components/notifications/NotificationWrapper";
 import useLogOut from "@/hooks/authHooks/useLogout";
 import useDisclosure from "@/hooks/helper-hooks/useDisclosure";
+import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import useGetBasketData from "@/hooks/orders/useGetBasketData";
 import useGetWishList from "@/hooks/wishList/useGetWishList";
-import useScrollLocker from "@/hooks/helper-hooks/useScrollLocker";
 import { GetMetype } from "@/types/auth.type";
 import { subMenuTitles, subUserMenu } from "@/utils/constants";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
@@ -18,8 +20,6 @@ import { IoChevronDown } from "react-icons/io5";
 import SideBarBasket from "../SideBarBasket/SideBarBasket";
 import AsideUserContainer from "./AsideUserContainer";
 import styles from "./Navbar.module.css";
-import { useRouter } from "next/navigation";
-
 function DesktopMenu({
   user,
   userLoading,
@@ -85,6 +85,7 @@ function DesktopMenu({
           </ul>
         </div>
         <div className=" text-main flex-center my-auto gap-x-6">
+       <NotificationWrapper/>
           <Link href={"/my-account/wishlist"} className="relative">
             {isLoading
               ? ""

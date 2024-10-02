@@ -25,7 +25,7 @@
       },
       {
         "src": "/icons/android-chrome-96x96.png",
-        "sizes": "384x384",
+        "sizes": "96x96",
         "type": "image/png"
       },
       {
@@ -54,10 +54,9 @@
         "type": "image/png"
     },
     {
-      "src": "/icons/android-chrome-180x180.png",
+      "src": "/icons/apple-touch-icon-180x180.png",
       "type": "image/png",
-      "sizes": "180x180",
-      "purpose": "any maskable"
+      "sizes": "180x180"
     }
     ],
     "screenshots": [
@@ -69,8 +68,7 @@
       },
       {
         "src": "/icons/s-2.png",
-        "sizes": "1898x725",
-        "ratio":"2.3",
+        "sizes": "617x781",
         "type": "image/png",
         "form_factor": "narrow"
       }

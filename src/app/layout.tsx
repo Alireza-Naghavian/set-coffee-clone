@@ -3,6 +3,7 @@ import NavBarLayout from "@/components/Shared-components/NavBar/NavBarLayout";
 import ScrollToTop from "@/utils/ScrollToTop/ScrollToTop";
 import type { Metadata } from "next";
 import "./globals.css";
+import InstallBanner from "@/utils/InstallPwaBanner/InstallBanner";
 
 export const metadata: Metadata = {
   applicationName: "قهوه ست",
@@ -89,6 +90,7 @@ export default async function RootLayout({
         <NavBarLayout />
        {children}
         <ScrollToTop />
+        <InstallBanner/>
         <Footer />
       </body>
     </html>
