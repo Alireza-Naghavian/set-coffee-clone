@@ -2,14 +2,17 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
+import SimpleCheckBox from "@/components/UI/TextFiels/SimpleCheckBox";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
-import TextEditor from "@/components/Utils-components/TextEditor/TextEditor";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useAddBlog from "@/hooks/blogs/useAddBlog";
 import { MainBlogType } from "@/types/blog.type";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+const TextEditor = dynamic(
+  () => import("@/components/Utils-components/TextEditor/TextEditor"), {ssr: false}
+);
 function AddBLogForm() {
   const [longDesc, setLongDesc] = useState("");
   const {
@@ -26,6 +29,7 @@ function AddBLogForm() {
       await addBlog({data:blogData},{
         onSuccess:()=>{
           reset();
+          setLongDesc("")
         }
       })
     } catch (error) {
@@ -71,7 +75,7 @@ function AddBLogForm() {
           className="border-main_brown"
         />
       </div>
-      <div className="w-full">
+      <div className="w-full flex flex-col gap-y-4">
         <TextAriaField
           name="shortDesc"
           id="shortDesc"
@@ -92,13 +96,22 @@ function AddBLogForm() {
           className="border-main_brown w-full"
           type="text"
         />
+        <SimpleCheckBox
+        register={register}
+        errors={errors}
+        required={false}
+        name="isActiveNotif"
+        id="isActiveNotif"
+        type="checkbox"
+        label="اعلان ارسال شود؟"
+        className="text-2xl"
+        />
       </div>
 
       <div className="mt-10 ">
         <TextEditor
           label="توضیحات کامل"
-          setEditorContent={setLongDesc}
-          editorContent={longDesc}
+          onChange={setLongDesc} value={longDesc} 
         />
       </div>
       <div className="max-w-[150px] mr-auto">

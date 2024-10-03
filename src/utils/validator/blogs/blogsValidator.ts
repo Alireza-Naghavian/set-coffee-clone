@@ -45,4 +45,6 @@ export const blogSchema = Joi.object().keys({
     .required()
     .messages(createErrorMessage("نویسنده مقاله", 1, Infinity))
     .error(createHttpError.BadRequest("نویسنده مقاله معتبر نمی‌باشد")),
+    isSendNotif:Joi.boolean()
+    .error(createHttpError.BadRequest("خطا در مجوز ارسال اعلان ازمقاله")),
 });
