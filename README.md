@@ -75,6 +75,11 @@ MONGODB_URI=your cloud db key for mongoDb;
 NODE_ENV=development || production;
 NEXT_PUBLIC_API_URL=prodction url ;
 NEXT_PUBLIC_TEXT_EDITOR =TextEditor key;
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=public-vapid-key for client side;
+VAPID_PRIVATE_KEY=private vapid key for push notification from server
+VAPID_PUBLIC_KEY=public vapid key for push notification from server
+MYMAIL=your personal email for initialize webpush package;
+GCMSERVERKEY=your google api key for push notificaion (you will earn this one after signup in google cloud messaging)
 ```
 
 
