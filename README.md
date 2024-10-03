@@ -1,4 +1,8 @@
 # Set-Coffee clone NextJs
+##  update :
+- Relase v0.1 of progressive web application
+- Add push notification for adding new blog 
+- Add a push notification to update the product count
 
 ## See demo on vercel  [click here](https://set-coffee-clone.vercel.app/)
 
