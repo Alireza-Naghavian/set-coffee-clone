@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Set-Coffee clone NextJs
 
-## Getting Started
+## See demo on vercel  [click here](https://set-coffee-clone.vercel.app/)
 
-First, run the development server:
+this is an professional fullstack clone from set-coffee website
+includes 41 pages,eg:product page,single product page,
+category,sorting,filter products,blogs,wishlist,JWT authentication,login page,auth with otp,userpanel,
+admin panel and more...
+
+
+## Using
+
+
+
+- Nextjs v.14
+- React
+- Typescript
+- TailwindCss
+- MongoDB
+- React-query
+- JWT
+
+## Features
+Full-stack e-commerce website
+- Allows registered users to place orders, write    product reviews,added to their wishlists, and update their account information.
+- Allows registered users to login with otp or email/password.
+- Allows users to use practical blogs about coffee
+
+
+Admin privileges
+
+- Allows creation and update new product, categories and manage the store .
+
+- Allows creation and update new blog and manage them .
+
+- Allows to track sales and growth list of website
+
+- It is allowed to create and manage the discount code in terms of the number of times it is used and the percentage of the discount
+
+- Enables easy product discovery and sorting based on user preferences.
+
+- Monitoring users ,their comments and tickets (answer comment tickets and chat with users)
+
+
+## Installation
+
+1.Clone or download the repository by running the following command in your terminal:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Alireza-Naghavian/set-coffee-clone.git
+```
+2.Install the project dependencies using either npm or yarn:
+
+```bash
+npm install
+```
+or
+```bash
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3.create .env file in the root directory of the project and Define the required environment variables  . The following variables are necessary:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    
+```bash
+RefreshTokenSecreKey = your refreshToken key;
+AccessTokenSecretKey=  your accessToken key;
+LIMO_API_KEY= LIMO_API_KEY for otp auth;
+NEXT_PUBLIC_ENCRYPT_TOKEN_SECRET_KEY = TOKEN_SECRET_KEY  for encrypt userBasket;
+MONGODB_URI=your cloud db key for mongoDb;
+NODE_ENV=development || production;
+NEXT_PUBLIC_API_URL=prodction url ;
+NEXT_PUBLIC_TEXT_EDITOR =TextEditor key;
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+4.Install MongoDB and MongoDB Compass on your local machine. If you already have a MongoDB instance set up, skip this step.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5.Create a new database in MongoDB Compass and create the required collections with the same names as the downloaded JSON files. Then, import the data from the downloaded files into the corresponding collections.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Screenshots
 
-## Deploy on Vercel
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/1c32c262-cb59-45ac-a4f0-9b679cf82158)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/3919fac9-a364-49c5-9d83-365295cafbb1)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2>category page</h2>
+  
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/b0dce929-17ac-4a52-a75c-de7ded95347d)
+
+
+
+
+<h2>product page</h2>
+
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/9bccf4cd-122c-4c8b-8c42-20d9e0ebf035)
+
+
+
+<h2>user panel</h2>
+
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/563ed4b4-7927-4ed0-8050-f48698ab69a7)
+
+
+<h2>admin panel</h2>
+
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/d9fb77cc-ce72-42bb-bb79-2a094873e902)
+
+
+
+
+
+
