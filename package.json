@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo ",
+    "dev": "next dev ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^9.3.0",
     "@tanstack/react-query": "^5.45.0",
     "@tanstack/react-query-devtools": "^5.51.9",
     "@tinymce/tinymce-react": "^5.1.1",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
+    "ckeditor5": "^43.2.0",
+    "ckeditor5-premium-features": "^43.2.0",
     "class-variance-authority": "^0.7.0",
     "crypto-js": "^4.2.0",
     "http-errors": "^2.0.0",
@@ -34,7 +37,6 @@
     "recharts": "^2.12.7",
     "sharp": "^0.33.4",
     "swiper": "^11.1.4",
-    "tinymce": "^7.3.0",
     "web-push": "^3.6.7"
   },
   "devDependencies": {

@@ -245,10 +245,9 @@ function AddProductForm() {
         />
       </div>
       <div className="mt-10 ">
-        <TextEditor
+      <TextEditor
           label="توضیحات کامل"
-          setEditorContent={setLongDesc}
-          editorContent={longDesc}
+          onChange={setLongDesc} value={longDesc} 
         />
       </div>
       <div className="max-w-[150px] mr-auto">

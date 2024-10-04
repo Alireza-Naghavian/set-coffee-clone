@@ -4,13 +4,15 @@ import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
 import SimpleCheckBox from "@/components/UI/TextFiels/SimpleCheckBox";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
-import TextEditor from "@/components/Utils-components/TextEditor/TextEditor";
 import useGetMe from "@/hooks/authHooks/useGetMe";
 import useAddBlog from "@/hooks/blogs/useAddBlog";
 import { MainBlogType } from "@/types/blog.type";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+const TextEditor = dynamic(
+  () => import("@/components/Utils-components/TextEditor/TextEditor"), {ssr: false}
+);
 function AddBLogForm() {
   const [longDesc, setLongDesc] = useState("");
   const {
@@ -27,6 +29,7 @@ function AddBLogForm() {
       await addBlog({data:blogData},{
         onSuccess:()=>{
           reset();
+          setLongDesc("")
         }
       })
     } catch (error) {
@@ -108,8 +111,7 @@ function AddBLogForm() {
       <div className="mt-10 ">
         <TextEditor
           label="توضیحات کامل"
-          setEditorContent={setLongDesc}
-          editorContent={longDesc}
+          onChange={setLongDesc} value={longDesc} 
         />
       </div>
       <div className="max-w-[150px] mr-auto">

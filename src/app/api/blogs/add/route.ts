@@ -15,7 +15,6 @@ webPush.setGCMAPIKey(process.env.GCMSERVERKEY!)
 export const POST = async (req: Request) => {
   try {
     await dbConnection();
-    const user = await getUser();
     const isAdmin = await authAdmin();
     if (!isAdmin) {
       return Response.json(

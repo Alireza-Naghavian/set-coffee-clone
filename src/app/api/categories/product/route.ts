@@ -143,7 +143,10 @@ export const GET = async (req: NextRequest) => {
       .limit(limit)
       .populate("category", "-products -__v ")
       .lean();
-    return Response.json({  products ,totalProduct,page,limit}, { status: 200 });
+    return Response.json(
+      { products, totalProduct, page, limit },
+      { status: 200 }
+    );
   } catch (error) {
     return Response.json(
       { message: `خطا سمت سرور =>`, error },
