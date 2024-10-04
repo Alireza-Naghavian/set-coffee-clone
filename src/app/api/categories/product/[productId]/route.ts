@@ -104,6 +104,7 @@ export const POST = async (req: Request, { params }: Params) => {
         },
       }
     );
+  if(product.entities !== entities){
     const subscription = await subscribeModel.find();
     const payload = JSON.stringify({
       title: "بحنب تا دیر نشده!!",
@@ -122,6 +123,7 @@ export const POST = async (req: Request, { params }: Params) => {
         console.log("خطا در ارسال اعلان", error);
       }
     });
+  }
     revalidatePath(`/categories/${productId}`);
     revalidatePath(`/`);
     revalidatePath(`/categories/product`);

@@ -3,10 +3,6 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/sw.js", { updateViaCache: "none" })
       .then((registration) => {
-        console.log(
-          "Service Worker registered with scope: ",
-          registration.scope
-        );
       })
       .catch((error) => {
         console.log("Service Worker registration failed:", error);
@@ -24,14 +20,14 @@ self.addEventListener("activate", (event) => {
 //
 self.addEventListener("push", function (event) {
   const data = event.data.json();
-  console.log(data);
   const options = {
     ...data,
     icon: data.cover,
     badge: "/icons/android-chrome-192x192.png",
     vibrate: [100, 50, 100],
+    dir: "rtl",
+    lang: "fa",
   };
-  console.log(options);
   event.waitUntil(registration.showNotification(data.title, options));
 });
 
