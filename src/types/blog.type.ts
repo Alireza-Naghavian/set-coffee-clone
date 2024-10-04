@@ -9,6 +9,7 @@ export type BlogsCard = {
 };
 export type MainBlogType = Pick<BlogsCard, "shortDesc" | "title"> & {
   longDesc: string;
+  isActiveNotif?:boolean;
   provider: GetMetype;
   cover: string;
   createdAt?:Date

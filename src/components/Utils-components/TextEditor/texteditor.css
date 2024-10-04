@@ -1,5 +1,22 @@
-.fr-quick-insert{
-    position: relative !important;
-    top: unset  !important;
-    left: unset !important;
-}
+.ck.ck-reset.ck-editor.ck-rounded-corners .ck-editor__editable {
+    @apply h-80 text-slate-900 dark:text-gray-900
+
+
+
+
+      outline-none 
+        border-none  
+        rounded-xl;
+  
+  }
+  .ck-toolbar_grouping{
+    @apply rounded-t-xl
+  }
+  .ck.ck-reset.ck-editor.ck-rounded-corners .ck-toolbar {
+      @apply text-slate-500 dark:text-gray-900 
+
+    bg-gray-100 dark:bg-slate-400 outline-none 
+     border-none  rounded-t-xl;
+  }
+  
+  

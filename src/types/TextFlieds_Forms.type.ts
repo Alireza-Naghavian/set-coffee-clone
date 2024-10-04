@@ -18,20 +18,25 @@ export type TextFieldType = {
   name: string;
   value?: string | number;
   className?: string;
-  required?:boolean,
+  required?: boolean;
   size?: "mediumSize" | "largeSize";
   variant: "outLine" | "borderFill" | "rounded";
   labelVariant?: "boldSize" | "thinSize";
   register: any;
   errors: any;
   validattionschema?: RegisterOptions;
-  readOnly?:boolean
+  readOnly?: boolean;
 } & React.ComponentProps<"input">;
-
+export type SearhcBoxType = Omit<
+  TextFieldType,
+  "size" | "variant" | "labelVariant"
+> & {
+  wrapperStyle?: string;
+} & React.ComponentProps<"input">;
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
   React.ComponentProps<"textarea"> & {
     variant: "outLine" | "borderFill";
     size?: "medium" | "free";
-    required?:boolean,
-    readOnly?:boolean
+    required?: boolean;
+    readOnly?: boolean;
   };

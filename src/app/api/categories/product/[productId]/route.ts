@@ -2,13 +2,20 @@ import dbConnection from "@/dbConfigs/db";
 import CategoryModel from "@/models/categories&products/categories";
 import ProductModel from "@/models/categories&products/product";
 import CommentModel from "@/models/comment/comment";
+import subscribeModel from "@/models/subscription/subsctipton";
 import { SingleProductType } from "@/types/models/categories.type";
 import { authAdmin } from "@/utils/auth/authHelper";
 import { isValidObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { notFound } from "next/navigation";
-
+import webPush from "web-push";
+webPush.setVapidDetails(
+  `mailto:${process.env.MYMAIL}`,
+  process.env.VAPID_PUBLIC_KEY!,
+  process.env.VAPID_PRIVATE_KEY!
+);
+webPush.setGCMAPIKey(process.env.GCMSERVERKEY!);
 export const DELETE = async (req: Request, { params }: Params) => {
   try {
     await dbConnection();
@@ -97,6 +104,26 @@ export const POST = async (req: Request, { params }: Params) => {
         },
       }
     );
+  if(product.entities !== entities){
+    const subscription = await subscribeModel.find();
+    const payload = JSON.stringify({
+      title: "بحنب تا دیر نشده!!",
+      body: `تعداد ${entities}عدد از محصول ${updateProduct.title} موجود شد \n همین حالا خریدتو انجام بده`,
+      cover:product.cover,
+      data: { url: `/categories/${updateProduct._id}` },
+      url: `/categories/${updateProduct._id}`,
+    });
+    subscription.forEach(async (sub) => {
+      try {
+        await webPush.sendNotification(sub, payload);
+      } catch (error: any) {
+        if (error.statusCode === 410) {
+          return await subscribeModel.findOneAndDelete({ _id: sub._id });
+        }
+        console.log("خطا در ارسال اعلان", error);
+      }
+    });
+  }
     revalidatePath(`/categories/${productId}`);
     revalidatePath(`/`);
     revalidatePath(`/categories/product`);
