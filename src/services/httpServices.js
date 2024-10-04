@@ -7,7 +7,6 @@ const http = axios.create({
   baseURL,
   withCredentials: true,
 });
-
 const api = {
   post: http.post,
   get: http.get,

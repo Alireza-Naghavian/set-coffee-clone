@@ -9,6 +9,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { LuUser2 } from "react-icons/lu";
 import { RiAdminFill } from "react-icons/ri";
 import styles from "./Navbar.module.css";
+import NotificationWrapper from "@/components/Utils-components/notifications/NotificationWrapper";
 type MobileMenuContentType = {
   user: GetMetype | null;
   setIsMenuOpen: SetState<boolean>;
@@ -79,6 +80,7 @@ function MobileMenuContent({
             icon={<FaRegHeart />}
           />
         </div>
+          <NotificationWrapper className="mr-1" onClick={() => setIsMenuOpen(false)} size={22} label="اعلان ها و خبرها"/>
         {userRole === "ADMIN" && (
           <div className="mr-2" onClick={() => setIsMenuOpen(false)}>
             <NavItem

@@ -1,0 +1,15 @@
+.bannerBtn {
+    position: fixed;
+    border-radius: 100%;
+    border: 0;
+   
+    cursor: pointer;
+    font-size: 2rem;
+    outline: 0;
+    padding: 0.7rem 0.8rem 0rem;
+    transition-duration: 200ms;
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    @apply   p-4 shadow-lg z-30 bg-main_brown  
+     transition-all duration-300 bottom-[4.5rem] lg:bottom-[2rem] right-[.5rem] lg:right-[2rem]
+  }
