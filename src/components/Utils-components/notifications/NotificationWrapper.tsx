@@ -1,65 +1,96 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import { IoMdNotificationsOutline } from 'react-icons/io'
-import UrlBaseArry from './outputArray';
-import { useAlert } from '@/app/context/AlertContext';
+"use client";
+import usePushSubscription from "@/hooks/helper-hooks/usePushSubscription";
+import { useEffect, useState } from "react";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import UrlBaseArry from "./outputArray";
+import { useAlert } from "@/app/context/AlertContext";
 
-function NotificationWrapper() {
-    const [isSupported,setIsSupported] = useState(false);
-    const [subscription, setSubscription]  = useState<PushSubscription|null>(null);
-    const [message,setMessage] = useState("");
-    const {showAlert} = useAlert();
-    useEffect(()=>{
-        if("serviceWorker" in navigator && "PushManager" in window){
-            setIsSupported(true);
-            registerServiceWorker();
+function NotificationWrapper({
+  size = 30,
+  label,
+  onClick,
+  className=""
+}: {
+  size?: number;
+  label?: string;
+  onClick?: any;
+  className?:string
+}) {
+  const [isSupported, setIsSupported] = useState(false);
+  const [subscription, setSubscription] = useState<PushSubscription | null>(
+    null
+  );
+  const { pushSub } = usePushSubscription();
+  const { showAlert } = useAlert();
+  useEffect(() => {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
+      setIsSupported(true);
+      registerServiceWorker();
+    }
+  }, []);
+  const getPermissionState = async () => {
+    if (navigator.permissions) {
+      let result = await navigator.permissions.query({ name: "notifications" });
+      return result.state;
+    }
+  };
+  async function getPushSubscription() {
+    const registration = await navigator.serviceWorker.ready;
+    return await registration.pushManager.getSubscription();
+  }
+  // registraion sw
+  async function registerServiceWorker() {
+    const registration = await navigator.serviceWorker.register("/sw.js", {
+      updateViaCache: "none",
+    });
+    const sub = await registration.pushManager.getSubscription();
+    setSubscription(sub);
+  }
+  // get permission for subscribe
+  async function subscribeToPush() {
+    const registration = await navigator.serviceWorker.ready;
+    const sub = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: UrlBaseArry(
+        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
+      ),
+    });
+    setSubscription(sub);
+    // send to bckend
+    await pushSub(sub);
+  }
+
+  // dismissed permission
+  async function unsubscribeFromPush() {
+    setSubscription(null);
+    return await subscription?.unsubscribe();
+  }
+
+  if (!isSupported) {
+    return (
+      <IoMdNotificationsOutline
+        onClick={() =>
+          showAlert("error", "مرورگر شما از این قابلیت پشتیبانی نمیکند")
         }
-    },[])
-
-    // registraion sw
-    async function registerServiceWorker(){
-        const registration = await navigator.serviceWorker.register("/sw.js",{
-            updateViaCache:"none"
-        })
-        const sub = await registration.pushManager.getSubscription();
-        setSubscription(sub);
-    }
-
-        // get permission for subscribe
-    async function subscribeToPush(){
-        const registration = await navigator.serviceWorker.ready
-        const sub= await registration.pushManager.subscribe({
-            userVisibleOnly:true,
-            applicationServerKey:UrlBaseArry(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!)
-        })
-        setSubscription(sub);
-        // subscribe user and save to server
-        // await subscribeUser(sub);
-    }
-
-    // dismissed permission
-    async function unsubscribeFromPush(){
-        await subscription?.unsubscribe();
-        setSubscription(null);
-        // unsubscribe in server
-        // await unsubscribeUser();
-    }
-
-    async function sendTestNotif(){
-        if(subscription){
-            // notif body from server
-            // await sendNotification(message)
-            setMessage("")
-            showAlert("success","ارسال اعلان تایید شد")
-        }
-    }
-  
-    if (!isSupported) {
-        return <p>مرورگر شما از ارسال اعلان پشتیبانی نمیکند</p>
-      }
+        title="فعال سازی اعلان ها"
+        size={30}
+        className={`${subscription && "hidden"} font-Shabnam_B cursor-pointer`}
+      />
+    );
+  }
   return (
-    <IoMdNotificationsOutline onClick={()=>subscribeToPush} title='فعال سازی اعلان ها'  size={30} className="font-Shabnam_B cursor-pointer" />
-  )
+    <div
+      className={`${subscription && "hidden"} flex items-center gap-x-2 ${className}`}
+      onClick={() => subscribeToPush()}
+    >
+      <IoMdNotificationsOutline
+        title="فعال سازی اعلان ها"
+        size={size}
+        className={`${subscription && "hidden"} font-Shabnam_B cursor-pointer`}
+      />
+      <span className="text-sm font-Shabnam_M text-dark_shade">{label}</span>
+    </div>
+  );
 }
 
-export default NotificationWrapper
+export default NotificationWrapper;

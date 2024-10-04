@@ -2,6 +2,7 @@
 import MainBtn from "@/components/UI/Buttons/MainBtn";
 import Loader from "@/components/UI/loader/Loader";
 import MainTextField from "@/components/UI/TextFiels/MainTextField";
+import SimpleCheckBox from "@/components/UI/TextFiels/SimpleCheckBox";
 import TextAriaField from "@/components/UI/TextFiels/TextAriaField";
 import TextEditor from "@/components/Utils-components/TextEditor/TextEditor";
 import useGetMe from "@/hooks/authHooks/useGetMe";
@@ -71,7 +72,7 @@ function AddBLogForm() {
           className="border-main_brown"
         />
       </div>
-      <div className="w-full">
+      <div className="w-full flex flex-col gap-y-4">
         <TextAriaField
           name="shortDesc"
           id="shortDesc"
@@ -91,6 +92,16 @@ function AddBLogForm() {
           errors={errors}
           className="border-main_brown w-full"
           type="text"
+        />
+        <SimpleCheckBox
+        register={register}
+        errors={errors}
+        required={false}
+        name="isActiveNotif"
+        id="isActiveNotif"
+        type="checkbox"
+        label="اعلان ارسال شود؟"
+        className="text-2xl"
         />
       </div>
 

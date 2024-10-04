@@ -1,46 +1,47 @@
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then(registration => {
-      console.log('Service Worker registered with scope: ', registration.scope);
-    }).catch(error => {
-      console.log('Service Worker registration failed:', error);
-    });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js", { updateViaCache: "none" })
+      .then((registration) => {
+        console.log(
+          "Service Worker registered with scope: ",
+          registration.scope
+        );
+      })
+      .catch((error) => {
+        console.log("Service Worker registration failed:", error);
+      });
   });
 }
-self.addEventListener("install",function(event){
-    console.log("installing sw");
-})
-self.addEventListener('activate', event => {
-    // event.waitUntil(
-        
-    // )
-    console.log(event,"activating");
+// auto update sw
+self.addEventListener("install", function (event) {
+  event.waitUntil(self.skipWaiting());
 });
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+//
 self.addEventListener("push", function (event) {
-  if (event.data) {
-    const data = event.data.json();
-    const options = {
-      body: data.body,
-      icon: data.icon || "/icon.png",
-      badge: "/badge.png",
-      vibrate: [100, 50, 100],
-      data: {
-        dateOfArrival: Date.now(),
-        primaryKey: "2",
-      },
-    };
-    event.waitUntil(self.registration.showNotification(data.title, options));
-  }
+  const data = event.data.json();
+  console.log(data);
+  const options = {
+    ...data,
+    icon: data.cover,
+    badge: "/icons/android-chrome-192x192.png",
+    vibrate: [100, 50, 100],
+  };
+  console.log(options);
+  event.waitUntil(registration.showNotification(data.title, options));
 });
 
 self.addEventListener("notificationclick", function (event) {
   console.log("notif clickd");
+  console.log(event);
+  const notification = event.notification;
+  const action = event.action;
+
+  event.waitUntil(clients.openWindow(notification.data.url));
+
   event.notification.close();
-  event.waitUntil(
-    clients.openWidnow(
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : process.env.NEXT_PUBLIC_API_URL
-    )
-  );
 });
