@@ -45,11 +45,11 @@ export const POST = async (req: Request) => {
     if (user.isActive) {
       headers.append(
         "Set-Cookie",
-        `SetCoffeeToken=${accessToken};Path=/; HttpOnly; Max-Age=43200`
+        `SetCoffeeToken=${accessToken};Path=/; HttpOnly; Max-Age=864000`
       );
       headers.append(
         "Set-Cookie",
-        `refresh-token=${refreshToken};Path=/; HttpOnly; Max-Age=1296000`
+        `refresh-token=${refreshToken};Path=/; HttpOnly; Max-Age=2592000`
       );
       return Response.json(
         { message: "ورود با موفقیت انجام شد" },

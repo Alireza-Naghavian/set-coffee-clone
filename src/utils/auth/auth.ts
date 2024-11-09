@@ -18,7 +18,7 @@ const generateAccessToken = (data: any) => {
   if (!process?.env?.AccessTokenSecretKey) return null;
 
   const token = sign({ ...data }, process?.env?.AccessTokenSecretKey, {
-    expiresIn: "12h",
+    expiresIn: "10d",
   });
 
   return token;
@@ -41,7 +41,7 @@ const generateRefreshToken = (data: any) => {
   if (!process?.env?.RefreshTokenSecreKey) return null;
 
   const token = sign({ ...data }, process.env.RefreshTokenSecreKey, {
-    expiresIn: "15d",
+    expiresIn: "30d",
   });
   return token;
 };
