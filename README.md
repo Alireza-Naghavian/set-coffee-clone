@@ -8,9 +8,19 @@ category,sorting,filter products,blogs,wishlist,JWT authentication,login page,au
 admin panel and more...
 
 
+
+
+## چالش های شخصی من در این پروژه
+- انجام پروژه به صورت فول استک (هم بک اند و هم فرانت اند)
+- احراز هویت به دو روش (ایمیل و کد یک بار مصرف)
+- ادغام next.js & react-query و بهره بردن از رندر سمت سرور
+- افزودن قابلیت ارسال اعلان در هنگام موجود شدن کالا و منتشر شدن مقاله جدید 
+- سعی در رندر سمت سرور بعضی از صفحات در کنار client actions ها 
+
+
+
+
 ## Using
-
-
 
 - Nextjs v.14
 - React
