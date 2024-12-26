@@ -28,7 +28,7 @@ function HomePageLayout({
         <Swiper />
       </div>
       {filteredProdoucts[0]?.products.length > 0 && (
-        <div className="mt-[70px]">
+        <div className="mt-[70px] relative z-[8]">
           <HeaderTitle
             title={filteredProdoucts[0]?.title}
             subTitle={"قهوه ممتاز"}
@@ -47,10 +47,10 @@ function HomePageLayout({
         </div>
       )}
       {filteredProdoucts[1]?.products.length > 0 && (
-        <div className="mt-[70px]">
+        <div className="mt-[70px] relative z-[8]">
           <HeaderTitle
             title={filteredProdoucts[1].title}
-            subTitle={"کپسول قهوه"}
+            subTitle={"قهوه ایتالیایی"}
           />
           <div className="mt-5 ">
             <div className="sm:px-12 px-2 grid  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
@@ -65,7 +65,7 @@ function HomePageLayout({
           </div>
         </div>
       )}
-      <div className="sm:mt-[70px] mt-10  ">
+      <div className="sm:mt-[70px] mt-10  relative z-[8] ">
         <div className="w-full lg:h-[300px] sm:container xs:px-4 px-0">
           <Image
             width={1920}
@@ -78,10 +78,10 @@ function HomePageLayout({
         </div>
       </div>
       {filteredProdoucts[2]?.products.length > 0 && (
-        <div className="mt-[70px]">
+        <div className="mt-[70px] relative z-[8]">
           <HeaderTitle
             title={filteredProdoucts[2].title}
-            subTitle={"قهوه ایتالیایی"}
+            subTitle={"کپسول قهوه"}
           />
           <div className="mt-5 ">
             <div className="sm:px-12 px-2 grid  lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3  grid-cols-1  gap-x-2 gap-y-6 ">
@@ -97,7 +97,7 @@ function HomePageLayout({
         </div>
       )}
       <WhySetCoffee />
-      <div className="mt-[70px]">
+      <div className="mt-[70px] relative z-[8]">
         <HeaderTitle
           title="مقالات ما"
           subTitle={"دانستنی های جذاب دنیای قهوه"}
