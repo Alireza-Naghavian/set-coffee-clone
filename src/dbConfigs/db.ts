@@ -2,26 +2,26 @@ import mongoose, { ConnectOptions } from "mongoose";
 
 const dbConnection = async () => {
   try {
-    // انتخاب URI مناسب بر اساس محیط
+   
     const mongoUri =
-      process.env.NODE_ENV === "development"
-        ? "mongodb://localhost:27017/SetCoffe" // دیتابیس محلی
-        : process.env.MONGODB_URI; // دیتابیس MongoDB Atlas
+      process.env.NODE_ENV === "production"
+        ? "mongodb://localhost:27017/SetCoffe"
+        : process.env.MONGODB_URI; 
 
     if (!mongoUri) {
       throw new Error("MongoDB URI is not defined in environment variables");
     }
 
-    // گزینه‌های اتصال به MongoDB Atlas در صورت استفاده از آن
+    
     const clientOptions: ConnectOptions =
-      process.env.NODE_ENV !== "development"
+      process.env.NODE_ENV !== "production"
         ? { serverApi: { version: "1", strict: true, deprecationErrors: true } }
-        : {}; // در حالت لوکال، نیازی به این گزینه‌ها نیست
+        : {}; 
 
-    // اگر قبلاً متصل شده بود، از اتصال مجدد جلوگیری می‌کند
+    
     if (mongoose.connections[0].readyState) return true;
 
-    // اتصال به دیتابیس
+   
     await mongoose.connect(mongoUri, clientOptions);
 
     console.log(

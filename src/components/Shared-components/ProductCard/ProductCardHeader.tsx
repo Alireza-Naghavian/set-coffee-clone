@@ -120,20 +120,6 @@ const ProductCardHeader = ({productData}: {productData: SingleProductType}) => {
           </div>
         </div>
         <div className="flex-center flex-col bg-transparent">
-          <div
-            className="w-7 h-7 lg:hidden rounded-full z-[6] flex items-center justify-center  
-               bg-gray-100 absolute sm:left-6 left-1 top-6 "
-          >
-            {isExist ? (
-              <MdOutlineDone className="text-xl" title="پسندیدن" />
-            ) : (
-              <FaRegHeart
-                className="text-xl "
-                onClick={wishListHandler}
-                title="پسندیدن"
-              />
-            )}
-          </div>
           <div className="relative w-full h-full">
             <Link className="w-full h-full lg:-z-10 z-50 !absolute inset-0" href={`/categories/${productData._id}`}>
             </Link>
