@@ -80,7 +80,7 @@ function MobileMenuContent({
             icon={<FaRegHeart />}
           />
         </div>
-          <NotificationWrapper className="mr-1" onClick={() => setIsMenuOpen(false)} size={22} label="اعلان ها و خبرها"/>
+          <NotificationWrapper className="mr-1 cursor-pointer" onClick={() => setIsMenuOpen(false)} size={22} label="اعلان ها و خبرها"/>
         {userRole === "ADMIN" && (
           <div className="mr-2" onClick={() => setIsMenuOpen(false)}>
             <NavItem

@@ -46,11 +46,11 @@ function UserWishList() {
         {wishList?.map((data: any, index:number) => {
           return (
             <div key={index} className="flex flex-col gap-y-1 mt-4  ">
-              <span className="w h-full pb-px ">
+              <span className=" h-full pb-px ">
                 <IoIosClose
                   onClick={() => removeFromWishList(data?._id)}
                   className="cursor-pointer"
-                  size={28}
+                  size={38}
                 />
               </span>
               <ProductCard productData={data} />
