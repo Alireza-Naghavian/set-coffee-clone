@@ -1,5 +1,4 @@
 import { getUserData } from "@/services/users/userServices";
-import { GetMetype } from "@/types/auth.type";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetMe = () => {

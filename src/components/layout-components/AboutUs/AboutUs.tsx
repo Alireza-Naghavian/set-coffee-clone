@@ -1,8 +1,7 @@
 import HeaderPageLayout from "@/components/Shared-components/HeaderPageLayout/HeaderPageLayout";
-
 function AboutUs() {
   return (
-    <div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
+<div className="relative child:lg:px-10 flex  flex-col child:md:px-0 ">
       <HeaderPageLayout linkTarget="/about-us" linkTitle="درباره ما" mainTitle="درباره ما"/>
       <div className="bg-gray-100  py-12">
         <div className=" md:mx-16 mx-6  mt-12 flex md:flex-row flex-col  md:justify-between md:items-center gap-x-12">
@@ -34,7 +33,7 @@ function AboutUs() {
       <div className="md:mx-16 mx-6  mt-32 flex md:flex-row flex-col  md:justify-between md:items-center gap-x-24">
         <div className="md:w-1/2 flex flex-col gap-y-6  child:text-dark_shade ">
           <span className="text-right text-lg font-Shabnam_M ">
-            Set Coffee{" "}
+            Set Coffee
           </span>
           <p className="text-4xl text-right font-Shabnam_B max-w-[400px] leading-[50px]">
             داستان قهوه ست
