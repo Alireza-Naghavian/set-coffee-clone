@@ -4,8 +4,8 @@ const dbConnection = async () => {
   try {
    
     const mongoUri =
-      process.env.NODE_ENV === "production"
-        ? "mongodb://localhost:27017/SetCoffe"
+      process.env.NODE_ENV === "development"
+        ? "mongodb://127.0.0.1:27017/SetCoffe"
         : process.env.MONGODB_URI; 
 
     if (!mongoUri) {
@@ -14,7 +14,7 @@ const dbConnection = async () => {
 
     
     const clientOptions: ConnectOptions =
-      process.env.NODE_ENV !== "production"
+      process.env.NODE_ENV !== "development"
         ? { serverApi: { version: "1", strict: true, deprecationErrors: true } }
         : {}; 
 
