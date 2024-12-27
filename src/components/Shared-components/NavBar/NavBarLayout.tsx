@@ -12,7 +12,7 @@ function NavBarLayout() {
       <div className="relative">
         <div className=" flex justify-center   ">
           <nav
-            className={`${ styles.navbar } !bg-white shadmd`}
+            className={`${ styles.navbar } !bg-white shadow-md`}
           >
             <NavBarContent  />
           </nav>
