@@ -2,7 +2,7 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import { ClassicEditor } from "ckeditor5";
-import "./textEditor.css";
+import "./texteditor.css";
 import "ckeditor5/ckeditor5.css";
 import { SetState } from "@/types/global.type";
 import editorConfig from "@/utils/EditorConfig";
